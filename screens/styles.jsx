@@ -382,7 +382,8 @@ export const Camera = StyleSheet.create({
     padding: 15,
     paddingHorizontal: 20,
     alignSelf: "center",
-    marginTop: 500,
+    position: "absolute",
+    bottom: 30,
   },
   wait: {
     flex: 1,
@@ -395,7 +396,7 @@ export const Camera = StyleSheet.create({
     flex: 1,
   },
   buttonText: {
-    fontSize: 16,
+    fontSize: 20,
     color: "#fff",
   },
   back: {

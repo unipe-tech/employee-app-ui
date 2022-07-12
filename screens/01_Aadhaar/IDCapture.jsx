@@ -13,7 +13,7 @@ const PendingView = () => (
   </View>
 )
 
-export default IDCapture = (props) => {
+const IDCapture = (props) => {
   const navigation = useNavigation()
   const [{ user }, dispatch] = useStateValue()
   const [id, setId] = useState(null)
@@ -23,20 +23,24 @@ export default IDCapture = (props) => {
       payload: { data: id, type: props.route.params },
     })
   }, [id])
+  const { front } = props.route.params
 
-  takePicture = async function (camera) {
+  const takePicture = async function (camera) {
     const options = { quality: 0.5, base64: true }
     const data = await camera.takePictureAsync(options)
     const base64image = await RNFS.readFile(data.uri, "base64")
     setId(base64image)
-    navigation.goBack()
+    // navigation.goBack({ imgUri: data.uri })
+    navigation.navigate(props.route.params.routeName, { dataUri: data.uri })
   }
 
   return (
     <View style={Camera.container}>
       <RNCamera
         style={Camera.preview}
-        type={RNCamera.Constants.Type.back}
+        type={
+          front ? RNCamera.Constants.Type.front : RNCamera.Constants.Type.back
+        }
         flashMode={RNCamera.Constants.FlashMode.off}
         androidCameraPermissionOptions={{
           title: "Permission to use camera",
@@ -59,13 +63,10 @@ export default IDCapture = (props) => {
                 onPress={() => navigation.goBack()}
                 style={Camera.back}
               >
-                <Text style={Camera.buttonText}>
-                  {" "}
-                  <Icon name="arrow-back" size={25} color="white" />
-                </Text>
+                <Icon name="arrow-back" size={25} color="white" />
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => this.takePicture(camera)}
+                onPress={() => takePicture(camera)}
                 style={Camera.capture}
               >
                 <Text style={Camera.buttonText}> Capture </Text>
@@ -77,3 +78,5 @@ export default IDCapture = (props) => {
     </View>
   )
 }
+
+export default IDCapture

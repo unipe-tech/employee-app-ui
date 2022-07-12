@@ -6,6 +6,7 @@ import {
   Image,
   ScrollView,
   Alert,
+  ActivityIndicator,
 } from "react-native"
 import { useNavigation } from "@react-navigation/core"
 import { styles, checkBox, form, Camera, selfie } from "../styles"
@@ -15,13 +16,17 @@ import { useStateValue } from "../../StateProvider"
 import ProgressBarTop from "../../components/ProgressBarTop"
 import { putProfileData } from "../../services/employees/employeeServices"
 import { GenerateDocument } from "../../helpers/GenerateDocument"
+import { PermissionsAndroid } from "react-native"
 
-export default PersonalImage = () => {
+export default PersonalImage = ({ route }) => {
   const navigation = useNavigation()
   const [pickerResponse, setPickerResponse] = useState(null)
+  const [loading, setLoading] = useState(false)
   const [{ Selfie, Profile, id }, dispatch] = useStateValue()
+  const [responseCamera, setResponseCamera] = React.useState(null)
 
   const ProfilePush = () => {
+    setLoading(true)
     var profilePayload = GenerateDocument({
       src: "Profile",
       id: "62be55b1bb8d55cb4644801b",
@@ -35,8 +40,9 @@ export default PersonalImage = () => {
       .then((res) => {
         console.log(profilePayload)
         console.log(res.data)
-        Alert.alert("Message", res.data["message"])
+        // Alert.alert("Message", res.data["message"])
         navigation.navigate("Home")
+        setLoading(false)
       })
       .catch((err) => {
         console.log(err)
@@ -59,17 +65,56 @@ export default PersonalImage = () => {
       includeBase64: true,
     }
     ImagePicker.launchImageLibrary(options, setPickerResponse)
+    setResponseCamera(null)
   }, [])
 
-  const onCameraPress = React.useCallback(() => {
-    const options = {
-      cameraType: "front",
-      quality: 1,
-      mediaType: "photo",
-      includeBase64: true,
+  useEffect(() => {
+    if (route.params.dataUri) {
+      setResponseCamera(route.params.dataUri)
     }
-    ImagePicker.launchCamera(options, setPickerResponse)
-  }, [])
+    console.log(route.params.dataUri)
+  }, [route])
+
+  const navigateToCapture = () => {
+    navigation.navigate("IDCapture", {
+      front: true,
+      routeName: "PersonalImage",
+    })
+  }
+
+  const openCameraWithPermission = async () => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.CAMERA,
+        {
+          title: "App Camera Permission",
+          message: "App needs access to your camera ",
+          buttonNeutral: "Ask Me Later",
+          buttonNegative: "Cancel",
+          buttonPositive: "OK",
+        }
+      )
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        ImagePicker.launchCamera(
+          {
+            cameraType: "front",
+            mediaType: "photo",
+            includeBase64: true,
+            quality: 1,
+          },
+          (response) => {
+            console.log(response)
+            setPickerResponse(response)
+            // setPickerResponse(null)
+          }
+        )
+      } else {
+        console.log("Camera permission denied")
+      }
+    } catch (err) {
+      console.warn(err)
+    }
+  }
 
   const imageData = pickerResponse?.assets && pickerResponse.assets[0].base64
 
@@ -91,9 +136,13 @@ export default PersonalImage = () => {
           <Text style={form.formHeader}>
             Upload your Passport size photo or capture your selfie.
           </Text>
-          {imageData ? (
+          {imageData || responseCamera ? (
             <Image
-              source={{ uri: `data:image/jpeg;base64,${imageData}` }}
+              source={{
+                uri: responseCamera
+                  ? responseCamera
+                  : `data:image/jpeg;base64,${imageData}`,
+              }}
               style={selfie.selfie}
             />
           ) : (
@@ -114,12 +163,18 @@ export default PersonalImage = () => {
               icon={<Icon name="camera-alt" size={25} color="black" />}
               style={selfie.cameraButton}
               onPress={() => {
-                onCameraPress()
+                navigateToCapture()
               }}
             />
           </View>
           <Button
-            title="Finish"
+            title={
+              loading ? (
+                <ActivityIndicator size={"large"} color="white" />
+              ) : (
+                "Finish"
+              )
+            }
             type="solid"
             uppercase={false}
             style={form.nextButton}

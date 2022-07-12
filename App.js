@@ -34,8 +34,8 @@ export default function App() {
               behavior={Platform.OS === "ios" ? "padding" : "height"}
               keyboardVerticalOffset={Platform.OS === "ios" ? -64 : 0}
             >
-              <Stack.Navigator initialRouteName="DevMenu">
-              <Stack.Screen
+              <Stack.Navigator initialRouteName="Welcome">
+                <Stack.Screen
                   name="DevMenu"
                   component={DevMenu}
                   options={{
@@ -128,7 +128,7 @@ export default function App() {
                     header: null,
                   }}
                 />
-                
+
                 <Stack.Screen
                   name="PersonalImage"
                   component={PersonalImage}
