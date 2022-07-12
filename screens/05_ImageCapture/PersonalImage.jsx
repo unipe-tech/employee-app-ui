@@ -15,6 +15,7 @@ import { useStateValue } from "../../StateProvider"
 import ProgressBarTop from "../../components/ProgressBarTop"
 import { putProfileData } from "../../services/employees/employeeServices"
 import { GenerateDocument } from "../../helpers/GenerateDocument"
+
 export default PersonalImage = () => {
   const navigation = useNavigation()
   const [pickerResponse, setPickerResponse] = useState(null)

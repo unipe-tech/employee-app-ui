@@ -15,7 +15,6 @@ import { styles } from "../screens/styles"
  * @param wrapperStyle -> used to provide container styling to the Button Container
  * @param style -> used to provide styling to the Button
  * @param otherProps -> used for defining other props to the Button
- * @author Tanish Garg <tanish@unipe.co>
  */
 
 const PrimaryButton = ({

@@ -114,7 +114,7 @@ export default WelcomePage = () => {
           uppercase={false}
           onPress={() => {
             // navigation.navigate("Login")
-            navigation.navigate("Main")
+            navigation.navigate("DevMenu")
           }}
         ></Button>
         <View style={checkBox.padding}></View>

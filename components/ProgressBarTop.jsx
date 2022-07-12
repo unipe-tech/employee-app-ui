@@ -4,6 +4,10 @@ import React from 'react';
 import {View} from 'react-native';
 import { progressBar } from '../screens/styles';
 
+/**
+ * @param step -> used for indicating the step of the progress bar
+ */
+
 export default ProgressBarTop = (props) => {
         const secondIndicatorStyles = {
             stepIndicatorSize: 30,

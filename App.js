@@ -4,24 +4,24 @@ import { NavigationContainer } from "@react-navigation/native"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { SafeAreaProvider } from "react-native-safe-area-context"
 const Stack = createNativeStackNavigator()
-import LoginScreen from "./screens/Home/LoginScreen"
+import LoginScreen from "./screens/00_Login/LoginScreen"
 import { StateProvider } from "./StateProvider"
 import reducer, { initialState } from "./reducer/reducer"
-import OTPScreen from "./screens/Home/OTPScreen"
+import OTPScreen from "./screens/00_Login/OTPScreen"
 import { IconComponentProvider } from "@react-native-material/core"
 import Icon from "react-native-vector-icons/MaterialIcons"
 import PersonalDetailsForm from "./screens/04_BasicDetails/PersonalDetailsForm"
 import AadhaarForm from "./screens/01_Aadhaar/AadhaarForm"
-import IDCapture from "./screens/05_IdCapture/IDCapture"
+import IDCapture from "./screens/01_Aadhaar/IDCapture"
 import AadhaarVerify from "./screens/01_Aadhaar/AadhaarVerify"
 import AadhaarConfirm from "./screens/01_Aadhaar/AadhaarConfirm"
 import PanCardInfo from "./screens/02_PanCard/PanCardInfo"
 import BankInformationForm from "./screens/03_BankDetails/BankInformationForm"
-import Home from "./screens/Home/Home"
-import WelcomePage from "./screens/Home/WelcomePage"
-import PersonalImage from "./screens/04_BasicDetails/PersonalImage"
+import Home from "./screens/06_Home/Home"
+import WelcomePage from "./screens/00_Login/WelcomePage"
+import PersonalImage from "./screens/05_ImageCapture/PersonalImage"
 import { Provider } from "react-redux"
-import Main from "./screens/Home/Main"
+import DevMenu from "./screens/DevMenu"
 
 export default function App() {
   return (
@@ -34,7 +34,15 @@ export default function App() {
               behavior={Platform.OS === "ios" ? "padding" : "height"}
               keyboardVerticalOffset={Platform.OS === "ios" ? -64 : 0}
             >
-              <Stack.Navigator>
+              <Stack.Navigator initialRouteName="DevMenu">
+              <Stack.Screen
+                  name="DevMenu"
+                  component={DevMenu}
+                  options={{
+                    headerShown: false,
+                    header: null,
+                  }}
+                />
                 <Stack.Screen
                   name="Welcome"
                   component={WelcomePage}
@@ -57,7 +65,7 @@ export default function App() {
                   }}
                 />
                 <Stack.Screen
-                  name="PersonlInfoForm"
+                  name="PersonalInfoForm"
                   component={PersonalDetailsForm}
                   options={{
                     headerShown: false,
@@ -120,14 +128,7 @@ export default function App() {
                     header: null,
                   }}
                 />
-                <Stack.Screen
-                  name="Main"
-                  component={Main}
-                  options={{
-                    headerShown: false,
-                    header: null,
-                  }}
-                />
+                
                 <Stack.Screen
                   name="PersonalImage"
                   component={PersonalImage}

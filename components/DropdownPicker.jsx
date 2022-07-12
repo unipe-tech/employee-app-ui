@@ -11,7 +11,6 @@ import { form } from "../screens/styles"
  * @param wrapperStyle -> used to provide container styling to the  picker Container
  * @param style -> used to provide styling to the picker
  * @param otherProps -> used for defining other props to the picker
- * @author Tanish Garg <tanish@unipe.co>
  */
 
 const DropdownPicker = ({

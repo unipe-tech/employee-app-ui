@@ -1,10 +1,17 @@
 import React from "react"
 import { View, Pressable, StyleSheet } from "react-native"
 
+/**
+ * @param onPress -> Used for handling the onPress event
+ * @param isChecked -> Used for the RadioButton to provide the value to be checked or unchecked
+ * @param unSelectedText -> Used for providing the unselected text
+ * @param selectedText -> Used for providing the selected text
+ * @param Icon -> Used for providing the icon (optional)
+ */
+
 function TextRadioButton({
   onPress,
   isChecked,
-  theme,
   unSelectedText,
   selectedText,
   Icon,
@@ -55,4 +62,4 @@ const style = StyleSheet.create((isChecked) => ({
   },
 }))
 
-export default withTheme(TextRadioButton)
+export default TextRadioButton

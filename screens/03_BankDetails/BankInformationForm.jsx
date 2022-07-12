@@ -111,7 +111,7 @@ export default BankInformationForm = () => {
                     [
                       {
                         text: "Yes",
-                        onPress: () => navigation.navigate("PersonlInfoForm"),
+                        onPress: () => navigation.navigate("PersonalInfoForm"),
                       },
                       {
                         text: "No",

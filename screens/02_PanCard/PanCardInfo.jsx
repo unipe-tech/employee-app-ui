@@ -37,7 +37,6 @@ export default PanCardInfo = () => {
   const [{ id }, dispatch] = useStateValue()
   const [panName, setPanName] = useState("")
   const [birthday, setBirthday] = useState("")
-  const [addPanData] = useAddPanDataMutation()
 
   // console.log();
   // putPanData()

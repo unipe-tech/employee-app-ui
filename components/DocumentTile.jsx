@@ -4,6 +4,10 @@ import {Card, Title, Paragraph } from 'react-native-paper';
 import {homeCard,docSearch} from "../screens/styles";
 import { Icon } from "@react-native-material/core";
 
+/**
+ * @param documents -> Used for providing the documents for the Document Tile
+ */
+
 export default DocumentTile = (props) => {
   return (
     <View style={docSearch.searchBar}>

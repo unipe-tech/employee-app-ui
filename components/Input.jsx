@@ -12,7 +12,6 @@ import { form, styles } from "../screens/styles"
  * @param wrapperStyle -> used to provide container styling to the Textinput Container
  * @param style -> used to provide styling to the textinput
  * @param otherProps -> used for defining other props to the Textinput
- * @author Tanish Garg <tanish@unipe.co>
  */
 
 const Input = ({
