@@ -4,7 +4,7 @@ name: Build Android & iOS
 on: 
   pull_request:
       types:
-      - opened
+      - [opened,edited]
     branches:    
       - 'develop'
 
