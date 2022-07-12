@@ -3,8 +3,7 @@ name: Build Android & iOS
 # Triggered when code is pushed to any branch in a repository
 on: 
   pull_request:
-      types:
-      - [opened,edited]
+      types: [opened,edited]
     branches:    
       - 'develop'
 
