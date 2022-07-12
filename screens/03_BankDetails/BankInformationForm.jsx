@@ -17,6 +17,7 @@ import { Popable } from "react-native-popable"
 import ProgressBarTop from "../../components/ProgressBarTop"
 import { GenerateDocument } from "../../helpers/GenerateDocument"
 import { putBankAccountData } from "../../services/employees/employeeServices"
+import InfoCard from "../../components/InfoCard"
 
 export default BankInformationForm = () => {
   const navigation = useNavigation()
@@ -162,15 +163,12 @@ export default BankInformationForm = () => {
         <Text style={bankform.Maintitle}>Bank Details Verification</Text>
 
         <ScrollView keyboardShouldPersistTaps="handled">
-          <View style={bankform.infoCard}>
-            <Text style={bankform.infoText}>
-              <Icon name="info-outline" size={20} color="#4E46F1" />
-              We will use this bank account / UPI ID to deposit your salary
-              every month, Please ensure the bank account belongs to you.{"\n"}
+          <InfoCard
+            title="We will use this bank account / UPI ID to deposit your salary
+              every month, Please ensure the bank account belongs to you.
               We will also deposit INR 1 to your account for verification make
-              sure you enter the correct account details.
-            </Text>
-          </View>
+              sure you enter the correct account details."
+          />
           <Text style={bankform.subTitle}>Enter your Bank Details</Text>
           {fields.map((field, index) => {
             return (
