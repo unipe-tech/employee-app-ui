@@ -69,10 +69,10 @@ export default PersonalImage = ({ route }) => {
   }, [])
 
   useEffect(() => {
-    if (route.params.dataUri) {
-      setResponseCamera(route.params.dataUri)
+    if (route?.params?.dataUri) {
+      setResponseCamera(route?.params?.dataUri)
     }
-    console.log(route.params.dataUri)
+    console.log(route?.params?.dataUri)
   }, [route])
 
   const navigateToCapture = () => {
