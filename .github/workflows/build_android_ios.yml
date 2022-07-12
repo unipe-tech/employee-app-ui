@@ -2,7 +2,7 @@ name: Build Android & iOS
 
 # Triggered when code is pushed to any branch in a repository
 on: 
-  push:
+  pull_request:
     branches:    
       - 'develop'
 
