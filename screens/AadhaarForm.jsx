@@ -5,7 +5,7 @@ import { useNavigation} from '@react-navigation/core';
 import CheckBox from '@react-native-community/checkbox';
 import {form ,checkBox,Camera,styles,bankform} from './styles';
 import { useStateValue } from '../StateProvider';
-import {CF_API_KEY} from '@env';
+import {OG_API_KEY} from '@env';
 import ProgressBarTop from '../components/ProgressBarTop';
 import { GenerateDocument } from '../helpers/GenerateDocument';
 import { putAadhaarData } from '../services/employees/employeeServices';
@@ -82,7 +82,7 @@ const GenerateOtp =() =>{
       method: 'POST',
       headers: {
         'X-Auth-Type': 'API-Key',
-        'X-API-Key': CF_API_KEY,
+        'X-API-Key': OG_API_KEY,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(data)
@@ -129,7 +129,7 @@ const AadhaarOCR =(type) =>{
       method: 'POST',
       headers: {
         'X-Auth-Type': 'API-Key',
-        'X-API-Key': CF_API_KEY,
+        'X-API-Key': OG_API_KEY,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(base64data)

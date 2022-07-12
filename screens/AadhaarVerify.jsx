@@ -5,7 +5,7 @@ import { useNavigation} from '@react-navigation/core';
 import { useStateValue } from "../StateProvider";
 import {ProgressBar} from '@react-native-community/progress-bar-android';
 import { styles,progressBar, form } from './styles';
-import {CF_API_KEY} from '@env';
+import {OG_API_KEY} from '@env';
 import CountDown from 'react-native-countdown-component';
 import ProgressBarTop from '../components/ProgressBarTop'; 
 import {GenerateDocument} from '../helpers/GenerateDocument';
@@ -40,7 +40,7 @@ export default AadhaarVerify = () => {
         method: 'POST',
         headers: {
           'X-Auth-Type': 'API-Key',
-          'X-API-Key': CF_API_KEY,
+          'X-API-Key': OG_API_KEY,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(data)

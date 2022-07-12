@@ -5,7 +5,7 @@ import { useNavigation} from '@react-navigation/core';
 import {ProgressBar} from '@react-native-community/progress-bar-android';
 import { styles,form,progressBar,Camera, checkBox,bankform} from './styles';
 import { useStateValue } from "../StateProvider";
-import {CF_API_KEY} from '@env';
+import {OG_API_KEY} from '@env';
 import ProgressBarTop from '../components/ProgressBarTop';
 import {GenerateDocument} from '../helpers/GenerateDocument';
 import { putPanData } from '../services/employees/employeeServices';
@@ -43,7 +43,7 @@ export default PanCardInfo = () => {
         method: 'POST',
         headers: {
           'X-Auth-Type': 'API-Key',
-          'X-API-Key': CF_API_KEY,
+          'X-API-Key': OG_API_KEY,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(data)
@@ -99,7 +99,7 @@ export default PanCardInfo = () => {
         method: 'POST',
         headers: {
           'X-Auth-Type': 'API-Key',
-          'X-API-Key': CF_API_KEY,
+          'X-API-Key': OG_API_KEY,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(data)
