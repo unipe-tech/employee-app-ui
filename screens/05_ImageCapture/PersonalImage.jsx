@@ -76,44 +76,10 @@ export default PersonalImage = ({ route }) => {
   }, [route])
 
   const navigateToCapture = () => {
-    navigation.navigate("IDCapture", {
+    navigation.navigate("ExpoIdCapture", {
       front: true,
       routeName: "PersonalImage",
     })
-  }
-
-  const openCameraWithPermission = async () => {
-    try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.CAMERA,
-        {
-          title: "App Camera Permission",
-          message: "App needs access to your camera ",
-          buttonNeutral: "Ask Me Later",
-          buttonNegative: "Cancel",
-          buttonPositive: "OK",
-        }
-      )
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        ImagePicker.launchCamera(
-          {
-            cameraType: "front",
-            mediaType: "photo",
-            includeBase64: true,
-            quality: 1,
-          },
-          (response) => {
-            console.log(response)
-            setPickerResponse(response)
-            // setPickerResponse(null)
-          }
-        )
-      } else {
-        console.log("Camera permission denied")
-      }
-    } catch (err) {
-      console.warn(err)
-    }
   }
 
   const imageData = pickerResponse?.assets && pickerResponse.assets[0].base64

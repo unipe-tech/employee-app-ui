@@ -302,7 +302,11 @@ export default AadhaarForm = () => {
                   icon={<Icon name="camera-alt" size={20} color="black" />}
                   style={Camera.cameraButton}
                   onPress={() => {
-                    navigation.navigate("IDCapture", "AADHAAR_FRONT")
+                    navigation.navigate("ExpoIdCapture", {
+                      type: "AADHAAR_FRONT",
+                      front: false,
+                      routeName: "AadhaarForm",
+                    })
                   }}
                 />
                 <IconButton

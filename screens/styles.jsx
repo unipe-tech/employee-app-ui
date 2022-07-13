@@ -465,5 +465,6 @@ export const selfie = StyleSheet.create({
     alignSelf: "center",
     height: 300,
     width: 300,
+    transform: [{ scaleX: -1 }],
   },
 })
