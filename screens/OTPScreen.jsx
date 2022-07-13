@@ -17,6 +17,7 @@ import { checkVerification } from "../services/otp/Twilio/verify";
 import CountDown from "react-native-countdown-component";
 import { sendSmsVerification } from "../services/otp/Twilio/verify";
 import { useSelector } from "react-redux";
+import { addPhoneNumber } from "../store/slices/authSlice";
 
 export default OTPScreen = () => {
   const phonenumber = useSelector((state) => state.auth.phoneNumber);
@@ -143,7 +144,11 @@ export default OTPScreen = () => {
               onPress={() => {
                 checkVerification(phonenumber, otp).then((success) => {
                   if (!success) Alert.alert("err", "Incorrect OTP");
-                  success && navigation.navigate("AadhaarForm");
+                  if(success){
+                    dispatch(addPhoneNumber(phonenumber));
+                    navigation.navigate("AadhaarForm");
+                  }
+                  success && 
                   SmsRetriever.removeSmsListener();
                 });
               }}

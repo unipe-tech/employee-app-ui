@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   Image,
   Text,
@@ -112,9 +112,6 @@ export default LoginScreen = () => {
     dispatch(addId(id));
   }, [id]);
 
-  useEffect(() => {
-    dispatch(addPhoneNumber(phoneNumber));
-  }, [phoneNumber]);
 
   useEffect(() => {
     var phoneno = /^[0-9]{10}$/gm;
@@ -204,14 +201,14 @@ export default LoginScreen = () => {
             </View>
           </TouchableOpacity>
         )}
-        <Button
+        {/* <Button
           uppercase={false}
           title="Retry"
           type="solid"
           style={styles.RetryButton}
           color="#4E46F1"
           onPress={navigation.navigate("Home")}
-        />
+        /> */}
       </ScrollView>
     </SafeAreaView>
   );

@@ -21,12 +21,14 @@ import Home from './screens/Home';
 import WelcomePage from './screens/WelcomePage';
 import PersonalImage from "./screens/PersonalImage";
 import {Provider} from "react-redux";
-import {store} from "./store/store";
+import { store, persistor } from './store/store';
+import { PersistGate } from 'redux-persist/integration/react'
 
 export default function App() {
   return (
   <StateProvider initialState={initialState} reducer={reducer}>
     <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
   <NavigationContainer>
   <SafeAreaProvider style={{backgroundColor:"white",flex:1}}>
   <IconComponentProvider IconComponent={Icon}>
@@ -134,6 +136,7 @@ export default function App() {
     </IconComponentProvider>
   </SafeAreaProvider>
 </NavigationContainer>
+</PersistGate>
 </Provider>
 </StateProvider>
   );

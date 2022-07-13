@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
 import { Text, View, SafeAreaView, Image } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 import { AppBar, IconButton, Icon, Button } from "@react-native-material/core";
@@ -6,9 +6,12 @@ import { styles, welcome, form, checkBox } from "./styles";
 import StepIndicator from "react-native-step-indicator";
 import SplashScreen from "react-native-splash-screen";
 import { MaterialIcons } from "@expo/vector-icons";
+import { ReactReduxContext } from "react-redux";
 
 export default WelcomePage = () => {
   const navigation = useNavigation();
+  const { store } = useContext(ReactReduxContext)
+  let auth = store.getState().auth
   SplashScreen.hide();
   const getStepIndicatorIconConfig = ({ position, stepStatus }) => {
     const iconConfig = {
@@ -82,6 +85,17 @@ export default WelcomePage = () => {
     labelSize: 14,
     currentStepLabelColor: "#4E46F1",
   };
+
+  useEffect(()=>{
+    console.log(auth)
+    if(auth.phoneNumber){
+      console.log("Existing user")
+      setTimeout(() => navigation.navigate('Login'), 500);
+    }
+    else{
+      console.log("New User")
+    }
+  },[auth])
   return (
     <>
       <SafeAreaView style={styles.container}>

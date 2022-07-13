@@ -8,9 +8,6 @@ import BottomTabNav from "../components/BottomTabNav";
 import HomeView from "./HomeView";
 import Amplify from "@aws-amplify/core";
 import Auth from "@aws-amplify/auth";
-import awsconfig from "../src/aws-exports";
-Amplify.configure(awsconfig);
-
 import { FAB, Portal, Provider } from "react-native-paper";
 import Document from "./Document";
 
