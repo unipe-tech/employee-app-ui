@@ -76,7 +76,7 @@ export default PersonalImage = ({ route }) => {
   }, [route])
 
   const navigateToCapture = () => {
-    navigation.navigate("ExpoIdCapture", {
+    navigation.navigate("ExpoPhotoCapture", {
       front: true,
       routeName: "PersonalImage",
     })

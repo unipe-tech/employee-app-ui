@@ -12,7 +12,6 @@ import { IconComponentProvider } from "@react-native-material/core"
 import Icon from "react-native-vector-icons/MaterialIcons"
 import PersonalDetailsForm from "./screens/04_BasicDetails/PersonalDetailsForm"
 import AadhaarForm from "./screens/01_Aadhaar/AadhaarForm"
-import IDCapture from "./screens/01_Aadhaar/IDCapture"
 import AadhaarVerify from "./screens/01_Aadhaar/AadhaarVerify"
 import AadhaarConfirm from "./screens/01_Aadhaar/AadhaarConfirm"
 import PanCardInfo from "./screens/02_PanCard/PanCardInfo"
@@ -22,7 +21,9 @@ import WelcomePage from "./screens/00_Login/WelcomePage"
 import PersonalImage from "./screens/05_ImageCapture/PersonalImage"
 import { Provider } from "react-redux"
 import DevMenu from "./screens/DevMenu"
-import Expo_IdCapture from "./screens/01_Aadhaar/Expo_IdCapture"
+import ExpoPhotoCapture from "./screens/Utils/ExpoPhotoCapture"
+import RNPhotoCapture from "./screens/Utils/RNPhotoCapture"
+import { Config } from "react-native-config"
 
 export default function App() {
   return (
@@ -35,7 +36,7 @@ export default function App() {
               behavior={Platform.OS === "ios" ? "padding" : "height"}
               keyboardVerticalOffset={Platform.OS === "ios" ? -64 : 0}
             >
-              <Stack.Navigator initialRouteName="Welcome">
+              <Stack.Navigator initialRouteName={"Welcome"}>
                 <Stack.Screen
                   name="DevMenu"
                   component={DevMenu}
@@ -82,16 +83,16 @@ export default function App() {
                   }}
                 />
                 <Stack.Screen
-                  name="IDCapture"
-                  component={IDCapture}
+                  name="RNPhotoCapture"
+                  component={RNPhotoCapture}
                   options={{
                     headerShown: false,
                     header: null,
                   }}
                 />
                 <Stack.Screen
-                  name="ExpoIdCapture"
-                  component={Expo_IdCapture}
+                  name="ExpoPhotoCapture"
+                  component={ExpoPhotoCapture}
                   options={{
                     headerShown: false,
                     header: null,

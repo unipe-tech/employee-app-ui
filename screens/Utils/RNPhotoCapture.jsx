@@ -13,7 +13,7 @@ const PendingView = () => (
   </View>
 )
 
-const IDCapture = (props) => {
+const RNPhotoCapture = (props) => {
   const navigation = useNavigation()
   const [{ user }, dispatch] = useStateValue()
   const [id, setId] = useState(null)
@@ -80,4 +80,4 @@ const IDCapture = (props) => {
   )
 }
 
-export default IDCapture
+export default RNPhotoCapture

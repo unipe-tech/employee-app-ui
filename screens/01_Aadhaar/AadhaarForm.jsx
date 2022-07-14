@@ -302,11 +302,12 @@ export default AadhaarForm = () => {
                   icon={<Icon name="camera-alt" size={20} color="black" />}
                   style={Camera.cameraButton}
                   onPress={() => {
-                    navigation.navigate("ExpoIdCapture", {
-                      type: "AADHAAR_FRONT",
-                      front: false,
-                      routeName: "AadhaarForm",
-                    })
+                    // navigation.navigate("ExpoPhotoCapture", {
+                    //   type: "AADHAAR_FRONT",
+                    //   front: false,
+                    //   routeName: "AadhaarForm",
+                    // })
+                    navigation.navigate("RNPhotoCapture", "AADHAAR_FRONT")
                   }}
                 />
                 <IconButton
@@ -332,7 +333,12 @@ export default AadhaarForm = () => {
                   icon={<Icon name="camera-alt" size={20} color="black" />}
                   style={Camera.cameraButton}
                   onPress={() => {
-                    navigation.navigate("IDCapture", "AADHAAR_BACK")
+                    // navigation.navigate("ExpoPhotoCapture", {
+                    //   type: "AADHAAR_BACK",
+                    //   front: false,
+                    //   routeName: "AadhaarForm",
+                    // })
+                    navigation.navigate("RNPhotoCapture", "AADHAAR_FRONT")
                   }}
                 />
                 <IconButton

@@ -9,7 +9,7 @@ import {
 import { Camera, CameraType } from "expo-camera"
 import { useNavigation } from "@react-navigation/native"
 
-export default function Expo_IdCapture({ route }) {
+export default function ExpoPhotoCapture({ route }) {
   const [hasPermission, setHasPermission] = useState(null)
   const [type, setType] = useState(CameraType.back)
   const camera = useRef()
