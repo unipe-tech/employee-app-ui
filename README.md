@@ -15,3 +15,18 @@ cd employee-app
 npm install
 react-native run-ios
 ```
+
+## Build Debug Release
+```
+yarn buildDebug
+```
+
+## Build Testing Release
+```
+yarn buildRelease
+```
+
+## Build Testing Release
+```
+yarn buildProdRelease
+```
