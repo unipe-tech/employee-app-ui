@@ -80,34 +80,32 @@ export default LoginScreen = () => {
   //   })}, [session]);
 
   const signIn = () => {
-    dispatch(addPhoneNumber(phoneNumber));
-    navigation.navigate("AadhaarForm");
-    // sendSmsVerification(phoneNumber)
-    //   .then((sent) => {
-    //     console.log("Sent!");
-    //     setIsLoading(true);
-    //     var phonePayload = GenerateDocument({
-    //       src: "otp",
-    //       number: `+91${phoneNumber}`,
-    //     });
-    //     putMobileData(phonePayload)
-    //       .then((res) => {
-    //         console.log(phonePayload);
-    //         console.log(res.data);
-    //         if (res.data["message"]) {
-    //           Alert.alert("Error", res.data["message"]);
-    //         } else {
-    //           setId(res.data["id"]);
-    //         }
-    //       })
-    //       .catch((err) => {
-    //         console.log(err);
-    //       });
-    //     navigation.navigate("Otp");
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+    sendSmsVerification(phoneNumber)
+      .then((sent) => {
+        console.log("Sent!");
+        setIsLoading(true);
+        var phonePayload = GenerateDocument({
+          src: "otp",
+          number: `+91${phoneNumber}`,
+        });
+        putMobileData(phonePayload)
+          .then((res) => {
+            console.log(phonePayload);
+            console.log(res.data);
+            if (res.data["message"]) {
+              Alert.alert("Error", res.data["message"]);
+            } else {
+              setId(res.data["id"]);
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        navigation.navigate("Otp");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   useEffect(() => {
