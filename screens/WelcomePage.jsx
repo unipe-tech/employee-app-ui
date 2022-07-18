@@ -12,7 +12,7 @@ export default WelcomePage = () => {
   const navigation = useNavigation();
   const { store } = useContext(ReactReduxContext)
   let auth = store.getState().auth
-  let onboardingState = store.getState().onboardingState
+  let onboardingState = store.getState().onboarding
   SplashScreen.hide();
   const getStepIndicatorIconConfig = ({ position, stepStatus }) => {
     const iconConfig = {
@@ -88,7 +88,7 @@ export default WelcomePage = () => {
   };
 
   useEffect(()=>{
-    console.log('auth', auth)
+    console.log('auth', auth, onboardingState)
     if(auth.phoneNumber){
       console.log("Existing user")
       if(onboardingState && onboardingState.lastScreen){
