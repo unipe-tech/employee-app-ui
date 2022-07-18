@@ -22,6 +22,7 @@ import WelcomePage from "./screens/00_Login/WelcomePage"
 import PersonalImage from "./screens/05_ImageCapture/PersonalImage"
 import { Provider } from "react-redux"
 import DevMenu from "./screens/DevMenu"
+import Expo_IdCapture from "./screens/01_Aadhaar/Expo_IdCapture"
 
 export default function App() {
   return (
@@ -83,6 +84,14 @@ export default function App() {
                 <Stack.Screen
                   name="IDCapture"
                   component={IDCapture}
+                  options={{
+                    headerShown: false,
+                    header: null,
+                  }}
+                />
+                <Stack.Screen
+                  name="ExpoIdCapture"
+                  component={Expo_IdCapture}
                   options={{
                     headerShown: false,
                     header: null,

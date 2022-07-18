@@ -20,10 +20,11 @@ const IDCapture = (props) => {
   useEffect(() => {
     dispatch({
       type: "SET_ID",
-      payload: { data: id, type: props.route.params },
+      payload: { data: id, type: props.route?.params?.type },
     })
   }, [id])
-  const { front } = props.route.params
+
+  const { front } = props.route?.params
 
   const takePicture = async function (camera) {
     const options = { quality: 0.5, base64: true }

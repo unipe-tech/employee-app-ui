@@ -20,7 +20,7 @@ const DevMenu = () => {
       <PrimaryButton
         style={{ marginTop: 20 }}
         title="Aadhaar"
-        onPress={() => navigation.navigate("AadhaarForm")}
+        onPress={() => navigation.navigate("Aadhaar")}
       />
       <PrimaryButton
         style={{ marginTop: 20 }}
