@@ -35,7 +35,7 @@ export default LoginScreen = () => {
   const customData = require('../assets/state_districts.json');
   const onPhoneNumberPressed = async () => {
     try {
-      const phn = await SmsRetriever.requestPhoneNumber();
+      //const phn = await SmsRetriever.requestPhoneNumber();
       console.log(phn);
       setPhoneNumber(phn);
     } catch (error) {
@@ -80,38 +80,39 @@ export default LoginScreen = () => {
   //   })}, [session]);
 
   const signIn = () => {
-    sendSmsVerification(phoneNumber)
-      .then((sent) => {
-        console.log("Sent!");
-        setIsLoading(true);
-        var phonePayload = GenerateDocument({
-          src: "otp",
-          number: `+91${phoneNumber}`,
-        });
-        putMobileData(phonePayload)
-          .then((res) => {
-            console.log(phonePayload);
-            console.log(res.data);
-            if (res.data["message"]) {
-              Alert.alert("Error", res.data["message"]);
-            } else {
-              setId(res.data["id"]);
-            }
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-        navigation.navigate("Otp");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    dispatch(addPhoneNumber(phoneNumber));
+    navigation.navigate("AadhaarForm");
+    // sendSmsVerification(phoneNumber)
+    //   .then((sent) => {
+    //     console.log("Sent!");
+    //     setIsLoading(true);
+    //     var phonePayload = GenerateDocument({
+    //       src: "otp",
+    //       number: `+91${phoneNumber}`,
+    //     });
+    //     putMobileData(phonePayload)
+    //       .then((res) => {
+    //         console.log(phonePayload);
+    //         console.log(res.data);
+    //         if (res.data["message"]) {
+    //           Alert.alert("Error", res.data["message"]);
+    //         } else {
+    //           setId(res.data["id"]);
+    //         }
+    //       })
+    //       .catch((err) => {
+    //         console.log(err);
+    //       });
+    //     navigation.navigate("Otp");
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   };
 
   useEffect(() => {
     dispatch(addId(id));
   }, [id]);
-
 
   useEffect(() => {
     var phoneno = /^[0-9]{10}$/gm;

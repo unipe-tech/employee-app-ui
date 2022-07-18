@@ -12,6 +12,7 @@ export default WelcomePage = () => {
   const navigation = useNavigation();
   const { store } = useContext(ReactReduxContext)
   let auth = store.getState().auth
+  let onboardingState = store.getState().onboardingState
   SplashScreen.hide();
   const getStepIndicatorIconConfig = ({ position, stepStatus }) => {
     const iconConfig = {
@@ -87,10 +88,15 @@ export default WelcomePage = () => {
   };
 
   useEffect(()=>{
-    console.log(auth)
+    console.log('auth', auth)
     if(auth.phoneNumber){
       console.log("Existing user")
-      setTimeout(() => navigation.navigate('Login'), 500);
+      if(onboardingState && onboardingState.lastScreen){
+        setTimeout(() => navigation.navigate(onboardingState.lastScreen), 500);
+      }
+      else{
+        setTimeout(() => navigation.navigate('AadhaarForm'), 500);
+      }
     }
     else{
       console.log("New User")

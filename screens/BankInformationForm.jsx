@@ -17,6 +17,7 @@ import { Popable } from "react-native-popable";
 import ProgressBarTop from "../components/ProgressBarTop";
 import { GenerateDocument } from "../helpers/GenerateDocument";
 import { putBankAccountData } from "../services/employees/employeeServices";
+import { updateLastScreen } from "../store/slices/onboardingSlice";
 
 export default BankInformationForm = () => {
   const navigation = useNavigation();
@@ -111,7 +112,10 @@ export default BankInformationForm = () => {
                     [
                       {
                         text: "Yes",
-                        onPress: () => navigation.navigate("PersonlInfoForm"),
+                        onPress: () => {
+                          dispatch(updateLastScreen("PersonlInfoForm"))
+                          navigation.navigate("PersonlInfoForm")
+                        },
                       },
                       {
                         text: "No",

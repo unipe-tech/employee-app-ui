@@ -6,7 +6,6 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 const Stack = createNativeStackNavigator();
 import LoginScreen from "./screens/LoginScreen";
 import {StateProvider} from "./StateProvider";
-import reducer, { initialState } from './reducer/reducer';
 import OTPScreen from './screens/OTPScreen';
 import { IconComponentProvider} from "@react-native-material/core";
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -26,7 +25,6 @@ import { PersistGate } from 'redux-persist/integration/react'
 
 export default function App() {
   return (
-  <StateProvider initialState={initialState} reducer={reducer}>
     <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
   <NavigationContainer>
@@ -138,6 +136,5 @@ export default function App() {
 </NavigationContainer>
 </PersistGate>
 </Provider>
-</StateProvider>
   );
 }

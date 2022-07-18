@@ -15,6 +15,7 @@ import ProgressBarTop from "../components/ProgressBarTop";
 import { useStateValue } from "../StateProvider";
 import { GenerateDocument } from "../helpers/GenerateDocument";
 import { putProfileData } from "../services/employees/employeeServices";
+import { updateLastScreen } from "../store/slices/onboardingSlice";
 
 export default PersonalDetailsForm = () => {
   const educationalQualifications = [
@@ -121,6 +122,7 @@ export default PersonalDetailsForm = () => {
             color="#4E46F1"
             onPress={() => {
               onFinish();
+              dispatch(updateLastScreen("PersonalImage"))
               navigation.navigate("PersonalImage");
             }}
           />

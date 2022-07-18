@@ -15,6 +15,7 @@ import { useStateValue } from "../StateProvider";
 import ProgressBarTop from "../components/ProgressBarTop";
 import { putProfileData } from "../services/employees/employeeServices";
 import { GenerateDocument } from "../helpers/GenerateDocument";
+import { updateLastScreen } from "../store/slices/onboardingSlice";
 export default PersonalImage = () => {
   const navigation = useNavigation();
   const [pickerResponse, setPickerResponse] = useState(null);
@@ -35,6 +36,7 @@ export default PersonalImage = () => {
         console.log(profilePayload);
         console.log(res.data);
         Alert.alert("Message", res.data["message"]);
+        dispatch(updateLastScreen("Home"))
         navigation.navigate("Home");
       })
       .catch((err) => {

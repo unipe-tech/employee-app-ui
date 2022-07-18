@@ -11,23 +11,34 @@ import bankSlice from "./slices/bankSlice";
 import esicSlice from "./slices/esicSlice";
 import { persistStore, persistReducer } from 'redux-persist'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import onboardingSlice from "./slices/onboardingSlice";
 
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
 }
 
+// let rootReducer =  combineReducers({
+//   auth: persistReducer(persistConfig, authSlice),
+//   image: persistReducer(persistConfig, imageSlice),
+//   aadhaar: persistReducer(persistConfig, aadhaarSlice),
+//   pan: persistReducer(persistConfig, panSlice),
+//   bank: persistReducer(persistConfig, bankSlice),
+//   esic: persistReducer(persistConfig, esicSlice),
+//   onboarding: persistReducer(persistConfig, onboardingSlice)
+// })
+
 let rootReducer =  combineReducers({
-  auth: persistReducer(persistConfig, authSlice),
-  image: persistReducer(persistConfig, imageSlice),
-  aadhaar: persistReducer(persistConfig, aadhaarSlice),
-  pan: persistReducer(persistConfig, panSlice),
-  bank: persistReducer(persistConfig, bankSlice),
-  esic: persistReducer(persistConfig, esicSlice)
+  auth: authSlice,
+  image: imageSlice,
+  aadhaar: aadhaarSlice,
+  pan: panSlice,
+  bank: bankSlice,
+  esic: esicSlice,
+  onboarding: onboardingSlice
 })
 
-export const store = createStore(rootReducer, applyMiddleware(thunk));
+const pReducer = persistReducer(persistConfig, rootReducer);
+
+export const store = createStore(pReducer, applyMiddleware(thunk));
 export const persistor = persistStore(store);
-
-
-

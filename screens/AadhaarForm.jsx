@@ -26,6 +26,7 @@ import {
 } from "../store/slices/aadhaarSlice";
 import { addImage } from "../store/slices/imageSlice";
 import { useSelector } from "react-redux";
+import { updateLastScreen } from "../store/slices/onboardingSlice";
 
 export default AadhaarForm = () => {
   const aadhaarFront = useSelector((state) => state.image.aadhaarFront);
@@ -192,6 +193,7 @@ export default AadhaarForm = () => {
       aadhaarBackVerified && aadhaarFrontVerified ? (
         <>
           {alert("Aadhar Verified through OCR.")}
+          {dispatch(updateLastScreen("PanCardInfo"))}
           {navigation.navigate("PanCardInfo")}
           {dispatch(addAadhaarVerifedStatus("OCR_VERIFIED"))}
           {AadharPush()}

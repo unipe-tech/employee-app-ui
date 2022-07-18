@@ -31,6 +31,7 @@ import { useSelector } from "react-redux";
 
 import { useDispatch } from "react-redux";
 import { addPan } from "../store/slices/panSlice";
+import { updateLastScreen } from "../store/slices/onboardingSlice";
 
 export default PanCardInfo = () => {
   const navigation = useNavigation();
@@ -145,6 +146,7 @@ export default PanCardInfo = () => {
           "PAN Information",
           `PAN: ${pan}\nName: ${panName}\nGender: ${response["data"]["pan_data"]["gender"]}\nEmail: ${response["data"]["pan_data"]["email"]}`
         );
+        dispatch(updateLastScreen("BankInfoForm"))
         navigation.navigate("BankInfoForm");
       })
       .catch((err) => Alert.alert("Error", err));
