@@ -1,118 +1,112 @@
-import React, { useEffect, useState } from "react"
+import { OG_API_KEY } from "@env";
+import { AppBar, Button, Icon, IconButton } from "@react-native-material/core";
+import { useNavigation } from "@react-navigation/core";
+import React, { useEffect, useState } from "react";
 import {
-  Text,
-  View,
-  ScrollView,
-  TextInput,
-  SafeAreaView,
   Alert,
-  Linking,
-} from "react-native"
-import { useNavigation } from "@react-navigation/core"
-import { AppBar, IconButton, Icon, Button } from "@react-native-material/core"
-import { progressBar, form, bankform, styles } from "../styles"
-import { CF_API_KEY } from "@env"
-import { useStateValue } from "../../StateProvider"
-import { Popable } from "react-native-popable"
-import ProgressBarTop from "../../components/ProgressBarTop"
-import { GenerateDocument } from "../../helpers/GenerateDocument"
-import { putBankAccountData } from "../../services/employees/employeeServices"
-import InfoCard from "../../components/InfoCard"
+  SafeAreaView,
+  ScrollView,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
+import { Popable } from "react-native-popable";
+import { useDispatch, useSelector } from "react-redux";
+import ProgressBarTop from "../../components/ProgressBarTop";
+import { GenerateDocument } from "../../helpers/GenerateDocument";
+import { putBankAccountData } from "../../services/employees/employeeServices";
+import {
+  addBankAccountHolderName,
+  addBankAccountNumber,
+  addBankIfsc,
+  addBankUpiId,
+  addBankVerifyStatus,
+} from "../../store/slices/bankSlice";
+import { addCurrentScreen } from "../../store/slices/navigationSlice";
+import { bankform, styles } from "../styles";
 
 export default BankInformationForm = () => {
-  const navigation = useNavigation()
-  const [ifsc, setIfsc] = useState("")
-  const [{ id }, dispatch] = useStateValue()
-  const [accountNumber, setAccountNumber] = useState("")
-  const [accountHolderName, setAccountHolderName] = useState("")
-  const [upiID, setUpiId] = useState("")
+  const navigation = useNavigation();
+  const [ifsc, setIfsc] = useState(useSelector((state) => state.bank.ifsc));
+  const id = useSelector((state) => state.auth.userId);
+  const [accountNumber, setAccountNumber] = useState(
+    useSelector((state) => state.bank.accountNumber)
+  );
+  const [accountHolderName, setAccountHolderName] = useState(
+    useSelector((state) => state.bank.holderName)
+  );
+  const [upiId, setUpiId] = useState(useSelector((state) => state.bank.upi));
+  const dispatch = useDispatch();
 
-  const fields = [
-    {
-      title: "Account Holder Name*",
-      value: accountHolderName,
-      setvalue: setAccountHolderName,
-      requiredStatus: true,
-      tooltip:
-        "Refer to your Bank Passbook or Cheque book for the exact Name mentioned in your bank records",
-    },
-    {
-      title: "Bank Account Number*",
-      value: accountNumber,
-      setvalue: setAccountNumber,
-      requiredStatus: true,
-      tooltip:
-        "Refer to your Bank Passbook or Cheque book to get the Bank Account Number.",
-    },
-    {
-      title: "IFSC Code*",
-      value: ifsc,
-      setvalue: setIfsc,
-      requiredStatus: true,
-      tooltip:
-        "You can find the IFSC code on the cheque book or bank passbook that is provided by the bank",
-    },
-    {
-      title: "UPI ID",
-      value: upiID,
-      setvalue: setUpiId,
-      requiredStatus: false,
-      tooltip:
-        "There are lots of UPI apps available like Phonepe, Amazon Pay, Paytm, Bhim, Mobikwik etc. from where you can fetch your UPI ID.",
-    },
-  ]
+  useEffect(() => {
+    dispatch(addCurrentScreen("BankInfoForm"));
+  }, []);
+  useEffect(() => {
+    dispatch(addBankAccountHolderName(accountHolderName));
+  }, [accountHolderName]);
+  useEffect(() => {
+    dispatch(addBankAccountNumber(accountNumber));
+  }, [accountNumber]);
+  useEffect(() => {
+    dispatch(addBankIfsc(ifsc));
+  }, [ifsc]);
+  useEffect(() => {
+    dispatch(addBankUpiId(upiId));
+  }, [upiId]);
 
   const BankPush = () => {
     var bankPayload = GenerateDocument({
       src: "Bank",
-      type: "front",
       id: id,
       ifsc: ifsc,
       accountNumber: accountNumber,
-      upi: upiID,
-    })
+      upi: upiId,
+    });
     putBankAccountData(bankPayload)
       .then((res) => {
-        console.log(bankPayload)
-        console.log(res.data)
+        console.log(bankPayload);
+        console.log(res.data);
       })
       .catch((err) => {
-        console.log(err)
-      })
-  }
+        console.log(err);
+      });
+  };
   // putBankAccountData()
   const VerifyBankAccount = () => {
     const data = {
       account_number: accountNumber,
       ifsc: ifsc,
       consent: "Y",
-    }
+    };
     const options = {
       method: "POST",
       headers: {
         "X-Auth-Type": "API-Key",
-        "X-API-Key": CF_API_KEY,
+        "X-API-Key": OG_API_KEY,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-    }
+    };
     try {
       fetch(`https://api.gridlines.io/bank-api/verify`, options)
         .then((response) => response.json())
         .then((response) => {
-          console.log(response)
+          console.log(response);
           {
             if (response["status"] == "200") {
               switch (response["data"]["code"]) {
                 case "1000":
-                  BankPush()
+                  BankPush();
                   Alert.alert(
                     "Your Bank Account Information",
                     `Name: ${response["data"]["bank_account_data"]["name"]}\nBank Name: ${response["data"]["bank_account_data"]["bank_name"]}\nUTR no.: ${response["data"]["bank_account_data"]["utr"]}\nBranch: ${response["data"]["bank_account_data"]["branch"]}\nCity: ${response["data"]["bank_account_data"]["city"]}`,
                     [
                       {
                         text: "Yes",
-                        onPress: () => navigation.navigate("PersonalInfoForm"),
+                        onPress: () => {
+                          dispatch(addBankVerifyStatus("SUCCESS"));
+                          navigation.navigate("PersonalDetailsForm");
+                        },
                       },
                       {
                         text: "No",
@@ -124,11 +118,11 @@ export default BankInformationForm = () => {
                         style: "cancel",
                       },
                     ]
-                  )
-                  break
+                  );
+                  break;
                 default:
-                  Alert.alert("Error", response["data"]["message"])
-                  break
+                  Alert.alert("Error", response["data"]["message"]);
+                  break;
               }
             } else {
               Alert.alert(
@@ -136,15 +130,15 @@ export default BankInformationForm = () => {
                 response["error"]["metadata"]["fields"]
                   .map((item, value) => item["message"])
                   .join("\n")
-              )
+              );
             }
           }
         })
-        .catch((err) => Alert.alert("Error", err))
+        .catch((err) => Alert.alert("Error", err));
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
 
   return (
     <>
@@ -163,45 +157,94 @@ export default BankInformationForm = () => {
         <Text style={bankform.Maintitle}>Bank Details Verification</Text>
 
         <ScrollView keyboardShouldPersistTaps="handled">
-          <InfoCard
-            title="We will use this bank account / UPI ID to deposit your salary
-              every month, Please ensure the bank account belongs to you.
+          <View style={bankform.infoCard}>
+            <Text style={bankform.infoText}>
+              <Icon name="info-outline" size={20} color="#4E46F1" />
+              We will use this bank account / UPI ID to deposit your salary
+              every month, Please ensure the bank account belongs to you.{"\n"}
               We will also deposit INR 1 to your account for verification make
-              sure you enter the correct account details."
-          />
+              sure you enter the correct account details.
+            </Text>
+          </View>
           <Text style={bankform.subTitle}>Enter your Bank Details</Text>
-          {fields.map((field, index) => {
-            return (
-              <>
-                <Text style={bankform.formtitle} key={index}>
-                  {field.title}{" "}
-                  <Popable
-                    content={field.tooltip}
-                    position="right"
-                    caret={false}
-                  >
-                    <Icon name="info-outline" size={20} color="grey" />
-                  </Popable>
-                </Text>
-                {field.title === "IFSC Code*" ? (
-                  <TextInput
-                    style={bankform.formInput}
-                    value={field.value}
-                    onChangeText={field.setvalue}
-                    autoCapitalize="characters"
-                    required
-                  />
-                ) : (
-                  <TextInput
-                    style={bankform.formInput}
-                    value={field.value}
-                    onChangeText={field.setvalue}
-                    required
-                  />
-                )}
-              </>
-            )
-          })}
+
+          <Text style={bankform.formtitle}>
+            Account Holder Name*
+            <Popable
+              content={
+                "Refer to your Bank Passbook or Cheque book for the exact Name mentioned in your bank records"
+              }
+              position="right"
+              caret={false}
+            >
+              <Icon name="info-outline" size={20} color="grey" />
+            </Popable>
+          </Text>
+          <TextInput
+            style={bankform.formInput}
+            value={accountHolderName}
+            onChangeText={setAccountHolderName}
+            autoCapitalize="words"
+            required
+          />
+
+          <Text style={bankform.formtitle}>
+            Bank Account Number*
+            <Popable
+              content={
+                "Refer to your Bank Passbook or Cheque book to get the Bank Account Number."
+              }
+              position="right"
+              caret={false}
+            >
+              <Icon name="info-outline" size={20} color="grey" />
+            </Popable>
+          </Text>
+          <TextInput
+            style={bankform.formInput}
+            value={accountNumber}
+            onChangeText={setAccountNumber}
+            autoCapitalize="characters"
+            required
+          />
+
+          <Text style={bankform.formtitle}>
+            IFSC Code*
+            <Popable
+              content={
+                "You can find the IFSC code on the cheque book or bank passbook that is provided by the bank"
+              }
+              position="right"
+              caret={false}
+            >
+              <Icon name="info-outline" size={20} color="grey" />
+            </Popable>
+          </Text>
+          <TextInput
+            style={bankform.formInput}
+            value={ifsc}
+            onChangeText={setIfsc}
+            autoCapitalize="characters"
+            required
+          />
+          <Text style={bankform.formtitle}>
+            UPI ID
+            <Popable
+              content={
+                "There are lots of UPI apps available like Phonepe, Amazon Pay, Paytm, Bhim, Mobikwik etc. from where you can fetch your UPI ID."
+              }
+              position="right"
+              caret={false}
+            >
+              <Icon name="info-outline" size={20} color="grey" />
+            </Popable>
+          </Text>
+          <TextInput
+            style={bankform.formInput}
+            value={upiId}
+            onChangeText={setUpiId}
+            required
+          />
           <Button
             title="Continue"
             type="solid"
@@ -209,12 +252,12 @@ export default BankInformationForm = () => {
             style={bankform.nextButton}
             color="#4E46F1"
             onPress={() => {
-              VerifyBankAccount()
+              VerifyBankAccount();
             }}
           />
           <View style={bankform.padding}></View>
         </ScrollView>
       </SafeAreaView>
     </>
-  )
-}
+  );
+};

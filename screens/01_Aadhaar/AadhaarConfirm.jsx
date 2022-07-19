@@ -1,44 +1,49 @@
-import React from "react"
+import { AppBar, Button, Icon, IconButton } from "@react-native-material/core";
+import { useNavigation } from "@react-navigation/core";
+import React from "react";
 import {
+  Alert,
   Image,
+  SafeAreaView,
+  ScrollView,
   Text,
   View,
-  SafeAreaView,
-  Alert,
-  ScrollView,
-} from "react-native"
-import { AppBar, IconButton, Icon, Button } from "@react-native-material/core"
-import { useNavigation } from "@react-navigation/core"
-import { useStateValue } from "../../StateProvider"
-import { form, styles, bankform } from "../styles"
-import ProgressBarTop from "../../components/ProgressBarTop"
-import { GenerateDocument } from "../../helpers/GenerateDocument"
-import { putAadhaarData } from "../../services/employees/employeeServices"
+} from "react-native";
+import ProgressBarTop from "../../components/ProgressBarTop";
+import { GenerateDocument } from "../../helpers/GenerateDocument";
+import { putAadhaarData } from "../../services/employees/employeeServices";
+import { bankform, form, styles } from "../styles";
+
+import { useSelector } from "react-redux";
+import { addCurrentScreen } from "../../store/slices/navigationSlice";
 
 export default AadhaarConfirm = () => {
-  const navigation = useNavigation()
-  const [{ AadhaarData, aadhaar, id }, dispatch] = useStateValue()
-  console.log(AadhaarData)
+  const navigation = useNavigation();
+  const AadhaarData = useSelector((state) => state.aadhaar.aadhaarData);
+  const aadhaar = useSelector((state) => state.aadhaar.aadhaar);
+  const id = useSelector((state) => state.auth.userId);
+
+  useEffect(() => {dispatch(addCurrentScreen("AadhaarConfirm"))}, []);
   const onConfirm = () => {
     var aadhaarPayload = GenerateDocument({
       src: "AadhaarOTP",
       id: id,
       aadhaar: aadhaar,
       xml: AadhaarData["aadhaar_data"]["xml_base64"],
-    })
+    });
     putAadhaarData(aadhaarPayload)
       .then((res) => {
-        console.log(aadhaarPayload)
-        console.log(res.data)
+        console.log(aadhaarPayload);
+        console.log(res.data);
         if (res.data["message"]) {
-          Alert.alert("Message", res.data["message"])
+          Alert.alert("Message", res.data["message"]);
         }
-        navigation.navigate("PanCardInfo")
+        navigation.navigate("PanCardInfo");
       })
       .catch((err) => {
-        console.log(err)
-      })
-  }
+        console.log(err);
+      });
+  };
 
   const backAlert = () =>
     Alert.alert(
@@ -52,7 +57,7 @@ export default AadhaarConfirm = () => {
         },
         { text: "OK", onPress: () => navigation.goBack() },
       ]
-    )
+    );
 
   return (
     <SafeAreaView style={styles.container}>
@@ -100,7 +105,7 @@ export default AadhaarConfirm = () => {
               style={form.noButton}
               color="#EB5757"
               onPress={() => {
-                navigation.navigate("AadhaarForm")
+                navigation.navigate("AadhaarForm");
               }}
             />
             <Button
@@ -110,7 +115,7 @@ export default AadhaarConfirm = () => {
               style={form.yesButton}
               color="#4E46F1"
               onPress={() => {
-                onConfirm()
+                onConfirm();
               }}
             />
             <View style={bankform.padding}></View>
@@ -118,5 +123,5 @@ export default AadhaarConfirm = () => {
         </View>
       </ScrollView>
     </SafeAreaView>
-  )
-}
+  );
+};

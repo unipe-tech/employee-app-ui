@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { StyleSheet } from "react-native"
 
 export const styles = StyleSheet.create({
@@ -98,6 +99,108 @@ export const styles = StyleSheet.create({
   },
 })
 
+=======
+import { StyleSheet } from "react-native";
+
+export const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "white",
+    height: "100%",
+  },
+  logo: {
+    marginLeft: 70,
+    marginTop: 30,
+    width: 250,
+    height: 87,
+  },
+  headline: {
+    fontSize: 16,
+    color: "#230C45",
+    marginLeft: 55,
+    marginTop: 40,
+    fontFamily: "Roboto",
+  },
+  fieldLabel: {
+    fontSize: 14,
+    fontFamily: "Noto Sans",
+    marginTop: 60,
+    marginLeft: 40,
+    color: "#020614",
+  },
+  textInput: {
+    marginLeft: 40,
+    width: 320,
+    height: 50,
+    borderBottomWidth: 1,
+  },
+  resendText: {
+    color: "#4E46F1",
+    alignSelf: "center",
+    marginTop: 30,
+    fontSize: 16,
+    fontFamily: "Roboto",
+    textDecorationLine: "underline",
+    fontWeight: "bold",
+  },
+  otpInput: {
+    marginLeft: 105,
+    marginTop: 40,
+    width: 180,
+    height: 50,
+    borderBottomWidth: 1,
+  },
+  ContinueButton: {
+    padding: 10,
+    alignSelf: "center",
+    marginTop: 50,
+    width: 320,
+    height: 60,
+    fontSize: 20,
+  },
+  flexrow: {
+    flexDirection: "row",
+  },
+  otpback: {
+    backgroundColor: "white",
+    width: 50,
+    borderRadius: 40,
+    marginLeft: 10,
+    marginTop: 20,
+  },
+  dataUseText: {
+    marginLeft: 40,
+    marginRight: 20,
+    marginTop: 20,
+    fontSize: 14,
+    fontFamily: "Roboto",
+    color: "gray",
+  },
+  termsText: {
+    fontWeight: "bold",
+    color: "#4E46F1",
+  },
+  otpreadtxt: {
+    marginLeft: 40,
+    marginRight: 20,
+    marginTop: 20,
+    color: "gray",
+    fontSize: 14,
+    fontFamily: "Roboto",
+    fontWeight: "bold",
+  },
+  LoadingButton: {
+    padding: 10,
+    alignSelf: "center",
+    marginTop: 50,
+    width: 320,
+    height: 60,
+    fontSize: 20,
+    backgroundColor: "#4E46F1",
+    borderRadius: 4,
+  },
+});
+
+>>>>>>> develop
 export const buttons = StyleSheet.create({
   ContinueButton: {
     padding: 10,
@@ -110,7 +213,11 @@ export const buttons = StyleSheet.create({
   FAB: {
     backgroundColor: "#4E46F1",
   },
+<<<<<<< HEAD
 })
+=======
+});
+>>>>>>> develop
 
 export const progressBar = StyleSheet.create({
   progressView: {
@@ -125,7 +232,11 @@ export const progressBar = StyleSheet.create({
     marginTop: -3,
     color: "grey",
   },
+<<<<<<< HEAD
 })
+=======
+});
+>>>>>>> develop
 
 export const form = StyleSheet.create({
   formHeader: {
@@ -151,6 +262,7 @@ export const form = StyleSheet.create({
     borderBottomWidth: 2,
   },
   chosenButton: {
+<<<<<<< HEAD
     marginLeft: 15,
     marginTop: 20,
     fontSize: 20,
@@ -164,6 +276,23 @@ export const form = StyleSheet.create({
   },
   labelStyle: {
     fontSize: 14,
+=======
+    padding: 2,
+    marginLeft: 34,
+    marginTop: 20,
+    width: 140,
+    height: 40,
+    fontSize: 20,
+  },
+  choiceButton: {
+    padding: 2,
+    marginLeft: 34,
+    marginTop: 20,
+    width: 140,
+    height: 40,
+    fontSize: 20,
+    backgroundColor: "grey",
+>>>>>>> develop
   },
   nextButton: {
     padding: 10,
@@ -175,7 +304,12 @@ export const form = StyleSheet.create({
   },
   OtpAwaitMsg: {
     color: "#230C45",
+<<<<<<< HEAD
     marginLeft: 55,
+=======
+    marginLeft: 40,
+    marginRight: 20,
+>>>>>>> develop
     marginTop: 30,
     fontSize: 16,
     fontFamily: "Roboto",
@@ -235,6 +369,7 @@ export const form = StyleSheet.create({
     marginLeft: 280,
     marginTop: 10,
   },
+<<<<<<< HEAD
 })
 
 export const checkBox = StyleSheet.create({
@@ -246,10 +381,53 @@ export const checkBox = StyleSheet.create({
     marginTop: 30,
     fontSize: 14,
     color: "#828282",
+=======
+});
+
+export const checkBox = StyleSheet.create({
+  checkBox: {
+    marginLeft: 34,
+    marginTop: 30,
+  },
+  checkBoxText: {
+    marginLeft: 40,
+    marginRight: 20,
+    marginTop: 30,
+    fontSize: 14,
+    color: "#828282",
   },
   padding: {
     marginTop: 30,
   },
+});
+
+export const bankform = StyleSheet.create({
+  formtitle: {
+    marginLeft: 34,
+    marginTop: 20,
+    color: "#828282",
+    fontSize: 14,
+    fontFamily: "Roboto",
+  },
+  formInput: {
+    marginLeft: 34,
+    width: 320,
+    height: 40,
+    borderBottomWidth: 1,
+  },
+  nextButton: {
+    padding: 10,
+    alignSelf: "center",
+    marginTop: 40,
+    width: 320,
+    height: 60,
+    fontSize: 20,
+>>>>>>> develop
+  },
+  padding: {
+    marginTop: 30,
+  },
+<<<<<<< HEAD
   flexRow: { flexDirection: "row" },
 })
 
@@ -339,6 +517,65 @@ export const homeCard = StyleSheet.create({
   },
 })
 
+=======
+  infoCard: {
+    backgroundColor: "rgba(78, 70, 241, 0.1)",
+    width: "85%",
+    marginLeft: 30,
+    marginTop: 10,
+    padding: 10,
+    flex: 0,
+  },
+  infoText: {
+    color: "#333333",
+  },
+  Maintitle: {
+    marginLeft: 30,
+    marginTop: 10,
+    color: "black",
+    fontSize: 18,
+    fontFamily: "Roboto",
+  },
+  subTitle: {
+    marginLeft: 34,
+    marginTop: 20,
+    color: "#828282",
+    fontSize: 16,
+    fontFamily: "Roboto",
+  },
+});
+
+export const homeCard = StyleSheet.create({
+  card: {
+    marginTop: 20,
+    width: 170,
+    borderWidth: 1,
+    borderRadius: 10,
+    marginRight: 10,
+  },
+  title: {
+    fontSize: 16,
+    fontFamily: "Roboto",
+    fontWeight: "bold",
+  },
+  subtitle: {
+    fontSize: 12,
+    fontFamily: "Roboto",
+  },
+  downloadIcon: {
+    marginTop: 30,
+    color: "#4E46F1",
+  },
+  downloadText: {
+    marginTop: 30,
+    fontSize: 12,
+    fontFamily: "Roboto",
+    fontWeight: "bold",
+    color: "#4E46F1",
+  },
+});
+
+>>>>>>> develop
 export const nav = StyleSheet.create({
   titleLogo: {
     width: 160,
@@ -347,7 +584,11 @@ export const nav = StyleSheet.create({
   navbar: {
     height: 80,
   },
+<<<<<<< HEAD
 })
+=======
+});
+>>>>>>> develop
 
 export const docSearch = StyleSheet.create({
   searchBar: {
@@ -363,7 +604,11 @@ export const docSearch = StyleSheet.create({
     borderBottomWidth: 2,
     textAlignVertical: "center",
   },
+<<<<<<< HEAD
 })
+=======
+});
+>>>>>>> develop
 export const Camera = StyleSheet.create({
   container: {
     flex: 1,
@@ -399,9 +644,14 @@ export const Camera = StyleSheet.create({
     color: "#fff",
   },
   back: {
+<<<<<<< HEAD
     flex: 0,
     backgroundColor: "rgba(78, 70, 241, 0.9)",
     borderRadius: 25,
+=======
+    backgroundColor: "rgba(78, 70, 241, 0.9)",
+    borderRadius: 30,
+>>>>>>> develop
     padding: 10,
     alignSelf: "center",
     marginTop: 10,
@@ -418,7 +668,11 @@ export const Camera = StyleSheet.create({
     height: 200,
     width: "100%",
   },
+<<<<<<< HEAD
 })
+=======
+});
+>>>>>>> develop
 
 export const welcome = StyleSheet.create({
   title: {
@@ -443,7 +697,11 @@ export const welcome = StyleSheet.create({
     fontFamily: "Roboto",
   },
   steps: { alignSelf: "center", flex: 1 },
+<<<<<<< HEAD
 })
+=======
+});
+>>>>>>> develop
 
 export const selfie = StyleSheet.create({
   uploadButton: {
@@ -465,4 +723,18 @@ export const selfie = StyleSheet.create({
     height: 300,
     width: 300,
   },
+<<<<<<< HEAD
 })
+=======
+});
+
+export const esic = StyleSheet.create({
+  CollapseTitle: {
+    marginLeft: 34,
+    marginTop: 20,
+    color: "#4E46F1",
+    fontSize: 14,
+    fontFamily: "Roboto",
+  },
+});
+>>>>>>> develop

@@ -1,55 +1,62 @@
-import React from "react"
-import { Text, View, SafeAreaView, Image } from "react-native"
-import { useNavigation } from "@react-navigation/core"
-import { AppBar, IconButton, Icon, Button } from "@react-native-material/core"
-import { styles, welcome, form, checkBox } from "../styles"
-import StepIndicator from "react-native-step-indicator"
-import SplashScreen from "react-native-splash-screen"
-import { MaterialIcons } from "@expo/vector-icons"
+import { MaterialIcons } from "@expo/vector-icons";
+import { Button } from "@react-native-material/core";
+import { useNavigation } from "@react-navigation/core";
+import React, { useEffect } from "react";
+import { Image, SafeAreaView, Text, View } from "react-native";
+import SplashScreen from "react-native-splash-screen";
+import StepIndicator from "react-native-step-indicator";
+import { checkBox, form, styles, welcome } from "../styles";
+import { useDispatch } from "react-redux";
+import { addCurrentScreen } from "../../store/slices/navigationSlice";
 
 export default WelcomePage = () => {
-  const navigation = useNavigation()
-  SplashScreen.hide()
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(addCurrentScreen("Welcome"));
+  }, []);
+
+  const navigation = useNavigation();
+  SplashScreen.hide();
   const getStepIndicatorIconConfig = ({ position, stepStatus }) => {
     const iconConfig = {
       name: "feed",
       color: stepStatus === "finished" ? "#ffffff" : "#4E46F1",
       size: 15,
-    }
+    };
     switch (position) {
       case 0: {
-        iconConfig.name = "smartphone"
-        break
+        iconConfig.name = "smartphone";
+        break;
       }
       case 1: {
-        iconConfig.name = "perm-identity"
-        break
+        iconConfig.name = "perm-identity";
+        break;
       }
       case 2: {
-        iconConfig.name = "mood"
-        break
+        iconConfig.name = "mood";
+        break;
       }
       case 3: {
-        iconConfig.name = "payment"
-        break
+        iconConfig.name = "payment";
+        break;
       }
       case 4: {
-        iconConfig.name = "info-outline"
-        break
+        iconConfig.name = "info-outline";
+        break;
       }
       case 5: {
-        iconConfig.name = "camera-front"
-        break
+        iconConfig.name = "camera-front";
+        break;
       }
       default: {
-        break
+        break;
       }
     }
-    return iconConfig
-  }
+    return iconConfig;
+  };
   const renderStepIndicator = (params) => (
     <MaterialIcons {...getStepIndicatorIconConfig(params)} />
-  )
+  );
   const data = [
     "Mobile Number Verification",
     "Aadhar Card Verification",
@@ -57,7 +64,7 @@ export default WelcomePage = () => {
     "Bank Details",
     "Basic Details",
     "User Photo Capture",
-  ]
+  ];
   const stepIndicatorStyles = {
     stepIndicatorSize: 30,
     currentStepIndicatorSize: 30,
@@ -81,13 +88,13 @@ export default WelcomePage = () => {
     labelColor: "#999999",
     labelSize: 14,
     currentStepLabelColor: "#4E46F1",
-  }
+  };
   return (
     <>
       <SafeAreaView style={styles.container}>
         <Image
           style={styles.logo}
-          source={require("../../assets/unipe-Thumbnail.png")}
+          source={require("../assets/unipe-Thumbnail.png")}
         />
         <Text style={welcome.mainTitle}>Hello,</Text>
         <Text style={welcome.subTitle}>
@@ -113,12 +120,11 @@ export default WelcomePage = () => {
           title="Welcome! Let’s start onboarding process with Unipe"
           uppercase={false}
           onPress={() => {
-            // navigation.navigate("Login")
-            navigation.navigate("DevMenu")
+            navigation.navigate("Login");
           }}
         ></Button>
         <View style={checkBox.padding}></View>
       </SafeAreaView>
     </>
-  )
-}
+  );
+};
