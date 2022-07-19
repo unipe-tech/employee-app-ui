@@ -1,29 +1,14 @@
-import React, { useEffect, useState } from "react"
-import {
-  Text,
-  View,
-  SafeAreaView,
-  TextInput,
-  ScrollView,
-  Alert,
-} from "react-native"
-import { Picker } from "@react-native-picker/picker"
-import { useNavigation } from "@react-navigation/core"
-import {
-  AppBar,
-  IconButton,
-  Icon,
-  Button,
-  Chip,
-} from "@react-native-material/core"
-import { form, bankform, styles } from "../styles"
-import ProgressBarTop from "../../components/ProgressBarTop"
-import { useStateValue } from "../../StateProvider"
-import { GenerateDocument } from "../../helpers/GenerateDocument"
-import { putProfileData } from "../../services/employees/employeeServices"
-import Input from "../../components/Input"
-import PrimaryButton from "../../components/PrimaryButton"
-import DropdownPicker from "../../components/DropdownPicker"
+import { AppBar, Button, Icon, IconButton } from "@react-native-material/core";
+import { Picker } from "@react-native-picker/picker";
+import { useNavigation } from "@react-navigation/core";
+import React, { useEffect, useState } from "react";
+import { SafeAreaView, ScrollView, Text, TextInput, View } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import ProgressBarTop from "../../components/ProgressBarTop";
+import { addAlternatePhone, addEducationalQualification, addEmail, addMaritalStatus} from "../../store/slices/profileSlice";
+import { addCurrentScreen } from "../../store/slices/navigationSlice";
+import { bankform, form, styles } from "../styles";
+
 
 export default PersonalDetailsForm = () => {
   const educationalQualifications = [
@@ -32,26 +17,21 @@ export default PersonalDetailsForm = () => {
     "Graduate",
     "Post Graduate",
     "None of the Above",
-  ]
-  const maritalStatuses = ["Unmarried", "Married"]
-  const [{ id }, dispatch] = useStateValue()
-  const [maritalStatus, setMaritalStatus] = useState("")
-  const [educationalQualification, setEducationallQualification] = useState("")
-  const [alternatePhone, setAlternatePhone] = useState("")
-  const [email, setEmail] = useState("")
-  const navigation = useNavigation()
+  ];
+  const maritalStatuses = ["Unmarried", "Married"];
+  const [maritalStatus, setMaritalStatus] = useState(useSelector((state) => state.profile["maritalStatus"]));
+  const [educationalQualification, setEducationallQualification] = useState(useSelector((state) => state.profile["educationalQualification"]));
+  const [alternatePhone, setAlternatePhone] = useState(useSelector((state) => state.profile["alternatePhone"]));
+  const [email, setEmail] = useState(useSelector((state) => state.profile["email"]));
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+  
+  useEffect(() => {dispatch(addCurrentScreen("PersonalDetailsForm"))}, []);
+  useEffect(() => {dispatch(addMaritalStatus(maritalStatus))}, [maritalStatus]);
+  useEffect(() => {dispatch(addEducationalQualification(educationalQualification))}, [educationalQualification]);
+  useEffect(() => {dispatch(addAlternatePhone(alternatePhone))}, [alternatePhone]);
+  useEffect(() => {dispatch(addEmail(email))}, [email]);
 
-  const onFinish = () => {
-    dispatch({
-      type: "SET_PROFILE",
-      payload: {
-        maritalStatus: maritalStatus,
-        qualification: educationalQualification,
-        altMobile: alternatePhone,
-        email: email,
-      },
-    })
-  }
   return (
     <>
       <SafeAreaView style={styles.container}>
@@ -70,21 +50,23 @@ export default PersonalDetailsForm = () => {
         <Text style={form.formHeader}>Employee basic details</Text>
         <ScrollView keyboardShouldPersistTaps="handled">
           <Text style={form.formLabel}>Select Education*</Text>
-
-          <DropdownPicker
-            promptText={"Educational Qualification"}
-            value={educationalQualification}
-            setValue={(itemValue) => setEducationallQualification(itemValue)}
+          <Picker
+            selectedValue={educationalQualification}
+            style={form.picker}
+            onValueChange={(itemValue) =>
+              setEducationallQualification(itemValue)
+            }
+            prompt="Educational Qualification"
           >
             {educationalQualifications.map((item, index) => {
-              return <Picker.Item label={item} value={item} />
+              return <Picker.Item label={item} value={item} />;
             })}
-          </DropdownPicker>
+          </Picker>
           <Text style={form.formLabel}>Marital Status*</Text>
           <View style={styles.flexrow}>
             {maritalStatuses.map((item, index) => {
               return (
-                <Chip
+                <Button
                   key={index}
                   uppercase={false}
                   style={
@@ -92,51 +74,47 @@ export default PersonalDetailsForm = () => {
                       ? form.chosenButton
                       : form.choiceButton
                   }
-                  label={item}
-                  labelStyle={form.labelStyle}
+                  title={item}
                   type="solid"
-                  variant="outlined"
-                  color={maritalStatus == item ? "white" : "#4E46F1"}
-                  tintColor="#4e46e1"
+                  color="#4E46F1"
                   onPress={() => setMaritalStatus(item)}
                 />
-              )
+              );
             })}
           </View>
-          <Input
+          <Text style={form.formLabel}>Enter your alternate mobile number</Text>
+          <TextInput
+            style={styles.textInput}
             value={alternatePhone}
-            label="Enter your alternate mobile number"
-            setValue={setAlternatePhone}
-            otherProps={{
-              keyboardType: "phone-pad",
-              textContentType: "telephoneNumber",
-              autoCompleteType: "tel",
-            }}
+            onChangeText={setAlternatePhone}
+            autoCompleteType="tel"
+            keyboardType="phone-pad"
+            textContentType="telephoneNumber"
             required
-            maxLength={10}
             placeholder="XXXXXXXXXX"
           />
-          <Input
-            label="Enter your Email ID"
+          <Text style={form.formLabel}>Enter your Email ID</Text>
+          <TextInput
+            style={form.formTextInput}
             value={email}
             onChangeText={setEmail}
             placeholder="Enter Email"
             required
           />
 
-          <PrimaryButton
+          <Button
             title="Continue"
             type="solid"
             uppercase={false}
+            style={form.nextButton}
             color="#4E46F1"
             onPress={() => {
-              onFinish()
-              navigation.navigate("PersonalImage")
+              navigation.navigate("PersonalImage");
             }}
           />
           <View style={bankform.padding}></View>
         </ScrollView>
       </SafeAreaView>
     </>
-  )
-}
+  );
+};

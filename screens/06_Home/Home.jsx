@@ -1,46 +1,53 @@
-import React, { useEffect, useState } from "react"
-import { Image, Text, View, SafeAreaView, TextInput } from "react-native"
-import { useStateValue } from "../../StateProvider"
-import { useNavigation } from "@react-navigation/core"
-import { styles, nav, buttons } from "../styles"
-import { AppBar, IconButton, Icon, Button } from "@react-native-material/core"
-import BottomTabNav from "../../components/BottomTabNav"
-import HomeView from "./HomeView"
-// import Amplify from '@aws-amplify/core';
-// import Auth from '@aws-amplify/auth';
-// import awsconfig from '../src/aws-exports';
+import { AppBar, Icon, IconButton } from "@react-native-material/core";
+import { useNavigation } from "@react-navigation/core";
+import React, { useEffect } from "react";
+import { Image, SafeAreaView } from "react-native";
+import BottomTabNav from "../components/BottomTabNav";
+import HomeView from "./HomeView";
+import { buttons, nav } from "./styles";
+import { useDispatch }../HomeViewct-redux";
+import { addCurrentScreen } from "../store/slices/navigationSlice";
+
+// import Amplify from "@aws-amplify/core";
+// import Auth from "@aws-amplify/auth";
+// import awsconfig from "../src/aws-exports";
 // Amplify.configure(awsconfig);
 
-import { FAB, Portal, Provider } from "react-native-paper"
+import { FAB, Portal, Provider } from "react-native-paper";
+import Document from "./Documents";
+import Benefits from "./Benefits";
 
 export default Home = () => {
-  const [state, setState] = React.useState({ open: false })
-  const onStateChange = ({ open }) => setState({ open })
-  const { open } = state
-
-  const [{ user }, dispatch] = useStateValue()
+  const [state, setState] = React.useState({ open: false });
+  const onStateChange = ({ open }) => setState({ open });
+  const { open } = state;
   const tabs = [
     { name: "Home", component: HomeView },
-    { name: "Documents", component: HomeView },
-    { name: "Benefits", component: HomeView },
+    { name: "Documents", component: Document },
+    { name: "Benefits", component: Benefits },
     { name: "Banking", component: HomeView },
-  ]
-  const signOut = () => {
-    if (user) {
-      Auth.signOut()
-      dispatch({
-        type: "SET_USER",
-        payload: null,
-      })
-      navigation.navigate("Login")
-      console.log("signed out")
-    } else {
-      console.log("No user to sign out")
-    }
-  }
-  const navigation = useNavigation()
-  console.log("USER REGED")
-  console.log(user)
+  ];
+  // const signOut = () => {
+  //   if (user) {
+  //     Auth.signOut();
+  //     dispatch({
+  //       type: "SET_USER",
+  //       payload: null,
+  //     });
+  //     navigation.navigate("Login");
+  //     console.log("signed out");
+  //   } else {
+  //     console.log("No user to sign out");
+  //   }
+  // };
+
+  const navigation = useNavigation();
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(addCurrentScreen("Home"));
+  }, []);
+
   return (
     <>
       <SafeAreaView style={{ flex: 1 }}>
@@ -49,7 +56,7 @@ export default Home = () => {
             title={
               <Image
                 style={nav.titleLogo}
-                source={require("../../assets/unipe-Thumbnail.png")}
+                source={require("../assets/unipe-Thumbnail.png")}
               />
             }
             centerTitle={true}
@@ -104,5 +111,5 @@ export default Home = () => {
         </Provider>
       </SafeAreaView>
     </>
-  )
-}
+  );
+};

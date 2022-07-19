@@ -1,53 +1,43 @@
-import React, { useState, useEffect } from "react"
+import { OG_API_KEY } from "@env";
+import { AppBar, Button, Icon, IconButton } from "@react-native-material/core";
+import { useNavigation } from "@react-navigation/core";
+import React, { useEffect, useState } from "react";
 import {
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-  TextInput,
-  Image,
-  ScrollView,
   Alert,
   Linking,
-} from "react-native"
-import { AppBar, IconButton, Icon, Button } from "@react-native-material/core"
-import { useNavigation } from "@react-navigation/core"
-import { ProgressBar } from "@react-native-community/progress-bar-android"
-import {
-  styles,
-  form,
-  progressBar,
-  Camera,
-  checkBox,
-  bankform,
-} from "../styles"
-import { useStateValue } from "../../StateProvider"
-import { CF_API_KEY } from "@env"
-import ProgressBarTop from "../../components/ProgressBarTop"
-import { GenerateDocument } from "../../helpers/GenerateDocument"
-import { putPanData } from "../../services/employees/employeeServices"
-import Input from "../../components/Input"
-import InfoCard from "../../components/InfoCard"
+  SafeAreaView,
+  ScrollView,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
+import ProgressBarTop from "../../components/ProgressBarTop";
+import { GenerateDocument } from "../../helpers/GenerateDocument";
+import { putPanData } from "../../services/employees/employeeServices";
+import { bankform, checkBox, form, styles } from "../styles";
+
+import { useDispatch, useSelector } from "react-redux";
+import { addPanNumber, addPanVerifyStatus } from "../../store/slices/panSlice";
+import { addCurrentScreen } from "../../store/slices/navigationSlice";
 
 export default PanCardInfo = () => {
-  const navigation = useNavigation()
-  const [pan, setPan] = useState("")
-  const [PANKeyboard, setPANKeyboard] = useState("")
-  const [next, setNext] = useState()
-  const [{ id }, dispatch] = useStateValue()
-  const [panName, setPanName] = useState("")
-  const [birthday, setBirthday] = useState("")
+  const navigation = useNavigation();
+  const [pan, setPan] = useState(useSelector((state) => state.pan.number));
+  const [next, setNext] = useState();
+  const dispatch = useDispatch();
+  const id = useSelector((state) => state.auth.userId);
+  const [panName, setPanName] = useState("");
+  const [birthday, setBirthday] = useState("");
 
-  // console.log();
-  // putPanData()
-
+  useEffect(() => {dispatch(addCurrentScreen("PanCardInfo"))}, []);
   useEffect(() => {
     if (pan.length === 10) {
-      setNext(true)
+      setNext(true);
+      dispatch(addPanNumber(pan));
     } else {
-      setNext(false)
+      setNext(false);
     }
-  }, [pan])
+  }, [pan]);
 
   const VerifyPAN = () => {
     const data = {
@@ -55,28 +45,29 @@ export default PanCardInfo = () => {
       name: panName,
       date_of_birth: birthday,
       consent: "Y",
-    }
+    };
     const options = {
       method: "POST",
       headers: {
         "X-Auth-Type": "API-Key",
-        "X-API-Key": CF_API_KEY,
+        "X-API-Key": OG_API_KEY,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-    }
+    };
 
     fetch(`https://api.gridlines.io/pan-api/v2/verify`, options)
       .then((response) => response.json())
       .then((response) => {
-        console.log(response)
+        console.log(response);
         {
           if (response["status"] == "200") {
             switch (response["data"]["code"]) {
               case "1001":
-                PanPush()
-                RetrievePAN()
-                break
+                PanPush();
+                RetrievePAN();
+                dispatch(addPanVerifyStatus("SUCCESS"));
+                break;
 
               case "1002":
                 response["data"]["pan_data"]["name_match_status"] == "NO_MATCH"
@@ -87,89 +78,71 @@ export default PanCardInfo = () => {
                   : Alert.alert(
                       "Pan Number Verification status",
                       `Partial details matched, Please Check DOB.`
-                    )
-                break
-
+                    );
+                
+                break;
               case "1004":
                 Alert.alert(
                   "Pan Number Verification status",
                   `PAN number incorrect.`
-                )
-                break
+                );
+                break;
             }
           } else {
-            Alert.alert("Error", response["error"]["message"])
+            Alert.alert("Error", response["error"]["message"]);
           }
         }
       })
-      .catch((err) => Alert.alert("Error", err))
-  }
+      .catch((err) => Alert.alert("Error", err));
+  };
 
   const PanPush = () => {
-    var panPayload = GenerateDocument({ src: "Pan", id: id, pan: pan })
+    var panPayload = GenerateDocument({ src: "Pan", id: id, pan: pan });
     putPanData(panPayload)
       .then((res) => {
-        console.log(panPayload)
-        console.log(res.data)
-        Alert.alert("Message", res.data["message"])
+        console.log(panPayload);
+        console.log(res.data);
+        Alert.alert("Message", res.data["message"]);
       })
       .catch((err) => {
-        console.log(err)
-      })
-  }
+        console.log(err);
+      });
+  };
 
   const RetrievePAN = () => {
     const data = {
       pan_number: pan,
       consent: "Y",
-    }
+    };
     const options = {
       method: "POST",
       headers: {
         "X-Auth-Type": "API-Key",
-        "X-API-Key": CF_API_KEY,
+        "X-API-Key": OG_API_KEY,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-    }
+    };
 
     fetch(`https://api.gridlines.io/pan-api/fetch-detailed`, options)
       .then((response) => response.json())
       .then((response) => {
-        console.log(response)
+        console.log(response);
         Alert.alert(
           "PAN Information",
           `PAN: ${pan}\nName: ${panName}\nGender: ${response["data"]["pan_data"]["gender"]}\nEmail: ${response["data"]["pan_data"]["email"]}`
-        )
-        navigation.navigate("BankInfoForm")
+        );
+        navigation.navigate("BankInfoForm");
       })
-      .catch((err) => Alert.alert("Error", err))
-  }
+      .catch((err) => Alert.alert("Error", err));
+  };
 
   useEffect(() => {
     const birthdayChange = () => {
-      setBirthday(birthday.replace(/^(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"))
-    }
-    return birthdayChange()
-  }, [birthday])
-
-  const PANEnter = () => {
-    if (PANKeyboard !== undefined) {
-      if (pan.length === 5) {
-        setPANKeyboard("number-pad")
-      } else if (pan.length === 9) {
-        setPANKeyboard("default")
-      } else if (pan.length === 0) {
-        setPANKeyboard("default")
-      }
-    } else {
-      setPANKeyboard("default")
-    }
-  }
-
-  useEffect(() => {
-    PANEnter()
-  }, [pan.length])
+      setBirthday(birthday.replace(/^(\d{4})(\d{2})(\d{2})/, "$1-$2-$3"));
+    };
+    return birthdayChange();
+  }, [birthday]);
 
   return (
     <>
@@ -189,14 +162,12 @@ export default PanCardInfo = () => {
 
         <ScrollView keyboardShouldPersistTaps="handled">
           <View style={checkBox.padding} />
-          <Input
-            otherProps={{
-              autoCapitalize: "characters",
-              keyboardType: PANKeyboard,
-            }}
+          <Text style={form.formLabel}>Enter PAN Number</Text>
+          <TextInput
+            style={form.formTextInput}
+            autoCapitalize="characters"
             value={pan}
-            label="Enter PAN Number"
-            setValue={setPan}
+            onChangeText={setPan}
             maxLength={10}
             placeholder="Enter PAN Number"
             required
@@ -213,26 +184,29 @@ export default PanCardInfo = () => {
               Forgot PAN?
             </Text>
           </View>
-
-          <Input
-            label="Name as per PAN Card"
-            otherProps={{ autoCapitalize: "words" }}
+          <Text style={form.formLabel}>Name as per PAN Card</Text>
+          <TextInput
+            style={form.formTextInput}
+            autoCapitalize="words"
             value={panName}
-            setValue={setPanName}
+            onChangeText={setPanName}
             placeholder="Enter Name Registered with PAN"
             required
           />
-          <Input
-            label="Date of birth as recorded in PAN"
+          <Text style={form.formLabel}>Date of birth as recorded in PAN</Text>
+          <TextInput
+            style={form.formTextInput}
             value={birthday}
-            setValue={setBirthday}
+            onChangeText={setBirthday}
             placeholder="YYYY-MM-DD"
             maxLength={10}
           />
-          <InfoCard
-            title={"PAN is needed to verify your name and date of birth"}
-            iconName="info-outline"
-          />
+          <View style={bankform.infoCard}>
+            <Text style={bankform.infoText}>
+              <Icon name="info-outline" size={20} color="#4E46F1" />
+              PAN is needed to verify your name and date of birth
+            </Text>
+          </View>
           {next ? (
             <Button
               uppercase={false}
@@ -241,8 +215,7 @@ export default PanCardInfo = () => {
               color="#4E46F1"
               style={form.nextButton}
               onPress={() => {
-                // VerifyPAN()
-                PanPush()
+                VerifyPAN();
               }}
             />
           ) : (
@@ -258,5 +231,5 @@ export default PanCardInfo = () => {
         </ScrollView>
       </SafeAreaView>
     </>
-  )
-}
+  );
+};
