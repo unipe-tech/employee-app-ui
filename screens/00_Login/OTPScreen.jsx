@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react";
 import {
   Image,
   Text,
@@ -7,39 +7,44 @@ import {
   TextInput,
   ScrollView,
   Alert,
-} from "react-native"
-import { Button, Icon, IconButton } from "@react-native-material/core"
-import { useNavigation } from "@react-navigation/core"
-import { useStateValue } from "../../StateProvider"
-import { styles } from "../styles"
-import SmsRetriever from "react-native-sms-retriever"
-import { checkVerification } from "../../services/otp/Twilio/verify"
-import CountDown from "react-native-countdown-component"
-import { sendSmsVerification } from "../../services/otp/Twilio/verify"
+} from "react-native";
+import { Button, Icon, IconButton } from "@react-native-material/core";
+import { useNavigation } from "@react-navigation/core";
+import { styles } from "../styles";
+import SmsRetriever from "react-native-sms-retriever";
+import { checkVerification, sendSmsVerification } from "../../services/otp/Twilio/verify";
+import CountDown from "react-native-countdown-component";
+import { useDispatch, useSelector } from "react-redux";
+import { addVerifyStatus } from "../../store/slices/authSlice";
+import { addCurrentScreen } from "../../store/slices/navigationSlice";
+
 export default OTPScreen = () => {
-  const navigation = useNavigation()
-  const [{ phone_number, id }, dispatch] = useStateValue()
-  const [otp, setOtp] = useState("")
-  const [next, setNext] = useState(false)
-  const [user, setUser] = useState(null)
-  const [back, setBack] = useState(false)
+  const phoneNumber = useSelector((state) => state.auth.phoneNumber);
+  const navigation = useNavigation();
+  const [otp, setOtp] = useState("");
+  const [next, setNext] = useState(false);
+  const [user, setUser] = useState(null);
+  const [back, setBack] = useState(false);
+
+  const dispatch = useDispatch();
+  useEffect(() => {dispatch(addCurrentScreen("Otp"))}, []);
 
   // HHrHWFsvgjF
 
-  useEffect(() => {
-    dispatch({
-      type: "SET_USER",
-      payload: user,
-    })
-  }, [user])
+  // useEffect(() => {
+  //   dispatch({
+  //     type: "SET_USER",
+  //     payload: user,
+  //   });
+  // }, [user]);
 
   useEffect(() => {
     if (otp.length === 6) {
-      setNext(true)
+      setNext(true);
     } else {
-      setNext(false)
+      setNext(false);
     }
-  }, [otp])
+  }, [otp]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -65,12 +70,12 @@ export default OTPScreen = () => {
           </View>
           <Image
             style={styles.logo}
-            source={require("../../assets/unipe-Thumbnail.png")}
+            source={require("../assets/unipe-Thumbnail.png")}
           />
           <Text style={styles.headline}>
             {" "}
             Please wait, we will auto verify the OTP {"\n"} sent to{" "}
-            {phone_number}
+            {phoneNumber}
             {back ? (
               <Icon
                 name="edit"
@@ -104,7 +109,7 @@ export default OTPScreen = () => {
           <CountDown
             until={60}
             onFinish={() => {
-              setBack(true)
+              setBack(true);
             }}
             size={20}
             style={{ marginTop: 20 }}
@@ -117,9 +122,10 @@ export default OTPScreen = () => {
             <Text
               style={styles.resendText}
               onPress={() => {
-                sendSmsVerification(phone_number).then((sent) => {
-                  console.log("Sent!")
-                })
+                sendSmsVerification(phoneNumber).then((sent) => {
+                  console.log("Sent!");
+                });
+                setOtp("");
               }}
             >
               Resend
@@ -127,8 +133,8 @@ export default OTPScreen = () => {
           ) : null}
           <Text style={styles.otpreadtxt}>
             {" "}
-            Sit back & relax while we fetch the OTP & log {"\n"} you inside the
-            Unipe App
+            Sit back & relax while we fetch the OTP & log you inside the Unipe
+            App
           </Text>
           {next ? (
             <Button
@@ -138,11 +144,13 @@ export default OTPScreen = () => {
               color="#4E46F1"
               style={styles.ContinueButton}
               onPress={() => {
-                checkVerification(phone_number, otp).then((success) => {
-                  if (!success) Alert.alert("err", "Incorrect OTP")
-                  success && navigation.navigate("AadhaarForm")
-                  SmsRetriever.removeSmsListener()
-                })
+                checkVerification(phoneNumber, otp).then((success) => {
+                  if (!success) Alert.alert("err", "Incorrect OTP");
+                  success && navigation.navigate("AadhaarForm");
+                  console.log(phoneNumber,otp)
+                  dispatch(addVerifyStatus("SUCCESS"));
+                  SmsRetriever.removeSmsListener();
+                });
               }}
             />
           ) : (
@@ -157,5 +165,5 @@ export default OTPScreen = () => {
         </View>
       </ScrollView>
     </SafeAreaView>
-  )
-}
+  );
+};

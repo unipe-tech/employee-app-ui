@@ -1,37 +1,37 @@
-import React, { useState, useEffect } from "react"
-import { KeyboardAvoidingView, Platform } from "react-native"
-import { NavigationContainer } from "@react-navigation/native"
-import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import { SafeAreaProvider } from "react-native-safe-area-context"
-import LoginScreen from "./screens/00_Login/LoginScreen"
-import { StateProvider } from "./StateProvider"
-import reducer, { initialState } from "./reducer/reducer"
-import OTPScreen from "./screens/00_Login/OTPScreen"
-import { IconComponentProvider } from "@react-native-material/core"
-import Icon from "react-native-vector-icons/MaterialIcons"
-import PersonalDetailsForm from "./screens/04_BasicDetails/PersonalDetailsForm"
-import AadhaarForm from "./screens/01_Aadhaar/AadhaarForm"
-import AadhaarVerify from "./screens/01_Aadhaar/AadhaarVerify"
-import AadhaarConfirm from "./screens/01_Aadhaar/AadhaarConfirm"
-import PanCardInfo from "./screens/02_PanCard/PanCardInfo"
-import BankInformationForm from "./screens/03_BankDetails/BankInformationForm"
-import Home from "./screens/06_Home/Home"
-import WelcomePage from "./screens/00_Login/WelcomePage"
-import PersonalImage from "./screens/05_ImageCapture/PersonalImage"
-import { Provider } from "react-redux"
-import DevMenu from "./screens/DevMenu"
-import ExpoPhotoCapture from "./screens/Utils/ExpoPhotoCapture"
-import RNPhotoCapture from "./screens/Utils/RNPhotoCapture"
-import { ENV_NAME } from "@env"
-import SplashScreen from "react-native-splash-screen"
+import { IconComponentProvider } from "@react-native-material/core";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import React from "react";
+import { KeyboardAvoidingView, Platform } from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import { Provider } from "react-redux";
 
-const Stack = createNativeStackNavigator()
+import LoginScreen from "./screens/00_Login/LoginScreen";
+import OTPScreen from "./screens/00_Login/OTPScreen";
+import WelcomePage from "./screens/00_Login/WelcomePage";
+import AadhaarConfirm from "./screens/01_Aadhaar/AadhaarConfirm";
+import AadhaarForm from "./screens/01_Aadhaar/AadhaarForm";
+import AadhaarVerify from "./screens/01_Aadhaar/AadhaarVerify";
+import PanCardInfo from "./screens/02_PanCard/PanCardInfo";
+import BankInformationForm from "./screens/03_BankDetails/BankInformationForm";
+import PersonalDetailsForm from "./screens/04_BasicDetails/PersonalDetailsForm";
+import PersonalImage from "./screens/05_ImageCapture/PersonalImage";
+import Home from "./screens/06_Home/Home";
+
+import ExpoPhotoCapture from "./screens/utils/ExpoPhotoCapture";
+import RNPhotoCapture from "./screens/utils/RNPhotoCapture";
+
+import DevMenu from "./screens/DevMenu";
+
+import { store } from "./store/store";
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   SplashScreen.hide()
 
   return (
-    <StateProvider initialState={initialState} reducer={reducer}>
+    <Provider store={store}>
       <NavigationContainer>
         <SafeAreaProvider style={{ backgroundColor: "white", flex: 1 }}>
           <IconComponentProvider IconComponent={Icon}>
@@ -71,7 +71,7 @@ export default function App() {
                   }}
                 />
                 <Stack.Screen
-                  name="PersonalInfoForm"
+                  name="PersonalDetailsForm"
                   component={PersonalDetailsForm}
                   options={{
                     headerShown: false,
@@ -142,7 +142,6 @@ export default function App() {
                     header: null,
                   }}
                 />
-
                 <Stack.Screen
                   name="PersonalImage"
                   component={PersonalImage}
@@ -156,6 +155,6 @@ export default function App() {
           </IconComponentProvider>
         </SafeAreaProvider>
       </NavigationContainer>
-    </StateProvider>
-  )
+    </Provider>
+  );
 }

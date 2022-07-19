@@ -1,39 +1,44 @@
-import React, { useState, useEffect } from "react"
-import { Text, TouchableOpacity, View } from "react-native"
-import { RNCamera } from "react-native-camera"
-import { useNavigation } from "@react-navigation/core"
-const RNFS = require("react-native-fs")
-import { Camera } from "../styles"
-import { Icon } from "@react-native-material/core"
-import { useStateValue } from "../../StateProvider"
+import { Icon } from "@react-native-material/core";
+import { useNavigation } from "@react-navigation/core";
+import React, { useEffect, useState } from "react";
+import { Text, TouchableOpacity, View } from "react-native";
+import { RNCamera } from "react-native-camera";
+import { Camera } from "../styles";
+const RNFS = require("react-native-fs");
+
+import { useDispatch } from "react-redux";
+import { addAadhaarImage } from "../../store/slices/aadhaarSlice";
+import { addSelfie } from "../../store/slices/profileSlice";
 
 const PendingView = () => (
   <View style={Camera.wait}>
     <Text>Waiting</Text>
   </View>
-)
+);
 
-const RNPhotoCapture = (props) => {
+
+export const RNPhotoCapture = (props) => {
   const navigation = useNavigation()
   const [{ user }, dispatch] = useStateValue()
   const [id, setId] = useState(null)
+
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch({
-      type: "SET_ID",
-      payload: { data: id, type: props.route?.params?.type },
-    })
-  }, [id])
+    if (props.route.params.type.match(/^AADHAAR/)) {
+      dispatch(addAadhaarImage({ data: id, type: props.route.params.type }));
+    } else if (props.route.params.type.match(/^SELFIE/)) {
+      dispatch(addSelfie({ data: id, type: props.route.params.type }));
+    }
+  }, [id]);
 
-  const { front } = props.route?.params
-
-  const takePicture = async function (camera) {
-    const options = { quality: 0.5, base64: true }
-    const data = await camera.takePictureAsync(options)
-    const base64image = await RNFS.readFile(data.uri, "base64")
-    setId(base64image)
-    // navigation.goBack({ imgUri: data.uri })
-    navigation.navigate(props.route.params.routeName, { dataUri: data.uri })
-  }
+  takePicture = async function (camera) {
+    const options = { quality: 0.5, base64: true };
+    const data = await camera.takePictureAsync(options);
+    const base64image = await RNFS.readFile(data.uri, "base64");
+    setId(base64image);
+    navigation.goBack();
+  };
 
   return (
     <View style={Camera.container}>
@@ -57,7 +62,7 @@ const RNPhotoCapture = (props) => {
         }}
       >
         {({ camera, status, recordAudioPermissionStatus }) => {
-          if (status !== "READY") return <PendingView />
+          if (status !== "READY") return <PendingView />;
           return (
             <View style={Camera.buttons}>
               <TouchableOpacity
@@ -73,11 +78,9 @@ const RNPhotoCapture = (props) => {
                 <Text style={Camera.buttonText}> Capture </Text>
               </TouchableOpacity>
             </View>
-          )
+          );
         }}
       </RNCamera>
     </View>
-  )
-}
-
-export default RNPhotoCapture
+  );
+};

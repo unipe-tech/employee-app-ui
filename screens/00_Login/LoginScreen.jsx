@@ -1,46 +1,50 @@
-import React, { useEffect, useState } from "react"
+import { Button } from "@react-native-material/core";
+import { useNavigation } from "@react-navigation/core";
+import React, { useEffect, useState } from "react";
 import {
-  Image,
-  Text,
-  ScrollView,
-  SafeAreaView,
-  TextInput,
-  Linking,
-  View,
   ActivityIndicator,
-  TouchableOpacity,
   Alert,
-} from "react-native"
-import { useNavigation } from "@react-navigation/core"
-import { useStateValue } from "../../StateProvider"
-import { Button } from "@react-native-material/core"
-import { styles } from "../styles"
+  Image,
+  Linking,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { styles } from "../styles";
 
-import SmsRetriever from "react-native-sms-retriever"
-import { sendSmsVerification } from "../../services/otp/Twilio/verify"
-import { GenerateDocument } from "../../helpers/GenerateDocument"
-import { putMobileData } from "../../services/employees/employeeServices"
-import PrimaryButton from "../../components/PrimaryButton"
+import SmsRetriever from "react-native-sms-retriever";
+import { GenerateDocument } from "../../helpers/GenerateDocument";
+import { putMobileData } from "../../services/employees/employeeServices";
+import { sendSmsVerification } from "../../services/otp/Twilio/verify";
+
+import { useDispatch } from "react-redux";
+import { addId, addPhoneNumber } from "../../store/slices/authSlice";
+import { addCurrentScreen } from "../../store/slices/navigationSlice";
 
 export default LoginScreen = () => {
-  const navigation = useNavigation()
-  const [phoneNumber, setPhoneNumber] = useState("+91")
-  const [next, setNext] = useState(false)
-  const [{ user }, dispatch] = useStateValue()
-  const [session, setSession] = useState(null)
-  const password = Math.random().toString(8) + "Abc#"
-  const [isLoading, setIsLoading] = useState(false)
-  const [id, setId] = useState(null)
+  const navigation = useNavigation();
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [next, setNext] = useState(false);
+  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
+  const [id, setId] = useState(null);
+
+  useEffect(() => {
+    dispatch(addCurrentScreen("Login"));
+  }, []);
 
   const onPhoneNumberPressed = async () => {
     try {
-      const phn = await SmsRetriever.requestPhoneNumber()
-      console.log(phn)
-      setPhoneNumber(phn)
+      const phn = await SmsRetriever.requestPhoneNumber();
+      console.log(phn);
+      setPhoneNumber(`+91${phn}`);
     } catch (error) {
-      console.log(JSON.stringify(error))
+      console.log(JSON.stringify(error));
     }
-  }
+  };
 
   // const signIn = () => {
   //   Auth.signIn(phoneNumber)
@@ -81,67 +85,64 @@ export default LoginScreen = () => {
   const signIn = () => {
     sendSmsVerification(phoneNumber)
       .then((sent) => {
-        console.log("Sent!")
-        setIsLoading(true)
-        var phonePayload = GenerateDocument({ src: "otp", number: phoneNumber })
+        console.log("Sent!");
+        setIsLoading(true);
+        var phonePayload = GenerateDocument({
+          src: "otp",
+          number: phoneNumber,
+        });
         putMobileData(phonePayload)
           .then((res) => {
-            console.log(phonePayload)
-            console.log(res.data)
+            console.log(phonePayload);
+            console.log(res.data);
             if (res.data["message"]) {
-              Alert.alert("Error", res.data["message"])
+              Alert.alert("Error", res.data["message"]);
             } else {
-              setId(res.data["id"])
+              setId(res.data["id"]);
             }
           })
           .catch((err) => {
-            console.log(err)
-          })
-        navigation.navigate("Otp")
+            console.log(err);
+          });
+        navigation.navigate("Otp");
       })
       .catch((err) => {
-        console.log(err)
-      })
-  }
+        console.log(err);
+      });
+  };
 
   useEffect(() => {
-    dispatch({
-      type: "SET_USERID",
-      payload: id,
-    })
-  }, [id])
+    dispatch(addId(id));
+  }, [id]);
 
   useEffect(() => {
-    dispatch({
-      type: "SET_PHONE",
-      payload: phoneNumber,
-    })
-  }, [phoneNumber])
+    dispatch(addPhoneNumber(`+91${phoneNumber}`));
+  }, [phoneNumber]);
 
   useEffect(() => {
-    var phoneno = /^(\+91)? ?[0-9]{10}$/gm
+    var phoneno = /^[0-9]{10}$/gm;
     if (
-      (phoneno.test(phoneNumber) && phoneNumber.length === 12) ||
+      (phoneno.test(phoneNumber) && phoneNumber.length === 10) ||
       phoneNumber.length === 13
     ) {
-      setNext(true)
-      console.log("true")
+      setNext(true);
+      console.log("true");
     } else {
-      setNext(false)
-      console.log("false")
+      setNext(false);
+      console.log("false");
     }
-  }, [phoneNumber])
+  }, [phoneNumber]);
 
   useEffect(() => {
-    onPhoneNumberPressed()
-  }, [])
+    onPhoneNumberPressed();
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView keyboardShouldPersistTaps="handled">
         <Image
           style={styles.logo}
-          source={require("../../assets/unipe-Thumbnail.png")}
+          source={require("../assets/unipe-Thumbnail.png")}
         />
         <Text style={styles.headline}>
           Please enter your mobile number to login:
@@ -181,18 +182,20 @@ export default LoginScreen = () => {
         {!isLoading ? (
           <>
             {next ? (
-              <PrimaryButton
+              <Button
                 uppercase={false}
                 title="Continue"
                 type="solid"
+                style={styles.ContinueButton}
                 color="#4E46F1"
                 onPress={() => signIn()}
               />
             ) : (
-              <PrimaryButton
+              <Button
                 uppercase={false}
                 title="Continue"
                 type="solid"
+                style={styles.ContinueButton}
                 disabled
               />
             )}
@@ -206,5 +209,5 @@ export default LoginScreen = () => {
         )}
       </ScrollView>
     </SafeAreaView>
-  )
-}
+  );
+};
