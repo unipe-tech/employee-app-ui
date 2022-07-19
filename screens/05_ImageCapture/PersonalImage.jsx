@@ -18,16 +18,11 @@ import { addSelfie } from "../../store/slices/profileSlice";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { checkBox, form, selfie, styles } from "../styles";
 
-<<<<<<< HEAD
+
 export default PersonalImage = ({route}) => {
   const navigation = useNavigation();
   const [pickerResponse, setPickerResponse] = useState(null);
   const [responseCamera, setResponseCamera] = useState(null);
-=======
-export default PersonalImage = () => {
-  const navigation = useNavigation();
-  const [pickerResponse, setPickerResponse] = useState(null);
->>>>>>> develop
   const id = useSelector((state) => state.auth.userId);
   const placeholder = useSelector((state) => state.profile.selfie);
   const Profile = useSelector((state) => state.profile);
@@ -76,8 +71,7 @@ export default PersonalImage = () => {
       includeBase64: true,
     };
     ImagePicker.launchImageLibrary(options, setPickerResponse);
-<<<<<<< HEAD
-    setResponseCamera(null)
+    setResponseCamera(null);
   }, []);
 
   const onCameraPress = useCallback(() => {
@@ -93,18 +87,6 @@ export default PersonalImage = () => {
       front: true,
       routeName: "PersonalImage"
     })
-=======
-  }, []);
-
-  const onCameraPress = React.useCallback(() => {
-    const options = {
-      cameraType: "front",
-      quality: 1,
-      mediaType: "photo",
-      includeBase64: true,
-    };
-    ImagePicker.launchCamera(options, setPickerResponse);
->>>>>>> develop
   }, []);
 
   const imageData = pickerResponse?.assets && pickerResponse.assets[0].base64;
