@@ -70,7 +70,7 @@ export default OTPScreen = () => {
           </View>
           <Image
             style={styles.logo}
-            source={require("../assets/unipe-Thumbnail.png")}
+            source={require("../../assets/unipe-Thumbnail.png")}
           />
           <Text style={styles.headline}>
             {" "}

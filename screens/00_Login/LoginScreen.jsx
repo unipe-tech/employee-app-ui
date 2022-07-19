@@ -142,7 +142,7 @@ export default LoginScreen = () => {
       <ScrollView keyboardShouldPersistTaps="handled">
         <Image
           style={styles.logo}
-          source={require("../assets/unipe-Thumbnail.png")}
+          source={require("../../assets/unipe-Thumbnail.png")}
         />
         <Text style={styles.headline}>
           Please enter your mobile number to login:
