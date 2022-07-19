@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ScrollView, Text, TextInput, View } from "react-native";
 import { bankform, form, styles } from "../../../styles";
 import { Button } from "@react-native-material/core";
-import StateDropdown from "../../../../components/StateDropdown";
+import AddressDropdown from "../../../../components/AddressDropdown";
 import { useDispatch, useSelector } from "react-redux";
 import { addESICAddress } from "../../../../store/slices/esicSlice";
 import { useNavigation } from "@react-navigation/core";
@@ -65,43 +65,8 @@ export default EmployeeAddress = () => {
 
   return (
     <ScrollView style={styles.container} keyboardShouldPersistTaps="handled">
-      <Text style={bankform.formtitle}>Employee Present Address Street *</Text>
-      <TextInput
-        style={bankform.formInput}
-        value={presentStreet}
-        onChangeText={setPresentStreet}
-      />
-      <StateDropdown
-        stateTitle={"Employee Present address State"}
-        districtTitle={"Employee Present address District"}
-        type={"present"}
-      />
-      <Text style={bankform.formtitle}>Employee Present Pincode *</Text>
-      <TextInput
-        style={bankform.formInput}
-        value={presentPincode}
-        onChangeText={setPresentPincode}
-      />
-      <View style={bankform.padding}></View>
-      <Text style={bankform.formtitle}>
-        Employee Permanent Address Street *
-      </Text>
-      <TextInput
-        style={bankform.formInput}
-        value={permanentStreet}
-        onChangeText={setPermanentStreet}
-      />
-      <StateDropdown
-        stateTitle={"Employee Permanent address State"}
-        districtTitle={"Employee Permanent address District"}
-        type={"permanent"}
-      />
-      <Text style={bankform.formtitle}>Employee Permanent Pincode *</Text>
-      <TextInput
-        style={bankform.formInput}
-        value={permanentPincode}
-        onChangeText={setPermanentPincode}
-      />
+      <AddressDropdown type={"present"} />
+      <AddressDropdown type={"permanent"} />
       <Button
         uppercase={false}
         title="Continue"

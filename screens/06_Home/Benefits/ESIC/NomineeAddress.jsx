@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ScrollView, Text, TextInput, View } from "react-native";
 import { bankform, form, styles } from "../../../styles";
 import { Button } from "@react-native-material/core";
-import StateDropdown from "../../../../components/StateDropdown";
+import AddressDropdown from "../../../../components/AddressDropdown";
 import { useDispatch, useSelector } from "react-redux";
 import { addESICAddress } from "../../../../store/slices/esicSlice";
 import { useNavigation } from "@react-navigation/core";
@@ -37,23 +37,7 @@ export default NomineeAddress = () => {
 
   return (
     <ScrollView style={styles.container} keyboardShouldPersistTaps="handled">
-      <Text style={bankform.formtitle}>Nominee Address Street *</Text>
-      <TextInput
-        style={bankform.formInput}
-        value={nomineeStreet}
-        onChangeText={setNomineeStreet}
-      />
-      <StateDropdown
-        stateTitle={"Nominee address State"}
-        districtTitle={"Nominee address District"}
-        type={"nominee"}
-      />
-      <Text style={bankform.formtitle}>Nominee Pincode *</Text>
-      <TextInput
-        style={bankform.formInput}
-        value={nomineePincode}
-        onChangeText={setNomineePincode}
-      />
+      <AddressDropdown type={"nominee"} />
       <Button
         uppercase={false}
         title="Finish"
