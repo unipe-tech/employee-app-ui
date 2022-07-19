@@ -257,7 +257,6 @@ export const checkBox = StyleSheet.create({
   },
 });
 
-
 export const bankform = StyleSheet.create({
   formtitle: {
     marginLeft: 34,
@@ -369,6 +368,7 @@ export const docSearch = StyleSheet.create({
     textAlignVertical: "center",
   },
 });
+
 export const Camera = StyleSheet.create({
   container: {
     flex: 1,
@@ -470,7 +470,7 @@ export const selfie = StyleSheet.create({
     alignSelf: "center",
     height: 300,
     width: 300,
-    transform: [{ scaleX: -1 }],
+    transform: [{ scaleX: -1 }]
   },
 });
 

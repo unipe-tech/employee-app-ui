@@ -1,12 +1,13 @@
 {
   "name": "employee-app",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "index.js",
   "scripts": {
-    "start": "expo start --dev-client",
-    "android": "expo run:android",
-    "ios": "expo run:ios",
-    "web": "expo start --web"
+    "start:dev": "cp ./.env.dev ./.env && npx react-native run-android",
+    "start:release": "cp ./.env.release ./.env && npx react-native run-android",
+    "buildRelease": "cp ./.env.release ./.env && npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res && cd android && gradlew assembleRelease",
+    "buildDebug": "cp ./.env.dev ./.env && npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res && cd android && ./gradlew assembleDebug",
+    "buildProdRelease": "cp ./.env.release ./.env && npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res && cd android && ./gradlew bundleRelease"
   },
   "dependencies": {
     "@aws-amplify/auth": "^4.5.6",
@@ -29,6 +30,7 @@
     "aws-amplify": "^4.3.24",
     "aws-amplify-react-native": "^6.0.4",
     "axios": "^0.27.2",
+    "env-cmd": "^10.1.0",
     "expo": "~45.0.0",
     "expo-camera": "~12.2.0",
     "expo-splash-screen": "~0.15.1",
@@ -39,6 +41,7 @@
     "react-native": "0.68.2",
     "react-native-base64": "^0.2.1",
     "react-native-camera": "^4.2.1",
+    "react-native-config": "^1.4.6",
     "react-native-countdown-component": "^2.7.1",
     "react-native-date-picker": "^4.2.2",
     "react-native-device-info": "^8.7.1",

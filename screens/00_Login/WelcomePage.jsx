@@ -1,22 +1,17 @@
-import { MaterialIcons } from "@expo/vector-icons";
-import { Button } from "@react-native-material/core";
-import { useNavigation } from "@react-navigation/core";
-import React, { useEffect } from "react";
-import { Image, SafeAreaView, Text, View } from "react-native";
-import SplashScreen from "react-native-splash-screen";
-import StepIndicator from "react-native-step-indicator";
-import { checkBox, form, styles, welcome } from "../styles";
-import { useDispatch } from "react-redux";
-import { addCurrentScreen } from "../../store/slices/navigationSlice";
+import React from "react"
+import { Text, View, SafeAreaView, Image } from "react-native"
+import { useNavigation } from "@react-navigation/core"
+import { AppBar, IconButton, Icon, Button } from "@react-native-material/core"
+import { styles, welcome, form, checkBox } from "../styles"
+import StepIndicator from "react-native-step-indicator"
+import SplashScreen from "react-native-splash-screen"
+import { MaterialIcons } from "@expo/vector-icons"
+import { ROUTE } from "@env"
 
 export default WelcomePage = () => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(addCurrentScreen("Welcome"));
-  }, []);
-
-  const navigation = useNavigation();
-  SplashScreen.hide();
+  const navigation = useNavigation()
+  console.log(ROUTE)
+  SplashScreen.hide()
   const getStepIndicatorIconConfig = ({ position, stepStatus }) => {
     const iconConfig = {
       name: "feed",
@@ -120,7 +115,8 @@ export default WelcomePage = () => {
           title="Welcome! Let’s start onboarding process with Unipe"
           uppercase={false}
           onPress={() => {
-            navigation.navigate("Login");
+            navigation.navigate("Login")
+            // navigation.navigate(Config.ROUTE)
           }}
         ></Button>
         <View style={checkBox.padding}></View>

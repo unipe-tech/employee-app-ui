@@ -8,19 +8,32 @@ import {
 } from "react-native"
 import { Camera, CameraType } from "expo-camera"
 import { useNavigation } from "@react-navigation/native"
+import { addAadhaarImage } from "../../store/slices/aadhaarSlice"
+import { addSelfie } from "../../store/slices/profileSlice"
+import { useDispatch } from "react-redux"
+const RNFS = require("react-native-fs");
 
-export default function Expo_IdCapture({ route }) {
+export default function ExpoPhotoCapture({ route }) {
   const [hasPermission, setHasPermission] = useState(null)
   const [type, setType] = useState(CameraType.back)
   const camera = useRef()
   const navigation = useNavigation()
+  const dispatch = useDispatch()
+  const [id, setId] = useState()
+
+  const AskPermission = async() => {
+    const { status } = await Camera.requestCameraPermissionsAsync()
+      setHasPermission(status === "granted")
+  }
 
   useEffect(() => {
-    ;(async () => {
-      const { status } = await Camera.requestCameraPermissionsAsync()
-      setHasPermission(status === "granted")
-    })()
-  }, [])
+    AskPermission()
+     if (route.params.type.match(/^AADHAAR/)) {
+      dispatch(addAadhaarImage({ data: id, type: route.params.type }));
+    } else if (route.params.type.match(/^SELFIE/)) {
+      dispatch(addSelfie({ data: id, type: route.params.type }));
+    }
+  }, [id])
 
   if (hasPermission === null) {
     return <View />
@@ -29,11 +42,25 @@ export default function Expo_IdCapture({ route }) {
     return <Text>No access to camera</Text>
   }
 
+  // useEffect(() => {
+  //   // if (props.route.params.type.match(/^AADHAAR/)) {
+  //   //   dispatch(addAadhaarImage({ data: id, type: props.route.params.type }));
+  //   // } else if (props.route.params.type.match(/^SELFIE/)) {
+  //     dispatch(addSelfie({ data: id, type: route.params.type }));
+  //   // }
+  // }, [id]);
+
+  // useEffect(() => {
+
+  // })
+
   const __takePicture = async () => {
     if (!camera) return
     const photo = await camera.current.takePictureAsync()
     console.log(photo)
-    navigation.navigate(route.params.routeName, { dataUri: photo.uri })
+    const base64image = await RNFS.readFile(photo.uri, "base64");
+    setId(base64image);
+    navigation.navigate(route?.params?.routeName, {imgUri: photo.uri})
   }
 
   return (

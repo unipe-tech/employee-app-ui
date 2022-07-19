@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { ScrollView, Text, TextInput, View } from "react-native";
+import React from "react";
+import { ScrollView, View } from "react-native";
 import { bankform, form, styles } from "../../../styles";
 import { Button } from "@react-native-material/core";
 import AddressDropdown from "../../../../components/AddressDropdown";
-import { useDispatch, useSelector } from "react-redux";
-import { addESICAddress } from "../../../../store/slices/esicSlice";
+import { useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/core";
 
 export default EmployeeAddress = () => {
-  const dispatch = useDispatch();
   const navigation = useNavigation();
 
   return (

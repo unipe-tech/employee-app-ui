@@ -16,15 +16,18 @@ const PendingView = () => (
   </View>
 );
 
-export default IDCapture = (props) => {
-  const navigation = useNavigation();
+
+export default function RNPhotoCapture (props) {
+  const navigation = useNavigation()
+  const [id, setId] = useState(null)
+  const {front} = props.route.params
+
   const dispatch = useDispatch();
-  const [id, setId] = useState(null);
 
   useEffect(() => {
-    if (props.route.params.type.match(/^AADHAAR_/)) {
+    if (props.route.params.type.match(/^AADHAAR/)) {
       dispatch(addAadhaarImage({ data: id, type: props.route.params.type }));
-    } else if (props.route.params.type.match(/^SELFIE_/)) {
+    } else if (props.route.params.type.match(/^SELFIE/)) {
       dispatch(addSelfie({ data: id, type: props.route.params.type }));
     }
   }, [id]);
@@ -42,7 +45,7 @@ export default IDCapture = (props) => {
       <RNCamera
         style={Camera.preview}
         type={
-          front ? RNCamera.Constants.Type.front : RNCamera.Constants.Type.back
+          RNCamera.Constants.Type.back
         }
         flashMode={RNCamera.Constants.FlashMode.off}
         androidCameraPermissionOptions={{

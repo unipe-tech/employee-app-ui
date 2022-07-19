@@ -18,9 +18,16 @@ import { addSelfie } from "../../store/slices/profileSlice";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { checkBox, form, selfie, styles } from "../styles";
 
+<<<<<<< HEAD
+export default PersonalImage = ({route}) => {
+  const navigation = useNavigation();
+  const [pickerResponse, setPickerResponse] = useState(null);
+  const [responseCamera, setResponseCamera] = useState(null);
+=======
 export default PersonalImage = () => {
   const navigation = useNavigation();
   const [pickerResponse, setPickerResponse] = useState(null);
+>>>>>>> develop
   const id = useSelector((state) => state.auth.userId);
   const placeholder = useSelector((state) => state.profile.selfie);
   const Profile = useSelector((state) => state.profile);
@@ -46,12 +53,21 @@ export default PersonalImage = () => {
       })
       .catch((err) => {
         console.log(err);
+        alert(error)
       });
   };
 
   useEffect(() => {
     dispatch(addSelfie(imageData));
+    
   }, [imageData]);
+
+  useEffect(() => {
+    if (route?.params?.imgUri) {
+      setResponseCamera(route?.params?.imgUri)
+    }
+    console.log(route?.params?.imgUri)
+  }, [route])
 
   const onImageLibraryPress = useCallback(() => {
     const options = {
@@ -60,6 +76,24 @@ export default PersonalImage = () => {
       includeBase64: true,
     };
     ImagePicker.launchImageLibrary(options, setPickerResponse);
+<<<<<<< HEAD
+    setResponseCamera(null)
+  }, []);
+
+  const onCameraPress = useCallback(() => {
+    // const options = {
+    //   cameraType: "front",
+    //   quality: 1,
+    //   mediaType: "photo",
+    //   includeBase64: true,
+    // };
+    // ImagePicker.launchCamera(options, setPickerResponse);
+    navigation.navigate("ExpoPhotoCapture", {
+      type: "SELFIE",
+      front: true,
+      routeName: "PersonalImage"
+    })
+=======
   }, []);
 
   const onCameraPress = React.useCallback(() => {
@@ -70,6 +104,7 @@ export default PersonalImage = () => {
       includeBase64: true,
     };
     ImagePicker.launchCamera(options, setPickerResponse);
+>>>>>>> develop
   }, []);
 
   const imageData = pickerResponse?.assets && pickerResponse.assets[0].base64;
