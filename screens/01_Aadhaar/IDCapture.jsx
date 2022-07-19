@@ -41,7 +41,9 @@ export default IDCapture = (props) => {
     <View style={Camera.container}>
       <RNCamera
         style={Camera.preview}
-        type={RNCamera.Constants.Type.back}
+        type={
+          front ? RNCamera.Constants.Type.front : RNCamera.Constants.Type.back
+        }
         flashMode={RNCamera.Constants.FlashMode.off}
         androidCameraPermissionOptions={{
           title: "Permission to use camera",
@@ -64,13 +66,10 @@ export default IDCapture = (props) => {
                 onPress={() => navigation.goBack()}
                 style={Camera.back}
               >
-                <Text style={Camera.buttonText}>
-                  {" "}
-                  <Icon name="arrow-back" size={25} color="white" />
-                </Text>
+                <Icon name="arrow-back" size={25} color="white" />
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => this.takePicture(camera)}
+                onPress={() => takePicture(camera)}
                 style={Camera.capture}
               >
                 <Text style={Camera.buttonText}> Capture </Text>
