@@ -4,15 +4,15 @@ import { useNavigation } from "@react-navigation/core";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView, ScrollView, Text, TextInput, View } from "react-native";
 import CountDown from "react-native-countdown-component";
-import ProgressBarTop from "../components/ProgressBarTop";
-import { form, styles } from "./styles";
+import ProgressBarTop from "../../components/ProgressBarTop";
+import { form, styles } from "../styles";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
   addAadhaarData,
   addAadhaarVerifyStatus,
-} from "../store/slices/aadhaarSlice";
-import { addCurrentScreen } from "../store/slices/navigationSlice";
+} from "../../store/slices/aadhaarSlice";
+import { addCurrentScreen } from "../../store/slices/navigationSlice";
 
 export default AadhaarVerify = () => {
   const navigation = useNavigation();

@@ -3,12 +3,12 @@ import { useNavigation } from "@react-navigation/core";
 import React, { useEffect, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { RNCamera } from "react-native-camera";
-import { Camera } from "./styles";
+import { Camera } from "../styles";
 const RNFS = require("react-native-fs");
 
 import { useDispatch } from "react-redux";
-import { addAadhaarImage } from "../store/slices/aadhaarSlice";
-import { addSelfie } from "../store/slices/profileSlice";
+import { addAadhaarImage } from "../../store/slices/aadhaarSlice";
+import { addSelfie } from "../../store/slices/profileSlice";
 
 const PendingView = () => (
   <View style={Camera.wait}>

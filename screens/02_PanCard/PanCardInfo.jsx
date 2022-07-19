@@ -11,14 +11,14 @@ import {
   TextInput,
   View,
 } from "react-native";
-import ProgressBarTop from "../components/ProgressBarTop";
-import { GenerateDocument } from "../helpers/GenerateDocument";
-import { putPanData } from "../services/employees/employeeServices";
-import { bankform, checkBox, form, styles } from "./styles";
+import ProgressBarTop from "../../components/ProgressBarTop";
+import { GenerateDocument } from "../../helpers/GenerateDocument";
+import { putPanData } from "../../services/employees/employeeServices";
+import { bankform, checkBox, form, styles } from "../styles";
 
 import { useDispatch, useSelector } from "react-redux";
-import { addPanNumber, addPanVerifyStatus } from "../store/slices/panSlice";
-import { addCurrentScreen } from "../store/slices/navigationSlice";
+import { addPanNumber, addPanVerifyStatus } from "../../store/slices/panSlice";
+import { addCurrentScreen } from "../../store/slices/navigationSlice";
 
 export default PanCardInfo = () => {
   const navigation = useNavigation();

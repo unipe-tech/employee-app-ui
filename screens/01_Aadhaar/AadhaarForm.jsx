@@ -12,10 +12,10 @@ import {
   TextInput,
   View,
 } from "react-native";
-import ProgressBarTop from "../components/ProgressBarTop";
-import { GenerateDocument } from "../helpers/GenerateDocument";
-import { putAadhaarData } from "../services/employees/employeeServices";
-import { bankform, Camera, checkBox, form, styles } from "./styles";
+import ProgressBarTop from "../../components/ProgressBarTop";
+import { GenerateDocument } from "../../helpers/GenerateDocument";
+import { putAadhaarData } from "../../services/employees/employeeServices";
+import { bankform, Camera, checkBox, form, styles } from "../styles";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -24,8 +24,8 @@ import {
   addAadhaarSubmitOTPtxnId,
   addAadhaarVerifyStatus,
   setAadhaarPlaceholderImage,
-} from "../store/slices/aadhaarSlice";
-import { addCurrentScreen } from "../store/slices/navigationSlice";
+} from "../../store/slices/aadhaarSlice";
+import { addCurrentScreen } from "../../store/slices/navigationSlice";
 
 export default AadhaarForm = () => {
   const aadhaarFront = useSelector((state) => state.aadhaar.frontImg);

@@ -10,13 +10,13 @@ import {
 } from "react-native";
 import { Button, Icon, IconButton } from "@react-native-material/core";
 import { useNavigation } from "@react-navigation/core";
-import { styles } from "./styles";
+import { styles } from "../styles";
 import SmsRetriever from "react-native-sms-retriever";
-import { checkVerification, sendSmsVerification } from "../services/otp/Twilio/verify";
+import { checkVerification, sendSmsVerification } from "../../services/otp/Twilio/verify";
 import CountDown from "react-native-countdown-component";
 import { useDispatch, useSelector } from "react-redux";
-import { addVerifyStatus } from "../store/slices/authSlice";
-import { addCurrentScreen } from "../store/slices/navigationSlice";
+import { addVerifyStatus } from "../../store/slices/authSlice";
+import { addCurrentScreen } from "../../store/slices/navigationSlice";
 
 export default OTPScreen = () => {
   const phoneNumber = useSelector((state) => state.auth.phoneNumber);

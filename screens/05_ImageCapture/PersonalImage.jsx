@@ -11,12 +11,12 @@ import {
 } from "react-native";
 import * as ImagePicker from "react-native-image-picker";
 import { useDispatch, useSelector } from "react-redux";
-import ProgressBarTop from "../components/ProgressBarTop";
-import { GenerateDocument } from "../helpers/GenerateDocument";
-import { putProfileData } from "../services/employees/employeeServices";
-import { addSelfie } from "../store/slices/profileSlice";
-import { addCurrentScreen } from "../store/slices/navigationSlice";
-import { checkBox, form, selfie, styles } from "./styles";
+import ProgressBarTop from "../../components/ProgressBarTop";
+import { GenerateDocument } from "../../helpers/GenerateDocument";
+import { putProfileData } from "../../services/employees/employeeServices";
+import { addSelfie } from "../../store/slices/profileSlice";
+import { addCurrentScreen } from "../../store/slices/navigationSlice";
+import { checkBox, form, selfie, styles } from "../styles";
 
 export default PersonalImage = () => {
   const navigation = useNavigation();

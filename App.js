@@ -6,18 +6,21 @@ import { KeyboardAvoidingView, Platform } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { Provider } from "react-redux";
-import AadhaarConfirm from "./screens/AadhaarConfirm";
-import AadhaarForm from "./screens/AadhaarForm";
-import AadhaarVerify from "./screens/AadhaarVerify";
-import BankInformationForm from "./screens/BankInformationForm";
-import Home from "./screens/Home";
-import IDCapture from "./screens/IDCapture";
-import LoginScreen from "./screens/LoginScreen";
-import OTPScreen from "./screens/OTPScreen";
-import PanCardInfo from "./screens/PanCardInfo";
-import PersonalDetailsForm from "./screens/PersonalDetailsForm";
-import PersonalImage from "./screens/PersonalImage";
-import WelcomePage from "./screens/WelcomePage";
+
+import LoginScreen from "./screens/00_Login/LoginScreen";
+import OTPScreen from "./screens/00_Login/OTPScreen";
+import WelcomePage from "./screens/00_Login/WelcomePage";
+import AadhaarConfirm from "./screens/01_Aadhaar/AadhaarConfirm";
+import AadhaarForm from "./screens/01_Aadhaar/AadhaarForm";
+import AadhaarVerify from "./screens/01_Aadhaar/AadhaarVerify";
+import IDCapture from "./screens/01_Aadhaar/IDCapture";
+import PanCardInfo from "./screens/02_PanCard/PanCardInfo";
+import BankInformationForm from "./screens/03_BankDetails/BankInformationForm";
+import PersonalDetailsForm from "./screens/04_BasicDetails/PersonalDetailsForm";
+import PersonalImage from "./screens/05_ImageCapture/PersonalImage";
+import Home from "./screens/06_Home/Home";
+import DevMenu from "./screens/DevMenu";
+
 import { store } from "./store/store";
 const Stack = createNativeStackNavigator();
 
@@ -32,7 +35,15 @@ export default function App() {
               behavior={Platform.OS === "ios" ? "padding" : "height"}
               keyboardVerticalOffset={Platform.OS === "ios" ? -64 : 0}
             >
-              <Stack.Navigator>
+              <Stack.Navigator initialRouteName="DevMenu">
+              <Stack.Screen
+                  name="DevMenu"
+                  component={DevMenu}
+                  options={{
+                    headerShown: false,
+                    header: null,
+                  }}
+                />
                 <Stack.Screen
                   name="Welcome"
                   component={WelcomePage}

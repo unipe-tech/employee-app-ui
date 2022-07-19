@@ -5,9 +5,9 @@ import React, { useEffect } from "react";
 import { Image, SafeAreaView, Text, View } from "react-native";
 import SplashScreen from "react-native-splash-screen";
 import StepIndicator from "react-native-step-indicator";
-import { checkBox, form, styles, welcome } from "./styles";
+import { checkBox, form, styles, welcome } from "../styles";
 import { useDispatch } from "react-redux";
-import { addCurrentScreen } from "../store/slices/navigationSlice";
+import { addCurrentScreen } from "../../store/slices/navigationSlice";
 
 export default WelcomePage = () => {
   const dispatch = useDispatch();

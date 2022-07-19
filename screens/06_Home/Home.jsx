@@ -5,7 +5,7 @@ import { Image, SafeAreaView } from "react-native";
 import BottomTabNav from "../components/BottomTabNav";
 import HomeView from "./HomeView";
 import { buttons, nav } from "./styles";
-import { useDispatch } from "react-redux";
+import { useDispatch }../HomeViewct-redux";
 import { addCurrentScreen } from "../store/slices/navigationSlice";
 
 // import Amplify from "@aws-amplify/core";
@@ -14,7 +14,7 @@ import { addCurrentScreen } from "../store/slices/navigationSlice";
 // Amplify.configure(awsconfig);
 
 import { FAB, Portal, Provider } from "react-native-paper";
-import Document from "./Document";
+import Document from "./Documents";
 import Benefits from "./Benefits";
 
 export default Home = () => {

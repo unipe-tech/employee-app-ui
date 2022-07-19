@@ -12,18 +12,18 @@ import {
 } from "react-native";
 import { Popable } from "react-native-popable";
 import { useDispatch, useSelector } from "react-redux";
-import ProgressBarTop from "../components/ProgressBarTop";
-import { GenerateDocument } from "../helpers/GenerateDocument";
-import { putBankAccountData } from "../services/employees/employeeServices";
+import ProgressBarTop from "../../components/ProgressBarTop";
+import { GenerateDocument } from "../../helpers/GenerateDocument";
+import { putBankAccountData } from "../../services/employees/employeeServices";
 import {
   addBankAccountHolderName,
   addBankAccountNumber,
   addBankIfsc,
   addBankUpiId,
   addBankVerifyStatus,
-} from "../store/slices/bankSlice";
-import { addCurrentScreen } from "../store/slices/navigationSlice";
-import { bankform, styles } from "./styles";
+} from "../../store/slices/bankSlice";
+import { addCurrentScreen } from "../../store/slices/navigationSlice";
+import { bankform, styles } from "../styles";
 
 export default BankInformationForm = () => {
   const navigation = useNavigation();
