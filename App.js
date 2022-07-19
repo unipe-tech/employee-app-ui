@@ -23,9 +23,13 @@ import { Provider } from "react-redux"
 import DevMenu from "./screens/DevMenu"
 import ExpoPhotoCapture from "./screens/Utils/ExpoPhotoCapture"
 import RNPhotoCapture from "./screens/Utils/RNPhotoCapture"
-import { Config } from "react-native-config"
+import { ENV_NAME } from "@env"
+import SplashScreen from "react-native-splash-screen"
+
 
 export default function App() {
+  SplashScreen.hide()
+
   return (
     <StateProvider initialState={initialState} reducer={reducer}>
       <NavigationContainer>
@@ -36,7 +40,7 @@ export default function App() {
               behavior={Platform.OS === "ios" ? "padding" : "height"}
               keyboardVerticalOffset={Platform.OS === "ios" ? -64 : 0}
             >
-              <Stack.Navigator initialRouteName={"Welcome"}>
+              <Stack.Navigator initialRouteName={ENV_NAME == "Dev" ? "DevMenu" : "Welcome"}>
                 <Stack.Screen
                   name="DevMenu"
                   component={DevMenu}
