@@ -3,7 +3,6 @@ import { KeyboardAvoidingView, Platform } from "react-native"
 import { NavigationContainer } from "@react-navigation/native"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { SafeAreaProvider } from "react-native-safe-area-context"
-const Stack = createNativeStackNavigator()
 import LoginScreen from "./screens/00_Login/LoginScreen"
 import { StateProvider } from "./StateProvider"
 import reducer, { initialState } from "./reducer/reducer"
@@ -26,6 +25,7 @@ import RNPhotoCapture from "./screens/Utils/RNPhotoCapture"
 import { ENV_NAME } from "@env"
 import SplashScreen from "react-native-splash-screen"
 
+const Stack = createNativeStackNavigator()
 
 export default function App() {
   SplashScreen.hide()
