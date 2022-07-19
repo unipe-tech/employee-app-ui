@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Text, View } from "react-native";
-import { form, docSearch, bankform } from "../screens/styles";
 import { Picker } from "@react-native-picker/picker";
-const customData = require("../assets/state_districts.json");
+import React, { useEffect, useState } from "react";
+import { Text, TextInput } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+import { bankform, form } from "../screens/styles";
 import { addESICAddress } from "../store/slices/esicSlice";
+const customData = require("../assets/state_districts.json");
 
-export default StateDropdown = (props) => {
+export default AddressDropdown = (props) => {
   const [districts, setDistricts] = useState(["Please Choose a State"]);
 
   const dispatch = useDispatch();
@@ -18,13 +18,32 @@ export default StateDropdown = (props) => {
   const [district, setDistrict] = useState(
     useSelector((state) => state.esic.address[props.type].district)
   );
+  const [street, setStreet] = useState(
+    useSelector((state) => state.esic.address[props.type].street)
+  );
+
+  const [pincode, setPincode] = useState(
+    useSelector((state) => state.esic.address[props.type].pincode)
+  );
 
   useEffect(() => {
     dispatch(
       addESICAddress({ type: props.type, subtype: "state", val: geoState })
     );
   }, [geoState]);
-  
+
+  useEffect(() => {
+    dispatch(
+      addESICAddress({ type: props.type, subtype: "street", val: street })
+    );
+  }, [street]);
+
+  useEffect(() => {
+    dispatch(
+      addESICAddress({ type: props.type, subtype: "pincode", val: pincode })
+    );
+  }, [pincode]);
+
   useEffect(() => {
     dispatch(
       addESICAddress({
@@ -136,15 +155,33 @@ export default StateDropdown = (props) => {
   // }
 
   useEffect(() => {
-    if(geoState){
+    if (geoState) {
       setDistricts(customData[geoState]);
       console.log(geoState);
     }
   }, [geoState]);
 
+  switch (props.type) {
+    case "present":
+      var title = "Present";
+      break;
+    case "permanent":
+      var title = "Permanent";
+      break;
+    case "nominee":
+      var title = "Nominee";
+      break;
+  }
+
   return (
     <>
-      <Text style={bankform.formtitle}>{props.stateTitle}</Text>
+      <Text style={bankform.formtitle}>{title} Street</Text>
+      <TextInput
+        style={bankform.formInput}
+        value={street}
+        onChangeText={setStreet}
+      />
+      <Text style={bankform.formtitle}>{title} State</Text>
       <Picker
         style={form.picker}
         prompt="Select State"
@@ -155,7 +192,7 @@ export default StateDropdown = (props) => {
           return <Picker.Item label={value} value={value} key={index} />;
         })}
       </Picker>
-      <Text style={bankform.formtitle}>{props.districtTitle}</Text>
+      <Text style={bankform.formtitle}>{title} District</Text>
       <Picker
         style={form.picker}
         prompt="Select District"
@@ -166,6 +203,12 @@ export default StateDropdown = (props) => {
           return <Picker.Item label={value} value={value} key={index} />;
         })}
       </Picker>
+      <Text style={bankform.formtitle}>{title} Pincode</Text>
+      <TextInput
+        style={bankform.formInput}
+        value={pincode}
+        onChangeText={setPincode}
+      />
     </>
   );
 };

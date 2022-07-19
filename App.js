@@ -23,8 +23,12 @@ import ExpoPhotoCapture from "./screens/utils/ExpoPhotoCapture";
 import RNPhotoCapture from "./screens/utils/RNPhotoCapture";
 
 import DevMenu from "./screens/DevMenu";
+<<<<<<< HEAD
 import {ENV_NAME} from "@env"
 
+=======
+import Expo_IdCapture from "./screens/01_Aadhaar/Expo_IdCapture";
+>>>>>>> develop
 import { store } from "./store/store";
 import SplashScreen from "react-native-splash-screen";
 import { useSelector } from "react-redux";
@@ -43,7 +47,121 @@ export default function App() {
               behavior={Platform.OS === "ios" ? "padding" : "height"}
               keyboardVerticalOffset={Platform.OS === "ios" ? -64 : 0}
             >
+<<<<<<< HEAD
           <StackNavigator />
+=======
+              <Stack.Navigator initialRouteName="Welcome">
+                <Stack.Screen
+                  name="DevMenu"
+                  component={DevMenu}
+                  options={{
+                    headerShown: false,
+                    header: null,
+                  }}
+                />
+                <Stack.Screen
+                  name="Welcome"
+                  component={WelcomePage}
+                  options={{
+                    headerShown: false,
+                  }}
+                />
+                <Stack.Screen
+                  name="Login"
+                  component={LoginScreen}
+                  options={{
+                    headerShown: false,
+                  }}
+                />
+                <Stack.Screen
+                  name="Otp"
+                  component={OTPScreen}
+                  options={{
+                    headerShown: false,
+                  }}
+                />
+                <Stack.Screen
+                  name="PersonalDetailsForm"
+                  component={PersonalDetailsForm}
+                  options={{
+                    headerShown: false,
+                    header: null,
+                  }}
+                />
+                <Stack.Screen
+                  name="AadhaarForm"
+                  component={AadhaarForm}
+                  options={{
+                    headerShown: false,
+                    header: null,
+                  }}
+                />
+                <Stack.Screen
+                  name="IDCapture"
+                  component={IDCapture}
+                  options={{
+                    headerShown: false,
+                    header: null,
+                  }}
+                />
+                <Stack.Screen
+                  name="ExpoIdCapture"
+                  component={Expo_IdCapture}
+                  options={{
+                    headerShown: false,
+                    header: null,
+                  }}
+                />
+                <Stack.Screen
+                  name="AadhaarVerify"
+                  component={AadhaarVerify}
+                  options={{
+                    headerShown: false,
+                    header: null,
+                  }}
+                />
+                <Stack.Screen
+                  name="AadhaarConfirm"
+                  component={AadhaarConfirm}
+                  options={{
+                    headerShown: false,
+                    header: null,
+                  }}
+                />
+                <Stack.Screen
+                  name="PanCardInfo"
+                  component={PanCardInfo}
+                  options={{
+                    headerShown: false,
+                    header: null,
+                  }}
+                />
+                <Stack.Screen
+                  name="BankInfoForm"
+                  component={BankInformationForm}
+                  options={{
+                    headerShown: false,
+                    header: null,
+                  }}
+                />
+                <Stack.Screen
+                  name="Home"
+                  component={Home}
+                  options={{
+                    headerShown: false,
+                    header: null,
+                  }}
+                />
+                <Stack.Screen
+                  name="PersonalImage"
+                  component={PersonalImage}
+                  options={{
+                    headerShown: false,
+                    header: null,
+                  }}
+                />
+              </Stack.Navigator>
+>>>>>>> develop
             </KeyboardAvoidingView>
           </IconComponentProvider>
         </SafeAreaProvider>

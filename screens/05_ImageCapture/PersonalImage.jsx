@@ -18,16 +18,24 @@ import { addSelfie } from "../../store/slices/profileSlice";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { checkBox, form, selfie, styles } from "../styles";
 
+<<<<<<< HEAD
 export default PersonalImage = ({route}) => {
   const navigation = useNavigation();
   const [pickerResponse, setPickerResponse] = useState(null);
   const [responseCamera, setResponseCamera] = useState(null);
+=======
+export default PersonalImage = () => {
+  const navigation = useNavigation();
+  const [pickerResponse, setPickerResponse] = useState(null);
+>>>>>>> develop
   const id = useSelector((state) => state.auth.userId);
   const placeholder = useSelector((state) => state.profile.selfie);
   const Profile = useSelector((state) => state.profile);
   const dispatch = useDispatch();
 
-  useEffect(() => {dispatch(addCurrentScreen("PersonalImage"))}, []);
+  useEffect(() => {
+    dispatch(addCurrentScreen("PersonalImage"));
+  }, []);
   const ProfilePush = () => {
     var profilePayload = GenerateDocument({
       src: "Profile",
@@ -68,6 +76,7 @@ export default PersonalImage = ({route}) => {
       includeBase64: true,
     };
     ImagePicker.launchImageLibrary(options, setPickerResponse);
+<<<<<<< HEAD
     setResponseCamera(null)
   }, []);
 
@@ -84,6 +93,18 @@ export default PersonalImage = ({route}) => {
       front: true,
       routeName: "PersonalImage"
     })
+=======
+  }, []);
+
+  const onCameraPress = React.useCallback(() => {
+    const options = {
+      cameraType: "front",
+      quality: 1,
+      mediaType: "photo",
+      includeBase64: true,
+    };
+    ImagePicker.launchCamera(options, setPickerResponse);
+>>>>>>> develop
   }, []);
 
   const imageData = pickerResponse?.assets && pickerResponse.assets[0].base64;
@@ -105,13 +126,9 @@ export default PersonalImage = ({route}) => {
           <Text style={form.formHeader}>
             Upload your Passport size photo or capture your selfie.
           </Text>
-          {imageData || responseCamera ? (
+          {imageData ? (
             <Image
-              source={{
-                uri: responseCamera
-                  ? responseCamera
-                  : `data:image/jpeg;base64,${imageData}`,
-              }}
+              source={{ uri: `data:image/jpeg;base64,${imageData}` }}
               style={selfie.selfie}
             />
           ) : (

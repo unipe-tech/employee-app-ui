@@ -110,7 +110,7 @@ export const buttons = StyleSheet.create({
   FAB: {
     backgroundColor: "#4E46F1",
   },
-})
+});
 
 export const progressBar = StyleSheet.create({
   progressView: {
@@ -125,7 +125,7 @@ export const progressBar = StyleSheet.create({
     marginTop: -3,
     color: "grey",
   },
-})
+});
 
 export const form = StyleSheet.create({
   formHeader: {
@@ -177,7 +177,8 @@ export const form = StyleSheet.create({
   },
   OtpAwaitMsg: {
     color: "#230C45",
-    marginLeft: 55,
+    marginLeft: 40,
+    marginRight: 20,
     marginTop: 30,
     fontSize: 16,
     fontFamily: "Roboto",
@@ -350,7 +351,7 @@ export const nav = StyleSheet.create({
   navbar: {
     height: 80,
   },
-})
+});
 
 export const docSearch = StyleSheet.create({
   searchBar: {
@@ -366,7 +367,8 @@ export const docSearch = StyleSheet.create({
     borderBottomWidth: 2,
     textAlignVertical: "center",
   },
-})
+});
+
 export const Camera = StyleSheet.create({
   container: {
     flex: 1,
@@ -422,7 +424,7 @@ export const Camera = StyleSheet.create({
     height: 200,
     width: "100%",
   },
-})
+});
 
 export const welcome = StyleSheet.create({
   title: {
@@ -447,7 +449,7 @@ export const welcome = StyleSheet.create({
     fontFamily: "Roboto",
   },
   steps: { alignSelf: "center", flex: 1 },
-})
+});
 
 export const selfie = StyleSheet.create({
   uploadButton: {
