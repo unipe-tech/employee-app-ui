@@ -11,30 +11,6 @@ export default NomineeAddress = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
-  const [nomineeStreet, setNomineeStreet] = useState(
-    useSelector((state) => state.esic.address.nominee.street)
-  );
-
-  const [nomineePincode, setNomineePincode] = useState(
-    useSelector((state) => state.esic.address.nominee.pincode)
-  );
-
-  useEffect(() => {
-    dispatch(
-      addESICAddress({ type: "nominee", subtype: "street", val: nomineeStreet })
-    );
-  }, [nomineeStreet]);
-
-  useEffect(() => {
-    dispatch(
-      addESICAddress({
-        type: "nominee",
-        subtype: "pincode",
-        val: nomineePincode,
-      })
-    );
-  }, [nomineePincode]);
-
   return (
     <ScrollView style={styles.container} keyboardShouldPersistTaps="handled">
       <AddressDropdown type={"nominee"} />

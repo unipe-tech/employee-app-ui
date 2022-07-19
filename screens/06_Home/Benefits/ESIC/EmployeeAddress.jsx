@@ -11,58 +11,6 @@ export default EmployeeAddress = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
-  const [presentStreet, setPresentStreet] = useState(
-    useSelector((state) => state.esic.address.present.street)
-  );
-
-  const [presentPincode, setPresentPincode] = useState(
-    useSelector((state) => state.esic.address.present.pincode)
-  );
-
-  const [permanentStreet, setPermanentStreet] = useState(
-    useSelector((state) => state.esic.address.permanent.street)
-  );
-
-  const [permanentPincode, setPermanentPincode] = useState(
-    useSelector((state) => state.esic.address.permanent.pincode)
-  );
-
-  useEffect(() => {
-    dispatch(
-      addESICAddress({ type: "present", subtype: "street", val: presentStreet })
-    );
-  }, [presentStreet]);
-
-  useEffect(() => {
-    dispatch(
-      addESICAddress({
-        type: "present",
-        subtype: "pincode",
-        val: presentPincode,
-      })
-    );
-  }, [presentPincode]);
-
-  useEffect(() => {
-    dispatch(
-      addESICAddress({
-        type: "permanent",
-        subtype: "street",
-        val: permanentStreet,
-      })
-    );
-  }, [permanentStreet]);
-
-  useEffect(() => {
-    dispatch(
-      addESICAddress({
-        type: "permanent",
-        subtype: "pincode",
-        val: permanentPincode,
-      })
-    );
-  }, [permanentPincode]);
-
   return (
     <ScrollView style={styles.container} keyboardShouldPersistTaps="handled">
       <AddressDropdown type={"present"} />

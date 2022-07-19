@@ -163,10 +163,10 @@ export default AddressDropdown = (props) => {
 
   switch (props.type) {
     case "present":
-      var title = "Employee Present";
+      var title = "Present";
       break;
     case "permanent":
-      var title = "Employee Permanent";
+      var title = "Permanent";
       break;
     case "nominee":
       var title = "Nominee";
