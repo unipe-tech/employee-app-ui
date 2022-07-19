@@ -76,6 +76,9 @@ export default AadhaarForm = () => {
     }
   }, [aadhaar]);
 
+  console.log(aadhaarFront)
+  console.log(aadhaarBack)
+
   const AadharPush = () => {
     var aadhaarPayload = GenerateDocument({
       src: "AadhaarOCR",
@@ -317,7 +320,7 @@ export default AadhaarForm = () => {
                     //   front: false,
                     //   routeName: "AadhaarForm",
                     // })
-                    navigation.navigate("RNPhotoCapture", "AADHAAR_FRONT")
+                    navigation.navigate("ExpoPhotoCapture", {type: "AADHAAR_FRONT", front:false, routeName: "AadhaarForm"})
                   }}
                 />
                 <IconButton

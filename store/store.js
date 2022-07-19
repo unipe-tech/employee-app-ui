@@ -5,6 +5,7 @@ import panSlice from "./slices/panSlice";
 import bankSlice from "./slices/bankSlice";
 import esicSlice from "./slices/esicSlice";
 import profileSlice from "./slices/profileSlice";
+import navigationSlice from "./slices/navigationSlice";
 
 export const store = configureStore({
   reducer: {
@@ -14,5 +15,6 @@ export const store = configureStore({
     bank: bankSlice,
     profile: profileSlice,
     esic: esicSlice,
+    navigation: navigationSlice
   },
 });

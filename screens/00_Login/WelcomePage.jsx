@@ -115,7 +115,7 @@ export default WelcomePage = () => {
           title="Welcome! Let’s start onboarding process with Unipe"
           uppercase={false}
           onPress={() => {
-            navigation.navigate(ROUTE)
+            navigation.navigate("Login")
             // navigation.navigate(Config.ROUTE)
           }}
         ></Button>

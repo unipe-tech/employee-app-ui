@@ -281,34 +281,6 @@ export const bankform = StyleSheet.create({
   padding: {
     marginTop: 30,
   },
-  flexRow: { flexDirection: "row" },
-})
-
-export const bankform = StyleSheet.create({
-  formtitle: {
-    marginLeft: 34,
-    marginTop: 20,
-    color: "#828282",
-    fontSize: 14,
-    fontFamily: "Roboto",
-  },
-  formInput: {
-    marginLeft: 34,
-    width: 320,
-    height: 40,
-    borderBottomWidth: 1,
-  },
-  nextButton: {
-    padding: 10,
-    alignSelf: "center",
-    marginTop: 40,
-    width: 320,
-    height: 60,
-    fontSize: 20,
-  },
-  padding: {
-    marginTop: 30,
-  },
   infoCard: {
     backgroundColor: "rgba(78, 70, 241, 0.1)",
     width: "85%",

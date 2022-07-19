@@ -17,10 +17,10 @@ const PendingView = () => (
 );
 
 
-export const RNPhotoCapture = (props) => {
+export default function RNPhotoCapture (props) {
   const navigation = useNavigation()
-  const [{ user }, dispatch] = useStateValue()
   const [id, setId] = useState(null)
+  const {front} = props.route.params
 
   const dispatch = useDispatch();
 
@@ -45,7 +45,7 @@ export const RNPhotoCapture = (props) => {
       <RNCamera
         style={Camera.preview}
         type={
-          front ? RNCamera.Constants.Type.front : RNCamera.Constants.Type.back
+          RNCamera.Constants.Type.back
         }
         flashMode={RNCamera.Constants.FlashMode.off}
         androidCameraPermissionOptions={{

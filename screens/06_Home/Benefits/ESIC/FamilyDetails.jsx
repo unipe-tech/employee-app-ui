@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { ScrollView, Text, TextInput, View } from "react-native";
-import { bankform, form, styles } from "../styles";
+import { bankform, form, styles } from "../../../styles";
 import { Button } from "@react-native-material/core";
 import { Picker } from "@react-native-picker/picker";
-import relations from "../../helpers/RelationData";
+import relations from "../../../../helpers/RelationData";
 import { useDispatch, useSelector } from "react-redux";
-import { addESICFamilyDetails } from "../../store/slices/esicSlice";
+import { addESICFamilyDetails } from "../../../../store/slices/esicSlice";
 import { useNavigation } from "@react-navigation/core";
 
 export default FamilyDetails = () => {

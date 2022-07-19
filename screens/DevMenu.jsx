@@ -35,7 +35,7 @@ const DevMenu = () => {
       <PrimaryButton
         style={{ marginTop: 20 }}
         title="Basic Details"
-        onPress={() => navigation.navigate("PersonalInfoForm")}
+        onPress={() => navigation.navigate("PersonalDetailsForm")}
       />
       <PrimaryButton
         style={{ marginTop: 20 }}

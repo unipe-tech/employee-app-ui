@@ -16,15 +16,19 @@ import AadhaarVerify from "./screens/01_Aadhaar/AadhaarVerify";
 import PanCardInfo from "./screens/02_PanCard/PanCardInfo";
 import BankInformationForm from "./screens/03_BankDetails/BankInformationForm";
 import PersonalDetailsForm from "./screens/04_BasicDetails/PersonalDetailsForm";
-import PersonalImage from "./screens/05_ImageCapture/PersonalImage";
+import PersonalImage from "./screens/05_ImageCapture/PersonalImage"
 import Home from "./screens/06_Home/Home";
 
 import ExpoPhotoCapture from "./screens/utils/ExpoPhotoCapture";
 import RNPhotoCapture from "./screens/utils/RNPhotoCapture";
 
 import DevMenu from "./screens/DevMenu";
+import {ENV_NAME} from "@env"
 
 import { store } from "./store/store";
+import SplashScreen from "react-native-splash-screen";
+import { useSelector } from "react-redux";
+import StackNavigator from "./Navigators/StackNavigator";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -32,7 +36,6 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <NavigationContainer>
         <SafeAreaProvider style={{ backgroundColor: "white", flex: 1 }}>
           <IconComponentProvider IconComponent={Icon}>
             <KeyboardAvoidingView
@@ -40,121 +43,10 @@ export default function App() {
               behavior={Platform.OS === "ios" ? "padding" : "height"}
               keyboardVerticalOffset={Platform.OS === "ios" ? -64 : 0}
             >
-              <Stack.Navigator initialRouteName={ENV_NAME == "Dev" ? "DevMenu" : "Welcome"}>
-                <Stack.Screen
-                  name="DevMenu"
-                  component={DevMenu}
-                  options={{
-                    headerShown: false,
-                    header: null,
-                  }}
-                />
-                <Stack.Screen
-                  name="Welcome"
-                  component={WelcomePage}
-                  options={{
-                    headerShown: false,
-                  }}
-                />
-                <Stack.Screen
-                  name="Login"
-                  component={LoginScreen}
-                  options={{
-                    headerShown: false,
-                  }}
-                />
-                <Stack.Screen
-                  name="Otp"
-                  component={OTPScreen}
-                  options={{
-                    headerShown: false,
-                  }}
-                />
-                <Stack.Screen
-                  name="PersonalDetailsForm"
-                  component={PersonalDetailsForm}
-                  options={{
-                    headerShown: false,
-                    header: null,
-                  }}
-                />
-                <Stack.Screen
-                  name="AadhaarForm"
-                  component={AadhaarForm}
-                  options={{
-                    headerShown: false,
-                    header: null,
-                  }}
-                />
-                <Stack.Screen
-                  name="RNPhotoCapture"
-                  component={RNPhotoCapture}
-                  options={{
-                    headerShown: false,
-                    header: null,
-                  }}
-                />
-                <Stack.Screen
-                  name="ExpoPhotoCapture"
-                  component={ExpoPhotoCapture}
-                  options={{
-                    headerShown: false,
-                    header: null,
-                  }}
-                />
-                <Stack.Screen
-                  name="AadhaarVerify"
-                  component={AadhaarVerify}
-                  options={{
-                    headerShown: false,
-                    header: null,
-                  }}
-                />
-                <Stack.Screen
-                  name="AadhaarConfirm"
-                  component={AadhaarConfirm}
-                  options={{
-                    headerShown: false,
-                    header: null,
-                  }}
-                />
-                <Stack.Screen
-                  name="PanCardInfo"
-                  component={PanCardInfo}
-                  options={{
-                    headerShown: false,
-                    header: null,
-                  }}
-                />
-                <Stack.Screen
-                  name="BankInfoForm"
-                  component={BankInformationForm}
-                  options={{
-                    headerShown: false,
-                    header: null,
-                  }}
-                />
-                <Stack.Screen
-                  name="Home"
-                  component={Home}
-                  options={{
-                    headerShown: false,
-                    header: null,
-                  }}
-                />
-                <Stack.Screen
-                  name="PersonalImage"
-                  component={PersonalImage}
-                  options={{
-                    headerShown: false,
-                    header: null,
-                  }}
-                />
-              </Stack.Navigator>
+          <StackNavigator />
             </KeyboardAvoidingView>
           </IconComponentProvider>
         </SafeAreaProvider>
-      </NavigationContainer>
     </Provider>
   );
 }
