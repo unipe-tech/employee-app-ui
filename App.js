@@ -1,30 +1,3 @@
-<<<<<<< HEAD
-import React, { useState, useEffect } from "react"
-import { KeyboardAvoidingView, Platform } from "react-native"
-import { NavigationContainer } from "@react-navigation/native"
-import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import { SafeAreaProvider } from "react-native-safe-area-context"
-const Stack = createNativeStackNavigator()
-import LoginScreen from "./screens/00_Login/LoginScreen"
-import { StateProvider } from "./StateProvider"
-import reducer, { initialState } from "./reducer/reducer"
-import OTPScreen from "./screens/00_Login/OTPScreen"
-import { IconComponentProvider } from "@react-native-material/core"
-import Icon from "react-native-vector-icons/MaterialIcons"
-import PersonalDetailsForm from "./screens/04_BasicDetails/PersonalDetailsForm"
-import AadhaarForm from "./screens/01_Aadhaar/AadhaarForm"
-import IDCapture from "./screens/01_Aadhaar/IDCapture"
-import AadhaarVerify from "./screens/01_Aadhaar/AadhaarVerify"
-import AadhaarConfirm from "./screens/01_Aadhaar/AadhaarConfirm"
-import PanCardInfo from "./screens/02_PanCard/PanCardInfo"
-import BankInformationForm from "./screens/03_BankDetails/BankInformationForm"
-import Home from "./screens/06_Home/Home"
-import WelcomePage from "./screens/00_Login/WelcomePage"
-import PersonalImage from "./screens/05_ImageCapture/PersonalImage"
-import { Provider } from "react-redux"
-import DevMenu from "./screens/DevMenu"
-import Expo_IdCapture from "./screens/01_Aadhaar/Expo_IdCapture"
-=======
 import { IconComponentProvider } from "@react-native-material/core";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -47,10 +20,9 @@ import PersonalDetailsForm from "./screens/04_BasicDetails/PersonalDetailsForm";
 import PersonalImage from "./screens/05_ImageCapture/PersonalImage";
 import Home from "./screens/06_Home/Home";
 import DevMenu from "./screens/DevMenu";
-
+import Expo_IdCapture from "./screens/01_Aadhaar/Expo_IdCapture";
 import { store } from "./store/store";
 const Stack = createNativeStackNavigator();
->>>>>>> develop
 
 export default function App() {
   return (
@@ -165,10 +137,6 @@ export default function App() {
                     header: null,
                   }}
                 />
-<<<<<<< HEAD
-
-=======
->>>>>>> develop
                 <Stack.Screen
                   name="PersonalImage"
                   component={PersonalImage}

@@ -94,7 +94,7 @@ export default WelcomePage = () => {
       <SafeAreaView style={styles.container}>
         <Image
           style={styles.logo}
-          source={require("../assets/unipe-Thumbnail.png")}
+          source={require("../../assets/unipe-Thumbnail.png")}
         />
         <Text style={welcome.mainTitle}>Hello,</Text>
         <Text style={welcome.subTitle}>

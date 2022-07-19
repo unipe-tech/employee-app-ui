@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { ScrollView, Text, TextInput, View } from "react-native";
-import { bankform, form, styles } from "../styles";
+import { bankform, form, styles } from "../../../styles";
 import { Button } from "@react-native-material/core";
 import { useDispatch, useSelector } from "react-redux";
-import { addESICPortal } from "../../store/slices/esicSlice";
+import { addESICPortal } from "../../../../store/slices/esicSlice";
 import { useNavigation } from "@react-navigation/core";
 
 export default Portal = () => {

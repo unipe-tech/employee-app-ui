@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { ScrollView, Text, TextInput, View } from "react-native";
-import { bankform, form, styles } from "../styles";
+import { bankform, form, styles } from "../../../styles";
 import { Button } from "@react-native-material/core";
-import StateDropdown from "../../components/StateDropdown";
+import StateDropdown from "../../../../components/StateDropdown";
 import { useDispatch, useSelector } from "react-redux";
-import { addESICAddress } from "../../store/slices/esicSlice";
+import { addESICAddress } from "../../../../store/slices/esicSlice";
 import { useNavigation } from "@react-navigation/core";
 
 export default EmployeeAddress = () => {
