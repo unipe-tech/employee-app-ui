@@ -6,6 +6,7 @@ import { useNavigation } from "@react-navigation/core";
 
 import { addESICPortal } from "../../../store/slices/esicSlice";
 import { bankform, form, styles } from "../../../styles";
+import Input from "../../../components/Input";
 
 export default Portal = () => {
   const dispatch = useDispatch();
@@ -29,17 +30,16 @@ export default Portal = () => {
   return (
     <>
       <ScrollView style={styles.container} keyboardShouldPersistTaps="handled">
-        <Text style={bankform.formtitle}>Employer Establishment Code*</Text>
-        <TextInput
-          style={bankform.formInput}
+        <Input
           value={estCode}
-          onChangeText={setEstCode}
+          setValue={setEstCode}
+          label="Employer Establishment Code*"
         />
-        <Text style={bankform.formtitle}>IP Number</Text>
-        <TextInput
-          style={bankform.formInput}
+
+        <Input
           value={ipNumber}
-          onChangeText={setIpNumber}
+          setValue={setIpNumber}
+          label="Employer Establishment Code*"
         />
         <Button
           uppercase={false}

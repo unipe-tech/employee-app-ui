@@ -10,7 +10,6 @@ import {
   SafeAreaView,
   ScrollView,
   Text,
-  TextInput,
   View,
 } from "react-native";
 import ProgressBarTop from "../../components/ProgressBarTop";
@@ -25,6 +24,10 @@ import {
 } from "../../store/slices/aadhaarSlice";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { bankform, Camera, checkBox, form, styles } from "../../styles";
+import Input from "../../components/Input";
+import InfoCard from "../../components/InfoCard";
+import CustomCheckBox from "../../components/CustomCheckBox";
+import PrimaryButton from "../../components/PrimaryButton";
 
 export default AadhaarForm = () => {
   const aadhaarFront = useSelector((state) => state.aadhaar.frontImg);
@@ -50,13 +53,17 @@ export default AadhaarForm = () => {
   const [aadhaarBackVerified, setAadhaarBackVerified] = useState(false);
   const [aadhaarLinked, setAadhaarLinked] = useState(true);
 
-  useEffect(() => {dispatch(addCurrentScreen("AadhaarForm"))}, []);
+  useEffect(() => {
+    dispatch(addCurrentScreen("AadhaarForm"));
+  }, []);
   useEffect(() => {
     dispatch(addAadhaarSubmitOTPtxnId(transactionId));
   }, [transactionId]);
 
   useEffect(() => {
-    dispatch(addAadhaarOCRData({ data: frontAadhaarData, type: "AADHAAR_FRONT" }));
+    dispatch(
+      addAadhaarOCRData({ data: frontAadhaarData, type: "AADHAAR_FRONT" })
+    );
   }, [frontAadhaarData]);
 
   useEffect(() => {
@@ -64,7 +71,9 @@ export default AadhaarForm = () => {
   }, [aadhaar]);
 
   useEffect(() => {
-    dispatch(addAadhaarOCRData({ data: backAadhaarData, type: "AADHAAR_BACK" }));
+    dispatch(
+      addAadhaarOCRData({ data: backAadhaarData, type: "AADHAAR_BACK" })
+    );
   }, [backAadhaarData]);
 
   useEffect(() => {
@@ -76,7 +85,7 @@ export default AadhaarForm = () => {
   }, [aadhaar]);
 
   const AadharPush = () => {
-    console.log(frontAadhaarData)
+    console.log(frontAadhaarData);
     var aadhaarPayload = GenerateDocument({
       src: "AadhaarOCR",
       id: id,
@@ -192,7 +201,7 @@ export default AadhaarForm = () => {
         <>
           {alert("Aadhar Verified through OCR.")}
           {navigation.navigate("PanCardInfo")}
-          {dispatch(addAadhaarVerifyStatus({type:"OCR", status: "SUCCESS"}))}
+          {dispatch(addAadhaarVerifyStatus({ type: "OCR", status: "SUCCESS" }))}
           {AadharPush()}
         </>
       ) : null;
@@ -235,40 +244,21 @@ export default AadhaarForm = () => {
         <ScrollView keyboardShouldPersistTaps="handled">
           {aadhaarLinked ? (
             <>
-              {aadhaar ? (
-                <Text style={form.formLabel}>
-                  Enter 12 Digit Aadhaar Number
-                </Text>
-              ) : null}
-              <TextInput
-                style={form.formTextInput}
+              <Input
+                label="Enter 12 Digit Aadhaar Number"
+                placeholder={"Enter 12 Digit Aadhaar Number"}
                 value={aadhaar}
-                onChangeText={setAadhaar}
-                placeholder="Enter 12 Digit Aadhaar Number"
+                setValue={setAadhaar}
                 maxLength={12}
-                numeric
               />
-              <View style={bankform.infoCard}>
-                <Text style={bankform.infoText}>
-                  <Icon name="info-outline" size={20} color="#4E46F1" />
-                  My Mobile number is linked to my Aadhar card & I can receive
-                  the OTP on my Aadhar Linked Mobile Number
-                </Text>
-              </View>
-              <View style={{ flexDirection: "row" }}>
-                <CheckBox
-                  value={consent}
-                  onValueChange={setConsent}
-                  style={checkBox.checkBox}
-                  tintColors={{ true: "#4E46F1" }}
-                />
-                <Text style={checkBox.checkBoxText}>
-                  I agree with the KYC registration Terms and Conditions to
-                  verifiy my identity.
-                </Text>
-              </View>
-              <Button
-                style={form.AadharLinkedStatus}
+              <InfoCard title="My Mobile number is linked to my Aadhar card & I can receive the OTP on my Aadhar Linked Mobile Number" />
+              <CustomCheckBox
+                title={
+                  "I agree with the KYC registration Terms and Conditions to verifiy my identity."
+                }
+              />
+
+              <PrimaryButton
                 onPress={() => {
                   setAadhaarLinked(false);
                 }}
@@ -310,7 +300,7 @@ export default AadhaarForm = () => {
                   icon={<Icon name="camera-alt" size={20} color="black" />}
                   style={Camera.cameraButton}
                   onPress={() => {
-                    navigation.navigate("IDCapture", {type: "AADHAAR_FRONT"});
+                    navigation.navigate("IDCapture", { type: "AADHAAR_FRONT" });
                   }}
                 />
                 <IconButton
@@ -337,7 +327,7 @@ export default AadhaarForm = () => {
                   icon={<Icon name="camera-alt" size={20} color="black" />}
                   style={Camera.cameraButton}
                   onPress={() => {
-                    navigation.navigate("IDCapture", {type: "AADHAAR_BACK"});
+                    navigation.navigate("IDCapture", { type: "AADHAAR_BACK" });
                   }}
                 />
                 <IconButton

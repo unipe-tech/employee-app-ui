@@ -15,7 +15,7 @@ export default HomeView = () => {
       <SafeAreaView style={styles.container}>
         <View style={docSearch.searchBar}>
           <Icon style={docSearch.searchIcon} name="search" size={30} />
-          <TextInput style={docSearch.searchInput} placeholder="Search" />
+          <Input style={docSearch.searchInput} placeholder="Search" />
         </View>
         <ScrollView>
           <DocumentTile documents={documents} />

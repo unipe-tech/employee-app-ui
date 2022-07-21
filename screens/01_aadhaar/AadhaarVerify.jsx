@@ -12,6 +12,7 @@ import {
 } from "../../store/slices/aadhaarSlice";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { form, styles } from "../../styles";
+import Input from "../../components/Input";
 
 export default AadhaarVerify = () => {
   const navigation = useNavigation();
@@ -26,7 +27,9 @@ export default AadhaarVerify = () => {
   );
   const [back, setBack] = useState(false);
 
-  useEffect(() => {dispatch(addCurrentScreen("AadhaarVerify"))}, []);
+  useEffect(() => {
+    dispatch(addCurrentScreen("AadhaarVerify"));
+  }, []);
   useEffect(() => {
     dispatch(addAadhaarData(aadharData));
   }, [aadharData]);
@@ -56,7 +59,9 @@ export default AadhaarVerify = () => {
         navigation.navigate("AadhaarConfirm");
         {
           {
-            dispatch(addAadhaarVerifyStatus({type:"OTP", status: "SUCCESS"}));
+            dispatch(
+              addAadhaarVerifyStatus({ type: "OTP", status: "SUCCESS" })
+            );
           }
         }
       })
@@ -87,17 +92,13 @@ export default AadhaarVerify = () => {
       <ProgressBarTop step={1} />
       <ScrollView keyboardShouldPersistTaps="handled">
         <View style={styles.container}>
-          <Text style={form.OtpAwaitMsg}>
-            OTP has been sent vis SMS to your Aadhaar registered mobile number
-          </Text>
-          <TextInput
-            style={styles.otpInput}
-            letterSpacing={23}
-            maxLength={6}
-            numeric
-            value={otp}
-            onChangeText={setOtp}
+          <Input
+            pplaceholder="OTP has been sent vis SMS to your Aadhaar registered mobile number"
+            otherProps={{ letterSpacing: 23, numeric: true }}
             keyboardType="numeric"
+            style={styles.otpInput}
+            value={otp}
+            setValue={setOtp}
           />
           <CountDown
             until={60 * 10}

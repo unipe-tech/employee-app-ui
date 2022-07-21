@@ -8,6 +8,7 @@ import SplashScreen from "react-native-splash-screen";
 import StepIndicator from "react-native-step-indicator";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { checkBox, form, styles, welcome } from "../../styles";
+import PrimaryButton from "../../components/PrimaryButton";
 
 export default WelcomePage = () => {
   const dispatch = useDispatch();
@@ -115,14 +116,12 @@ export default WelcomePage = () => {
             labels={data}
           />
         </View>
-        <Button
-          style={form.nextButton}
+        <PrimaryButton
+          onPress={() => navigation.navigate("Login")}
           title="Welcome! Let’s start onboarding process with Unipe"
           uppercase={false}
-          onPress={() => {
-            navigation.navigate("Login");
-          }}
-        ></Button>
+          titleStyle={{ textAlign: "center" }}
+        />
         <View style={checkBox.padding}></View>
       </SafeAreaView>
     </>

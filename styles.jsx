@@ -48,11 +48,11 @@ export const styles = StyleSheet.create({
     borderBottomWidth: 1,
   },
   ContinueButton: {
-    padding: 10,
+    paddingVertical: 15,
     alignSelf: "center",
     marginTop: 50,
     width: 320,
-    height: 60,
+    height: 70,
     fontSize: 20,
   },
   flexrow: {
@@ -66,8 +66,8 @@ export const styles = StyleSheet.create({
     marginTop: 20,
   },
   dataUseText: {
-    marginLeft: 40,
-    marginRight: 20,
+    marginLeft: 36,
+    marginRight: 40,
     marginTop: 20,
     fontSize: 14,
     fontFamily: "Roboto",
@@ -137,7 +137,7 @@ export const form = StyleSheet.create({
   formLabel: {
     marginLeft: 34,
     marginTop: 30,
-    color: "grey",
+    color: "black",
   },
   formTextInput: {
     marginLeft: 34,
@@ -242,18 +242,21 @@ export const form = StyleSheet.create({
 
 export const checkBox = StyleSheet.create({
   checkBox: {
-    marginLeft: 34,
-    marginTop: 30,
+    marginLeft: 32,
   },
   checkBoxText: {
-    marginLeft: 40,
-    marginRight: 20,
-    marginTop: 30,
+    paddingLeft: 8,
     fontSize: 14,
     color: "#828282",
+    width: "80%",
   },
   padding: {
     marginTop: 30,
+  },
+  flexRow: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    paddingTop: 30,
   },
 });
 
@@ -288,10 +291,14 @@ export const bankform = StyleSheet.create({
     marginLeft: 30,
     marginTop: 10,
     padding: 10,
-    flex: 0,
+    flexDirection: "row",
+    alignItems: "flex-start",
   },
   infoText: {
     color: "#333333",
+    paddingLeft: 8,
+    width: "95%",
+    marginTop: 3,
   },
   Maintitle: {
     marginLeft: 30,

@@ -24,7 +24,8 @@ import {
 } from "../../store/slices/bankSlice";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { bankform, styles } from "../../styles";
-
+import Input from "../../components/Input";
+import InfoCard from "../../components/InfoCard";
 
 export default BankInformationForm = () => {
   const navigation = useNavigation();
@@ -158,15 +159,12 @@ export default BankInformationForm = () => {
         <Text style={bankform.Maintitle}>Bank Details Verification</Text>
 
         <ScrollView keyboardShouldPersistTaps="handled">
-          <View style={bankform.infoCard}>
-            <Text style={bankform.infoText}>
-              <Icon name="info-outline" size={20} color="#4E46F1" />
-              We will use this bank account / UPI ID to deposit your salary
-              every month, Please ensure the bank account belongs to you.{"\n"}
+          <InfoCard
+            title="We will use this bank account / UPI ID to deposit your salary
+              every month, Please ensure the bank account belongs to you.
               We will also deposit INR 1 to your account for verification make
-              sure you enter the correct account details.
-            </Text>
-          </View>
+              sure you enter the correct account details."
+          />
           <Text style={bankform.subTitle}>Enter your Bank Details</Text>
 
           <Text style={bankform.formtitle}>
@@ -181,12 +179,13 @@ export default BankInformationForm = () => {
               <Icon name="info-outline" size={20} color="grey" />
             </Popable>
           </Text>
-          <TextInput
-            style={bankform.formInput}
-            value={accountHolderName}
-            onChangeText={setAccountHolderName}
-            autoCapitalize="words"
+
+          <Input
+            placeholder={"Enter Name Registered with PAN"}
             required
+            value={accountHolderName}
+            setValue={setAccountHolderName}
+            otherProps={{ autoCapitalize: "words" }}
           />
 
           <Text style={bankform.formtitle}>
@@ -201,12 +200,11 @@ export default BankInformationForm = () => {
               <Icon name="info-outline" size={20} color="grey" />
             </Popable>
           </Text>
-          <TextInput
-            style={bankform.formInput}
-            value={accountNumber}
-            onChangeText={setAccountNumber}
-            autoCapitalize="characters"
+          <Input
             required
+            value={accountNumber}
+            setValue={setAccountNumber}
+            otherProps={{ autoCapitalize: "characters" }}
           />
 
           <Text style={bankform.formtitle}>
@@ -221,12 +219,11 @@ export default BankInformationForm = () => {
               <Icon name="info-outline" size={20} color="grey" />
             </Popable>
           </Text>
-          <TextInput
-            style={bankform.formInput}
-            value={ifsc}
-            onChangeText={setIfsc}
-            autoCapitalize="characters"
+          <Input
             required
+            value={ifsc}
+            setValue={setIfsc}
+            otherProps={{ autoCapitalize: "characters" }}
           />
           <Text style={bankform.formtitle}>
             UPI ID
@@ -240,12 +237,7 @@ export default BankInformationForm = () => {
               <Icon name="info-outline" size={20} color="grey" />
             </Popable>
           </Text>
-          <TextInput
-            style={bankform.formInput}
-            value={upiId}
-            onChangeText={setUpiId}
-            required
-          />
+          <Input required value={upiId} setValue={setUpiId} />
           <Button
             title="Continue"
             type="solid"

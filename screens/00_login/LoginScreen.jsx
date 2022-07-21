@@ -22,6 +22,7 @@ import { sendSmsVerification } from "../../services/otp/Twilio/verify";
 import { addId, addPhoneNumber } from "../../store/slices/authSlice";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { styles } from "../../styles";
+import Input from "../../components/Input";
 
 export default LoginScreen = () => {
   const navigation = useNavigation();
@@ -145,16 +146,16 @@ export default LoginScreen = () => {
         <Text style={styles.headline}>
           Please enter your mobile number to login:
         </Text>
-        <Text style={styles.fieldLabel}>Mobile Number</Text>
-        <TextInput
-          style={styles.textInput}
+        <Input
+          label="Mobile Number"
           value={phoneNumber}
-          onChangeText={setPhoneNumber}
-          autoCompleteType="tel"
-          keyboardType="phone-pad"
-          textContentType="telephoneNumber"
+          setValue={setPhoneNumber}
           maxLength={13}
           placeholder="9999999999"
+          otherProps={{
+            keyboardType: "phone-pad",
+            textContentType: "telephoneNumber",
+          }}
         />
         <Text style={styles.dataUseText}>
           This number will be used for all communication. You shall receive an

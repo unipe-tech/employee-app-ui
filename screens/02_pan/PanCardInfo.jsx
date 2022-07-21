@@ -18,7 +18,8 @@ import { putPanData } from "../../services/employees/employeeServices";
 import { addPanNumber, addPanVerifyStatus } from "../../store/slices/panSlice";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { bankform, checkBox, form, styles } from "../../styles";
-
+import Input from "../../components/Input";
+import InfoCard from "../../components/InfoCard";
 
 export default PanCardInfo = () => {
   const navigation = useNavigation();
@@ -29,7 +30,9 @@ export default PanCardInfo = () => {
   const [panName, setPanName] = useState("");
   const [birthday, setBirthday] = useState("");
 
-  useEffect(() => {dispatch(addCurrentScreen("PanCardInfo"))}, []);
+  useEffect(() => {
+    dispatch(addCurrentScreen("PanCardInfo"));
+  }, []);
   useEffect(() => {
     if (pan.length === 10) {
       setNext(true);
@@ -79,7 +82,7 @@ export default PanCardInfo = () => {
                       "Pan Number Verification status",
                       `Partial details matched, Please Check DOB.`
                     );
-                
+
                 break;
               case "1004":
                 Alert.alert(
@@ -161,15 +164,15 @@ export default PanCardInfo = () => {
 
         <ScrollView keyboardShouldPersistTaps="handled">
           <View style={checkBox.padding} />
-          <Text style={form.formLabel}>Enter PAN Number</Text>
-          <TextInput
-            style={form.formTextInput}
-            autoCapitalize="characters"
-            value={pan}
-            onChangeText={setPan}
-            maxLength={10}
-            placeholder="Enter PAN Number"
+
+          <Input
+            label="Enter PAN Number"
+            placeholder={"Enter PAN Number"}
             required
+            value={pan}
+            setValue={setPan}
+            maxLength={10}
+            otherProps={{ autoCapitalize: "characters" }}
           />
           <View style={form.forgotText}>
             <Text
@@ -183,29 +186,23 @@ export default PanCardInfo = () => {
               Forgot PAN?
             </Text>
           </View>
-          <Text style={form.formLabel}>Name as per PAN Card</Text>
-          <TextInput
-            style={form.formTextInput}
-            autoCapitalize="words"
-            value={panName}
-            onChangeText={setPanName}
-            placeholder="Enter Name Registered with PAN"
+          <Input
+            label="Name as per PAN Card"
+            placeholder={"Enter Name Registered with PAN"}
             required
+            value={panName}
+            setValue={setPanName}
+            otherProps={{ autoCapitalize: "words" }}
           />
-          <Text style={form.formLabel}>Date of birth as recorded in PAN</Text>
-          <TextInput
-            style={form.formTextInput}
+
+          <Input
+            label="Date of birth as recorded in PAN"
+            placeholder={"YYYY-MM-DD"}
             value={birthday}
-            onChangeText={setBirthday}
-            placeholder="YYYY-MM-DD"
+            setValue={setBirthday}
             maxLength={10}
           />
-          <View style={bankform.infoCard}>
-            <Text style={bankform.infoText}>
-              <Icon name="info-outline" size={20} color="#4E46F1" />
-              PAN is needed to verify your name and date of birth
-            </Text>
-          </View>
+          <InfoCard title="PAN is needed to verify your name and date of birth" />
           {next ? (
             <Button
               uppercase={false}

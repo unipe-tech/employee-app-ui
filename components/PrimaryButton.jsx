@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { Pressable, View } from "react-native";
 import React from "react";
 import { Button } from "@react-native-material/core";
 import { styles } from "../styles";
@@ -30,7 +30,7 @@ const PrimaryButton = ({
   otherProps,
 }) => {
   return (
-    <View style={wrapperStyle}>
+    <Pressable onPress={onPress} style={wrapperStyle}>
       <Button
         uppercase={uppercase}
         title={title}
@@ -42,8 +42,8 @@ const PrimaryButton = ({
         titleStyle={[styles.continueButtonText, titleStyle]}
         {...otherProps}
       />
-    </View>
-  )
+    </Pressable>
+  );
 };
 
 export default PrimaryButton;

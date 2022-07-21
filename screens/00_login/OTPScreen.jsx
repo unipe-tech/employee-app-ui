@@ -13,11 +13,14 @@ import { Button, Icon, IconButton } from "@react-native-material/core";
 import { useNavigation } from "@react-navigation/core";
 import SmsRetriever from "react-native-sms-retriever";
 import CountDown from "react-native-countdown-component";
-import { checkVerification, sendSmsVerification } from "../../services/otp/Twilio/verify";
+import {
+  checkVerification,
+  sendSmsVerification,
+} from "../../services/otp/Twilio/verify";
 import { addVerifyStatus } from "../../store/slices/authSlice";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { styles } from "../../styles";
-
+import Input from "../../components/Input";
 
 export default OTPScreen = () => {
   const phoneNumber = useSelector((state) => state.auth.phoneNumber);
@@ -28,7 +31,9 @@ export default OTPScreen = () => {
   const [back, setBack] = useState(false);
 
   const dispatch = useDispatch();
-  useEffect(() => {dispatch(addCurrentScreen("Otp"))}, []);
+  useEffect(() => {
+    dispatch(addCurrentScreen("Otp"));
+  }, []);
 
   // HHrHWFsvgjF
 
@@ -98,14 +103,13 @@ export default OTPScreen = () => {
               />
             )}
           </Text>
-          <TextInput
+          <Input
             style={styles.otpInput}
-            letterSpacing={23}
-            maxLength={6}
-            numeric
-            value={otp}
-            onChangeText={setOtp}
+            otherProps={{ letterSpacing: 23, numeric: true }}
             keyboardType="numeric"
+            value={otp}
+            setValue={setOtp}
+            maxLength={6}
           />
           <CountDown
             until={60}
@@ -148,7 +152,7 @@ export default OTPScreen = () => {
                 checkVerification(phoneNumber, otp).then((success) => {
                   if (!success) Alert.alert("err", "Incorrect OTP");
                   success && navigation.navigate("AadhaarForm");
-                  console.log(phoneNumber,otp)
+                  console.log(phoneNumber, otp);
                   dispatch(addVerifyStatus("SUCCESS"));
                   SmsRetriever.removeSmsListener();
                 });

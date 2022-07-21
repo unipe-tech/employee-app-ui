@@ -9,7 +9,7 @@ import relations from "../../../helpers/RelationData";
 import { addESICFamilyDetails } from "../../../store/slices/esicSlice";
 
 import { bankform, form, styles } from "../../../styles";
-
+import Input from "../../../components/Input";
 
 export default FamilyDetails = () => {
   const navigation = useNavigation();
@@ -70,11 +70,10 @@ export default FamilyDetails = () => {
 
   return (
     <ScrollView style={styles.container} keyboardShouldPersistTaps="handled">
-      <Text style={bankform.formtitle}>Father's / Husband's Name *</Text>
-      <TextInput
-        style={bankform.formInput}
+      <Input
+        label="Father's / Husband's Name *"
         value={fatherHusbandName}
-        onChangeText={setRelationName}
+        setValue={setRelationName}
       />
 
       <Text style={bankform.formtitle}>
@@ -90,13 +89,10 @@ export default FamilyDetails = () => {
         <Picker.Item label="Husband" value="Husband" />
       </Picker>
 
-      <Text style={bankform.formtitle}>
-        Name of Nominee (As per Aadhaar card) *
-      </Text>
-      <TextInput
-        style={bankform.formInput}
+      <Input
         value={nomineeName}
-        onChangeText={setNomineeName}
+        setValue={setNomineeName}
+        label="Name of Nominee (As per Aadhaar card"
       />
 
       <Text style={bankform.formtitle}>
