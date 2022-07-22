@@ -1,5 +1,4 @@
 package com.employeeapp;
-
 import android.app.Application;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -7,6 +6,8 @@ import androidx.annotation.NonNull;
 
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.github.reactnativecommunity.location.RNLocationPackage;
+import com.eddieowens.RNBoundaryPackage;
 import me.furtado.smsretriever.RNSmsRetrieverPackage;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;

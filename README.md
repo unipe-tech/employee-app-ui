@@ -17,3 +17,6 @@ react-native run-ios
 ```
 
 //npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res &&
+
+## How to use GeoFencing module
+Follow instructions from https://bit.ly/3PKZOC1
