@@ -24,8 +24,10 @@ import GeoFencing from "../screens/07_geofencing/GeoFencing";
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator();
   const initialRoute = useSelector((state) => state.navigation.currentScreen);
+
   console.log("STAGE: ", STAGE);
   console.log("initialRoute: ", initialRoute);
+
   return (
     <Stack.Navigator
       initialRouteName={STAGE === "dev" ? "DevMenu" : initialRoute}

@@ -1,4 +1,4 @@
-import base64 from "react-native-base64";
+import { btoa } from "react-native-quick-base64";
 const GenerateDocument = (props) => {
   var document = {};
   switch (props.src) {
@@ -12,45 +12,52 @@ const GenerateDocument = (props) => {
       document = {
         id: props.id,
         number: props.aadhaar,
-        base64_data: props.xml,
+        data: props.status === "SUCCESS" ? props.xml: "",
         verifyMode: "OTP",
-        verifyStatus: "",
-        verifyMsg: "",
+        verifyStatus: props.status,
+        verifyMsg: props.message,
       };
       break;
 
     case "AadhaarOCR":
+      var stringifyData = "";
+      var number = ""
+      if (props.status == "SUCCESS") {
+        number = props.frontAadhaarData["document_id"]
+        const data = {
+          gender: props.frontAadhaarData["gender"],
+          name: props.frontAadhaarData["name"],
+          address: props.backAadhaarData["address"],
+        };
+        stringifyData = btoa(JSON.stringify(data));
+      }
       document = {
         id: props.id,
-        number: props.frontaadhaarData["document_id"],
-        base64_data: base64.encode({
-          gender: props.frontaadhaarData["gender"],
-          name: props.frontaadhaarData["name"],
-          address: props.backaadhaarData["address"],
-        }),
+        number: number,
+        data: stringifyData,
         verifyMode: "OCR",
-        verifyStatus: "",
-        verifyMsg: "",
+        verifyStatus: props.status,
+        verifyMsg: props.message,
       };
       break;
 
     case "Pan":
       document = {
         id: props.id,
-        pan: props.pan,
-        status: "",
-        message: "",
+        number: props.pan,
+        verifyStatus: props.status,
+        verifyMsg: props.message,
       };
       break;
 
     case "Bank":
       document = {
         id: props.id,
-        account_number: props.accountNumber,
+        accountNumber: props.accountNumber,
         ifsc: props.ifsc,
         upi: props.upi,
-        status: "",
-        message: "",
+        verifyStatus: "SUCCESS",
+        verifyMsg: "",
       };
       break;
 
