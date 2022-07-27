@@ -20,6 +20,7 @@ export default function RNPhotoCapture(props) {
   const navigation = useNavigation();
   const [id, setId] = useState(null);
   const { front } = props.route.params;
+  const [side, setSide] = useState("back");
 
   const dispatch = useDispatch();
 
@@ -28,6 +29,7 @@ export default function RNPhotoCapture(props) {
       dispatch(addAadhaarImage({ data: id, type: props.route.params.type }));
     } else if (props.route.params.type.match(/^SELFIE/)) {
       dispatch(addSelfie(id));
+      setSide("front");
     }
   }, [id]);
 
