@@ -3,7 +3,14 @@ import { AppBar, Button, Icon, IconButton } from "@react-native-material/core";
 import { useNavigation } from "@react-navigation/core";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { SafeAreaView, ScrollView, Text, TextInput, View } from "react-native";
+import {
+  SafeAreaView,
+  ScrollView,
+  Text,
+  TextInput,
+  View,
+  Alert,
+} from "react-native";
 import CountDown from "react-native-countdown-component";
 import ProgressBarTop from "../../components/ProgressBarTop";
 import {
@@ -11,18 +18,20 @@ import {
   addAadhaarVerifyStatus,
 } from "../../store/slices/aadhaarSlice";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
+import { aadhaarBackendPush } from "../../helpers/BackendPush";
 import { form, styles } from "../../styles";
 import Input from "../../components/Input";
 
 export default AadhaarVerify = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const [errorMsg, setErrorMsg] = useState("");
   const AadhaarTransactionId = useSelector(
     (state) => state.aadhaar.submitOTPtxnId
   );
   const [otp, setOtp] = useState("");
   const [next, setNext] = useState(false);
-  const [aadharData, setAadharData] = useState(
+  const [aadhaarData, setAadhaarData] = useState(
     useSelector((state) => state.aadhaar.data)
   );
   const [back, setBack] = useState(false);
@@ -31,8 +40,8 @@ export default AadhaarVerify = () => {
     dispatch(addCurrentScreen("AadhaarVerify"));
   }, []);
   useEffect(() => {
-    dispatch(addAadhaarData(aadharData));
-  }, [aadharData]);
+    dispatch(addAadhaarData(aadhaarData));
+  }, [aadhaarData]);
 
   async function confirmVerificationCode() {
     const data = {
@@ -54,18 +63,57 @@ export default AadhaarVerify = () => {
     fetch(`https://api.gridlines.io/aadhaar-api/boson/submit-otp`, options)
       .then((response) => response.json())
       .then((response) => {
-        console.log(response);
-        setAadharData(response["data"]);
-        navigation.navigate("AadhaarConfirm");
-        {
-          {
-            dispatch(
-              addAadhaarVerifyStatus({ type: "OTP", status: "SUCCESS" })
-            );
+        if (response["status"] == "200") {
+          switch (response["data"]["code"]) {
+            case "1002":
+              setAadhaarData(response["data"]);
+              navigation.navigate("AadhaarConfirm", "OTP");
+              dispatch(
+                addAadhaarVerifyStatus({ type: "OTP", status: "SUCCESS" })
+              );
+              break;
+            default:
+              setErrorMsg(response["data"]["message"]);
+              aadhaarBackendPush({
+                type: "OTP",
+                id: id,
+                status: "ERROR",
+                message: errorMsg,
+              });
+              Alert.alert("Error", response["data"]["message"]);
+          }
+        } else {
+          if (response["error"]) {
+            setErrorMsg(response["error"]["message"]);
+            aadhaarBackendPush({
+              type: "OTP",
+              id: id,
+              status: "ERROR",
+              message: errorMsg,
+            });
+            Alert.alert("Error", response["error"]["message"]);
+          } else {
+            setErrorMsg(response["message"]);
+            aadhaarBackendPush({
+              type: "OTP",
+              id: id,
+              status: "ERROR",
+              message: errorMsg,
+            });
+            Alert.alert("Error", response["message"]);
           }
         }
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        setErrorMsg(err);
+        aadhaarBackendPush({
+          type: "OTP",
+          id: id,
+          status: "ERROR",
+          message: errorMsg,
+        });
+        Alert.alert("Error", err);
+      });
   }
 
   useEffect(() => {
@@ -84,7 +132,7 @@ export default AadhaarVerify = () => {
         leading={
           <IconButton
             icon={<Icon name="arrow-back" size={20} color="white" />}
-            onPress={() => navigation.goBack()}
+            onPress={() => navigation.navigate("AadhaarForm")}
             disabled={!back}
           />
         }

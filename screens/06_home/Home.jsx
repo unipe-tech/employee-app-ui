@@ -12,6 +12,7 @@ import Documents from "./Documents";
 
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { buttons, nav } from "../../styles";
+import Input from "../../components/Input";
 
 export default Home = () => {
   const [state, setState] = React.useState({ open: false });
@@ -48,7 +49,7 @@ export default Home = () => {
             leading={
               <IconButton
                 icon={<Icon name="menu" size={30} />}
-                onPress={() => signOut()}
+                onPress={() => console.log("Menu")}
               />
             }
             trailing={<IconButton icon={<Icon name="more-vert" size={30} />} />}

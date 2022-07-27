@@ -3,6 +3,7 @@ import React from "react";
 import { SafeAreaView, ScrollView, TextInput, View } from "react-native";
 import DocumentTile from "../../components/DocumentTile";
 import { docSearch, styles } from "../../styles";
+import Input from "../../components/Input";
 
 export default HomeView = () => {
   documents = [

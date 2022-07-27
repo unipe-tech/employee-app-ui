@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Button } from "@react-native-material/core";
 import { useNavigation } from "@react-navigation/core";
 import {
@@ -17,7 +17,7 @@ import {
 import SmsRetriever from "react-native-sms-retriever";
 
 import { GenerateDocument } from "../../helpers/GenerateDocument";
-import { putMobileData } from "../../services/employees/employeeServices";
+import { putBackendData } from "../../services/employees/employeeServices";
 import { sendSmsVerification } from "../../services/otp/Twilio/verify";
 import { addId, addPhoneNumber } from "../../store/slices/authSlice";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
@@ -26,20 +26,22 @@ import Input from "../../components/Input";
 
 export default LoginScreen = () => {
   const navigation = useNavigation();
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState(
+    useSelector((state) => state.auth.phoneNumber)
+  );
   const [next, setNext] = useState(false);
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const [id, setId] = useState(null);
-
+  var phn = "";
   useEffect(() => {
     dispatch(addCurrentScreen("Login"));
   }, []);
 
   const onPhoneNumberPressed = async () => {
     try {
-      const phn = await SmsRetriever.requestPhoneNumber();
-      setPhoneNumber(phn);
+      phn = await SmsRetriever.requestPhoneNumber();
+      setPhoneNumber(phn.replace("+91", ""));
     } catch (error) {
       console.log(JSON.stringify(error));
     }
@@ -82,15 +84,16 @@ export default LoginScreen = () => {
   //   })}, [session]);
 
   const signIn = () => {
-    sendSmsVerification(phoneNumber)
+    var fullPhoneNumber = `+91${phoneNumber}`;
+    sendSmsVerification(fullPhoneNumber)
       .then((sent) => {
         console.log("Sent!");
         setIsLoading(true);
         var phonePayload = GenerateDocument({
           src: "otp",
-          number: `91${phoneNumber}`,
+          number: fullPhoneNumber,
         });
-        putMobileData(phonePayload)
+        putBackendData({ document: phonePayload, src: "Mobile" })
           .then((res) => {
             console.log(phonePayload);
             console.log(res.data);
@@ -120,10 +123,7 @@ export default LoginScreen = () => {
 
   useEffect(() => {
     var phoneno = /^[0-9]{10}$/gm;
-    if (
-      (phoneno.test(phoneNumber) && phoneNumber.length === 10) ||
-      phoneNumber.length === 13
-    ) {
+    if (phoneno.test(phoneNumber) && phoneNumber.length === 10) {
       setNext(true);
       console.log("true");
     } else {
