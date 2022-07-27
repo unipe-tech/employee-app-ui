@@ -94,7 +94,6 @@ export default AadhaarForm = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-    
     };
 
     fetch(`https://api.gridlines.io/aadhaar-api/boson/generate-otp`, options)
@@ -172,18 +171,24 @@ export default AadhaarForm = () => {
                 }
                 break;
               case "1015":
-                type === "front" ? setAadhaarFrontVerified(false) : setAadhaarBackVerified(false);
+                type === "front"
+                  ? setAadhaarFrontVerified(false)
+                  : setAadhaarBackVerified(false);
                 setErrorMsg(response["data"]["message"]);
                 Alert.alert("Error", response["data"]["message"]);
                 break;
             }
           } else {
             if (response["error"]) {
-              type === "front" ? setAadhaarFrontVerified(false) : setAadhaarBackVerified(false);
+              type === "front"
+                ? setAadhaarFrontVerified(false)
+                : setAadhaarBackVerified(false);
               setErrorMsg(response["error"]["message"]);
               Alert.alert("Error", response["error"]["message"]);
             } else {
-              type === "front" ? setAadhaarFrontVerified(false) : setAadhaarBackVerified(false);
+              type === "front"
+                ? setAadhaarFrontVerified(false)
+                : setAadhaarBackVerified(false);
               setErrorMsg(response["message"]);
               Alert.alert("Error", response["message"]);
             }
@@ -348,6 +353,7 @@ export default AadhaarForm = () => {
                   onPress={() => {
                     navigation.navigate("RNPhotoCapture", {
                       type: "AADHAAR_FRONT",
+                      navRoute: "AadhaarForm",
                     });
                   }}
                 />
@@ -355,10 +361,11 @@ export default AadhaarForm = () => {
                   icon={<Icon name="delete" size={20} color="black" />}
                   style={Camera.cameraButton}
                   onPress={() => {
-                    setAadhaarFrontVerified(false)
+                    setAadhaarFrontVerified(false);
                     dispatch(
                       setAadhaarPlaceholderImage({
                         type: "AADHAAR_FRONT",
+                        navRoute: "AadhaarForm",
                       })
                     );
                   }}
@@ -385,7 +392,7 @@ export default AadhaarForm = () => {
                   icon={<Icon name="delete" size={20} color="black" />}
                   style={Camera.cameraButton}
                   onPress={() => {
-                    setAadhaarBackVerified(false)
+                    setAadhaarBackVerified(false);
                     dispatch(
                       setAadhaarPlaceholderImage({
                         type: "AADHAAR_BACK",

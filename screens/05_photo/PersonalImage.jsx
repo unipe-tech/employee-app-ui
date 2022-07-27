@@ -116,9 +116,10 @@ export default PersonalImage = () => {
               icon={<Icon name="camera-alt" size={25} color="black" />}
               style={selfie.cameraButton}
               onPress={() => {
-                imageData=null;
+                imageData = null;
                 navigation.navigate("RNPhotoCapture", {
                   type: "SELFIE",
+                  navRoute: "PersonalImage",
                 });
               }}
             />

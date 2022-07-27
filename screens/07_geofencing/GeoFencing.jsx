@@ -1,7 +1,19 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Text, Button, Linking } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  Linking,
+  TouchableOpacity,
+  Image,
+} from "react-native";
 import RNLocation from "react-native-location";
 import { PermissionsAndroid } from "react-native";
+// import MapView from "react-native-maps";
+import { Button } from "@react-native-material/core";
+import { form } from "../../styles";
+import { Ionicons } from "react-native-vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 RNLocation.configure({
   distanceFilter: 400,
@@ -9,6 +21,8 @@ RNLocation.configure({
     android: "highAccuracy",
   },
 });
+
+const statuses = ["IN", "OUT"];
 
 function measure(lat1, lon1, lat2, lon2) {
   // generally used geo measurement function
@@ -31,9 +45,13 @@ const placeLatLong = {
   longitude: 76.40859246253967,
 };
 
-const GeoFencing = ({ url }) => {
+const GeoFencing = ({ url, route }) => {
   const [viewLocation, setViewLocation] = useState([]);
   const [isPresent, setIsPresent] = useState(false);
+  const [disabled, setDisabled] = useState(true);
+  const [status, setStatus] = useState("IN");
+  const navigation = useNavigation();
+  const [selfieImage, setSelfieImage] = useState(null);
 
   async function requestLocationPermission() {
     try {
@@ -46,7 +64,6 @@ const GeoFencing = ({ url }) => {
       );
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
         console.log("You can use the location");
-        alert("You can use the location");
       } else {
         console.log("location permission denied");
         alert("Location permission denied");
@@ -134,22 +151,88 @@ const GeoFencing = ({ url }) => {
     getLocation();
   }, []);
 
+  React.useEffect(() => {
+    getLocation();
+    if (
+      route?.params?.imgUri &&
+      viewLocation?.latitude &&
+      viewLocation?.longitude
+    ) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
+  }, [disabled, route, viewLocation]);
+
   return (
     <View style={styles.container}>
-      <Text>React Native Geolocation</Text>
-      <View
-        style={{ marginTop: 10, padding: 10, borderRadius: 10, width: "40%" }}
-      >
-        <Button title="Get Location" onPress={getLocation} />
+      <Text style={styles.title}>{`Date: ${new Date().getDate()}/${
+        new Date().getMonth() + 1
+      }/${new Date().getFullYear()}`}</Text>
+      <Text
+        style={styles.time}
+      >{`${new Date().getHours()}:${new Date().getMinutes()}`}</Text>
+      <Text style={styles.time}>{selfieImage}</Text>
+      {/* <MapView
+        initialRegion={{
+          latitude: 37.78825,
+          longitude: -122.4324,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}
+      /> */}
+      <View style={styles.flexrow}>
+        {statuses.map((item, index) => {
+          return (
+            <Button
+              key={index}
+              uppercase={false}
+              style={status == item ? styles.chosenButton : styles.choiceButton}
+              title={item}
+              type="solid"
+              color="#4E46F1"
+              onPress={() => setStatus(item)}
+            />
+          );
+        })}
       </View>
-      <View>
-        <Text>Latitude: {viewLocation.latitude} </Text>
-        <Text>Longitude: {viewLocation.longitude} </Text>
-        {isPresent ? (
-          <Text>IsPresent: True </Text>
-        ) : (
-          <Text>IsPresent: False </Text>
-        )}
+
+      {route?.params?.imgUri != null && (
+        <Image
+          source={{ uri: `data:image/jpeg;base64,${route?.params?.imgUri}` }}
+          style={{
+            width: 190,
+            height: 190,
+            resizeMode: "cover",
+            alignSelf: "center",
+            marginTop: 40,
+          }}
+        />
+      )}
+
+      {/* Image Button */}
+
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate("RNPhotoCapture", {
+            type: "ATTENDANCE_SELFIE",
+            navRoute: "GeoFencing",
+          })
+        }
+        style={styles.selfieCont}
+      >
+        <Text style={styles.clickSelfie}>Click Selfie</Text>
+        <View>
+          <Ionicons name="camera" color="white" size={50} />
+        </View>
+      </TouchableOpacity>
+      <View style={styles.button}>
+        <Button
+          disabled={disabled}
+          title="Submit"
+          style={styles.btnChild}
+          titleStyle={styles.btnTextStyle}
+        />
       </View>
     </View>
   );
@@ -159,9 +242,82 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
+  },
+  title: {
+    fontSize: 20,
+    textAlign: "center",
+    fontWeight: "bold",
+    marginTop: 20,
+  },
+  time: {
+    textAlign: "center",
+    fontSize: 16,
+    marginTop: 5,
+  },
+  flexrow: {
+    flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-evenly",
+  },
+  chosenButton: {
+    padding: 2,
+    marginTop: 40,
+    width: 140,
+    height: 40,
+    fontSize: 20,
+  },
+  choiceButton: {
+    padding: 2,
+    marginTop: 40,
+    width: 140,
+    height: 40,
+    fontSize: 20,
+    backgroundColor: "grey",
+  },
+  selfieCont: {
+    alignSelf: "center",
+    marginTop: 50,
+    backgroundColor: "#4E46F1",
+    borderRadius: 4,
+    alignItems: "center",
+    padding: 15,
+  },
+  clickSelfie: {
+    color: "white",
+  },
+  button: {
+    flex: 1,
+    justifyContent: "flex-end",
+    marginBottom: 12,
+    width: "100%",
+    alignItems: "center",
+  },
+  btnChild: {
+    width: "90%",
+    height: 50,
+    alignItems: "center",
+  },
+  btnTextStyle: {
+    textAlign: "center",
+    marginTop: 12,
   },
 });
 
 export default GeoFencing;
+
+// <View
+//         style={{ marginTop: 10, padding: 10, borderRadius: 10, width: "40%" }}
+//       >
+//         <Button title="Get Location" onPress={getLocation} />
+//       </View>
+//       <View>
+//         <Text>Latitude: {viewLocation.latitude && viewLocation.latitude} </Text>
+//         <Text>
+//           Longitude: {viewLocation.longitude && viewLocation.longitude}{" "}
+//         </Text>
+//         {isPresent ? (
+//           <Text>IsPresent: True </Text>
+//         ) : (
+//           <Text>IsPresent: False </Text>
+//         )}
+//       </View>

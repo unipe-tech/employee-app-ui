@@ -16,11 +16,10 @@ const PendingView = () => (
   </View>
 );
 
-
-export default function RNPhotoCapture (props) {
-  const navigation = useNavigation()
-  const [id, setId] = useState(null)
-  const {front} = props.route.params
+export default function RNPhotoCapture(props) {
+  const navigation = useNavigation();
+  const [id, setId] = useState(null);
+  const { front } = props.route.params;
 
   const dispatch = useDispatch();
 
@@ -36,8 +35,11 @@ export default function RNPhotoCapture (props) {
     const options = { quality: 0.5, base64: true };
     const data = await camera.takePictureAsync(options);
     const base64image = await RNFS.readFile(data.uri, "base64");
+    // console.log(base64image);
     setId(base64image);
-    navigation.goBack();
+    navigation.navigate(props?.route?.params?.navRoute, {
+      imgUri: base64image,
+    });
   };
 
   return (
@@ -45,7 +47,10 @@ export default function RNPhotoCapture (props) {
       <RNCamera
         style={Camera.preview}
         type={
-          RNCamera.Constants.Type.back
+          props.route.params.type === "SELFIE" ||
+          props.route.params.type === "ATTENDANCE_SELFIE"
+            ? RNCamera.Constants.Type.front
+            : RNCamera.Constants.Type.back
         }
         flashMode={RNCamera.Constants.FlashMode.off}
         androidCameraPermissionOptions={{
@@ -83,4 +88,4 @@ export default function RNPhotoCapture (props) {
       </RNCamera>
     </View>
   );
-};
+}

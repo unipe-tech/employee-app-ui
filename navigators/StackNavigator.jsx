@@ -51,7 +51,9 @@ const StackNavigator = () => {
         name="GeoFencing"
         component={GeoFencing}
         options={{
-          headerShown: false,
+          headerShown: true,
+          headerTitle: "Mark Attendance",
+          headerTitleAlign: "center",
         }}
       />
       <Stack.Screen
