@@ -1,0 +1,20 @@
+{
+  "translation": {
+    "welcome_hello": "Hello,",
+    "welcome_subtitle": "Let’s verify the below documents & start the onboarding process.",
+    "mobile_number_verification": "Mobile Number Verification",
+    "aadhaar_card_verification": "Aadhaar Card Verification",
+    "pan_card_verification": "PAN Card Verification",
+    "bank_details": "Bank Details",
+    "basic_details": "Basic Details",
+    "user_photo_capture": "User Photo Capture",
+    "welcome_btn": "Welcome! Let's start onboarding process with Unipe",
+    "login_heading": "Please enter your mobile number to login:",
+    "mobile_number": "Mobile Number",
+    "terms_of_service_login_01": "This number will be used for all communication. You shall receive an SMS with code for verification. By continuing, you agree to our",
+    "terms_of_service": "Terms of Service",
+    "privacy_policy": "Privacy Policy",
+    "continue": "Continue",
+    "pan_verification": "PAN Verification"
+  }
+}

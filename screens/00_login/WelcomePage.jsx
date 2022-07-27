@@ -1,17 +1,24 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import { Button } from "@react-native-material/core";
 import { useNavigation } from "@react-navigation/core";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Image, SafeAreaView, Text, View } from "react-native";
+import { Image, Pressable, SafeAreaView, Text, View } from "react-native";
 import SplashScreen from "react-native-splash-screen";
 import StepIndicator from "react-native-step-indicator";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { checkBox, form, styles, welcome } from "../../styles";
 import Loading from "../../components/Loading";
+import Modal from "react-native-modal";
+import PrimaryButton from "../../components/PrimaryButton";
+import { useTranslation } from "react-i18next";
+import "../../translation/i18n";
+import { addCurrentLanguage } from "../../store/slices/languageSlice";
 
 export default WelcomePage = () => {
   const dispatch = useDispatch();
+  const { t, i18n } = useTranslation();
+
   useEffect(() => {
     dispatch(addCurrentScreen("Welcome"));
   }, []);
@@ -59,12 +66,12 @@ export default WelcomePage = () => {
     <MaterialIcons {...getStepIndicatorIconConfig(params)} />
   );
   const data = [
-    "Mobile Number Verification",
-    "Aadhar Card Verification",
-    "PAN Card Verification",
-    "Bank Details",
-    "Basic Details",
-    "User Photo Capture",
+    t("mobile_number_verification"),
+    t("aadhaar_card_verification"),
+    t("pan_card_verification"),
+    t("bank_details"),
+    t("basic_details"),
+    t("user_photo_capture"),
   ];
   const stepIndicatorStyles = {
     stepIndicatorSize: 30,
@@ -97,10 +104,8 @@ export default WelcomePage = () => {
           style={styles.logo}
           source={require("../../assets/unipe-Thumbnail.png")}
         />
-        <Text style={welcome.mainTitle}>Hello,</Text>
-        <Text style={welcome.subTitle}>
-          Let’s verify the below documents & start the onboarding process.
-        </Text>
+        <Text style={welcome.mainTitle}>{t("welcome_hello")}</Text>
+        <Text style={welcome.subTitle}>{t("welcome_subtitle")}</Text>
         {/* {data.map((datai,index)=>{
       return(
         <Text style={welcome.title} key={index}><Text>{'\u2B24'}</Text>  {datai}</Text>
@@ -118,7 +123,7 @@ export default WelcomePage = () => {
         </View>
         <Button
           style={form.nextButton}
-          title="Welcome! Let’s start onboarding process with Unipe"
+          title={t("welcome_btn")}
           uppercase={false}
           onPress={() => {
             navigation.navigate("Login");

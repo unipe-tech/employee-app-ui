@@ -22,9 +22,11 @@ import { sendSmsVerification } from "../../services/otp/Twilio/verify";
 import { addId, addPhoneNumber } from "../../store/slices/authSlice";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { styles } from "../../styles";
+import { useTranslation } from "react-i18next";
 
 export default LoginScreen = () => {
   const navigation = useNavigation();
+  const { t } = useTranslation();
   const [phoneNumber, setPhoneNumber] = useState(
     useSelector((state) => state.auth.phoneNumber)
   );
@@ -142,9 +144,7 @@ export default LoginScreen = () => {
           style={styles.logo}
           source={require("../../assets/unipe-Thumbnail.png")}
         />
-        <Text style={styles.headline}>
-          Please enter your mobile number to login:
-        </Text>
+        <Text style={styles.headline}>{t("login_heading")}</Text>
         <Text style={styles.fieldLabel}>Mobile Number</Text>
         <TextInput
           style={styles.textInput}
@@ -157,15 +157,14 @@ export default LoginScreen = () => {
           placeholder="9999999999"
         />
         <Text style={styles.dataUseText}>
-          This number will be used for all communication. You shall receive an
-          SMS with code for verification. By continuing, you agree to our{" "}
+          {t("terms_of_service_login_01")}{" "}
           <Text
             onPress={() =>
               Linking.openURL("https://policies.google.com/terms?hl=en-US")
             }
             style={styles.termsText}
           >
-            Terms of Service
+            {t("terms_of_service")}
           </Text>{" "}
           &{" "}
           <Text
@@ -174,7 +173,7 @@ export default LoginScreen = () => {
             }
             style={styles.termsText}
           >
-            Privacy Policy
+            {t("privacy_policy")}
           </Text>
         </Text>
         {!isLoading ? (
@@ -182,7 +181,7 @@ export default LoginScreen = () => {
             {next ? (
               <Button
                 uppercase={false}
-                title="Continue"
+                title={t("continue")}
                 type="solid"
                 style={styles.ContinueButton}
                 color="#4E46F1"
@@ -191,7 +190,7 @@ export default LoginScreen = () => {
             ) : (
               <Button
                 uppercase={false}
-                title="Continue"
+                title={t("continue")}
                 type="solid"
                 style={styles.ContinueButton}
                 disabled

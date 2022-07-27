@@ -17,9 +17,11 @@ import { addPanNumber, addPanVerifyStatus } from "../../store/slices/panSlice";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { panBackendPush } from "../../helpers/BackendPush";
 import { bankform, checkBox, form, styles } from "../../styles";
+import { useTranslation } from "react-i18next";
 
 export default PanCardInfo = () => {
   const navigation = useNavigation();
+  const { t } = useTranslation();
   const [pan, setPan] = useState(useSelector((state) => state.pan.number));
   const [next, setNext] = useState();
   const dispatch = useDispatch();
@@ -116,12 +118,12 @@ export default PanCardInfo = () => {
         Alert.alert("Error", err);
         message = err;
       });
-      panBackendPush({                  
-        id: id,
-        pan: pan,
-        status: status,
-        message: message                 
-      });
+    panBackendPush({
+      id: id,
+      pan: pan,
+      status: status,
+      message: message,
+    });
   };
 
   const RetrievePAN = () => {
@@ -173,7 +175,7 @@ export default PanCardInfo = () => {
           }
         />
         <ProgressBarTop step={2} />
-        <Text style={form.formHeader}>PAN Verification</Text>
+        <Text style={form.formHeader}>{t("pan_verification")}</Text>
 
         <ScrollView keyboardShouldPersistTaps="handled">
           <View style={checkBox.padding} />
