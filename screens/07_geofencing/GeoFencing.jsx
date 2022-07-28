@@ -9,11 +9,12 @@ import {
 } from "react-native";
 import RNLocation from "react-native-location";
 import { PermissionsAndroid } from "react-native";
-// import MapView from "react-native-maps";
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { Button } from "@react-native-material/core";
 import { form } from "../../styles";
 import { Ionicons } from "react-native-vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import Modal from "react-native-modal";
 
 RNLocation.configure({
   distanceFilter: 400,
@@ -46,12 +47,15 @@ const placeLatLong = {
 };
 
 const GeoFencing = ({ url, route }) => {
-  const [viewLocation, setViewLocation] = useState([]);
+  const [viewLocation, setViewLocation] = useState();
   const [isPresent, setIsPresent] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [status, setStatus] = useState("IN");
   const navigation = useNavigation();
   const [selfieImage, setSelfieImage] = useState(null);
+  const [lat, setLat] = useState(37.78825);
+  const [long, setLong] = useState(-122.4324);
+  const [modalVisible, setModalVisible] = useState(false);
 
   async function requestLocationPermission() {
     try {
@@ -158,11 +162,20 @@ const GeoFencing = ({ url, route }) => {
       viewLocation?.latitude &&
       viewLocation?.longitude
     ) {
+      setModalVisible(true);
       setDisabled(false);
     } else {
       setDisabled(true);
     }
-  }, [disabled, route, viewLocation]);
+  }, [disabled, route]);
+
+  React.useEffect(() => {
+    if (viewLocation) {
+      console.log("ViewLocation is: ", viewLocation);
+      setLat(viewLocation.latitude);
+      setLong(viewLocation.longitude);
+    }
+  }, [viewLocation]);
 
   return (
     <View style={styles.container}>
@@ -173,14 +186,7 @@ const GeoFencing = ({ url, route }) => {
         style={styles.time}
       >{`${new Date().getHours()}:${new Date().getMinutes()}`}</Text>
       <Text style={styles.time}>{selfieImage}</Text>
-      {/* <MapView
-        initialRegion={{
-          latitude: 37.78825,
-          longitude: -122.4324,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
-      /> */}
+
       <View style={styles.flexrow}>
         {statuses.map((item, index) => {
           return (
@@ -197,43 +203,148 @@ const GeoFencing = ({ url, route }) => {
         })}
       </View>
 
-      {route?.params?.imgUri != null && (
-        <Image
-          source={{ uri: `data:image/jpeg;base64,${route?.params?.imgUri}` }}
+      <View
+        style={{
+          height: 300,
+          width: "100%",
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: 40,
+          alignSelf: "center",
+        }}
+      >
+        <MapView
+          onRegionChange={() => {}}
+          provider={PROVIDER_GOOGLE}
           style={{
-            width: 190,
-            height: 190,
-            resizeMode: "cover",
+            width: "100%",
+            height: 300,
             alignSelf: "center",
-            marginTop: 40,
+          }}
+          showUserLocation={true}
+          initialRegion={{
+            latitude: lat,
+            longitude: long,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+          region={{
+            latitude: lat,
+            longitude: long,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
           }}
         />
-      )}
+        <Marker
+          coordinate={{
+            latitude: lat,
+            longitude: long,
+          }}
+        />
+      </View>
 
       {/* Image Button */}
-
-      <TouchableOpacity
-        onPress={() =>
-          navigation.navigate("RNPhotoCapture", {
-            type: "ATTENDANCE_SELFIE",
-            navRoute: "GeoFencing",
-          })
-        }
-        style={styles.selfieCont}
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-around",
+        }}
       >
-        <Text style={styles.clickSelfie}>Click Selfie</Text>
-        <View>
-          <Ionicons name="camera" color="white" size={50} />
-        </View>
-      </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate("RNPhotoCapture", {
+              type: "ATTENDANCE_SELFIE",
+              navRoute: "GeoFencing",
+            })
+          }
+          style={styles.selfieCont}
+        >
+          <Text style={styles.clickSelfie}>Click Selfie</Text>
+          <View>
+            <Ionicons name="camera" color="white" size={50} />
+          </View>
+        </TouchableOpacity>
+        {route?.params?.imgUri != null && (
+          <Image
+            source={{ uri: `data:image/jpeg;base64,${route?.params?.imgUri}` }}
+            style={{
+              width: 95,
+              height: 95,
+              resizeMode: "cover",
+              alignSelf: "center",
+              marginTop: 40,
+              borderRadius: 5,
+            }}
+          />
+        )}
+      </View>
+
       <View style={styles.button}>
         <Button
+          onPress={() => navigation.navigate("GeoFencingSuccess")}
+          color="#4E46F1"
           disabled={disabled}
           title="Submit"
           style={styles.btnChild}
           titleStyle={styles.btnTextStyle}
         />
       </View>
+      <Modal
+        style={{
+          backgroundColor: "white",
+          width: "100%",
+          height: "100%",
+          marginHorizontal: 0,
+        }}
+        isVisible={modalVisible}
+      >
+        {route?.params?.imgUri != null && (
+          <Image
+            source={{ uri: `data:image/jpeg;base64,${route?.params?.imgUri}` }}
+            style={{
+              width: "90%",
+              height: "70%",
+              resizeMode: "cover",
+              alignSelf: "center",
+              marginTop: 40,
+              borderRadius: 10,
+            }}
+          />
+        )}
+        <Button
+          style={{
+            width: "90%",
+            alignSelf: "center",
+            marginTop: 40,
+            paddingVertical: 12,
+          }}
+          title="Confirm Image"
+          onPress={() => setModalVisible(false)}
+        />
+        <Button
+          style={{
+            width: "90%",
+            alignSelf: "center",
+            marginTop: 15,
+            paddingVertical: 12,
+            borderColor: "#4E46F1",
+            borderWidth: 1,
+            borderRadius: 5,
+          }}
+          titleStyle={{
+            color: "#4E46F1",
+          }}
+          color="white"
+          title="Retake Image"
+          onPress={() =>
+            navigation.navigate("RNPhotoCapture", {
+              type: "ATTENDANCE_SELFIE",
+              navRoute: "GeoFencing",
+            })
+          }
+        />
+      </Modal>
     </View>
   );
 };
@@ -294,12 +405,10 @@ const styles = StyleSheet.create({
   },
   btnChild: {
     width: "90%",
-    height: 50,
-    alignItems: "center",
+    paddingVertical: 10,
   },
   btnTextStyle: {
     textAlign: "center",
-    marginTop: 12,
   },
 });
 

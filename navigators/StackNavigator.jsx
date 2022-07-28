@@ -20,6 +20,7 @@ import RNPhotoCapture from "../components/RNPhotoCapture";
 
 import { STAGE } from "@env";
 import GeoFencing from "../screens/07_geofencing/GeoFencing";
+import GeoFencingSuccess from "../screens/07_geofencing/GeoFencingSuccess";
 
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator();
@@ -140,6 +141,15 @@ const StackNavigator = () => {
         options={{
           headerShown: false,
           header: null,
+        }}
+      />
+      <Stack.Screen
+        name="GeoFencingSuccess"
+        component={GeoFencingSuccess}
+        options={{
+          headerShown: true,
+          headerTitle: "Geo Fencing Success",
+          headerTitleAlign: "center",
         }}
       />
     </Stack.Navigator>
