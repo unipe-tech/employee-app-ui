@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   currentScreen: "Welcome",
+  drawerOpen: false,
 };
 
 const navigationSlice = createSlice({
@@ -11,8 +12,11 @@ const navigationSlice = createSlice({
     addCurrentScreen(state, action) {
       state.currentScreen = action.payload;
     },
+    toggleDrawer(state) {
+      state.drawerOpen = !state.drawerOpen;
+    }
   },
 });
 
-export const { addCurrentScreen } = navigationSlice.actions;
+export const { addCurrentScreen,toggleDrawer} = navigationSlice.actions;
 export default navigationSlice.reducer;

@@ -490,3 +490,81 @@ export const esic = StyleSheet.create({
     fontFamily: "Roboto",
   },
 });
+
+export const Drawer = StyleSheet.create({
+  avatar: {
+    marginTop: 30,
+    width: 100,
+    height: 100,
+    alignSelf: "center",
+  },
+  name: {
+    alignSelf: "center",
+    fontSize: 18,
+    fontFamily: "Roboto",
+    fontWeight: "bold",
+  },
+  menuTitleView: {
+    alignItems: "center",
+    marginTop: 30,
+    marginLeft: 20,
+    flexDirection: "row",
+    alignSelf: "flex-start",
+    width: "100%",
+  },
+  menuTitle: {
+    fontSize: 20,
+    alignSelf: "flex-end",
+    fontFamily: "Roboto",
+    fontWeight: "bold",
+    textAlign: "right",
+    marginLeft: 20,
+  },
+  menuView: {
+    marginTop: 20,
+  },
+});
+
+export const MenuPages = StyleSheet.create({
+  menuPageTitle: {
+    alignSelf: "center",
+    fontWeight: "bold",
+    fontSize: 30,
+    textShadowRadius: 5,
+    textShadowColor: "grey",
+  },
+  avatar: {
+    marginTop: 30,
+    width: 200,
+    height: 200,
+    alignSelf: "center",
+  },
+  profileDetails: {
+    marginTop: 30,
+    alignSelf: "center",
+    fontSize: 18,
+    fontFamily: "Roboto",
+    fontWeight: "bold",
+  },
+  titleView: {
+    alignItems: "center",
+    marginTop: 30,
+    marginLeft: 20,
+    flexDirection: "row",
+    alignSelf: "flex-start",
+    width: "100%",
+  },
+  title: {
+    fontSize: 20,
+    fontFamily: "Roboto",
+    fontWeight: "bold",
+  },
+  subTitle: {
+    fontSize: 18,
+    fontFamily: "Roboto",
+  },
+  subView:{
+    flexDirection: "column",
+    marginLeft: 30,
+  }
+});

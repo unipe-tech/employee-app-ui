@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { AppBar, Icon, IconButton } from "@react-native-material/core";
-import { useNavigation } from "@react-navigation/core";
 import { Image, SafeAreaView } from "react-native";
 import { FAB, Portal, Provider } from "react-native-paper";
 
@@ -10,7 +9,10 @@ import Benefits from "./Benefits";
 import HomeView from "./HomeView";
 import Documents from "./Documents";
 
-import { addCurrentScreen } from "../../store/slices/navigationSlice";
+import {
+  addCurrentScreen,
+  toggleDrawer,
+} from "../../store/slices/navigationSlice";
 import { buttons, nav } from "../../styles";
 
 export default Home = () => {
@@ -23,8 +25,6 @@ export default Home = () => {
     { name: "Benefits", component: Benefits },
     { name: "Banking", component: HomeView },
   ];
-
-  const navigation = useNavigation();
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -48,7 +48,7 @@ export default Home = () => {
             leading={
               <IconButton
                 icon={<Icon name="menu" size={30} />}
-                onPress={() => console.log("Menu")}
+                onPress={() => dispatch(toggleDrawer())}
               />
             }
             trailing={<IconButton icon={<Icon name="more-vert" size={30} />} />}

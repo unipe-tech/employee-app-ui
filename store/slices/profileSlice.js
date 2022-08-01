@@ -3,9 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   maritalStatus: "",
   educationalQualification: "",
-  alternatePhone: "",
-  email: "",
-  selfie: "",
+  alternatePhone: "ads",
+  email: "asd",
+  selfie: "asd",
 };
 
 const profileSlice = createSlice({
