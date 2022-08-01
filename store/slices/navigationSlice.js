@@ -14,9 +14,12 @@ const navigationSlice = createSlice({
     },
     toggleDrawer(state) {
       state.drawerOpen = !state.drawerOpen;
-    }
+    },
+    resetNavigation(state) {
+      Object.assign(state, initialState);
+    },
   },
 });
 
-export const { addCurrentScreen,toggleDrawer} = navigationSlice.actions;
+export const { addCurrentScreen, resetNavigation } = navigationSlice.actions;
 export default navigationSlice.reducer;

@@ -15,6 +15,7 @@ import {
 } from "../../store/slices/navigationSlice";
 import { buttons, nav } from "../../styles";
 
+import Logout from "../../components/Logout";
 export default Home = () => {
   const [state, setState] = React.useState({ open: false });
   const onStateChange = ({ open }) => setState({ open });
@@ -46,10 +47,7 @@ export default Home = () => {
             contentContainerStyle={nav.navbar}
             color="#ffffff"
             leading={
-              <IconButton
-                icon={<Icon name="menu" size={30} />}
-                onPress={() => dispatch(toggleDrawer())}
-              />
+              <Logout/>
             }
             trailing={<IconButton icon={<Icon name="more-vert" size={30} />} />}
           />
