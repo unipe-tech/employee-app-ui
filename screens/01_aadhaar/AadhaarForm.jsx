@@ -25,6 +25,7 @@ import {
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { bankform, Camera, checkBox, form, styles } from "../../styles";
 import { showToast } from "../../components/Toast";
+import Bugsnag from "@bugsnag/react-native";
 
 export default AadhaarForm = () => {
   const aadhaarFront = useSelector((state) => state.aadhaar.frontImg);
@@ -54,7 +55,7 @@ export default AadhaarForm = () => {
   useEffect(() => {
     dispatch(addCurrentScreen("AadhaarForm"));
   }, []);
-  
+
   useEffect(() => {
     dispatch(addAadhaarSubmitOTPtxnId(transactionId));
   }, [transactionId]);
@@ -96,7 +97,6 @@ export default AadhaarForm = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-    
     };
 
     fetch(`https://api.gridlines.io/aadhaar-api/boson/generate-otp`, options)
@@ -125,6 +125,9 @@ export default AadhaarForm = () => {
             if (response["error"]) {
               setErrorMsg(response["error"]["message"]);
               Alert.alert("Error", response["error"]["message"]);
+              Bugsnag.notify(
+                new Error(`Aadhaar Form Error: ${response["error"]["message"]}`)
+              );
             } else {
               setErrorMsg(response["message"]);
               Alert.alert("Error", response["message"]);
@@ -135,6 +138,7 @@ export default AadhaarForm = () => {
       .catch((err) => {
         setErrorMsg(err);
         Alert.alert("Error", err);
+        Bugsnag.notify(new Error(`Aadhaar Form Error: ${err}`));
       });
   };
 
@@ -175,18 +179,27 @@ export default AadhaarForm = () => {
                 showToast("Aadhaar Details Recorded");
                 break;
               case "1015":
-                type === "front" ? setAadhaarFrontVerified(false) : setAadhaarBackVerified(false);
+                type === "front"
+                  ? setAadhaarFrontVerified(false)
+                  : setAadhaarBackVerified(false);
                 setErrorMsg(response["data"]["message"]);
                 Alert.alert("Error", response["data"]["message"]);
                 break;
             }
           } else {
             if (response["error"]) {
-              type === "front" ? setAadhaarFrontVerified(false) : setAadhaarBackVerified(false);
+              type === "front"
+                ? setAadhaarFrontVerified(false)
+                : setAadhaarBackVerified(false);
               setErrorMsg(response["error"]["message"]);
               Alert.alert("Error", response["error"]["message"]);
+              Bugsnag.notify(
+                new Error(`Aadhaar Form Error: ${response["error"]["message"]}`)
+              );
             } else {
-              type === "front" ? setAadhaarFrontVerified(false) : setAadhaarBackVerified(false);
+              type === "front"
+                ? setAadhaarFrontVerified(false)
+                : setAadhaarBackVerified(false);
               setErrorMsg(response["message"]);
               Alert.alert("Error", response["message"]);
             }
@@ -195,6 +208,7 @@ export default AadhaarForm = () => {
       })
       .catch((err) => {
         setErrorMsg(err);
+        Bugsnag.notify(new Error(`Aadhaar Form Error: ${err}`));
         Alert.alert("Error", err);
       });
   };
@@ -354,7 +368,7 @@ export default AadhaarForm = () => {
                   icon={<Icon name="delete" size={20} color="black" />}
                   style={Camera.cameraButton}
                   onPress={() => {
-                    setAadhaarFrontVerified(false)
+                    setAadhaarFrontVerified(false);
                     dispatch(
                       setAadhaarPlaceholderImage({
                         type: "AADHAAR_FRONT",
@@ -384,7 +398,7 @@ export default AadhaarForm = () => {
                   icon={<Icon name="delete" size={20} color="black" />}
                   style={Camera.cameraButton}
                   onPress={() => {
-                    setAadhaarBackVerified(false)
+                    setAadhaarBackVerified(false);
                     dispatch(
                       setAadhaarPlaceholderImage({
                         type: "AADHAAR_BACK",

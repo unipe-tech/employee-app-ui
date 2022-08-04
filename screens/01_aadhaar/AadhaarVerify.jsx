@@ -20,6 +20,7 @@ import {
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { aadhaarBackendPush } from "../../helpers/BackendPush";
 import { form, styles } from "../../styles";
+import Bugsnag from "@bugsnag/react-native";
 
 export default AadhaarVerify = () => {
   const navigation = useNavigation();
@@ -66,7 +67,7 @@ export default AadhaarVerify = () => {
           switch (response["data"]["code"]) {
             case "1002":
               setAadhaarData(response["data"]);
-              navigation.navigate("AadhaarConfirm","OTP");
+              navigation.navigate("AadhaarConfirm", "OTP");
               dispatch(
                 addAadhaarVerifyStatus({ type: "OTP", status: "SUCCESS" })
               );
@@ -80,10 +81,18 @@ export default AadhaarVerify = () => {
                 message: errorMsg,
               });
               Alert.alert("Error", response["data"]["message"]);
+              Bugsnag.notify(
+                new Error(
+                  `Aadhaar Verify Error: ${response["data"]["message"]}`
+                )
+              );
           }
         } else {
           if (response["error"]) {
             setErrorMsg(response["error"]["message"]);
+            Bugsnag.notify(
+              new Error(`Adhaar Verify Error: ${response["error"]["message"]}`)
+            );
             aadhaarBackendPush({
               type: "OTP",
               id: id,
@@ -105,6 +114,8 @@ export default AadhaarVerify = () => {
       })
       .catch((err) => {
         setErrorMsg(err);
+        Bugsnag.notify(new Error(`Aadhaar Verify Error: ${err}`));
+
         aadhaarBackendPush({
           type: "OTP",
           id: id,

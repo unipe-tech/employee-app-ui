@@ -15,7 +15,7 @@ import {
   View,
 } from "react-native";
 import SmsRetriever from "react-native-sms-retriever";
-
+import Bugsnag from "@bugsnag/react-native";
 import { GenerateDocument } from "../../helpers/GenerateDocument";
 import { putBackendData } from "../../services/employees/employeeServices";
 import { sendSmsVerification } from "../../services/otp/Twilio/verify";
@@ -84,6 +84,7 @@ export default LoginScreen = () => {
   //   })}, [session]);
 
   const signIn = () => {
+    setIsLoading(true);
     var fullPhoneNumber = `+91${phoneNumber}`;
     var phonePayload = GenerateDocument({
       src: "otp",
@@ -96,20 +97,37 @@ export default LoginScreen = () => {
         if (res.data["status"] == 201) {
           setId(res.data["id"]);
           sendSmsVerification(fullPhoneNumber)
-          .then((sent) => {
-            console.log("Sent!");
-            setIsLoading(true);
-            navigation.navigate("Otp");
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+            .then((sent) => {
+              if (sent) {
+                setIsLoading(false);
+                console.log("Sent!");
+                navigation.navigate("Otp");
+              } else {
+                setIsLoading(false);
+                console.log("Code not sent");
+                console.log("IsSent: ", sent);
+                Bugsnag.notify(
+                  new Error(
+                    "OTP Screen Error: Code not sent, Some issue identified with the Twillio API"
+                  )
+                );
+              }
+            })
+            .catch((err) => {
+              Bugsnag.notify(new Error(`Login Screen Error: ${err}`));
+              console.log(err);
+              console.log("Code failed ");
+            });
         } else {
           Alert.alert("Error", res.data["message"]);
+          Bugsnag.notify(
+            new Error(`Login Screen Error: ${res.data["message"]}`)
+          );
         }
       })
       .catch((err) => {
-        console.log(err);
+        Bugsnag.notify(new Error(err));
+        console.log(`Login Screen Error: ${err}`);
       });
   };
 

@@ -24,6 +24,7 @@ import { bankform, checkBox, form, styles } from "../../styles";
 import { showToast } from "../../components/Toast";
 import { addEmail } from "../../store/slices/profileSlice";
 import DateEntry from "../../components/DateEntry";
+import Bugsnag from "@bugsnag/react-native";
 
 export default PanCardInfo = () => {
   const navigation = useNavigation();
@@ -40,7 +41,7 @@ export default PanCardInfo = () => {
   const [backendPush, setBackendPush] = useState(false);
 
   useEffect(() => {
-    if (backendPush){
+    if (backendPush) {
       panBackendPush({
         id: id,
         pan: pan,
@@ -145,6 +146,9 @@ export default PanCardInfo = () => {
           if (response["error"]) {
             dispatch(addPanVerifyMsg(response["error"]["message"]));
             Alert.alert("Error", response["error"]["message"]);
+            Bugsnag.notify(
+              new Error(`PAN Card Info Error: ${response["error"]["message"]}`)
+            );
           } else {
             dispatch(addPanVerifyMsg(response["message"]));
             Alert.alert("Error", response["message"]);
@@ -157,6 +161,7 @@ export default PanCardInfo = () => {
         dispatch(addPanVerifyMsg(err));
         Alert.alert("Error", err);
         setBackendPush(true);
+        Bugsnag.notify(new Error(`PAN Card Info Error: ${err}`));
       });
   };
 
@@ -188,7 +193,10 @@ export default PanCardInfo = () => {
         dispatch(addEmail(response["data"]["pan_data"]["email"].toLowerCase()));
         navigation.navigate("BankInfoForm");
       })
-      .catch((err) => Alert.alert("Error", err));
+      .catch((err) => {
+        Bugsnag.notify(new Error(`Pan Card Info Error: ${err}`));
+        Alert.alert("Error", err);
+      });
   };
 
   return (
@@ -240,7 +248,11 @@ export default PanCardInfo = () => {
             placeholder="Enter Name Registered with PAN"
             required
           />
-          <DateEntry title="Date of birth as recorded in PAN" val={dob} setval={setDob}/>
+          <DateEntry
+            title="Date of birth as recorded in PAN"
+            val={dob}
+            setval={setDob}
+          />
           {console.log(dob)}
           <View style={bankform.infoCard}>
             <Text style={bankform.infoText}>

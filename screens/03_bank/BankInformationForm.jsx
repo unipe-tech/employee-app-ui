@@ -25,6 +25,7 @@ import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { bankBackendPush } from "../../helpers/BackendPush";
 import { bankform, styles } from "../../styles";
 import { showToast } from "../../components/Toast";
+import Bugsnag from "@bugsnag/react-native";
 
 export default BankInformationForm = () => {
   const navigation = useNavigation();
@@ -32,7 +33,9 @@ export default BankInformationForm = () => {
   const bankSlice = useSelector((state) => state.bank);
   const [ifsc, setIfsc] = useState(bankSlice?.ifsc);
   const [accountNumber, setAccountNumber] = useState(bankSlice?.accountNumber);
-  const [accountHolderName, setAccountHolderName] = useState(bankSlice?.accountHolderName);
+  const [accountHolderName, setAccountHolderName] = useState(
+    bankSlice?.accountHolderName
+  );
   const [upi, setUpi] = useState(bankSlice?.upi);
   const [verifyStatus, setVerifyStatus] = useState(bankSlice?.verifyStatus);
   const [verifyMsg, setverifyMsg] = useState(bankSlice?.verifyMsg);
@@ -68,14 +71,14 @@ export default BankInformationForm = () => {
   useEffect(() => {
     console.log("bankSlice : ", bankSlice);
     console.log("upi : ", upi);
-    if (backendPush){
-      bankBackendPush({                  
+    if (backendPush) {
+      bankBackendPush({
         id: id,
         ifsc: ifsc,
         accountNumber: accountNumber,
         upi: upi,
         verifyStatus: verifyStatus,
-        verifyMsg: verifyMsg                 
+        verifyMsg: verifyMsg,
       });
     }
   }, [backendPush]);
@@ -123,7 +126,7 @@ export default BankInformationForm = () => {
                         Alert.alert(
                           "Information Validation",
                           "Please provide the correct bank account number and IFSC Code."
-                        )
+                        );
                       },
                       style: "cancel",
                     },
@@ -140,6 +143,10 @@ export default BankInformationForm = () => {
             dispatch(addBankVerifyStatus("ERROR"));
             if (response["error"]) {
               dispatch(addBankVerifyMsg(response["error"]));
+              Bugsnag.notify(
+                new Error(`Bank Information Error: ${response["error"]}`)
+              );
+
               Alert.alert(
                 "Error",
                 response["error"]["metadata"]["fields"]
@@ -157,6 +164,8 @@ export default BankInformationForm = () => {
       .catch((err) => {
         dispatch(addBankVerifyStatus("ERROR"));
         dispatch(addBankVerifyMsg(err));
+        Bugsnag.notify(new Error(`Bank Information Form Error: ${err}`));
+
         Alert.alert("Error", err);
         setBackendPush(true);
       });
