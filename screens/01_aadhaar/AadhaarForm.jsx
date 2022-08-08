@@ -36,6 +36,7 @@ export default AadhaarForm = () => {
   const [aadhaar, setAadhaar] = useState(
     useSelector((state) => state.aadhaar.number)
   );
+  const mobileNumber = useSelector((state) => state.auth.phoneNumber);
   const navigation = useNavigation();
   const [next, setNext] = useState(false);
   const [transactionId, setTransactionId] = useState(
@@ -99,7 +100,7 @@ export default AadhaarForm = () => {
       body: JSON.stringify(data),
     };
 
-    fetch(`https://api.gridlines.io/aadhaar-api/boson/generate-otp`, options)
+    fetch(`https://api.gridlines.io/aadhaar-api/boson/generate-otp1`, options)
       .then((response) => response.json())
       .then((response) => {
         {
@@ -119,6 +120,11 @@ export default AadhaarForm = () => {
               case "1012":
                 setErrorMsg(response["data"]["message"]);
                 Alert.alert("Error", response["data"]["message"]);
+                Bugsnag.notify(
+                  new Error(
+                    `Aadhaar Form Error (${mobileNumber}): ${response["error"]["message"]}`
+                  )
+                );
                 break;
             }
           } else {
@@ -126,11 +132,18 @@ export default AadhaarForm = () => {
               setErrorMsg(response["error"]["message"]);
               Alert.alert("Error", response["error"]["message"]);
               Bugsnag.notify(
-                new Error(`Aadhaar Form Error: ${response["error"]["message"]}`)
+                new Error(
+                  `Aadhaar Form Error (${mobileNumber}): ${response["error"]["message"]}`
+                )
               );
             } else {
               setErrorMsg(response["message"]);
               Alert.alert("Error", response["message"]);
+              Bugsnag.notify(
+                new Error(
+                  `Aadhaar Form Error (${mobileNumber}): ${response["error"]["message"]}`
+                )
+              );
             }
           }
         }
