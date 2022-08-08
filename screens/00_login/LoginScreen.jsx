@@ -83,6 +83,7 @@ export default LoginScreen = () => {
   //   })}, [session]);
 
   const signIn = () => {
+    setIsLoading(true);
     var fullPhoneNumber = `+91${phoneNumber}`;
     var phonePayload = GenerateDocument({
       src: "otp",
