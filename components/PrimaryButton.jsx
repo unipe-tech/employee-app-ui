@@ -1,5 +1,5 @@
-import { View } from "react-native";
-import React from "react";
+import { View, TouchableOpacity, ActivityIndicator } from "react-native";
+import React, { useState } from "react";
 import { Button } from "@react-native-material/core";
 import { styles } from "../styles";
 
@@ -17,7 +17,7 @@ import { styles } from "../styles";
  * @param otherProps -> used for defining other props to the Button
  */
 
-const PrimaryButton = ({
+export default PrimaryButton = ({
   title,
   color,
   disabled,
@@ -29,6 +29,14 @@ const PrimaryButton = ({
   onPress,
   otherProps,
 }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const onPressHandler = () => {
+    setIsLoading(true);
+    onPress();
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+  };
   return (
     <View style={wrapperStyle}>
       <Button
@@ -36,15 +44,16 @@ const PrimaryButton = ({
         title={title}
         color={color}
         type={type}
-        style={style}
-        contentContainerStyle={styles.ContinueButton}
-        disabled={disabled}
-        onPress={onPress}
+        style={styles.ContinueButton}
+        disabled={disabled || isLoading}
+        contentContainerStyle={styles.ButtonContainer}
+        onPress={onPressHandler}
         titleStyle={[styles.continueButtonText, titleStyle]}
+        loading={isLoading}
+        loadingIndicator={<ActivityIndicator size="small" color="white" />}
+        loadingIndicatorPosition="overlay"
         {...otherProps}
       />
     </View>
   );
 };
-
-export default PrimaryButton;

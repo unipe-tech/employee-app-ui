@@ -48,12 +48,15 @@ export const styles = StyleSheet.create({
     borderBottomWidth: 1,
   },
   ContinueButton: {
-    padding: 10,
     alignSelf: "center",
     // marginTop: 50,
     width: 320,
     height: 60,
     fontSize: 20,
+  },
+  ButtonContainer: {
+    width: "100%",
+    height: "100%",
   },
   flexrow: {
     flexDirection: "row",
@@ -89,7 +92,6 @@ export const styles = StyleSheet.create({
   LoadingButton: {
     padding: 10,
     alignSelf: "center",
-    marginTop: 50,
     width: 320,
     height: 60,
     fontSize: 20,
@@ -99,14 +101,6 @@ export const styles = StyleSheet.create({
 });
 
 export const buttons = StyleSheet.create({
-  ContinueButton: {
-    padding: 10,
-    alignSelf: "center",
-    marginTop: 50,
-    width: 320,
-    height: 60,
-    fontSize: 20,
-  },
   FAB: {
     backgroundColor: "#4E46F1",
   },
