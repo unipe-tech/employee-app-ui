@@ -50,7 +50,7 @@ export default PrimaryButton = ({
         onPress={onPressHandler}
         titleStyle={[styles.continueButtonText, titleStyle]}
         loading={isLoading}
-        loadingIndicator={<ActivityIndicator size="small" color="white" />}
+        loadingIndicator={<ActivityIndicator size="large" color="#4E46F1" />}
         loadingIndicatorPosition="overlay"
         {...otherProps}
       />

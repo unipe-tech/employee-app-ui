@@ -24,6 +24,7 @@ import { bankform, checkBox, form, styles } from "../../styles";
 import { showToast } from "../../components/Toast";
 import { addEmail } from "../../store/slices/profileSlice";
 import DateEntry from "../../components/DateEntry";
+import PrimaryButton from "../../components/PrimaryButton";
 
 export default PanCardInfo = () => {
   const navigation = useNavigation();
@@ -40,7 +41,7 @@ export default PanCardInfo = () => {
   const [backendPush, setBackendPush] = useState(false);
 
   useEffect(() => {
-    if (backendPush){
+    if (backendPush) {
       panBackendPush({
         id: id,
         pan: pan,
@@ -84,10 +85,7 @@ export default PanCardInfo = () => {
   }, [pan]);
 
   const SkipPAN = () => {
-    Alert.alert(
-      "PAN KYC pending",
-      `You have not completed PAN KYC.`
-    );
+    Alert.alert("PAN KYC pending", `You have not completed PAN KYC.`);
     navigation.navigate("BankInfoForm");
   };
 
@@ -249,46 +247,29 @@ export default PanCardInfo = () => {
             placeholder="Enter Name Registered with PAN"
             required
           />
-          <DateEntry title="Date of birth as recorded in PAN" val={dob} setval={setDob}/>
-          {console.log(dob)}
+          <DateEntry
+            title="Date of birth as recorded in PAN"
+            val={dob}
+            setval={setDob}
+          />
           <View style={bankform.infoCard}>
             <Icon name="info-outline" size={20} color="#4E46F1" />
             <Text style={bankform.infoText}>
               PAN is needed to verify your name and date of birth
             </Text>
           </View>
-          {next ? (
-            <Button
-              uppercase={false}
-              title="Continue"
-              type="solid"
-              color="#4E46F1"
-              style={form.nextButton}
-              onPress={() => {
-                VerifyPAN();
-              }}
-            />
-          ) : (
-            <Button
-              title="Continue"
-              uppercase={false}
-              type="solid"
-              style={form.nextButton}
-              disabled
-            />
-          )}
-          <View>
-            <Button
-                title="Skip"
-                uppercase={false}
-                type="solid"
-                color="#4E46F1"
-                style={form.skipButton}
-                onPress={() => {
-                  SkipPAN();
-                }}
-            />
-          </View>
+          <PrimaryButton
+            title="Continue"
+            onPress={VerifyPAN}
+            uppercase={false}
+            disabled={!next}
+          />
+          <PrimaryButton
+            title="Skip"
+            onPress={SkipPAN}
+            uppercase={false}
+            disabled={!next}
+          />
         </ScrollView>
       </SafeAreaView>
     </>

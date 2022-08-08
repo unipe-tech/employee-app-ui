@@ -23,7 +23,7 @@ import { addId, addPhoneNumber } from "../../store/slices/authSlice";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { styles } from "../../styles";
 import { showToast } from "../../components/Toast";
-
+import PrimaryButton from "../../components/PrimaryButton";
 export default LoginScreen = () => {
   const navigation = useNavigation();
   const [phoneNumber, setPhoneNumber] = useState(
@@ -31,7 +31,6 @@ export default LoginScreen = () => {
   );
   const [next, setNext] = useState(false);
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(false);
   const [id, setId] = useState(null);
   var phn = "";
   useEffect(() => {
@@ -96,14 +95,13 @@ export default LoginScreen = () => {
         if (res.data["status"] == 201) {
           setId(res.data["id"]);
           sendSmsVerification(fullPhoneNumber)
-          .then((sent) => {
-            console.log("Sent!");
-            setIsLoading(true);
-            navigation.navigate("Otp");
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+            .then((sent) => {
+              console.log("Sent!");
+              navigation.navigate("Otp");
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         } else {
           Alert.alert("Error", res.data["message"]);
         }
@@ -178,34 +176,7 @@ export default LoginScreen = () => {
             Privacy Policy
           </Text>
         </Text>
-        {!isLoading ? (
-          <>
-            {next ? (
-              <Button
-                uppercase={false}
-                title="Continue"
-                type="solid"
-                style={styles.ContinueButton}
-                color="#4E46F1"
-                onPress={() => signIn()}
-              />
-            ) : (
-              <Button
-                uppercase={false}
-                title="Continue"
-                type="solid"
-                style={styles.ContinueButton}
-                disabled
-              />
-            )}
-          </>
-        ) : (
-          <TouchableOpacity>
-            <View style={styles.LoadingButton}>
-              <ActivityIndicator size="large" color="white" />
-            </View>
-          </TouchableOpacity>
-        )}
+        <PrimaryButton title="Continue" onPress={signIn} uppercase={false} disabled={!next}/>
       </ScrollView>
     </SafeAreaView>
   );

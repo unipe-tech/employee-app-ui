@@ -49,7 +49,7 @@ export const styles = StyleSheet.create({
   },
   ContinueButton: {
     alignSelf: "center",
-    // marginTop: 50,
+    marginTop: 20,
     width: 320,
     height: 60,
     fontSize: 20,

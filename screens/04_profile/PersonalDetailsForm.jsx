@@ -5,10 +5,15 @@ import React, { useEffect, useState } from "react";
 import { SafeAreaView, ScrollView, Text, TextInput, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import ProgressBarTop from "../../components/ProgressBarTop";
-import { addAlternatePhone, addEducationalQualification, addEmail, addMaritalStatus} from "../../store/slices/profileSlice";
+import {
+  addAlternatePhone,
+  addEducationalQualification,
+  addEmail,
+  addMaritalStatus,
+} from "../../store/slices/profileSlice";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { bankform, form, styles } from "../../styles";
-
+import PrimaryButton from "../../components/PrimaryButton";
 
 export default PersonalDetailsForm = () => {
   const educationalQualifications = [
@@ -19,18 +24,36 @@ export default PersonalDetailsForm = () => {
     "None of the Above",
   ];
   const maritalStatuses = ["Unmarried", "Married"];
-  const [maritalStatus, setMaritalStatus] = useState(useSelector((state) => state.profile["maritalStatus"]));
-  const [educationalQualification, setEducationallQualification] = useState(useSelector((state) => state.profile["educationalQualification"]));
-  const [alternatePhone, setAlternatePhone] = useState(useSelector((state) => state.profile["alternatePhone"]));
-  const [email, setEmail] = useState(useSelector((state) => state.profile["email"]));
+  const [maritalStatus, setMaritalStatus] = useState(
+    useSelector((state) => state.profile["maritalStatus"])
+  );
+  const [educationalQualification, setEducationallQualification] = useState(
+    useSelector((state) => state.profile["educationalQualification"])
+  );
+  const [alternatePhone, setAlternatePhone] = useState(
+    useSelector((state) => state.profile["alternatePhone"])
+  );
+  const [email, setEmail] = useState(
+    useSelector((state) => state.profile["email"])
+  );
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  
-  useEffect(() => {dispatch(addCurrentScreen("PersonalDetailsForm"))}, []);
-  useEffect(() => {dispatch(addMaritalStatus(maritalStatus))}, [maritalStatus]);
-  useEffect(() => {dispatch(addEducationalQualification(educationalQualification))}, [educationalQualification]);
-  useEffect(() => {dispatch(addAlternatePhone(alternatePhone))}, [alternatePhone]);
-  useEffect(() => {dispatch(addEmail(email))}, [email]);
+
+  useEffect(() => {
+    dispatch(addCurrentScreen("PersonalDetailsForm"));
+  }, []);
+  useEffect(() => {
+    dispatch(addMaritalStatus(maritalStatus));
+  }, [maritalStatus]);
+  useEffect(() => {
+    dispatch(addEducationalQualification(educationalQualification));
+  }, [educationalQualification]);
+  useEffect(() => {
+    dispatch(addAlternatePhone(alternatePhone));
+  }, [alternatePhone]);
+  useEffect(() => {
+    dispatch(addEmail(email));
+  }, [email]);
 
   return (
     <>
@@ -101,16 +124,10 @@ export default PersonalDetailsForm = () => {
             placeholder="Enter Email"
             required
           />
-
-          <Button
+          <PrimaryButton
             title="Continue"
-            type="solid"
+            onPress={()=>navigation.navigate("PersonalImage")}
             uppercase={false}
-            style={form.nextButton}
-            color="#4E46F1"
-            onPress={() => {
-              navigation.navigate("PersonalImage");
-            }}
           />
           <View style={bankform.padding}></View>
         </ScrollView>

@@ -13,12 +13,14 @@ import { Button, Icon, IconButton } from "@react-native-material/core";
 import { useNavigation } from "@react-navigation/core";
 import SmsRetriever from "react-native-sms-retriever";
 import CountDown from "react-native-countdown-component";
-import { checkVerification, sendSmsVerification } from "../../services/otp/Twilio/verify";
+import {
+  checkVerification,
+  sendSmsVerification,
+} from "../../services/otp/Twilio/verify";
 import { addLoginVerifyStatus } from "../../store/slices/authSlice";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { styles } from "../../styles";
-
-
+import PrimaryButton from "../../components/PrimaryButton";
 export default OTPScreen = () => {
   const phoneNumber = useSelector((state) => state.auth.phoneNumber);
   const navigation = useNavigation();
@@ -30,16 +32,9 @@ export default OTPScreen = () => {
   console.log("OTPScreen state.auth: ", auth);
 
   const dispatch = useDispatch();
-  useEffect(() => {dispatch(addCurrentScreen("Otp"))}, []);
-
-  // HHrHWFsvgjF
-
-  // useEffect(() => {
-  //   dispatch({
-  //     type: "SET_USER",
-  //     payload: user,
-  //   });
-  // }, [user]);
+  useEffect(() => {
+    dispatch(addCurrentScreen("Otp"));
+  }, []);
 
   useEffect(() => {
     if (otp.length === 6) {
@@ -49,6 +44,16 @@ export default OTPScreen = () => {
     }
   }, [otp]);
 
+  const verifyOtp = () => {
+    const fullPhoneNumber = `+91${phoneNumber}`;
+    checkVerification(fullPhoneNumber, otp).then((success) => {
+      if (!success) Alert.alert("err", "Incorrect OTP");
+      success && navigation.navigate("AadhaarForm");
+      console.log(fullPhoneNumber, otp);
+      dispatch(addLoginVerifyStatus("SUCCESS"));
+      SmsRetriever.removeSmsListener();
+    });
+  };
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView keyboardShouldPersistTaps="handled">
@@ -57,7 +62,7 @@ export default OTPScreen = () => {
             {back ? (
               <IconButton
                 icon={<Icon name="arrow-back" size={30} color="#4E46F1" />}
-                onPress={() => navigation.navigate('Login')}
+                onPress={() => navigation.navigate("Login")}
               />
             ) : (
               <IconButton
@@ -84,7 +89,7 @@ export default OTPScreen = () => {
                 name="edit"
                 size={12}
                 color="#4E46F1"
-                onPress={() => navigation.navigate('Login')}
+                onPress={() => navigation.navigate("Login")}
               />
             ) : (
               <Icon
@@ -139,33 +144,12 @@ export default OTPScreen = () => {
             Sit back & relax while we fetch the OTP & log you inside the Unipe
             App
           </Text>
-          {next ? (
-            <Button
-              uppercase={false}
-              title="Verify"
-              type="solid"
-              color="#4E46F1"
-              style={styles.ContinueButton}
-              onPress={() => {
-                const fullPhoneNumber = `+91${phoneNumber}`;
-                checkVerification(fullPhoneNumber, otp).then((success) => {
-                  if (!success) Alert.alert("err", "Incorrect OTP");
-                  success && navigation.navigate("AadhaarForm");
-                  console.log(fullPhoneNumber,otp)
-                  dispatch(addLoginVerifyStatus("SUCCESS"));
-                  SmsRetriever.removeSmsListener();
-                });
-              }}
-            />
-          ) : (
-            <Button
-              title="Verify"
-              uppercase={false}
-              type="solid"
-              style={styles.ContinueButton}
-              disabled
-            />
-          )}
+          <PrimaryButton
+            title="Continue"
+            onPress={verifyOtp}
+            uppercase={false}
+            disabled={!next}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>

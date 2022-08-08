@@ -25,6 +25,7 @@ import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { bankBackendPush } from "../../helpers/BackendPush";
 import { bankform, styles } from "../../styles";
 import { showToast } from "../../components/Toast";
+import PrimaryButton from "../../components/PrimaryButton";
 
 export default BankInformationForm = () => {
   const navigation = useNavigation();
@@ -267,17 +268,7 @@ export default BankInformationForm = () => {
             onChangeText={setUpi}
             required
           />
-          <Button
-            title="Continue"
-            type="solid"
-            uppercase={false}
-            style={bankform.nextButton}
-            color="#4E46F1"
-            onPress={() => {
-              // TODO: check for mandatory fields and validations
-              VerifyBankAccount();
-            }}
-          />
+           <PrimaryButton title="Continue" onPress={VerifyBankAccount} uppercase={false}/>
           <View style={bankform.padding}></View>
         </ScrollView>
       </SafeAreaView>
