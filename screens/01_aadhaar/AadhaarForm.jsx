@@ -161,6 +161,9 @@ export default AadhaarForm = () => {
                 maxLength={12}
                 numeric
               />
+              {aadhaar && !next ? (
+              <Text style={bankform.formatmsg}>Incorrect Format</Text>
+            ) : null}
               <View style={bankform.infoCard}>
                 <Icon name="info-outline" size={20} color="#4E46F1" />
                 <Text style={bankform.infoText}>
