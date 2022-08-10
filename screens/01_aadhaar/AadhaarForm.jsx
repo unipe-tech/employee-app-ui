@@ -85,30 +85,16 @@ export default AadhaarForm = () => {
               case "1012":
                 setErrorMsg(response["data"]["message"]);
                 Alert.alert("Error", response["data"]["message"]);
-                Bugsnag.notify(
-                  new Error(
-                    `Aadhaar Form Error (${mobileNumber}): ${response["error"]["message"]}`
-                  )
-                );
+
                 break;
             }
           } else {
             if (response["error"]) {
               setErrorMsg(response["error"]["message"]);
               Alert.alert("Error", response["error"]["message"]);
-              Bugsnag.notify(
-                new Error(
-                  `Aadhaar Form Error (${mobileNumber}): ${response["error"]["message"]}`
-                )
-              );
             } else {
               setErrorMsg(response["message"]);
               Alert.alert("Error", response["message"]);
-              Bugsnag.notify(
-                new Error(
-                  `Aadhaar Form Error (${mobileNumber}): ${response["error"]["message"]}`
-                )
-              );
             }
           }
         }
@@ -116,9 +102,6 @@ export default AadhaarForm = () => {
       .catch((err) => {
         setErrorMsg(err);
         Alert.alert("Error", err);
-        Bugsnag.notify(
-          new Error(`Aadhaar Form Error (${mobileNumber}): ${err}`)
-        );
       });
   };
 
