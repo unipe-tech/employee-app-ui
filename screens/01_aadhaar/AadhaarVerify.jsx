@@ -26,6 +26,7 @@ export default AadhaarVerify = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const [errorMsg, setErrorMsg] = useState("");
+  const mobileNumber = useSelector((state) => state.auth.phoneNumber);
   const AadhaarTransactionId = useSelector(
     (state) => state.aadhaar.submitOTPtxnId
   );
@@ -83,7 +84,7 @@ export default AadhaarVerify = () => {
               Alert.alert("Error", response["data"]["message"]);
               Bugsnag.notify(
                 new Error(
-                  `Aadhaar Verify Error: ${response["data"]["message"]}`
+                  `Aadhaar Verify Error (${mobileNumber}): ${response["data"]["message"]}`
                 )
               );
           }
@@ -91,7 +92,9 @@ export default AadhaarVerify = () => {
           if (response["error"]) {
             setErrorMsg(response["error"]["message"]);
             Bugsnag.notify(
-              new Error(`Adhaar Verify Error: ${response["error"]["message"]}`)
+              new Error(
+                `Adhaar Verify Error (${mobileNumber}): ${response["error"]["message"]}`
+              )
             );
             aadhaarBackendPush({
               type: "OTP",
@@ -114,7 +117,9 @@ export default AadhaarVerify = () => {
       })
       .catch((err) => {
         setErrorMsg(err);
-        Bugsnag.notify(new Error(`Aadhaar Verify Error: ${err}`));
+        Bugsnag.notify(
+          new Error(`Aadhaar Verify Error (${mobileNumber}): ${err}`)
+        );
 
         aadhaarBackendPush({
           type: "OTP",

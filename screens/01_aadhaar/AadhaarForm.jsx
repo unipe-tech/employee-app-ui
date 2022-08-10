@@ -100,7 +100,7 @@ export default AadhaarForm = () => {
       body: JSON.stringify(data),
     };
 
-    fetch(`https://api.gridlines.io/aadhaar-api/boson/generate-otp1`, options)
+    fetch(`https://api.gridlines.io/aadhaar-api/boson/generate-otp`, options)
       .then((response) => response.json())
       .then((response) => {
         {
@@ -151,7 +151,9 @@ export default AadhaarForm = () => {
       .catch((err) => {
         setErrorMsg(err);
         Alert.alert("Error", err);
-        Bugsnag.notify(new Error(`Aadhaar Form Error: ${err}`));
+        Bugsnag.notify(
+          new Error(`Aadhaar Form Error (${mobileNumber}): ${err}`)
+        );
       });
   };
 
@@ -207,7 +209,9 @@ export default AadhaarForm = () => {
               setErrorMsg(response["error"]["message"]);
               Alert.alert("Error", response["error"]["message"]);
               Bugsnag.notify(
-                new Error(`Aadhaar Form Error: ${response["error"]["message"]}`)
+                new Error(
+                  `Aadhaar Form Error (${mobileNumber}): ${response["error"]["message"]}`
+                )
               );
             } else {
               type === "front"
@@ -221,7 +225,9 @@ export default AadhaarForm = () => {
       })
       .catch((err) => {
         setErrorMsg(err);
-        Bugsnag.notify(new Error(`Aadhaar Form Error: ${err}`));
+        Bugsnag.notify(
+          new Error(`Aadhaar Form Error (${mobileNumber}): ${err}`)
+        );
         Alert.alert("Error", err);
       });
   };

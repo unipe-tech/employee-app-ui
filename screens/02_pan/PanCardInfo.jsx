@@ -31,6 +31,7 @@ export default PanCardInfo = () => {
   const panSlice = useSelector((state) => state.pan);
   const [pan, setPan] = useState(panSlice?.number);
   const [next, setNext] = useState();
+  const mobileNumber = useSelector((state) => state.auth.phoneNumber);
   const dispatch = useDispatch();
   const id = useSelector((state) => state.auth.id);
   const [panName, setPanName] = useState("");
@@ -147,7 +148,9 @@ export default PanCardInfo = () => {
             dispatch(addPanVerifyMsg(response["error"]["message"]));
             Alert.alert("Error", response["error"]["message"]);
             Bugsnag.notify(
-              new Error(`PAN Card Info Error: ${response["error"]["message"]}`)
+              new Error(
+                `PAN Card Info Error (${mobileNumber}): ${response["error"]["message"]}`
+              )
             );
           } else {
             dispatch(addPanVerifyMsg(response["message"]));
@@ -161,7 +164,9 @@ export default PanCardInfo = () => {
         dispatch(addPanVerifyMsg(err));
         Alert.alert("Error", err);
         setBackendPush(true);
-        Bugsnag.notify(new Error(`PAN Card Info Error: ${err}`));
+        Bugsnag.notify(
+          new Error(`PAN Card Info Error (${mobileNumber}): ${err}`)
+        );
       });
   };
 
@@ -194,7 +199,9 @@ export default PanCardInfo = () => {
         navigation.navigate("BankInfoForm");
       })
       .catch((err) => {
-        Bugsnag.notify(new Error(`Pan Card Info Error: ${err}`));
+        Bugsnag.notify(
+          new Error(`Pan Card Info Error (${mobileNumber}): ${err}`)
+        );
         Alert.alert("Error", err);
       });
   };

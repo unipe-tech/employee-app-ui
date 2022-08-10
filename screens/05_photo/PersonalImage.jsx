@@ -26,6 +26,7 @@ export default PersonalImage = () => {
   const Profile = useSelector((state) => state.profile);
   const [imageData, setImageData] = useState(Profile.selfie);
   const dispatch = useDispatch();
+  const mobileNumber = useSelector((state) => state.auth.phoneNumber);
 
   useEffect(() => {
     dispatch(addCurrentScreen("PersonalImage"));
@@ -53,7 +54,9 @@ export default PersonalImage = () => {
       .catch((err) => {
         console.log(err);
         Bugsnag.notify(
-          new Error(`Personal Image Error: Can't push data to backend (${err})`)
+          new Error(
+            `Personal Image Error (${mobileNumber}): Can't push data to backend (${err})`
+          )
         );
       });
   };
@@ -69,7 +72,9 @@ export default PersonalImage = () => {
         console.log("User cancelled image picker");
       } else if (response.error) {
         console.log("ImagePicker Error: ", response.error);
-        Bugsnag.notify(new Error(`Image Picker Error: ${response.error}`));
+        Bugsnag.notify(
+          new Error(`Image Picker Error (${mobileNumber}): ${response.error}`)
+        );
       } else {
         dispatch(addSelfie(response?.assets && response.assets[0].base64));
       }

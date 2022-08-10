@@ -36,6 +36,7 @@ export default BankInformationForm = () => {
   const [accountHolderName, setAccountHolderName] = useState(
     bankSlice?.accountHolderName
   );
+  const mobileNumber = useSelector((state) => state.auth.phoneNumber);
   const [upi, setUpi] = useState(bankSlice?.upi);
   const [verifyStatus, setVerifyStatus] = useState(bankSlice?.verifyStatus);
   const [verifyMsg, setverifyMsg] = useState(bankSlice?.verifyMsg);
@@ -144,7 +145,9 @@ export default BankInformationForm = () => {
             if (response["error"]) {
               dispatch(addBankVerifyMsg(response["error"]));
               Bugsnag.notify(
-                new Error(`Bank Information Error: ${response["error"]}`)
+                new Error(
+                  `Bank Information Error (${mobileNumber}): ${response["error"]}`
+                )
               );
 
               Alert.alert(
@@ -164,7 +167,9 @@ export default BankInformationForm = () => {
       .catch((err) => {
         dispatch(addBankVerifyStatus("ERROR"));
         dispatch(addBankVerifyMsg(err));
-        Bugsnag.notify(new Error(`Bank Information Form Error: ${err}`));
+        Bugsnag.notify(
+          new Error(`Bank Information Form Error (${mobileNumber}): ${err}`)
+        );
 
         Alert.alert("Error", err);
         setBackendPush(true);
