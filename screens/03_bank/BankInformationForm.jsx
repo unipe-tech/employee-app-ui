@@ -11,10 +11,14 @@ import {
   addBankAccountHolderName,
   addBankAccountNumber,
   addBankIfsc,
-  addBankUpi
+  addBankUpi,
 } from "../../store/slices/bankSlice";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
-import { bankform, form, styles } from "../../styles";
+
+import { bankBackendPush } from "../../helpers/BackendPush";
+import { bankform, styles, form } from "../../styles";
+import { showToast } from "../../components/Toast";
+import Bugsnag from "@bugsnag/react-native";
 
 export default BankInformationForm = () => {
   const navigation = useNavigation();
@@ -24,6 +28,8 @@ export default BankInformationForm = () => {
   const [accountHolderName, setAccountHolderName] = useState(
     bankSlice?.accountHolderName
   );
+
+  const mobileNumber = useSelector((state) => state.auth.phoneNumber);
   const [upi, setUpi] = useState(bankSlice?.upi);
   const [ifscNext, setIfscNext] = useState(false);
   const [accNumNext, setAccNumNext] = useState(false);

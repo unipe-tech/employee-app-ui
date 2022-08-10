@@ -18,14 +18,18 @@ import { putBackendData } from "../../services/employees/employeeServices";
 import { addSelfie } from "../../store/slices/profileSlice";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { checkBox, form, selfie, styles } from "../../styles";
+import Bugsnag from "@bugsnag/react-native";
 
 export default PersonalImage = () => {
   const navigation = useNavigation();
   const id = useSelector((state) => state.auth.id);
   const Profile = useSelector((state) => state.profile);
   const [imageData, setImageData] = useState(Profile.selfie);
+
   const [next, setNext] = useState(false);
+
   const dispatch = useDispatch();
+  const mobileNumber = useSelector((state) => state.auth.phoneNumber);
 
   useEffect(() => {
     dispatch(addCurrentScreen("PersonalImage"));
@@ -35,8 +39,7 @@ export default PersonalImage = () => {
     setImageData(Profile.selfie);
     if (Profile.selfie) {
       setNext(true);
-    }
-    else{
+    } else {
       setNext(false);
     }
   }, [Profile.selfie]);
@@ -58,6 +61,11 @@ export default PersonalImage = () => {
       })
       .catch((err) => {
         console.log(err);
+        Bugsnag.notify(
+          new Error(
+            `Personal Image Error (${mobileNumber}): Can't push data to backend (${err})`
+          )
+        );
       });
   };
 
@@ -72,6 +80,10 @@ export default PersonalImage = () => {
         console.log("User cancelled image picker");
       } else if (response.error) {
         console.log("ImagePicker Error: ", response.error);
+
+        Bugsnag.notify(
+          new Error(`Image Picker Error (${mobileNumber}): ${response.error}`)
+        );
       } else {
         dispatch(addSelfie(response?.assets && response.assets[0].base64));
       }

@@ -20,11 +20,13 @@ import {
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { aadhaarBackendPush } from "../../helpers/BackendPush";
 import { form, styles } from "../../styles";
+import Bugsnag from "@bugsnag/react-native";
 
 export default AadhaarVerify = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const [errorMsg, setErrorMsg] = useState("");
+  const mobileNumber = useSelector((state) => state.auth.phoneNumber);
   const AadhaarTransactionId = useSelector(
     (state) => state.aadhaar.submitOTPtxnId
   );
@@ -66,10 +68,10 @@ export default AadhaarVerify = () => {
           switch (response["data"]["code"]) {
             case "1002":
               setAadhaarData(response["data"]);
+
               navigation.navigate("AadhaarConfirm");
-              dispatch(
-                addAadhaarVerifyStatus("SUCCESS")
-              );
+
+              dispatch(addAadhaarVerifyStatus("SUCCESS"));
               break;
             default:
               setErrorMsg(response["data"]["message"]);
@@ -79,10 +81,20 @@ export default AadhaarVerify = () => {
                 message: errorMsg,
               });
               Alert.alert("Error", response["data"]["message"]);
+              Bugsnag.notify(
+                new Error(
+                  `Aadhaar Verify Error (${mobileNumber}): ${response["data"]["message"]}`
+                )
+              );
           }
         } else {
           if (response["error"]) {
             setErrorMsg(response["error"]["message"]);
+            Bugsnag.notify(
+              new Error(
+                `Adhaar Verify Error (${mobileNumber}): ${response["error"]["message"]}`
+              )
+            );
             aadhaarBackendPush({
               id: id,
               status: "ERROR",
@@ -102,6 +114,10 @@ export default AadhaarVerify = () => {
       })
       .catch((err) => {
         setErrorMsg(err);
+        Bugsnag.notify(
+          new Error(`Aadhaar Verify Error (${mobileNumber}): ${err}`)
+        );
+
         aadhaarBackendPush({
           id: id,
           status: "ERROR",

@@ -4,19 +4,14 @@ import { AppBar, Button, Icon, IconButton } from "@react-native-material/core";
 import { useNavigation } from "@react-navigation/core";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  Alert,
-  SafeAreaView,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import { Alert, SafeAreaView, Text, TextInput, View } from "react-native";
 import ProgressBarTop from "../../components/ProgressBarTop";
 import {
   addAadhaarNumber,
   addAadhaarSubmitOTPtxnId,
 } from "../../store/slices/aadhaarSlice";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
+
 import { bankform, checkBox, form, styles } from "../../styles";
 import { KeyboardAvoidingWrapper } from "../../KeyboardAvoidingWrapper";
 
@@ -25,6 +20,7 @@ export default AadhaarForm = () => {
   const [aadhaar, setAadhaar] = useState(
     useSelector((state) => state.aadhaar.number)
   );
+  const mobileNumber = useSelector((state) => state.auth.phoneNumber);
   const navigation = useNavigation();
   const [next, setNext] = useState(false);
   const [transactionId, setTransactionId] = useState(
@@ -51,10 +47,7 @@ export default AadhaarForm = () => {
   }, [aadhaar]);
 
   const SkipAadhaar = () => {
-    Alert.alert(
-      "Aadhaar KYC pending",
-      `You have not completed Aadhaar KYC.`
-    );
+    Alert.alert("Aadhaar KYC pending", `You have not completed Aadhaar KYC.`);
     navigation.navigate("PanForm");
   };
 
@@ -92,15 +85,30 @@ export default AadhaarForm = () => {
               case "1012":
                 setErrorMsg(response["data"]["message"]);
                 Alert.alert("Error", response["data"]["message"]);
+                Bugsnag.notify(
+                  new Error(
+                    `Aadhaar Form Error (${mobileNumber}): ${response["error"]["message"]}`
+                  )
+                );
                 break;
             }
           } else {
             if (response["error"]) {
               setErrorMsg(response["error"]["message"]);
               Alert.alert("Error", response["error"]["message"]);
+              Bugsnag.notify(
+                new Error(
+                  `Aadhaar Form Error (${mobileNumber}): ${response["error"]["message"]}`
+                )
+              );
             } else {
               setErrorMsg(response["message"]);
               Alert.alert("Error", response["message"]);
+              Bugsnag.notify(
+                new Error(
+                  `Aadhaar Form Error (${mobileNumber}): ${response["error"]["message"]}`
+                )
+              );
             }
           }
         }
@@ -108,6 +116,9 @@ export default AadhaarForm = () => {
       .catch((err) => {
         setErrorMsg(err);
         Alert.alert("Error", err);
+        Bugsnag.notify(
+          new Error(`Aadhaar Form Error (${mobileNumber}): ${err}`)
+        );
       });
   };
 
@@ -145,73 +156,72 @@ export default AadhaarForm = () => {
           Let's begin with your background verification processs with eKYC
         </Text>
         <KeyboardAvoidingWrapper>
-            <View>
-              {aadhaar ? (
-                <Text style={form.formLabel}>
-                  Enter 12 Digit Aadhaar Number
-                </Text>
-              ) : null}
-              <TextInput
-                style={form.formTextInput}
-                value={aadhaar}
-                onChangeText={setAadhaar}
-                placeholder="Enter 12 Digit Aadhaar Number"
-                maxLength={12}
-                numeric
-              />
-              <View style={bankform.infoCard}>
-                <Icon name="info-outline" size={20} color="#4E46F1" />
-                <Text style={bankform.infoText}>
-                  My Mobile number is linked to my Aadhar card & I can receive
-                  the OTP on my Aadhar Linked Mobile Number
-                </Text>
-              </View>
-              <View style={{ flexDirection: "row" }}>
-                <CheckBox
-                  value={consent}
-                  onValueChange={setConsent}
-                  style={checkBox.checkBox}
-                  tintColors={{ true: "#4E46F1" }}
-                />
-                <Text style={checkBox.checkBoxText}>
-                  I agree with the KYC registration Terms and Conditions to
-                  verifiy my identity.
-                </Text>
-              </View>
-              {next && consent ? (
-                <Button
-                  uppercase={false}
-                  title="Continue"
-                  type="solid"
-                  color="#4E46F1"
-                  style={form.nextButton}
-                  onPress={() => {
-                    GenerateOtp();
-                  }}
-                />
-              ) : (
-                <Button
-                  title="Continue"
-                  uppercase={false}
-                  type="solid"
-                  style={form.nextButton}
-                  disabled
-                />
-              )}
-              <View>
-                <Button
-                    title="Skip"
-                    uppercase={false}
-                    type="solid"
-                    color="#4E46F1"
-                    style={form.skipButton}
-                    onPress={() => {
-                      SkipAadhaar();
-                    }}
-                />
-              </View>
+          <View>
+            {aadhaar ? (
+              <Text style={form.formLabel}>Enter 12 Digit Aadhaar Number</Text>
+            ) : null}
+            <TextInput
+              style={form.formTextInput}
+              value={aadhaar}
+              onChangeText={setAadhaar}
+              placeholder="Enter 12 Digit Aadhaar Number"
+              maxLength={12}
+              numeric
+            />
+            <View style={bankform.infoCard}>
+              <Icon name="info-outline" size={20} color="#4E46F1" />
+              <Text style={bankform.infoText}>
+                My Mobile number is linked to my Aadhar card & I can receive the
+                OTP on my Aadhar Linked Mobile Number
+              </Text>
             </View>
-          </KeyboardAvoidingWrapper>
+            <View style={{ flexDirection: "row" }}>
+              <CheckBox
+                value={consent}
+                onValueChange={setConsent}
+                style={checkBox.checkBox}
+                tintColors={{ true: "#4E46F1" }}
+              />
+              <Text style={checkBox.checkBoxText}>
+                I agree with the KYC registration Terms and Conditions to
+                verifiy my identity.
+              </Text>
+            </View>
+            {next && consent ? (
+              <Button
+                uppercase={false}
+                title="Continue"
+                type="solid"
+                color="#4E46F1"
+                style={form.nextButton}
+                onPress={() => {
+                  GenerateOtp();
+                }}
+              />
+            ) : (
+              <Button
+                title="Continue"
+                uppercase={false}
+                type="solid"
+                style={form.nextButton}
+                disabled
+              />
+            )}
+
+            <View>
+              <Button
+                title="Skip"
+                uppercase={false}
+                type="solid"
+                color="#4E46F1"
+                style={form.skipButton}
+                onPress={() => {
+                  SkipAadhaar();
+                }}
+              />
+            </View>
+          </View>
+        </KeyboardAvoidingWrapper>
       </SafeAreaView>
     </>
   );
