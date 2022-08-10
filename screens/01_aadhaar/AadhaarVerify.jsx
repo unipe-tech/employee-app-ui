@@ -20,7 +20,6 @@ import {
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { aadhaarBackendPush } from "../../helpers/BackendPush";
 import { form, styles } from "../../styles";
-import Bugsnag from "@bugsnag/react-native";
 
 export default AadhaarVerify = () => {
   const navigation = useNavigation();
@@ -81,20 +80,11 @@ export default AadhaarVerify = () => {
                 message: errorMsg,
               });
               Alert.alert("Error", response["data"]["message"]);
-              Bugsnag.notify(
-                new Error(
-                  `Aadhaar Verify Error (${mobileNumber}): ${response["data"]["message"]}`
-                )
-              );
           }
         } else {
           if (response["error"]) {
             setErrorMsg(response["error"]["message"]);
-            Bugsnag.notify(
-              new Error(
-                `Adhaar Verify Error (${mobileNumber}): ${response["error"]["message"]}`
-              )
-            );
+
             aadhaarBackendPush({
               id: id,
               status: "ERROR",
@@ -114,9 +104,6 @@ export default AadhaarVerify = () => {
       })
       .catch((err) => {
         setErrorMsg(err);
-        Bugsnag.notify(
-          new Error(`Aadhaar Verify Error (${mobileNumber}): ${err}`)
-        );
 
         aadhaarBackendPush({
           id: id,
