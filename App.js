@@ -19,7 +19,7 @@ import StackNavigator from "./navigators/StackNavigator";
 import { store, persistor } from "./store/store";
 import Bugsnag from "@bugsnag/react-native";
 Bugsnag.start();
-const ErrorBoundary = Bugsnag.getPlugin("react").createErrorBoundary(React);
+// const ErrorBoundary = Bugsnag.getPlugin("react").createErrorBoundary(React);
 
 const ErrorView = () => (
   <View>
@@ -32,24 +32,24 @@ export default function App() {
   LogBox.ignoreAllLogs();
 
   return (
-    <ErrorBoundary FallbackComponent={ErrorView}>
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <NavigationContainer>
-            <SafeAreaProvider style={{ backgroundColor: "white", flex: 1 }}>
-              <IconComponentProvider IconComponent={Icon}>
-                <KeyboardAvoidingView
-                  style={{ flex: 1 }}
-                  behavior={Platform.OS === "ios" ? "padding" : "height"}
-                  keyboardVerticalOffset={Platform.OS === "ios" ? -64 : 0}
-                >
-                  <StackNavigator />
-                </KeyboardAvoidingView>
-              </IconComponentProvider>
-            </SafeAreaProvider>
-          </NavigationContainer>
-        </PersistGate>
-      </Provider>
-    </ErrorBoundary>
+    // <ErrorBoundary FallbackComponent={ErrorView}>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <NavigationContainer>
+          <SafeAreaProvider style={{ backgroundColor: "white", flex: 1 }}>
+            <IconComponentProvider IconComponent={Icon}>
+              <KeyboardAvoidingView
+                style={{ flex: 1 }}
+                behavior={Platform.OS === "ios" ? "padding" : "height"}
+                keyboardVerticalOffset={Platform.OS === "ios" ? -64 : 0}
+              >
+                <StackNavigator />
+              </KeyboardAvoidingView>
+            </IconComponentProvider>
+          </SafeAreaProvider>
+        </NavigationContainer>
+      </PersistGate>
+    </Provider>
+    // </ErrorBoundary>
   );
 }
