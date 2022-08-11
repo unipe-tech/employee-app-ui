@@ -19,8 +19,9 @@ import {
 } from "../../store/slices/aadhaarSlice";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { bankform, Camera, checkBox, form, styles } from "../../styles";
-import { showToast } from "../../components/Toast";
+import { showToast } from "../../components/atoms/Toast";
 import { KeyboardAvoidingWrapper } from "../../KeyboardAvoidingWrapper";
+import { COLORS, FONTS } from "../../constants/Theme";
 
 export default AadhaarForm = () => {
   const [consent, setConsent] = useState(false);
@@ -55,10 +56,7 @@ export default AadhaarForm = () => {
   }, [aadhaar]);
 
   const SkipAadhaar = () => {
-    Alert.alert(
-      "Aadhaar KYC pending",
-      `You have not completed Aadhaar KYC.`
-    );
+    Alert.alert("Aadhaar KYC pending", `You have not completed Aadhaar KYC.`);
     navigation.navigate("PanCardInfo");
   };
 
@@ -131,91 +129,93 @@ export default AadhaarForm = () => {
 
   return (
     <>
+      <AppBar
+        title="Setup Profile"
+        color={COLORS.primary}
+        titleStyle={{ ...FONTS.body3 }}
+        leading={
+          <IconButton
+            icon={<Icon name="arrow-back" size={20} color={COLORS.white} />}
+            onPress={() => {
+              backAlert();
+            }}
+          />
+        }
+      />
       <SafeAreaView style={styles.container}>
-        <AppBar
-          title="Setup Profile"
-          color="#4E46F1"
-          leading={
-            <IconButton
-              icon={<Icon name="arrow-back" size={20} color="white" />}
-              onPress={() => {
-                backAlert();
-              }}
-            />
-          }
-        />
         <ProgressBarTop step={1} />
         <Text style={form.formHeader}>
           Let's begin with your background verification processs with eKYC
         </Text>
         <KeyboardAvoidingWrapper>
-            <View>
-              {aadhaar ? (
-                <Text style={form.formLabel}>
-                  Enter 12 Digit Aadhaar Number
-                </Text>
-              ) : null}
-              <TextInput
-                style={form.formTextInput}
-                value={aadhaar}
-                onChangeText={setAadhaar}
-                placeholder="Enter 12 Digit Aadhaar Number"
-                maxLength={12}
-                numeric
-              />
-              <View style={bankform.infoCard}>
-                <Icon name="info-outline" size={20} color="#4E46F1" />
-                <Text style={bankform.infoText}>
-                  My Mobile number is linked to my Aadhar card & I can receive
-                  the OTP on my Aadhar Linked Mobile Number
-                </Text>
-              </View>
-              <View style={{ flexDirection: "row" }}>
-                <CheckBox
-                  value={consent}
-                  onValueChange={setConsent}
-                  style={checkBox.checkBox}
-                  tintColors={{ true: "#4E46F1" }}
-                />
-                <Text style={checkBox.checkBoxText}>
-                  I agree with the KYC registration Terms and Conditions to
-                  verifiy my identity.
-                </Text>
-              </View>
-              {next && consent ? (
-                <Button
-                  uppercase={false}
-                  title="Continue"
-                  type="solid"
-                  color="#4E46F1"
-                  style={form.nextButton}
-                  onPress={() => {
-                    GenerateOtp();
-                  }}
-                />
-              ) : (
-                <Button
-                  title="Continue"
-                  uppercase={false}
-                  type="solid"
-                  style={form.nextButton}
-                  disabled
-                />
-              )}
-              <View>
-                <Button
-                    title="Skip"
-                    uppercase={false}
-                    type="solid"
-                    color="#4E46F1"
-                    style={form.skipButton}
-                    onPress={() => {
-                      SkipAadhaar();
-                    }}
-                />
-              </View>
+          <View>
+            {aadhaar ? (
+              <Text style={form.formLabel}>Enter 12 Digit Aadhaar Number</Text>
+            ) : null}
+            <TextInput
+              style={form.formTextInput}
+              value={aadhaar}
+              onChangeText={setAadhaar}
+              placeholder="Enter 12 Digit Aadhaar Number"
+              maxLength={12}
+              numeric
+            />
+            <View style={bankform.infoCard}>
+              <Icon name="info-outline" size={20} color={COLORS.primary} />
+              <Text style={bankform.infoText}>
+                My Mobile number is linked to my Aadhar card & I can receive the
+                OTP on my Aadhar Linked Mobile Number
+              </Text>
             </View>
-          </KeyboardAvoidingWrapper>
+            <View style={{ flexDirection: "row" }}>
+              <CheckBox
+                value={consent}
+                onValueChange={setConsent}
+                style={checkBox.checkBox}
+                tintColors={{ true: COLORS.primary }}
+              />
+              <Text style={checkBox.checkBoxText}>
+                I agree with the KYC registration Terms and Conditions to
+                verifiy my identity.
+              </Text>
+            </View>
+            {next && consent ? (
+              <Button
+                uppercase={false}
+                title="Continue"
+                titleStyle={{ ...FONTS.h4 }}
+                type="solid"
+                color={COLORS.primary}
+                style={form.nextButton}
+                onPress={() => {
+                  GenerateOtp();
+                }}
+              />
+            ) : (
+              <Button
+                title="Continue"
+                titleStyle={{ ...FONTS.h4 }}
+                uppercase={false}
+                type="solid"
+                style={form.nextButton}
+                disabled
+              />
+            )}
+            <View>
+              <Button
+                title="Skip"
+                titleStyle={{ ...FONTS.h4 }}
+                uppercase={false}
+                type="solid"
+                color={COLORS.primary}
+                style={form.skipButton}
+                onPress={() => {
+                  SkipAadhaar();
+                }}
+              />
+            </View>
+          </View>
+        </KeyboardAvoidingWrapper>
       </SafeAreaView>
     </>
   );

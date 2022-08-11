@@ -5,13 +5,15 @@ import {
   ActivityIndicator,
   Alert,
   Image,
-  Linking, Text,
+  Linking,
+  Text,
   TextInput,
   TouchableOpacity,
-  View
+  View,
 } from "react-native";
 import SmsRetriever from "react-native-sms-retriever";
 import { useDispatch, useSelector } from "react-redux";
+import { COLORS, FONTS, SIZES } from "../../constants/Theme";
 
 import { GenerateDocument } from "../../helpers/GenerateDocument";
 import { KeyboardAvoidingWrapper } from "../../KeyboardAvoidingWrapper";
@@ -135,13 +137,17 @@ export default LoginScreen = () => {
 
   return (
     <KeyboardAvoidingWrapper>
-      <View>
+      <View
+        style={{
+          padding: SIZES.padding,
+        }}
+      >
         <Image
           style={styles.logo}
           source={require("../../assets/unipe-Thumbnail.png")}
         />
         <Text style={styles.headline}>
-          Please enter your mobile number to login:
+          Enter Mobile Number for Verification
         </Text>
         <Text style={styles.fieldLabel}>Mobile Number</Text>
         <TextInput
@@ -190,6 +196,7 @@ export default LoginScreen = () => {
               <Button
                 uppercase={false}
                 title="Continue"
+                titleStyle={{ ...FONTS.h4, color: COLORS.white }}
                 type="solid"
                 style={styles.ContinueButton}
                 disabled

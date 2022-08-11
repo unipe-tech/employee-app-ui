@@ -8,7 +8,7 @@ import relations from "../../../helpers/RelationData";
 import { addESICFamilyDetails } from "../../../store/slices/esicSlice";
 import { familyDetailsPush } from "../../../helpers/BackendPush";
 import { bankform, form, styles } from "../../../styles";
-import { showToast } from "../../../components/Toast";
+import { showToast } from "../../../components/atoms/Toast";
 import { KeyboardAvoidingWrapper } from "../../../KeyboardAvoidingWrapper";
 
 export default FamilyDetails = () => {

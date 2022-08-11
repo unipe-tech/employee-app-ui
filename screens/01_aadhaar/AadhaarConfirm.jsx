@@ -14,6 +14,7 @@ import ProgressBarTop from "../../components/ProgressBarTop";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { aadhaarBackendPush } from "../../helpers/BackendPush";
 import { bankform, form, styles } from "../../styles";
+import { COLORS } from "../../constants/Theme";
 
 export default AadhaarConfirm = () => {
   const navigation = useNavigation();
@@ -85,7 +86,7 @@ export default AadhaarConfirm = () => {
               type="solid"
               uppercase={false}
               style={form.noButton}
-              color="#EB5757"
+              color={COLORS.warning}
               onPress={() => {
                 navigation.navigate("AadhaarForm");
               }}
@@ -95,7 +96,7 @@ export default AadhaarConfirm = () => {
               type="solid"
               uppercase={false}
               style={form.yesButton}
-              color="#4E46F1"
+              color={COLORS.primary}
               onPress={() => {
                 aadhaarBackendPush({
                   type: "OTP",

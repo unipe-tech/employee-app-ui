@@ -2,23 +2,20 @@ import { OG_API_KEY } from "@env";
 import { AppBar, Button, Icon, IconButton } from "@react-native-material/core";
 import { useNavigation } from "@react-navigation/core";
 import React, { useEffect, useState } from "react";
-import {
-  Alert,
-  SafeAreaView, Text,
-  TextInput,
-  View
-} from "react-native";
+import { Alert, SafeAreaView, Text, TextInput, View } from "react-native";
 import { Popable } from "react-native-popable";
 import { useDispatch, useSelector } from "react-redux";
 import ProgressBarTop from "../../components/ProgressBarTop";
-import { showToast } from "../../components/Toast";
+import { showToast } from "../../components/atoms/Toast";
 import { bankBackendPush } from "../../helpers/BackendPush";
 import { KeyboardAvoidingWrapper } from "../../KeyboardAvoidingWrapper";
 import {
   addBankAccountHolderName,
   addBankAccountNumber,
   addBankIfsc,
-  addBankUpi, addBankVerifyMsg, addBankVerifyStatus
+  addBankUpi,
+  addBankVerifyMsg,
+  addBankVerifyStatus,
 } from "../../store/slices/bankSlice";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { bankform, styles } from "../../styles";

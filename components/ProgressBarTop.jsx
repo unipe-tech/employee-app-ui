@@ -3,6 +3,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import React from "react";
 import { View } from "react-native";
 import { progressBar } from "../styles";
+import { COLORS } from "../constants/Theme";
 
 export default ProgressBarTop = (props) => {
   const secondIndicatorStyles = {
@@ -10,24 +11,24 @@ export default ProgressBarTop = (props) => {
     currentStepIndicatorSize: 40,
     separatorStrokeWidth: 2,
     currentStepStrokeWidth: 3,
-    stepStrokeCurrentnColor: "#4E46F1",
+    stepStrokeCurrentnColor: COLORS.primary,
     stepStrokeWidth: 3,
     separatorStrokeFinishedWidth: 4,
-    stepStrokeFinishedColor: "#4E46F1",
-    stepStrokeUnFinishedColor: "#aaaaaa",
-    separatorFinishedColor: "#4E46F1",
-    separatorUnFinishedColor: "#aaaaaa",
-    stepIndicatorFinishedColor: "#4E46F1",
-    stepIndicatorUnFinishedColor: "#ffffff",
-    stepIndicatorCurrentColor: "#ffffff",
+    stepStrokeFinishedColor: COLORS.primary,
+    stepStrokeUnFinishedColor: COLORS.lightGray,
+    separatorFinishedColor: COLORS.primary,
+    separatorUnFinishedColor: COLORS.lightGray,
+    stepIndicatorFinishedColor: COLORS.primary,
+    stepIndicatorUnFinishedColor: COLORS.white,
+    stepIndicatorCurrentColor: COLORS.white,
     stepIndicatorLabelFontSize: 13,
     currentStepIndicatorLabelFontSize: 13,
-    stepIndicatorLabelCurrentColor: "#4E46F1",
-    stepIndicatorLabelFinishedColor: "#4E46F1",
-    stepIndicatorLabelUnFinishedColor: "#aaaaaa",
-    labelColor: "#999999",
+    stepIndicatorLabelCurrentColor: COLORS.primary,
+    stepIndicatorLabelFinishedColor: COLORS.primary,
+    stepIndicatorLabelUnFinishedColor: COLORS.lightGray,
+    labelColor: COLORS.gray,
     labelSize: 9,
-    currentStepLabelColor: "#4E46F1",
+    currentStepLabelColor: COLORS.primary,
   };
   const getStepIndicatorIconConfig = ({ position, stepStatus }) => {
     const iconConfig = {

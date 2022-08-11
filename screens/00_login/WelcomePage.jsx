@@ -9,6 +9,7 @@ import StepIndicator from "react-native-step-indicator";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { checkBox, form, styles, welcome } from "../../styles";
 import Loading from "../../components/Loading";
+import { COLORS, FONTS, SIZES } from "../../constants/Theme";
 
 export default WelcomePage = () => {
   const dispatch = useDispatch();
@@ -71,24 +72,24 @@ export default WelcomePage = () => {
     currentStepIndicatorSize: 30,
     separatorStrokeWidth: 2,
     currentStepStrokeWidth: 3,
-    stepStrokeCurrentColor: "#4E46F1",
+    stepStrokeCurrentColor: COLORS.primary,
     stepStrokeWidth: 3,
     separatorStrokeFinishedWidth: 4,
-    stepStrokeFinishedColor: "#4E46F1",
-    stepStrokeUnFinishedColor: "#aaaaaa",
-    separatorFinishedColor: "#4E46F1",
-    separatorUnFinishedColor: "#aaaaaa",
-    stepIndicatorFinishedColor: "#4E46F1",
-    stepIndicatorUnFinishedColor: "#ffffff",
-    stepIndicatorCurrentColor: "#ffffff",
-    stepIndicatorLabelFontSize: 14,
-    currentStepIndicatorLabelFontSize: 14,
-    stepIndicatorLabelCurrentColor: "#4E46F1",
-    stepIndicatorLabelFinishedColor: "#4E46F1",
-    stepIndicatorLabelUnFinishedColor: "#aaaaaa",
-    labelColor: "#999999",
-    labelSize: 14,
-    currentStepLabelColor: "#4E46F1",
+    stepStrokeFinishedColor: COLORS.primary,
+    stepStrokeUnFinishedColor: COLORS.lightGray,
+    separatorFinishedColor: COLORS.primary,
+    separatorUnFinishedColor: COLORS.lightGray,
+    stepIndicatorFinishedColor: COLORS.primary,
+    stepIndicatorUnFinishedColor: COLORS.white,
+    stepIndicatorCurrentColor: COLORS.white,
+    stepIndicatorLabelFontSize: SIZES.body4,
+    currentStepIndicatorLabelFontSize: SIZES.body4,
+    stepIndicatorLabelCurrentColor: COLORS.primary,
+    stepIndicatorLabelFinishedColor: COLORS.primary,
+    stepIndicatorLabelUnFinishedColor: COLORS.lightGray,
+    labelColor: COLORS.gray,
+    labelSize: SIZES.body4,
+    currentStepLabelColor: COLORS.primary,
     labelAlign: "flex-start",
   };
   return (
@@ -119,6 +120,8 @@ export default WelcomePage = () => {
         <Button
           style={form.nextButton}
           title="Welcome!"
+          titleStyle={{ ...FONTS.h4, color: COLORS.white }}
+          color={COLORS.primary}
           uppercase={false}
           onPress={() => {
             navigation.navigate("Login");

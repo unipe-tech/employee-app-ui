@@ -21,6 +21,7 @@ import { addLoginVerifyStatus } from "../../store/slices/authSlice";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { styles } from "../../styles";
 import { KeyboardAvoidingWrapper } from "../../KeyboardAvoidingWrapper";
+import { COLORS } from "../../constants/Theme";
 
 export default OTPScreen = () => {
   const phoneNumber = useSelector((state) => state.auth.phoneNumber);
@@ -55,18 +56,20 @@ export default OTPScreen = () => {
   }, [otp]);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, { padding: 0 }]}>
       <KeyboardAvoidingWrapper>
         <View style={styles.container}>
           <View style={styles.otpback}>
             {back ? (
               <IconButton
-                icon={<Icon name="arrow-back" size={30} color="#4E46F1" />}
+                icon={
+                  <Icon name="arrow-back" size={30} color={COLORS.primary} />
+                }
                 onPress={() => navigation.navigate("Login")}
               />
             ) : (
               <IconButton
-                icon={<Icon name="arrow-back" size={30} color="#808080" />}
+                icon={<Icon name="arrow-back" size={30} color={COLORS.gray} />}
                 onPress={() =>
                   Alert.alert(
                     "OTP Timer",
@@ -88,14 +91,14 @@ export default OTPScreen = () => {
               <Icon
                 name="edit"
                 size={12}
-                color="#4E46F1"
+                color={COLORS.primary}
                 onPress={() => navigation.navigate("Login")}
               />
             ) : (
               <Icon
                 name="edit"
                 size={12}
-                color="#808080"
+                color={COLORS.gray}
                 onPress={() =>
                   Alert.alert(
                     "OTP Timer",
@@ -121,8 +124,8 @@ export default OTPScreen = () => {
             }}
             size={20}
             style={{ marginTop: 20 }}
-            digitStyle={{ backgroundColor: "#FFF" }}
-            digitTxtStyle={{ color: "#4E46F1" }}
+            digitStyle={{ backgroundColor: COLORS.white }}
+            digitTxtStyle={{ color: COLORS.primary }}
             timeToShow={["M", "S"]}
             timeLabels={{ m: "MM", s: "SS" }}
           />
@@ -149,7 +152,7 @@ export default OTPScreen = () => {
               uppercase={false}
               title="Verify"
               type="solid"
-              color="#4E46F1"
+              color={COLORS.primary}
               style={styles.ContinueButton}
               onPress={() => {
                 const fullPhoneNumber = `+91${phoneNumber}`;

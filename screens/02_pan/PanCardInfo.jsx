@@ -21,7 +21,7 @@ import {
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { panBackendPush } from "../../helpers/BackendPush";
 import { bankform, checkBox, form, styles } from "../../styles";
-import { showToast } from "../../components/Toast";
+import { showToast } from "../../components/atoms/Toast";
 import { addEmail } from "../../store/slices/profileSlice";
 import DateEntry from "../../components/DateEntry";
 import { KeyboardAvoidingWrapper } from "../../KeyboardAvoidingWrapper";
