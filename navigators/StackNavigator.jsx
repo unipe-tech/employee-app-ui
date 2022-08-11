@@ -21,6 +21,7 @@ import { STAGE } from "@env";
 import KYCScreen from "../screens/07_drawer/KYCScreen";
 import Profile from "../screens/07_drawer/Profile";
 import BankConfirm from "../screens/03_bank/BankConfirm";
+import Counter from "../screens/experimental/Counter";
 
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator();
@@ -135,7 +136,6 @@ const StackNavigator = () => {
           header: null,
         }}
       />
-
       <Stack.Screen
         name="Home"
         component={DrawerNavigator}
@@ -167,6 +167,15 @@ const StackNavigator = () => {
         options={{
           headerShown: true,
           headerTitle: "Profile Details",
+        }}
+      />
+      <Stack.Screen
+        name="Experimental"
+        component={Counter}
+        options={{
+          headerShown: true,
+          headerTitle: "Experimental",
+          headerShadowVisible: true,
         }}
       />
     </Stack.Navigator>
