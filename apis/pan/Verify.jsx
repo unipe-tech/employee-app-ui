@@ -91,16 +91,21 @@ export default Verify = (props) => {
       .then((response) => response.json())
       .then((responseJson) => {
         try {
-
           if (responseJson["status"] == "200") {
             switch (responseJson["data"]["code"]) {
               case "1000":
                 const names = ["first", "middle", "last"];
-                console.log('getting data from fetch', responseJson);
+                console.log("getting data from fetch", responseJson);
                 setDob(responseJson["data"]["pan_data"]["date_of_birth"]);
-                setEmail(responseJson["data"]["pan_data"]["email"]?.toLowerCase());
+                setEmail(
+                  responseJson["data"]["pan_data"]["email"]?.toLowerCase()
+                );
                 setGender(responseJson["data"]["pan_data"]["gender"]);
-                setName(names.map(k => responseJson["data"]["pan_data"][`${k}_name`]).join(" "));
+                setName(
+                  names
+                    .map((k) => responseJson["data"]["pan_data"][`${k}_name`])
+                    .join(" ")
+                );
                 setVerifyMsg("To be confirmed by User");
                 setVerifyStatus("PENDING");
                 setBackendPush(true);
@@ -126,8 +131,7 @@ export default Verify = (props) => {
             setBackendPush(true);
             Alert.alert("Error", responseJson["message"]);
           }
-        }
-        catch(error) {
+        } catch (error) {
           console.log("Error: ", error);
           setVerifyMsg(error);
           setVerifyStatus("ERROR");
@@ -143,10 +147,6 @@ export default Verify = (props) => {
         setBackendPush(true);
         Alert.alert("Error", error);
       });
-<<<<<<< HEAD
-    setLoading(false);
-=======
->>>>>>> 3cf18738391ce1361f9d76ade9fb5884f73a7322
   };
 
   return (
