@@ -52,6 +52,7 @@ export default Verify = (props) => {
         verifyStatus: verifyStatus,
       });
       setBackendPush(false);
+      setLoading(false);
     }
   }, [backendPush]);
 
@@ -85,22 +86,26 @@ export default Verify = (props) => {
                 setData(responseJson["data"]);
                 setVerifyMsg("OTP validated by User");
                 setVerifyStatus("PENDING");
+                setBackendPush(true);
                 navigation.navigate("AadhaarConfirm");
                 break;
               default:
                 setVerifyMsg(responseJson["data"]["message"]);
                 setVerifyStatus("ERROR");
+                setBackendPush(true);
                 Alert.alert("Error", responseJson["data"]["message"]);
             }
           } else if (responseJson["error"]) {
             BugsnagNotify(responseJson["error"]);
             setVerifyMsg(responseJson["error"]["message"]);
             setVerifyStatus("ERROR");
+            setBackendPush(true);
             Alert.alert("Error", responseJson["error"]["message"]);
           } else {
             BugsnagNotify(responseJson["message"]);
             setVerifyMsg(responseJson["message"]);
             setVerifyStatus("ERROR");
+            setBackendPush(true);
             Alert.alert("Error", responseJson["message"]);
           }
         } catch (error) {
@@ -115,11 +120,11 @@ export default Verify = (props) => {
       .catch((err) => {
         BugsnagNotify(err);
         setVerifyMsg(err);
+
         setVerifyStatus("ERROR");
         setBackendPush(true);
         Alert.alert("Error", err);
       });
-    setLoading(false);
   };
 
   return (

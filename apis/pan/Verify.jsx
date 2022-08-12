@@ -71,6 +71,7 @@ export default Verify = (props) => {
         verifyStatus: verifyStatus,
       });
       setBackendPush(false);
+      setLoading(false);
     }
   }, [backendPush]);
 
@@ -90,23 +91,43 @@ export default Verify = (props) => {
       .then((response) => response.json())
       .then((responseJson) => {
         try {
-          const names = ["first", "middle", "last"];
-          console.log("getting data from fetch", responseJson);
-          setDob(responseJson["data"]["pan_data"]["date_of_birth"]);
-          setEmail(responseJson["data"]["pan_data"]["email"]?.toLowerCase());
-          setGender(responseJson["data"]["pan_data"]["gender"]);
-          setName(
-            names
-              .map((k) => responseJson["data"]["pan_data"][`${k}_name`])
-              .join(" ")
-          );
-          setVerifyMsg("To be confirmed by User");
-          setVerifyStatus("PENDING");
-          setBackendPush(true);
-          navigation.navigate("PanConfirm");
-        } catch (error) {
-          BugsnagNotify(error);
-          Bugsnag.notify(new Error(`Error - occured - hello`));
+
+          if (responseJson["status"] == "200") {
+            switch (responseJson["data"]["code"]) {
+              case "1000":
+                const names = ["first", "middle", "last"];
+                console.log('getting data from fetch', responseJson);
+                setDob(responseJson["data"]["pan_data"]["date_of_birth"]);
+                setEmail(responseJson["data"]["pan_data"]["email"]?.toLowerCase());
+                setGender(responseJson["data"]["pan_data"]["gender"]);
+                setName(names.map(k => responseJson["data"]["pan_data"][`${k}_name`]).join(" "));
+                setVerifyMsg("To be confirmed by User");
+                setVerifyStatus("PENDING");
+                setBackendPush(true);
+                navigation.navigate("PanConfirm");
+                break;
+              default:
+                BugsnagNotify(responseJson["data"]["message"]);
+                setVerifyMsg(responseJson["data"]["message"]);
+                setVerifyStatus("ERROR");
+                setBackendPush(true);
+                Alert.alert("Error", responseJson["data"]["message"]);
+            }
+          } else if (responseJson["error"]) {
+            BugsnagNotify(responseJson["error"]);
+            setVerifyMsg(responseJson["error"]["message"]);
+            setVerifyStatus("ERROR");
+            setBackendPush(true);
+            Alert.alert("Error", responseJson["error"]["message"]);
+          } else {
+            BugsnagNotify(responseJson["message"]);
+            setVerifyMsg(responseJson["message"]);
+            setVerifyStatus("ERROR");
+            setBackendPush(true);
+            Alert.alert("Error", responseJson["message"]);
+          }
+        }
+        catch(error) {
           console.log("Error: ", error);
           setVerifyMsg(error);
           setVerifyStatus("ERROR");
@@ -122,7 +143,10 @@ export default Verify = (props) => {
         setBackendPush(true);
         Alert.alert("Error", error);
       });
+<<<<<<< HEAD
     setLoading(false);
+=======
+>>>>>>> 3cf18738391ce1361f9d76ade9fb5884f73a7322
   };
 
   return (
