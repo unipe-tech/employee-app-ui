@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/core";
-import { Text, View } from "react-native";
+import { Text, View, SafeAreaView } from "react-native";
 import { Button } from "@react-native-material/core";
 import { addVerifyMsg, addVerifyStatus } from "../../store/slices/panSlice";
 import { panBackendPush } from "../../helpers/BackendPush";
@@ -50,7 +50,7 @@ export default Confirm = () => {
   }, [backendPush]);
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Text style={form.OtpAwaitMsg}>Are these your PAN details ?{"\n"}</Text>
       <Text style={form.userData}>Number: {number}</Text>
       <Text style={form.userData}>Name: {name}</Text>
@@ -94,6 +94,6 @@ export default Confirm = () => {
         />
         <View style={bankform.padding}></View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/core";
-import { Text, View, Image } from "react-native";
+import { Text, View, Image ,SafeAreaView} from "react-native";
 import { Button } from "@react-native-material/core";
 import { addVerifyMsg, addVerifyStatus } from "../../store/slices/aadhaarSlice";
 import { bankform, form, styles } from "../../styles";
@@ -45,7 +45,7 @@ export default Confirm = () => {
   }, [backendPush]);
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Text style={form.OtpAwaitMsg}>
         Are these your AADHAAR details ?{"\n"}
       </Text>
@@ -97,6 +97,6 @@ export default Confirm = () => {
         />
         <View style={bankform.padding}></View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };

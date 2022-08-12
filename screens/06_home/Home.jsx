@@ -33,7 +33,7 @@ export default Home = () => {
 
   return (
     <>
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView style={styles.container}>
         <Provider>
           <Portal>
             <FAB.Group

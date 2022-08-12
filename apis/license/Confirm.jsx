@@ -1,7 +1,7 @@
 import { Button } from "@react-native-material/core";
 import { useNavigation } from "@react-navigation/core";
 import { useEffect, useState } from "react";
-import { Image, Text, View } from "react-native";
+import { Image, Text, View, SafeAreaView } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { TimeDifference } from "../../helpers/TimeDifference";
 import {
@@ -35,7 +35,7 @@ export default Confirm = () => {
 
   console.log(licenseSlice?.verifyStatus);
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Text style={form.OtpAwaitMsg}>
         Are these your License details ?{"\n"}
       </Text>
@@ -131,6 +131,6 @@ export default Confirm = () => {
           }}
         />
       </View>
-    </View>
+    </SafeAreaView>
   );
 };

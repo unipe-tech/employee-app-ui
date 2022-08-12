@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Text, View } from "react-native";
+import { Text, View, SafeAreaView } from "react-native";
 import { Button } from "@react-native-material/core";
 import { useNavigation } from "@react-navigation/core";
 import {
@@ -17,7 +17,9 @@ export default Confirm = () => {
   const [backendPush, setBackendPush] = useState(false);
   const id = useSelector((state) => state.auth.id);
 
-  const accountHolderName = useSelector((state) => state.bank.accountHolderName); 
+  const accountHolderName = useSelector(
+    (state) => state.bank.accountHolderName
+  );
   const ifsc = useSelector((state) => state.bank?.ifsc);
   const accountNumber = useSelector((state) => state.bank?.accountNumber);
   const upi = useSelector((state) => state.bank?.upi);
@@ -53,7 +55,7 @@ export default Confirm = () => {
   }, [backendPush]);
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Text style={form.OtpAwaitMsg}>Are these your Bank details ?{"\n"}</Text>
       <Text style={form.userData}>BankName: {bankName}</Text>
       <Text style={form.userData}>Branch: {branch}</Text>
@@ -98,6 +100,6 @@ export default Confirm = () => {
         />
         <View style={bankform.padding}></View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ScrollView, Text, TextInput, View } from "react-native";
+import { SafeAreaView, Text, TextInput, View } from "react-native";
 import { Button } from "@react-native-material/core";
 import { useNavigation } from "@react-navigation/core";
 import { portalPush } from "../../../helpers/BackendPush";
@@ -29,6 +29,7 @@ export default Portal = () => {
   }, [ipNumber]);
 
   return (
+    <SafeAreaView style={styles.container}>
       <KeyboardAvoidingWrapper>
         <View>
           {/* <Text style={bankform.formtitle}>Employer Establishment Code*</Text>
@@ -63,5 +64,6 @@ export default Portal = () => {
           <View style={bankform.padding}></View>
         </View>
       </KeyboardAvoidingWrapper>
+    </SafeAreaView>
   );
 };
