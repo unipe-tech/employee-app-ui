@@ -55,8 +55,8 @@ export default PersonalImage = () => {
         console.log(res.data);
         navigation.navigate("Home");
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((error) => {
+        console.log(error);
       });
   };
 

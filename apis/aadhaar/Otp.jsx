@@ -108,12 +108,12 @@ export default Otp = (props) => {
           Alert.alert("Error", error);
         }
       })
-      .catch((err) => {
-        BugsnagNotify(err);
-        setVerifyMsg(err);
+      .catch((error) => {
+        BugsnagNotify(error);
+        setVerifyMsg(error);
         setVerifyStatus("ERROR");
         setBackendPush(true);
-        Alert.alert("Error", err);
+        Alert.alert("Error", error);
       });
   };
 

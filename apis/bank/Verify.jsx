@@ -136,12 +136,12 @@ export default Verify = (props) => {
         }
         setBackendPush(true);
       })
-      .catch((err) => {
-        BugsnagNotify(err);
-        setVerifyMsg(err);
+      .catch((error) => {
+        BugsnagNotify(error);
+        setVerifyMsg(error);
         setVerifyStatus("ERROR");
         setBackendPush(true);
-        Alert.alert("Error", err);
+        Alert.alert("Error", error);
       });
   };
   return (

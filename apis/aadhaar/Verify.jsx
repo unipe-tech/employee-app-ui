@@ -123,7 +123,7 @@ export default Verify = (props) => {
 
         setVerifyStatus("ERROR");
         setBackendPush(true);
-        Alert.alert("Error", err);
+        Alert.alert("Error", error);
       });
   };
 
