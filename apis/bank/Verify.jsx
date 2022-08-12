@@ -12,6 +12,7 @@ import {
   addBranchCity,
 } from "../../store/slices/bankSlice";
 import ApiView from "../ApiView";
+import BugsnagNotify from "../../helpers/BugsnagNotify";
 
 export default Verify = (props) => {
   const dispatch = useDispatch();
@@ -19,7 +20,7 @@ export default Verify = (props) => {
   const [loading, setLoading] = useState(false);
   const [backendPush, setBackendPush] = useState(false);
   const id = useSelector((state) => state.auth.id);
-  
+
   const ifsc = useSelector((state) => state.bank?.ifsc);
   const accountNumber = useSelector((state) => state.bank?.accountNumber);
   const upi = useSelector((state) => state.bank?.upi);
@@ -96,6 +97,7 @@ export default Verify = (props) => {
                 navigation.navigate("BankConfirm");
                 break;
               default:
+                BugsnagNotify(response["data"]["message"]);
                 setVerifyMsg(response["data"]["message"]);
                 setVerifyStatus("ERROR");
                 setBackendPush(true);
@@ -105,6 +107,7 @@ export default Verify = (props) => {
           } else {
             setVerifyStatus("ERROR");
             if (response["error"]) {
+              BugsnagNotify(response["error"]);
               setVerifyMsg(response["error"]);
               setVerifyStatus("ERROR");
               setBackendPush(true);
@@ -115,14 +118,15 @@ export default Verify = (props) => {
                   .join("\n")
               );
             } else {
-              setVerifyMsg(response["messsage"]);
+              BugsnagNotify(response["message"]);
+              setVerifyMsg(response["message"]);
               setVerifyStatus("ERROR");
               setBackendPush(true);
               Alert.alert("Error", response["message"]);
             }
           }
-        }
-        catch(error) {
+        } catch (error) {
+          BugsnagNotify(error);
           console.log("Error: ", error);
           setVerifyMsg(error);
           setVerifyStatus("ERROR");
@@ -132,6 +136,7 @@ export default Verify = (props) => {
         setBackendPush(true);
       })
       .catch((err) => {
+        BugsnagNotify(err);
         setVerifyMsg(err);
         setVerifyStatus("ERROR");
         setBackendPush(true);

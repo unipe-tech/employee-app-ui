@@ -1,5 +1,5 @@
 import { OG_API_KEY } from "@env";
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Alert } from "react-native";
 import { useNavigation } from "@react-navigation/core";
@@ -9,10 +9,12 @@ import {
   addGender,
   addName,
   addVerifyMsg,
-  addVerifyStatus
+  addVerifyStatus,
 } from "../../store/slices/panSlice";
 import { panBackendPush } from "../../helpers/BackendPush";
-import ApiView from '../ApiView';
+import ApiView from "../ApiView";
+import Bugsnag from "@bugsnag/react-native";
+import BugsnagNotify from "../../helpers/BugsnagNotify";
 
 export default Verify = (props) => {
   const dispatch = useDispatch();
@@ -31,27 +33,27 @@ export default Verify = (props) => {
   const [verifyStatus, setVerifyStatus] = useState(panSlice?.verifyStatus);
 
   useEffect(() => {
-    dispatch(addDob(dob))
+    dispatch(addDob(dob));
   }, [dob]);
 
   useEffect(() => {
-    dispatch(addEmail(email))
+    dispatch(addEmail(email));
   }, [email]);
 
   useEffect(() => {
-    dispatch(addGender(gender))
+    dispatch(addGender(gender));
   }, [gender]);
 
   useEffect(() => {
-    dispatch(addName(name))
+    dispatch(addName(name));
   }, [name]);
 
   useEffect(() => {
-    dispatch(addVerifyMsg(verifyMsg))
+    dispatch(addVerifyMsg(verifyMsg));
   }, [verifyMsg]);
 
   useEffect(() => {
-    dispatch(addVerifyStatus(verifyStatus))
+    dispatch(addVerifyStatus(verifyStatus));
   }, [verifyStatus]);
 
   useEffect(() => {
@@ -85,21 +87,26 @@ export default Verify = (props) => {
     };
 
     fetch(props.url, options)
-      .then(response => response.json())
+      .then((response) => response.json())
       .then((responseJson) => {
         try {
           const names = ["first", "middle", "last"];
-          console.log('getting data from fetch', responseJson);
+          console.log("getting data from fetch", responseJson);
           setDob(responseJson["data"]["pan_data"]["date_of_birth"]);
           setEmail(responseJson["data"]["pan_data"]["email"]?.toLowerCase());
           setGender(responseJson["data"]["pan_data"]["gender"]);
-          setName(names.map(k => responseJson["data"]["pan_data"][`${k}_name`]).join(" "));
+          setName(
+            names
+              .map((k) => responseJson["data"]["pan_data"][`${k}_name`])
+              .join(" ")
+          );
           setVerifyMsg("To be confirmed by User");
           setVerifyStatus("PENDING");
           setBackendPush(true);
           navigation.navigate("PanConfirm");
-        }
-        catch(error) {
+        } catch (error) {
+          BugsnagNotify(error);
+          Bugsnag.notify(new Error(`Error - occured - hello`));
           console.log("Error: ", error);
           setVerifyMsg(error);
           setVerifyStatus("ERROR");
@@ -108,15 +115,16 @@ export default Verify = (props) => {
         }
       })
       .catch((error) => {
+        BugsnagNotify(error);
         console.log("Error: ", error);
         setVerifyMsg(error);
         setVerifyStatus("ERROR");
         setBackendPush(true);
         Alert.alert("Error", error);
       });
-      setLoading(false);
+    setLoading(false);
   };
-  
+
   return (
     <ApiView
       disabled={props.disabled}
@@ -125,5 +133,4 @@ export default Verify = (props) => {
       style={props.style}
     />
   );
-
 };

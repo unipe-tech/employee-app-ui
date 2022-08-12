@@ -26,7 +26,7 @@ export default PanForm = () => {
 
   const panSlice = useSelector((state) => state.pan);
   const [number, setNumber] = useState(panSlice?.number);
-  
+
   useEffect(() => {
     dispatch(addCurrentScreen("PanForm"));
   }, []);
@@ -49,7 +49,6 @@ export default PanForm = () => {
   return (
     <>
       <SafeAreaView style={styles.container}>
-
         <AppBar
           title="Setup Profile"
           color="#4E46F1"
@@ -64,10 +63,9 @@ export default PanForm = () => {
 
         <ProgressBarTop step={2} />
         <Text style={form.formHeader}>PAN Verification</Text>
-        
+
         <KeyboardAvoidingWrapper>
           <View>
-
             <Text style={form.formLabel}>Enter PAN Number</Text>
             <TextInput
               style={form.formTextInput}
@@ -78,12 +76,10 @@ export default PanForm = () => {
               maxLength={10}
               required
             />
-            {
-              number && !validNumber ? (
-                <Text style={bankform.formatmsg}>Invalid PAN Number.</Text>
-              ) : null
-            }
-            
+            {number && !validNumber ? (
+              <Text style={bankform.formatmsg}>Invalid PAN Number.</Text>
+            ) : null}
+
             <View style={form.forgotText}>
               <Text
                 style={styles.termsText}
@@ -98,7 +94,9 @@ export default PanForm = () => {
             </View>
 
             <View style={bankform.infoCard}>
-              <Text style={bankform.infoText}>PAN is required to verify name and date of birth.</Text>
+              <Text style={bankform.infoText}>
+                PAN is required to verify name and date of birth.
+              </Text>
             </View>
 
             <Verify
@@ -116,7 +114,6 @@ export default PanForm = () => {
               style={form.skipButton}
               onPress={() => SkipPAN()}
             />
-
           </View>
         </KeyboardAvoidingWrapper>
       </SafeAreaView>

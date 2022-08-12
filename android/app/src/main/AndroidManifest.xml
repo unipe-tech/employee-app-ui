@@ -33,6 +33,7 @@
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
     </activity>
-    <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" android:exported="true"/>
+    <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" android:exported="true"/>
+    <meta-data android:name="com.bugsnag.android.API_KEY" android:value="dbacfbd0b11e3c569201ba5a533b41dd" />
   </application>
 </manifest>
