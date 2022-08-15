@@ -90,13 +90,14 @@ export default Verify = (props) => {
                 navigation.navigate("AadhaarConfirm");
                 break;
               default:
+                BugsnagNotify(responseJson["data"]["message"]);
                 setVerifyMsg(responseJson["data"]["message"]);
                 setVerifyStatus("ERROR");
                 setBackendPush(true);
                 Alert.alert("Error", responseJson["data"]["message"]);
             }
           } else if (responseJson["error"]) {
-            BugsnagNotify(responseJson["error"]);
+            BugsnagNotify(responseJson["error"]["message"]);
             setVerifyMsg(responseJson["error"]["message"]);
             setVerifyStatus("ERROR");
             setBackendPush(true);
@@ -110,17 +111,15 @@ export default Verify = (props) => {
           }
         } catch (error) {
           BugsnagNotify(error);
-          console.log("Error: ", error);
           setVerifyMsg(error);
           setVerifyStatus("ERROR");
           setBackendPush(true);
           Alert.alert("Error", error);
         }
       })
-      .catch((err) => {
-        BugsnagNotify(err);
-        setVerifyMsg(err);
-
+      .catch((error) => {
+        BugsnagNotify(error);
+        setVerifyMsg(error);
         setVerifyStatus("ERROR");
         setBackendPush(true);
         Alert.alert("Error", error);

@@ -5,5 +5,11 @@ export default BugsnagNotify = (text) => {
   const mobileNumber = useSelector((state) => state.auth.phoneNumber);
   const currentScreen = useSelector((state) => state.navigation.currentScreen);
 
-  Bugsnag.notify(new Error(`${mobileNumber} - ${currentScreen} - ${text}`));
+  try {
+    var error = `${mobileNumber} - ${currentScreen} - ${text}`;
+    console.log(error);
+    Bugsnag.notify(new Error(error));
+  } catch (error) {
+    console.log("BugsnagNotify Error: ", error);
+  }
 };
