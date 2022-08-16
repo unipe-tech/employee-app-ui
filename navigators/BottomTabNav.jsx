@@ -1,6 +1,7 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Icon } from "@react-native-material/core";
+import { COLORS, FONTS } from "../constants/Theme";
 
 export default BottomTabNav = (props) => {
   const bottomTab = createBottomTabNavigator();
@@ -8,6 +9,7 @@ export default BottomTabNav = (props) => {
     <bottomTab.Navigator
       screenOptions={({ route }) => ({
         headerShown: false,
+        tabBarLabelStyle: { ...FONTS.body5, marginBottom: 5 },
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
           switch (route.name) {
@@ -26,8 +28,8 @@ export default BottomTabNav = (props) => {
           }
           return <Icon name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: "#4E46F1",
-        tabBarInactiveTintColor: "#4E4E4F",
+        tabBarActiveTintColor: COLORS.primary,
+        tabBarInactiveTintColor: COLORS.gray,
       })}
     >
       {props.tabs.map((tab, index) => {

@@ -1,5 +1,5 @@
 import React from "react";
-import TopTabNav from "../../components/TopTabNav";
+import TopTabNav from "../../navigators/TopTabNav";
 import HomeView from "./HomeView";
 import ESICForm from "./ESIC/ESICForm";
 
@@ -8,5 +8,5 @@ export default Benefits = () => {
     { name: "EPFO", component: HomeView },
     { name: "ESIC", component: ESICForm },
   ];
-  return <TopTabNav tabs={tabs}/>;
+  return <TopTabNav tabs={tabs} />;
 };

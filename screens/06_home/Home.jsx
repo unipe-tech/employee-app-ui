@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/core";
 import { Image, SafeAreaView } from "react-native";
 import { FAB, Portal, Provider } from "react-native-paper";
 
-import BottomTabNav from "../../components/BottomTabNav";
+import BottomTabNav from "../../navigators/BottomTabNav";
 import Benefits from "./Benefits";
 import HomeView from "./HomeView";
 import Documents from "./Documents";
@@ -18,7 +18,7 @@ export default Home = () => {
 
   const [state, setState] = React.useState({ open: false });
   const onStateChange = ({ open }) => setState({ open });
-  
+
   const { open } = state;
   const tabs = [
     { name: "Home", component: HomeView },

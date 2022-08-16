@@ -1,7 +1,6 @@
 import React from "react";
-import TopTabNav from "../../components/TopTabNav";
+import TopTabNav from "../../navigators/TopTabNav";
 import HomeView from "./HomeView";
-
 
 export default Documents = () => {
   const tabs = [
@@ -9,5 +8,5 @@ export default Documents = () => {
     { name: "Pay Slips", component: HomeView },
     { name: "ID Card", component: HomeView },
   ];
-  return <TopTabNav tabs={tabs}/>;
+  return <TopTabNav tabs={tabs} />;
 };

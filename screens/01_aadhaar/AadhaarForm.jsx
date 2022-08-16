@@ -22,6 +22,7 @@ import { bankform, Camera, checkBox, form, styles } from "../../styles";
 import { showToast } from "../../components/atoms/Toast";
 import { KeyboardAvoidingWrapper } from "../../KeyboardAvoidingWrapper";
 import { COLORS, FONTS } from "../../constants/Theme";
+import TextButton from "../../components/atoms/TextButton";
 
 export default AadhaarForm = () => {
   const [consent, setConsent] = useState(false);
@@ -179,41 +180,16 @@ export default AadhaarForm = () => {
                 verifiy my identity.
               </Text>
             </View>
-            {next && consent ? (
-              <Button
-                uppercase={false}
-                title="Continue"
-                titleStyle={{ ...FONTS.h4 }}
-                type="solid"
-                color={COLORS.primary}
-                style={form.nextButton}
-                onPress={() => {
-                  GenerateOtp();
-                }}
-              />
-            ) : (
-              <Button
-                title="Continue"
-                titleStyle={{ ...FONTS.h4 }}
-                uppercase={false}
-                type="solid"
-                style={form.nextButton}
-                disabled
-              />
-            )}
-            <View>
-              <Button
-                title="Skip"
-                titleStyle={{ ...FONTS.h4 }}
-                uppercase={false}
-                type="solid"
-                color={COLORS.primary}
-                style={form.skipButton}
-                onPress={() => {
-                  SkipAadhaar();
-                }}
-              />
-            </View>
+            <TextButton
+              label={"Continue"}
+              onPress={() => GenerateOtp()}
+              disabled={next && consent ? false : true}
+            />
+            <TextButton
+              label={"Skip"}
+              onPress={() => SkipAadhaar()}
+              containerStyle={{ marginTop: 10 }}
+            />
           </View>
         </KeyboardAvoidingWrapper>
       </SafeAreaView>

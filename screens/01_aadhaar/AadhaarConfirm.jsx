@@ -47,7 +47,7 @@ export default AadhaarConfirm = () => {
     <SafeAreaView style={styles.container}>
       <AppBar
         title="Setup Profile"
-        color="#4E46F1"
+        color={COLORS.primary}
         leading={
           <IconButton
             icon={<Icon name="arrow-back" size={20} color="white" />}

@@ -1,6 +1,6 @@
 import React from "react";
 import { SafeAreaView } from "react-native";
-import TopTabNav from "../../../components/TopTabNav";
+import TopTabNav from "../../../navigators/TopTabNav";
 import Portal from "./Portal";
 import FamilyDetails from "./FamilyDetails";
 import EmployeeAddress from "./EmployeeAddress";

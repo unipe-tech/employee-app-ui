@@ -13,6 +13,7 @@ import {
 } from "react-native";
 import SmsRetriever from "react-native-sms-retriever";
 import { useDispatch, useSelector } from "react-redux";
+import TextButton from "../../components/atoms/TextButton";
 import { COLORS, FONTS, SIZES } from "../../constants/Theme";
 
 import { GenerateDocument } from "../../helpers/GenerateDocument";
@@ -182,33 +183,13 @@ export default LoginScreen = () => {
           </Text>
         </Text>
         {!isLoading ? (
-          <>
-            {next ? (
-              <Button
-                uppercase={false}
-                title="Continue"
-                type="solid"
-                style={styles.ContinueButton}
-                color="#4E46F1"
-                onPress={() => signIn()}
-              />
-            ) : (
-              <Button
-                uppercase={false}
-                title="Continue"
-                titleStyle={{ ...FONTS.h4, color: COLORS.white }}
-                type="solid"
-                style={styles.ContinueButton}
-                disabled
-              />
-            )}
-          </>
+          <TextButton
+            label={"Continue"}
+            onPress={() => signIn()}
+            disabled={next ? false : true}
+          />
         ) : (
-          <TouchableOpacity>
-            <View style={styles.LoadingButton}>
-              <ActivityIndicator size="large" color="white" />
-            </View>
-          </TouchableOpacity>
+          <TextButton loading={true} />
         )}
       </View>
     </KeyboardAvoidingWrapper>

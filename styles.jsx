@@ -29,6 +29,7 @@ export const styles = StyleSheet.create({
     height: 50,
     borderBottomWidth: 1,
     alignSelf: "center",
+    ...FONTS.body4,
   },
   resendText: {
     color: COLORS.primary,
@@ -39,10 +40,13 @@ export const styles = StyleSheet.create({
   },
   otpInput: {
     marginTop: 40,
-    width: "50%",
+    width: "70%",
     alignSelf: "center",
+    alignItems: "center",
+    textAlign: "center",
     height: 50,
     borderBottomWidth: 1,
+    ...FONTS.body3,
   },
   ContinueButton: {
     padding: 5,

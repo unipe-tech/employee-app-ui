@@ -22,6 +22,7 @@ import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { styles } from "../../styles";
 import { KeyboardAvoidingWrapper } from "../../KeyboardAvoidingWrapper";
 import { COLORS } from "../../constants/Theme";
+import TextButton from "../../components/atoms/TextButton";
 
 export default OTPScreen = () => {
   const phoneNumber = useSelector((state) => state.auth.phoneNumber);
@@ -55,6 +56,17 @@ export default OTPScreen = () => {
     }
   }, [otp]);
 
+  const onVerify = () => {
+    const fullPhoneNumber = `+91${phoneNumber}`;
+    checkVerification(fullPhoneNumber, otp).then((success) => {
+      if (!success) Alert.alert("err", "Incorrect OTP");
+      success && navigation.navigate("AadhaarForm");
+      console.log(fullPhoneNumber, otp);
+      dispatch(addLoginVerifyStatus("SUCCESS"));
+      SmsRetriever.removeSmsListener();
+    });
+  };
+
   return (
     <SafeAreaView style={[styles.container, { padding: 0 }]}>
       <KeyboardAvoidingWrapper>
@@ -69,7 +81,9 @@ export default OTPScreen = () => {
               />
             ) : (
               <IconButton
-                icon={<Icon name="arrow-back" size={30} color={COLORS.gray} />}
+                icon={
+                  <Icon name="arrow-back" size={30} color={COLORS.primary} />
+                }
                 onPress={() =>
                   Alert.alert(
                     "OTP Timer",
@@ -143,37 +157,15 @@ export default OTPScreen = () => {
             </Text>
           ) : null}
           <Text style={styles.otpreadtxt}>
-            {" "}
             Sit back & relax while we fetch the OTP & log you inside the Unipe
             App
           </Text>
-          {next ? (
-            <Button
-              uppercase={false}
-              title="Verify"
-              type="solid"
-              color={COLORS.primary}
-              style={styles.ContinueButton}
-              onPress={() => {
-                const fullPhoneNumber = `+91${phoneNumber}`;
-                checkVerification(fullPhoneNumber, otp).then((success) => {
-                  if (!success) Alert.alert("err", "Incorrect OTP");
-                  success && navigation.navigate("AadhaarForm");
-                  console.log(fullPhoneNumber, otp);
-                  dispatch(addLoginVerifyStatus("SUCCESS"));
-                  SmsRetriever.removeSmsListener();
-                });
-              }}
-            />
-          ) : (
-            <Button
-              title="Verify"
-              uppercase={false}
-              type="solid"
-              style={styles.ContinueButton}
-              disabled
-            />
-          )}
+
+          <TextButton
+            label={"Verify"}
+            onPress={onVerify}
+            disabled={next ? false : true}
+          />
         </View>
       </KeyboardAvoidingWrapper>
     </SafeAreaView>
