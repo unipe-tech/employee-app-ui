@@ -4,7 +4,7 @@ import { Card, Title, Paragraph } from "react-native-paper";
 import { Icon } from "@react-native-material/core";
 import { homeCard, docSearch } from "../styles";
 
-export default DocumentTile = (props) => {
+function DocumentTile(props) {
   return (
     <View style={docSearch.searchBar}>
       {props.documents.map((doc, index) => {
@@ -29,4 +29,6 @@ export default DocumentTile = (props) => {
       })}
     </View>
   );
-};
+}
+
+export default DocumentTile;

@@ -7,7 +7,7 @@ import { addESICAddress } from "../store/slices/esicSlice";
 import { bankform, form } from "../styles";
 const customData = require("../assets/state_districts.json");
 
-export default AddressDropdown = (props) => {
+function AddressDropdown(props) {
   const [districts, setDistricts] = useState(["Please Choose a State"]);
 
   const dispatch = useDispatch();
@@ -54,7 +54,6 @@ export default AddressDropdown = (props) => {
       })
     );
   }, [district]);
-
 
   useEffect(() => {
     if (geoState) {
@@ -113,4 +112,6 @@ export default AddressDropdown = (props) => {
       />
     </>
   );
-};
+}
+
+export default AddressDropdown;

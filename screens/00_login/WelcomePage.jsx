@@ -1,4 +1,5 @@
-import { MaterialIcons } from "@expo/vector-icons";
+const { MaterialIcons } = require("@expo/vector-icons");
+// import { MaterialIcons } from "@expo/vector-icons";
 import { Button } from "@react-native-material/core";
 import { useNavigation } from "@react-navigation/core";
 import React, { useEffect } from "react";

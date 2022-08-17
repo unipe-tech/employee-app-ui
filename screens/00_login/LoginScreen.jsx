@@ -5,10 +5,11 @@ import {
   ActivityIndicator,
   Alert,
   Image,
-  Linking, Text,
+  Linking,
+  Text,
   TextInput,
   TouchableOpacity,
-  View
+  View,
 } from "react-native";
 import SmsRetriever from "react-native-sms-retriever";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,8 +22,7 @@ import { addId, addPhoneNumber } from "../../store/slices/authSlice";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { styles } from "../../styles";
 
-export default LoginScreen = () => {
-
+function LoginScreen() {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
@@ -30,7 +30,6 @@ export default LoginScreen = () => {
     useSelector((state) => state.auth.phoneNumber)
   );
   const [next, setNext] = useState(false);
-  
 
   const [loading, setLoading] = useState(false);
   const [id, setId] = useState(null);
@@ -217,4 +216,6 @@ export default LoginScreen = () => {
       </View>
     </KeyboardAvoidingWrapper>
   );
-};
+}
+
+export default LoginScreen;

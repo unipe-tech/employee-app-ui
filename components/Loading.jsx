@@ -27,7 +27,12 @@ function Loading({
 }) {
   if (withModal) {
     return (
-      <Modal style={styles.cont} transparent visible={isLoading}>
+      <Modal
+        testID="loading-modal"
+        style={styles.cont}
+        transparent
+        visible={isLoading}
+      >
         <LoadingComponent loaderColor={loaderColor} />
       </Modal>
     );

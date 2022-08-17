@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DateEntry if DateEntry renders correctly 1`] = `[Function]`;
+
+exports[`PrimaryButton if button renders correctly 1`] = `[Function]`;
