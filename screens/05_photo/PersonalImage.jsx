@@ -18,12 +18,14 @@ import { putBackendData } from "../../services/employees/employeeServices";
 import { addSelfie } from "../../store/slices/profileSlice";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { checkBox, form, selfie, styles } from "../../styles";
+import { COLORS } from "../../constants/Theme";
+import TextButton from "../../components/atoms/TextButton";
 
 export default PersonalImage = () => {
   const navigation = useNavigation();
   const id = useSelector((state) => state.auth.id);
   const Profile = useSelector((state) => state.profile);
-  const [imageData,setImageData] = useState(Profile.selfie);
+  const [imageData, setImageData] = useState(Profile.selfie);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -62,29 +64,28 @@ export default PersonalImage = () => {
     };
     ImagePicker.launchImageLibrary(options, (response) => {
       if (response.didCancel) {
-        console.log('User cancelled image picker');
+        console.log("User cancelled image picker");
       } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
+        console.log("ImagePicker Error: ", response.error);
       } else {
         dispatch(addSelfie(response?.assets && response.assets[0].base64));
       }
     });
-
   }, []);
 
   return (
     <>
+      <AppBar
+        title="Setup Profile"
+        color={COLORS.primary}
+        leading={
+          <IconButton
+            icon={<Icon name="arrow-back" size={20} color="white" />}
+            onPress={() => navigation.navigate("PersonalDetailsForm")}
+          />
+        }
+      />
       <SafeAreaView style={styles.container}>
-        <AppBar
-          title="Setup Profile"
-          color="#4E46F1"
-          leading={
-            <IconButton
-              icon={<Icon name="arrow-back" size={20} color="white" />}
-              onPress={() => navigation.navigate("PersonalDetailsForm")}
-            />
-          }
-        />
         <ProgressBarTop step={5} />
         <ScrollView keyboardShouldPersistTaps="handled">
           <Text style={form.formHeader}>
@@ -103,17 +104,17 @@ export default PersonalImage = () => {
               style={selfie.selfie}
             />
           )}
-          <View style={{ flexDirection: "row", alignSelf: "center" }}>
+          <View style={selfie.buttonRow}>
             <IconButton
               icon={<Icon name="image-search" size={30} color="black" />}
-              style={selfie.uploadButton}
+              style={selfie.iconButton}
               onPress={() => {
                 onImageLibraryPress();
               }}
             />
             <IconButton
               icon={<Icon name="camera-alt" size={25} color="black" />}
-              style={selfie.cameraButton}
+              style={selfie.iconButton}
               onPress={() => {
                 navigation.navigate("RNPhotoCapture", {
                   type: "SELFIE",
@@ -121,17 +122,14 @@ export default PersonalImage = () => {
               }}
             />
           </View>
-          <Button
-            title="Finish"
-            type="solid"
-            uppercase={false}
-            style={form.nextButton}
-            color="#4E46F1"
+          <TextButton
+            label={"Finish"}
             onPress={() => {
               ProfilePush();
               navigation.navigate("Home");
             }}
           />
+
           <View style={checkBox.padding}></View>
         </ScrollView>
       </SafeAreaView>

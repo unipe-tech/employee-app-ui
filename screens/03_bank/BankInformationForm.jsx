@@ -19,6 +19,8 @@ import {
 } from "../../store/slices/bankSlice";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { bankform, styles } from "../../styles";
+import TextButton from "../../components/atoms/TextButton";
+import { COLORS } from "../../constants/Theme";
 
 export default BankInformationForm = () => {
   const navigation = useNavigation();
@@ -160,17 +162,17 @@ export default BankInformationForm = () => {
 
   return (
     <>
+      <AppBar
+        title="Setup Profile"
+        color={COLORS.primary}
+        leading={
+          <IconButton
+            icon={<Icon name="arrow-back" size={20} color="white" />}
+            onPress={() => navigation.navigate("PanCardInfo")}
+          />
+        }
+      />
       <SafeAreaView style={styles.container}>
-        <AppBar
-          title="Setup Profile"
-          color="#4E46F1"
-          leading={
-            <IconButton
-              icon={<Icon name="arrow-back" size={20} color="white" />}
-              onPress={() => navigation.navigate("PanCardInfo")}
-            />
-          }
-        />
         <ProgressBarTop step={3} />
         <Text style={bankform.Maintitle}>Bank Details Verification</Text>
 
@@ -265,17 +267,14 @@ export default BankInformationForm = () => {
               onChangeText={setUpi}
               required
             />
-            <Button
-              title="Continue"
-              type="solid"
-              uppercase={false}
-              style={bankform.nextButton}
-              color="#4E46F1"
+
+            <TextButton
+              label={"Continue"}
               onPress={() => {
-                // TODO: check for mandatory fields and validations
                 VerifyBankAccount();
               }}
             />
+
             <View style={bankform.padding}></View>
           </View>
         </KeyboardAvoidingWrapper>

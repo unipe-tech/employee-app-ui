@@ -1,9 +1,9 @@
 import { StyleSheet, View } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
-import PrimaryButton from "../components/PrimaryButton";
 import { ScrollView } from "react-native-gesture-handler";
 import { COLORS, SIZES } from "../constants/Theme";
+import TextButton from "../components/atoms/TextButton";
 
 const DevMenu = () => {
   const navigation = useNavigation();
@@ -16,54 +16,54 @@ const DevMenu = () => {
           padding: SIZES.padding,
         }}
       >
-        <PrimaryButton
-          style={{ marginTop: 20 }}
-          title="Welcome"
+        <TextButton
+          containerStyle={{ marginTop: 20 }}
+          label="Welcome"
           onPress={() => navigation.navigate("Welcome")}
         />
-        <PrimaryButton
-          style={{ marginTop: 20 }}
-          title="OTP Login"
+        <TextButton
+          containerStyle={{ marginTop: 20 }}
+          label="OTP Login"
           onPress={() => navigation.navigate("Login")}
         />
-        <PrimaryButton
-          style={{ marginTop: 20 }}
-          title="Aadhaar"
+        <TextButton
+          containerStyle={{ marginTop: 20 }}
+          label="Aadhaar"
           onPress={() => navigation.navigate("AadhaarForm")}
         />
-        <PrimaryButton
-          style={{ marginTop: 20 }}
-          title="PAN"
+        <TextButton
+          containerStyle={{ marginTop: 20 }}
+          label="PAN"
           onPress={() => navigation.navigate("PanCardInfo")}
         />
-        <PrimaryButton
-          style={{ marginTop: 20 }}
-          title="Bank Details"
+        <TextButton
+          containerStyle={{ marginTop: 20 }}
+          label="Bank Details"
           onPress={() => navigation.navigate("BankInfoForm")}
         />
-        <PrimaryButton
-          style={{ marginTop: 20 }}
-          title="Profile"
+        <TextButton
+          containerStyle={{ marginTop: 20 }}
+          label="Profile"
           onPress={() => navigation.navigate("PersonalDetailsForm")}
         />
-        <PrimaryButton
-          style={{ marginTop: 20 }}
-          title="Personal Photo"
+        <TextButton
+          containerStyle={{ marginTop: 20 }}
+          label="Personal Photo"
           onPress={() => navigation.navigate("PersonalImage")}
         />
-        <PrimaryButton
-          style={{ marginTop: 20 }}
-          title="Home Screen"
+        <TextButton
+          containerStyle={{ marginTop: 20 }}
+          label="Home Screen"
           onPress={() => navigation.navigate("Home")}
         />
-        <PrimaryButton
-          style={{ marginTop: 20 }}
-          title="KYC Screen"
+        <TextButton
+          containerStyle={{ marginTop: 20 }}
+          label="KYC Screen"
           onPress={() => navigation.navigate("KYC")}
         />
-        <PrimaryButton
-          style={{ marginTop: 20 }}
-          title="Profile Details Screen"
+        <TextButton
+          containerStyle={{ marginTop: 20 }}
+          label="Profile Details Screen"
           onPress={() => navigation.navigate("Profile")}
         />
       </View>

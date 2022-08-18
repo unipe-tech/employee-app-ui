@@ -59,6 +59,9 @@ export const styles = StyleSheet.create({
   },
   flexrow: {
     flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: "100%",
   },
   otpback: {
     width: 50,
@@ -133,7 +136,6 @@ export const form = StyleSheet.create({
     textAlign: "center",
   },
   formLabel: {
-    marginLeft: 34,
     marginTop: 30,
     color: "grey",
   },
@@ -144,25 +146,14 @@ export const form = StyleSheet.create({
     ...FONTS.body4,
   },
   picker: {
-    marginLeft: 25,
     marginTop: 20,
     borderBottomWidth: 2,
   },
-  chosenButton: {
-    padding: 2,
-    marginLeft: 34,
-    marginTop: 20,
-    width: 140,
-    height: 40,
-    fontSize: 20,
-  },
   choiceButton: {
-    padding: 2,
-    marginLeft: 34,
     marginTop: 20,
-    width: 140,
+    flex: 1,
+    marginHorizontal: 5,
     height: 40,
-    fontSize: 20,
     backgroundColor: "grey",
   },
   nextButton: {
@@ -243,11 +234,12 @@ export const form = StyleSheet.create({
     fontWeight: "bold",
   },
   forgotText: {
-    marginLeft: 280,
     marginTop: 10,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-end",
   },
   year: {
-    marginLeft: 34,
     height: 40,
     width: 40,
     textAlign: "center",
@@ -279,15 +271,12 @@ export const checkBox = StyleSheet.create({
 
 export const bankform = StyleSheet.create({
   formtitle: {
-    marginLeft: 34,
     marginTop: 20,
-    color: "#828282",
-    fontSize: 14,
-    fontFamily: "Roboto",
+    color: COLORS.gray,
+    ...FONTS.body4,
   },
   formInput: {
-    marginLeft: 34,
-    width: 320,
+    width: "100%",
     height: 40,
     borderBottomWidth: 1,
   },
@@ -319,18 +308,16 @@ export const bankform = StyleSheet.create({
     color: COLORS.black,
   },
   Maintitle: {
-    marginLeft: 30,
     marginTop: 10,
-    color: "black",
-    fontSize: 18,
-    fontFamily: "Roboto",
+    color: COLORS.gray,
+    alignSelf: "center",
+    ...FONTS.body3,
   },
   subTitle: {
-    marginLeft: 34,
     marginTop: 20,
-    color: "#828282",
-    fontSize: 16,
-    fontFamily: "Roboto",
+    color: COLORS.gray,
+    alignSelf: "center",
+    ...FONTS.body3,
   },
 });
 
@@ -470,24 +457,24 @@ export const welcome = StyleSheet.create({
 });
 
 export const selfie = StyleSheet.create({
-  uploadButton: {
-    marginTop: 20,
+  iconButton: {
     borderWidth: 2,
     borderRadius: 10,
-    paddingHorizontal: 30,
+    padding: 20,
   },
-  cameraButton: {
-    marginLeft: 60,
+  buttonRow: {
+    flexDirection: "row",
+    alignSelf: "center",
+    justifyContent: "space-evenly",
+    width: "100%",
     marginTop: 20,
-    borderWidth: 2,
-    borderRadius: 10,
-    paddingHorizontal: 30,
   },
   selfie: {
     marginTop: 20,
     alignSelf: "center",
-    height: 300,
-    width: 300,
+    height: SIZES.width / 1.3,
+    width: SIZES.width / 1.3,
+    borderRadius: 5,
   },
 });
 

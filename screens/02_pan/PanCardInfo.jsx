@@ -25,6 +25,8 @@ import { showToast } from "../../components/atoms/Toast";
 import { addEmail } from "../../store/slices/profileSlice";
 import DateEntry from "../../components/DateEntry";
 import { KeyboardAvoidingWrapper } from "../../KeyboardAvoidingWrapper";
+import TextButton from "../../components/atoms/TextButton";
+import { COLORS } from "../../constants/Theme";
 
 export default PanCardInfo = () => {
   const navigation = useNavigation();
@@ -206,17 +208,17 @@ export default PanCardInfo = () => {
 
   return (
     <>
+      <AppBar
+        title="Setup Profile"
+        color={COLORS.primary}
+        leading={
+          <IconButton
+            icon={<Icon name="arrow-back" size={20} color="white" />}
+            onPress={() => navigation.navigate("AadhaarConfirm", aadhaartype)}
+          />
+        }
+      />
       <SafeAreaView style={styles.container}>
-        <AppBar
-          title="Setup Profile"
-          color="#4E46F1"
-          leading={
-            <IconButton
-              icon={<Icon name="arrow-back" size={20} color="white" />}
-              onPress={() => navigation.navigate("AadhaarConfirm", aadhaartype)}
-            />
-          }
-        />
         <ProgressBarTop step={2} />
         <Text style={form.formHeader}>PAN Verification</Text>
         <KeyboardAvoidingWrapper>
@@ -264,38 +266,20 @@ export default PanCardInfo = () => {
                 PAN is needed to verify your name and date of birth
               </Text>
             </View>
-            {next ? (
-              <Button
-                uppercase={false}
-                title="Continue"
-                type="solid"
-                color="#4E46F1"
-                style={form.nextButton}
-                onPress={() => {
-                  VerifyPAN();
-                }}
-              />
-            ) : (
-              <Button
-                title="Continue"
-                uppercase={false}
-                type="solid"
-                style={form.nextButton}
-                disabled
-              />
-            )}
-            <View>
-              <Button
-                title="Skip"
-                uppercase={false}
-                type="solid"
-                color="#4E46F1"
-                style={form.skipButton}
-                onPress={() => {
-                  SkipPAN();
-                }}
-              />
-            </View>
+
+            <TextButton
+              label={"Continue"}
+              onPress={() => VerifyPAN()()}
+              disabled={next ? false : true}
+            />
+
+            <TextButton
+              label={"Skip"}
+              containerStyle={{ marginBottom: 40, marginTop: 10 }}
+              onPress={() => {
+                SkipPAN();
+              }}
+            />
           </View>
         </KeyboardAvoidingWrapper>
       </SafeAreaView>

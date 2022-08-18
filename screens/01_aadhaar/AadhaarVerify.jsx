@@ -67,9 +67,7 @@ export default AadhaarVerify = () => {
             case "1002":
               setAadhaarData(response["data"]);
               navigation.navigate("AadhaarConfirmOTP");
-              dispatch(
-                addAadhaarVerifyStatus("SUCCESS")
-              );
+              dispatch(addAadhaarVerifyStatus("SUCCESS"));
               break;
             default:
               setErrorMsg(response["data"]["message"]);
@@ -124,7 +122,7 @@ export default AadhaarVerify = () => {
   }, [otp]);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <>
       <AppBar
         title="Setup Profile"
         color="#4E46F1"
@@ -136,54 +134,57 @@ export default AadhaarVerify = () => {
           />
         }
       />
-      <ProgressBarTop step={1} />
-      <ScrollView keyboardShouldPersistTaps="handled">
-        <View style={styles.container}>
-          <Text style={form.OtpAwaitMsg}>
-            OTP has been sent vis SMS to your Aadhaar registered mobile number
-          </Text>
-          <TextInput
-            style={styles.otpInput}
-            letterSpacing={23}
-            maxLength={6}
-            numeric
-            value={otp}
-            onChangeText={setOtp}
-            keyboardType="numeric"
-          />
-          <CountDown
-            until={60 * 10}
-            onFinish={() => setBack(true)}
-            size={20}
-            style={{ marginTop: 20 }}
-            digitStyle={{ backgroundColor: "#FFF" }}
-            digitTxtStyle={{ color: "#4E46F1" }}
-            timeToShow={["M", "S"]}
-            timeLabels={{ m: "MM", s: "SS" }}
-          />
 
-          {next ? (
-            <Button
-              uppercase={false}
-              title="Continue"
-              type="solid"
-              color="#4E46F1"
-              style={form.nextButton}
-              onPress={() => {
-                confirmVerificationCode();
-              }}
+      <SafeAreaView style={styles.container}>
+        <ProgressBarTop step={1} />
+        <ScrollView keyboardShouldPersistTaps="handled">
+          <View style={styles.container}>
+            <Text style={form.OtpAwaitMsg}>
+              OTP has been sent vis SMS to your Aadhaar registered mobile number
+            </Text>
+            <TextInput
+              style={styles.otpInput}
+              letterSpacing={23}
+              maxLength={6}
+              numeric
+              value={otp}
+              onChangeText={setOtp}
+              keyboardType="numeric"
             />
-          ) : (
-            <Button
-              title="Continue"
-              uppercase={false}
-              type="solid"
-              style={form.nextButton}
-              disabled
+            <CountDown
+              until={60 * 10}
+              onFinish={() => setBack(true)}
+              size={20}
+              style={{ marginTop: 20 }}
+              digitStyle={{ backgroundColor: "#FFF" }}
+              digitTxtStyle={{ color: "#4E46F1" }}
+              timeToShow={["M", "S"]}
+              timeLabels={{ m: "MM", s: "SS" }}
             />
-          )}
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+
+            {next ? (
+              <Button
+                uppercase={false}
+                title="Continue"
+                type="solid"
+                color="#4E46F1"
+                style={form.nextButton}
+                onPress={() => {
+                  confirmVerificationCode();
+                }}
+              />
+            ) : (
+              <Button
+                title="Continue"
+                uppercase={false}
+                type="solid"
+                style={form.nextButton}
+                disabled
+              />
+            )}
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </>
   );
 };

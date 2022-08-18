@@ -6,7 +6,7 @@ import { COLORS, SIZES, FONTS } from "../../constants/Theme";
 const StepsIndicator = ({
   styles,
   renderStepIndicator,
-  data,
+  labels,
   stepCount,
   direction,
   currentPosition,
@@ -27,7 +27,7 @@ const StepsIndicator = ({
     stepIndicatorUnFinishedColor: COLORS.white,
     stepIndicatorCurrentColor: COLORS.white,
     stepIndicatorLabelFontSize: SIZES.body4,
-    currentStepIndicatorLabelFontSize: SIZES.body4,
+    currentStepIndicatorLabelFontSize: 14,
     stepIndicatorLabelCurrentColor: COLORS.primary,
     stepIndicatorLabelFinishedColor: COLORS.primary,
     stepIndicatorLabelUnFinishedColor: COLORS.lightGray,
@@ -43,7 +43,7 @@ const StepsIndicator = ({
       direction={direction ? direction : "horizontal"}
       renderStepIndicator={renderStepIndicator}
       currentPosition={currentPosition}
-      labels={data}
+      labels={labels}
     />
   );
 };

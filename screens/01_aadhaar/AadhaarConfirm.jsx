@@ -44,7 +44,7 @@ export default AadhaarConfirm = () => {
     );
 
   return (
-    <SafeAreaView style={styles.container}>
+    <>
       <AppBar
         title="Setup Profile"
         color={COLORS.primary}
@@ -55,65 +55,68 @@ export default AadhaarConfirm = () => {
           />
         }
       />
-      <ProgressBarTop step={1} />
-      <ScrollView keyboardShouldPersistTaps="handled">
-        <View style={styles.container}>
-          <Text style={form.OtpAwaitMsg}>
-            Please confirm if these are your details
-          </Text>
-          <Text style={form.OtpAwaitMsg}>
-            <Icon name="check-circle-outline" size={30} color="green" />
-            Aadhaar Verified Successfully
-          </Text>
-          <Image
-            source={{
-              uri: `data:image/jpeg;base64,${aadhaarData["aadhaar_data"]["photo_base64"]}`,
-            }}
-            style={form.aadharimg}
-          />
-          <Text style={form.userData}>
-            Name: {aadhaarData["aadhaar_data"]["name"]}
-          </Text>
-          <Text style={form.userData}>
-            Date of Birth: {aadhaarData["aadhaar_data"]["date_of_birth"]}
-          </Text>
-          <Text style={form.userData}>
-            Locality: {aadhaarData["aadhaar_data"]["locality"]}
-          </Text>
-          <View style={{ flexDirection: "row" }}>
-            <Button
-              title="No"
-              type="solid"
-              uppercase={false}
-              style={form.noButton}
-              color={COLORS.warning}
-              onPress={() => {
-                navigation.navigate("AadhaarForm");
+
+      <SafeAreaView style={styles.container}>
+        <ProgressBarTop step={1} />
+        <ScrollView keyboardShouldPersistTaps="handled">
+          <View style={styles.container}>
+            <Text style={form.OtpAwaitMsg}>
+              Please confirm if these are your details
+            </Text>
+            <Text style={form.OtpAwaitMsg}>
+              <Icon name="check-circle-outline" size={30} color="green" />
+              Aadhaar Verified Successfully
+            </Text>
+            <Image
+              source={{
+                uri: `data:image/jpeg;base64,${aadhaarData["aadhaar_data"]["photo_base64"]}`,
               }}
+              style={form.aadharimg}
             />
-            <Button
-              title="Yes"
-              type="solid"
-              uppercase={false}
-              style={form.yesButton}
-              color={COLORS.primary}
-              onPress={() => {
-                aadhaarBackendPush({
-                  type: "OTP",
-                  status: "SUCCESS",
-                  id: id,
-                  aadhaar: aadhaar,
-                  xml: aadhaarData["aadhaar_data"]["xml_base64"],
-                  message: "",
-                  data: aadhaarData["aadhaar_data"],
-                });
-                navigation.navigate("PanCardInfo");
-              }}
-            />
-            <View style={bankform.padding}></View>
+            <Text style={form.userData}>
+              Name: {aadhaarData["aadhaar_data"]["name"]}
+            </Text>
+            <Text style={form.userData}>
+              Date of Birth: {aadhaarData["aadhaar_data"]["date_of_birth"]}
+            </Text>
+            <Text style={form.userData}>
+              Locality: {aadhaarData["aadhaar_data"]["locality"]}
+            </Text>
+            <View style={{ flexDirection: "row" }}>
+              <Button
+                title="No"
+                type="solid"
+                uppercase={false}
+                style={form.noButton}
+                color={COLORS.warning}
+                onPress={() => {
+                  navigation.navigate("AadhaarForm");
+                }}
+              />
+              <Button
+                title="Yes"
+                type="solid"
+                uppercase={false}
+                style={form.yesButton}
+                color={COLORS.primary}
+                onPress={() => {
+                  aadhaarBackendPush({
+                    type: "OTP",
+                    status: "SUCCESS",
+                    id: id,
+                    aadhaar: aadhaar,
+                    xml: aadhaarData["aadhaar_data"]["xml_base64"],
+                    message: "",
+                    data: aadhaarData["aadhaar_data"],
+                  });
+                  navigation.navigate("PanCardInfo");
+                }}
+              />
+              <View style={bankform.padding}></View>
+            </View>
           </View>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+        </ScrollView>
+      </SafeAreaView>
+    </>
   );
 };

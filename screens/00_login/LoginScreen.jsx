@@ -137,61 +137,69 @@ export default LoginScreen = () => {
   }, []);
 
   return (
-    <KeyboardAvoidingWrapper>
-      <View
-        style={{
-          padding: SIZES.padding,
-        }}
-      >
-        <Image
-          style={styles.logo}
-          source={require("../../assets/unipe-Thumbnail.png")}
-        />
-        <Text style={styles.headline}>
-          Enter Mobile Number for Verification
-        </Text>
-        <Text style={styles.fieldLabel}>Mobile Number</Text>
-        <TextInput
-          style={styles.textInput}
-          value={phoneNumber}
-          onChangeText={setPhoneNumber}
-          autoCompleteType="tel"
-          keyboardType="phone-pad"
-          textContentType="telephoneNumber"
-          maxLength={13}
-          placeholder="9999999999"
-        />
-        <Text style={styles.dataUseText}>
-          This number will be used for all communication. You shall receive an
-          SMS with code for verification. By continuing, you agree to our{" "}
-          <Text
-            onPress={() =>
-              Linking.openURL("https://policies.google.com/terms?hl=en-US")
-            }
-            style={styles.termsText}
-          >
-            Terms of Service
-          </Text>{" "}
-          &{" "}
-          <Text
-            onPress={() =>
-              Linking.openURL("https://policies.google.com/privacy?hl=en-US")
-            }
-            style={styles.termsText}
-          >
-            Privacy Policy
-          </Text>
-        </Text>
-        {!isLoading ? (
-          <TextButton
-            label={"Continue"}
-            onPress={() => signIn()}
-            disabled={next ? false : true}
+    <View
+      style={{
+        backgroundColor: COLORS.white,
+        flex: 1,
+      }}
+    >
+      <KeyboardAvoidingWrapper>
+        <View
+          style={{
+            padding: SIZES.padding,
+            backgroundColor: COLORS.white,
+          }}
+        >
+          <Image
+            style={styles.logo}
+            source={require("../../assets/unipe-Thumbnail.png")}
           />
-        ) : (
-          <TextButton loading={true} />
-        )}
-      </View>
-    </KeyboardAvoidingWrapper>
+          <Text style={styles.headline}>
+            Enter Mobile Number for Verification
+          </Text>
+          <Text style={styles.fieldLabel}>Mobile Number</Text>
+          <TextInput
+            style={styles.textInput}
+            value={phoneNumber}
+            onChangeText={setPhoneNumber}
+            autoCompleteType="tel"
+            keyboardType="phone-pad"
+            textContentType="telephoneNumber"
+            maxLength={13}
+            placeholder="9999999999"
+          />
+          <Text style={styles.dataUseText}>
+            This number will be used for all communication. You shall receive an
+            SMS with code for verification. By continuing, you agree to our{" "}
+            <Text
+              onPress={() =>
+                Linking.openURL("https://policies.google.com/terms?hl=en-US")
+              }
+              style={styles.termsText}
+            >
+              Terms of Service
+            </Text>{" "}
+            &{" "}
+            <Text
+              onPress={() =>
+                Linking.openURL("https://policies.google.com/privacy?hl=en-US")
+              }
+              style={styles.termsText}
+            >
+              Privacy Policy
+            </Text>
+          </Text>
+          {!isLoading ? (
+            <TextButton
+              label={"Continue"}
+              onPress={() => signIn()}
+              disabled={next ? false : true}
+            />
+          ) : (
+            <TextButton loading={true} />
+          )}
+        </View>
+      </KeyboardAvoidingWrapper>
+    </View>
   );
 };
