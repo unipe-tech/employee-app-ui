@@ -53,4 +53,7 @@ build:test
 
 build:prod
 - AAB to be released to PlayStore `prod` STAGE [DB]
+
+test:dev
+- to test out the version using jest
 ```
