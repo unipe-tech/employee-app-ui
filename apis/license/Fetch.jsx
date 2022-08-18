@@ -17,7 +17,7 @@ import {
 import ApiView from "../ApiView";
 import { OG_API_TEST_KEY } from "@env";
 
-export default Fetch = (props) => {
+function Fetch(props) {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
@@ -140,4 +140,6 @@ export default Fetch = (props) => {
       style={props.style}
     />
   );
-};
+}
+
+export default Fetch;

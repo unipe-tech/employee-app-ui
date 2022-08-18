@@ -22,7 +22,7 @@ import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { styles } from "../../styles";
 import { KeyboardAvoidingWrapper } from "../../KeyboardAvoidingWrapper";
 
-export default OTPScreen = () => {
+function OTPScreen() {
   const phoneNumber = useSelector((state) => state.auth.phoneNumber);
   const navigation = useNavigation();
   const [otp, setOtp] = useState("");
@@ -177,4 +177,6 @@ export default OTPScreen = () => {
       </KeyboardAvoidingWrapper>
     </SafeAreaView>
   );
-};
+}
+
+export default OTPScreen;

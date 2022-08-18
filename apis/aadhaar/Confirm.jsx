@@ -7,7 +7,7 @@ import { addVerifyMsg, addVerifyStatus } from "../../store/slices/aadhaarSlice";
 import { bankform, form, styles } from "../../styles";
 import { aadhaarBackendPush } from "../../helpers/BackendPush";
 
-export default Confirm = () => {
+function Confirm() {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
@@ -58,8 +58,12 @@ export default Confirm = () => {
       />
       <Text style={form.userData}>Number: {number}</Text>
       <Text style={form.userData}>Name: {data["aadhaar_data"]["name"]}</Text>
-      <Text style={form.userData}>Date of Birth: {data["aadhaar_data"]["date_of_birth"]}</Text>
-      <Text style={form.userData}>Gender: {data["aadhaar_data"]["gender"]}</Text>
+      <Text style={form.userData}>
+        Date of Birth: {data["aadhaar_data"]["date_of_birth"]}
+      </Text>
+      <Text style={form.userData}>
+        Gender: {data["aadhaar_data"]["gender"]}
+      </Text>
 
       <View
         style={{
@@ -99,4 +103,6 @@ export default Confirm = () => {
       </View>
     </View>
   );
-};
+}
+
+export default Confirm;

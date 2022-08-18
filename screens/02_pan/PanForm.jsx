@@ -19,7 +19,7 @@ import Verify from "../../apis/pan/Verify";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { addNumber } from "../../store/slices/panSlice";
 
-export default PanForm = () => {
+function PanForm() {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const [consent, setConsent] = useState(false);
@@ -140,4 +140,6 @@ export default PanForm = () => {
       </SafeAreaView>
     </>
   );
-};
+}
+
+export default PanForm;

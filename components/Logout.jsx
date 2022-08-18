@@ -11,7 +11,7 @@ import { resetNavigation } from "../store/slices/navigationSlice";
 import { resetPan } from "../store/slices/panSlice";
 import { resetProfile } from "../store/slices/profileSlice";
 
-export default Logout = () => {
+function Logout() {
   const dispatch = useDispatch();
   const store = useSelector((state) => state);
   console.log(store);
@@ -40,4 +40,6 @@ export default Logout = () => {
       <Text style={{ fontSize: 16, paddingLeft: 10 }}>Logout</Text>
     </Pressable>
   );
-};
+}
+
+export default Logout;

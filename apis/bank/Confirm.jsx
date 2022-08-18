@@ -10,14 +10,16 @@ import {
 import { bankBackendPush } from "../../helpers/BackendPush";
 import { bankform, form, styles } from "../../styles";
 
-export default Confirm = () => {
+function Confirm() {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
   const [backendPush, setBackendPush] = useState(false);
   const id = useSelector((state) => state.auth.id);
 
-  const accountHolderName = useSelector((state) => state.bank.accountHolderName); 
+  const accountHolderName = useSelector(
+    (state) => state.bank.accountHolderName
+  );
   const ifsc = useSelector((state) => state.bank?.ifsc);
   const accountNumber = useSelector((state) => state.bank?.accountNumber);
   const upi = useSelector((state) => state.bank?.upi);
@@ -100,4 +102,6 @@ export default Confirm = () => {
       </View>
     </View>
   );
-};
+}
+
+export default Confirm;

@@ -128,7 +128,7 @@ const StackNavigator = () => {
           header: null,
         }}
       />
-       <Stack.Screen
+      <Stack.Screen
         name="BankConfirm"
         component={BankConfirm}
         options={{
@@ -178,7 +178,6 @@ const StackNavigator = () => {
           headerTitle: "Profile Details",
         }}
       />
-
     </Stack.Navigator>
   );
 };

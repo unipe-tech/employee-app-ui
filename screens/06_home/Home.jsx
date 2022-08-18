@@ -12,7 +12,7 @@ import HomeView from "./HomeView";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { buttons } from "../../styles";
 
-export default Home = () => {
+function Home() {
   const navigation = useNavigation();
 
   const [state, setState] = React.useState({ open: false });
@@ -77,4 +77,6 @@ export default Home = () => {
       </SafeAreaView>
     </>
   );
-};
+}
+
+export default Home;

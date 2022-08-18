@@ -15,7 +15,7 @@ import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { bankform, form, styles } from "../../styles";
 import { KeyboardAvoidingWrapper } from "../../KeyboardAvoidingWrapper";
 
-export default PersonalDetailsForm = () => {
+function PersonalDetailsForm() {
   const educationalQualifications = [
     "10th Pass",
     "12th Pass",
@@ -63,7 +63,7 @@ export default PersonalDetailsForm = () => {
       setNext(false);
     }
   }, [maritalStatus, educationalQualification]);
-  
+
   return (
     <>
       <SafeAreaView style={styles.container}>
@@ -137,30 +137,32 @@ export default PersonalDetailsForm = () => {
               required
             />
 
-          {next ? (
-            <Button
-              title="Continue"
-              type="solid"
-              uppercase={false}
-              style={form.nextButton}
-              color="#4E46F1"
-              onPress={() => {
-                navigation.navigate("PersonalImage");
-              }}
-            />
-          ) : (
-            <Button
-              title="Continue"
-              uppercase={false}
-              type="solid"
-              style={form.nextButton}
-              disabled
-            />
-          )}
-          <View style={bankform.padding}></View>
+            {next ? (
+              <Button
+                title="Continue"
+                type="solid"
+                uppercase={false}
+                style={form.nextButton}
+                color="#4E46F1"
+                onPress={() => {
+                  navigation.navigate("PersonalImage");
+                }}
+              />
+            ) : (
+              <Button
+                title="Continue"
+                uppercase={false}
+                type="solid"
+                style={form.nextButton}
+                disabled
+              />
+            )}
+            <View style={bankform.padding}></View>
           </View>
         </KeyboardAvoidingWrapper>
       </SafeAreaView>
     </>
   );
-};
+}
+
+export default PersonalDetailsForm;

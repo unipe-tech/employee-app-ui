@@ -1,7 +1,7 @@
 import React from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
-export default TopTabNav = (props) => {
+function TopTabNav(props) {
   const Tab = createMaterialTopTabNavigator();
   return (
     <Tab.Navigator
@@ -12,18 +12,26 @@ export default TopTabNav = (props) => {
           textTransform: "capitalize",
         },
         tabBarItemStyle: { width: 100 },
-        tabBarStyle: { backgroundColor: "white"},
+        tabBarStyle: { backgroundColor: "white" },
         tabBarPressColor: "purple",
         animationEnabled: true,
         swipeEnabled: true,
         tabBarScrollEnabled: true,
         lazy: true,
-        tabBarIndicatorStyle :{backgroundColor: "#4E46F1"}
+        tabBarIndicatorStyle: { backgroundColor: "#4E46F1" },
       }}
     >
       {props.tabs.map((tab, index) => {
-        return <Tab.Screen key={tab.name} name={tab.name} component={tab.component} />;
+        return (
+          <Tab.Screen
+            key={tab.name}
+            name={tab.name}
+            component={tab.component}
+          />
+        );
       })}
     </Tab.Navigator>
   );
-};
+}
+
+export default TopTabNav;

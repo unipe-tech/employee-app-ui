@@ -4,7 +4,7 @@ import React from "react";
 import { View } from "react-native";
 import { progressBar } from "../styles";
 
-export default ProgressBarTop = (props) => {
+function ProgressBarTop(props) {
   const secondIndicatorStyles = {
     stepIndicatorSize: 30,
     currentStepIndicatorSize: 40,
@@ -88,4 +88,6 @@ export default ProgressBarTop = (props) => {
       />
     </View>
   );
-};
+}
+
+export default ProgressBarTop;

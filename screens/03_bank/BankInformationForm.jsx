@@ -17,7 +17,7 @@ import {
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { bankform, form, styles, checkBox } from "../../styles";
 
-export default BankInformationForm = () => {
+function BankInformationForm() {
   const navigation = useNavigation();
   const bankSlice = useSelector((state) => state.bank);
   const [ifsc, setIfsc] = useState(bankSlice?.ifsc);
@@ -202,4 +202,6 @@ export default BankInformationForm = () => {
       </SafeAreaView>
     </>
   );
-};
+}
+
+export default BankInformationForm;

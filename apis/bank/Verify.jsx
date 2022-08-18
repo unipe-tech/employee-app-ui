@@ -13,13 +13,13 @@ import {
 } from "../../store/slices/bankSlice";
 import ApiView from "../ApiView";
 
-export default Verify = (props) => {
+function Verify(props) {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
   const [backendPush, setBackendPush] = useState(false);
   const id = useSelector((state) => state.auth.id);
-  
+
   const ifsc = useSelector((state) => state.bank?.ifsc);
   const accountNumber = useSelector((state) => state.bank?.accountNumber);
   const upi = useSelector((state) => state.bank?.upi);
@@ -122,8 +122,7 @@ export default Verify = (props) => {
               Alert.alert("Error", response["message"]);
             }
           }
-        }
-        catch(error) {
+        } catch (error) {
           console.log("Error: ", error);
           setVerifyMsg(error);
           setVerifyStatus("ERROR");
@@ -148,4 +147,6 @@ export default Verify = (props) => {
       style={props.style}
     />
   );
-};
+}
+
+export default Verify;

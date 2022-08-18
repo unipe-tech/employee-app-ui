@@ -7,7 +7,7 @@ import EmployeeAddress from "./EmployeeAddress";
 import NomineeAddress from "./NomineeAddress";
 import { styles } from "../../../styles";
 
-export default ESICForm = () => {
+function ESICForm() {
   const tabs = [
     { name: "Portal", component: Portal },
     { name: "Family Details", component: FamilyDetails },
@@ -19,4 +19,6 @@ export default ESICForm = () => {
       <TopTabNav tabs={tabs} />
     </SafeAreaView>
   );
-};
+}
+
+export default ESICForm;

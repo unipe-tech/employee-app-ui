@@ -7,7 +7,7 @@ import { addVerifyMsg, addVerifyStatus } from "../../store/slices/panSlice";
 import { panBackendPush } from "../../helpers/BackendPush";
 import { bankform, form, styles } from "../../styles";
 
-export default Confirm = () => {
+function Confirm() {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
@@ -57,7 +57,7 @@ export default Confirm = () => {
       <Text style={form.userData}>Date of Birth: {dob}</Text>
       <Text style={form.userData}>Gender: {gender}</Text>
       {email && <Text style={form.userData}>Email: {email}</Text>}
-      
+
       <View
         style={{
           alignSelf: "center",
@@ -96,4 +96,6 @@ export default Confirm = () => {
       </View>
     </View>
   );
-};
+}
+
+export default Confirm;

@@ -6,12 +6,12 @@ import { useNavigation } from "@react-navigation/core";
 import {
   addSubmitOTPtxnId,
   addVerifyMsg,
-  addVerifyStatus
+  addVerifyStatus,
 } from "../../store/slices/aadhaarSlice";
 import ApiView from "../ApiView";
 import { aadhaarBackendPush } from "../../helpers/BackendPush";
 
-export default Otp = (props) => {
+function Otp(props) {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
@@ -20,7 +20,9 @@ export default Otp = (props) => {
 
   const id = useSelector((state) => state.auth.id);
   const aadhaarSlice = useSelector((state) => state.aadhaar);
-  const [submitOTPtxnId, setSubmitOTPtxnId] = useState(aadhaarSlice?.submitOTPtxnId);
+  const [submitOTPtxnId, setSubmitOTPtxnId] = useState(
+    aadhaarSlice?.submitOTPtxnId
+  );
   const [verifyMsg, setVerifyMsg] = useState(aadhaarSlice?.verifyMsg);
   const [verifyStatus, setVerifyStatus] = useState(aadhaarSlice?.verifyStatus);
 
@@ -29,11 +31,11 @@ export default Otp = (props) => {
   }, [submitOTPtxnId]);
 
   useEffect(() => {
-    dispatch(addVerifyMsg(verifyMsg))
+    dispatch(addVerifyMsg(verifyMsg));
   }, [verifyMsg]);
 
   useEffect(() => {
-    dispatch(addVerifyStatus(verifyStatus))
+    dispatch(addVerifyStatus(verifyStatus));
   }, [verifyStatus]);
 
   useEffect(() => {
@@ -84,18 +86,17 @@ export default Otp = (props) => {
                 break;
             }
           } else if (responseJson["error"]) {
-              setVerifyMsg(responseJson["error"]["message"]);
-              setVerifyStatus("ERROR");
-              setBackendPush(true);
-              Alert.alert("Error", responseJson["error"]["message"]);
+            setVerifyMsg(responseJson["error"]["message"]);
+            setVerifyStatus("ERROR");
+            setBackendPush(true);
+            Alert.alert("Error", responseJson["error"]["message"]);
           } else {
-              setVerifyMsg(responseJson["message"]);
-              setVerifyStatus("ERROR");
-              setBackendPush(true);
-              Alert.alert("Error", responseJson["message"]);
+            setVerifyMsg(responseJson["message"]);
+            setVerifyStatus("ERROR");
+            setBackendPush(true);
+            Alert.alert("Error", responseJson["message"]);
           }
-        }
-        catch(error) {
+        } catch (error) {
           console.log("Error: ", error);
           setVerifyMsg(error);
           setVerifyStatus("ERROR");
@@ -119,5 +120,6 @@ export default Otp = (props) => {
       style={props.style}
     />
   );
+}
 
-};
+export default Otp;

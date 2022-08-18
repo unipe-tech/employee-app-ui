@@ -13,7 +13,7 @@ import Otp from "../../apis/aadhaar/Otp";
 import { addNumber } from "../../store/slices/aadhaarSlice";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 
-export default AadhaarForm = () => {
+function AadhaarForm() {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
@@ -157,4 +157,6 @@ export default AadhaarForm = () => {
       </SafeAreaView>
     </>
   );
-};
+}
+
+export default AadhaarForm;

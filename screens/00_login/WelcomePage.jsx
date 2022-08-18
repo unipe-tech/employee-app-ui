@@ -11,7 +11,7 @@ import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { checkBox, form, styles, welcome } from "../../styles";
 import Loading from "../../components/Loading";
 
-export default WelcomePage = () => {
+function WelcomePage() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(addCurrentScreen("Welcome"));
@@ -129,4 +129,6 @@ export default WelcomePage = () => {
       </SafeAreaView>
     </>
   );
-};
+}
+
+export default WelcomePage;

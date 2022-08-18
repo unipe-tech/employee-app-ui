@@ -19,7 +19,7 @@ import { addSelfie } from "../../store/slices/profileSlice";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { checkBox, form, selfie, styles } from "../../styles";
 
-export default PersonalImage = () => {
+function PersonalImage() {
   const navigation = useNavigation();
   const id = useSelector((state) => state.auth.id);
   const Profile = useSelector((state) => state.profile);
@@ -35,8 +35,7 @@ export default PersonalImage = () => {
     setImageData(Profile.selfie);
     if (Profile.selfie) {
       setNext(true);
-    }
-    else{
+    } else {
       setNext(false);
     }
   }, [Profile.selfie]);
@@ -153,4 +152,6 @@ export default PersonalImage = () => {
       </SafeAreaView>
     </>
   );
-};
+}
+
+export default PersonalImage;

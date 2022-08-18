@@ -2,11 +2,10 @@ import { useEffect } from "react";
 import { SafeAreaView, ScrollView, View } from "react-native";
 import { useDispatch } from "react-redux";
 import { styles, bankform } from "../../../../styles";
-
 import Confirm from "../../../../apis/license/Confirm";
 import { addCurrentScreen } from "../../../../store/slices/navigationSlice";
 
-export default LicenseConfirm = () => {
+function LicenseConfirm() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(addCurrentScreen("PanConfirm"));
@@ -20,4 +19,6 @@ export default LicenseConfirm = () => {
       </ScrollView>
     </SafeAreaView>
   );
-};
+}
+
+export default LicenseConfirm;

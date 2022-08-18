@@ -2,7 +2,7 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Icon } from "@react-native-material/core";
 
-export default BottomTabNav = (props) => {
+function BottomTabNav(props) {
   const bottomTab = createBottomTabNavigator();
   return (
     <bottomTab.Navigator
@@ -41,4 +41,6 @@ export default BottomTabNav = (props) => {
       })}
     </bottomTab.Navigator>
   );
-};
+}
+
+export default BottomTabNav;

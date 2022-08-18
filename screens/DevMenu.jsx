@@ -3,7 +3,7 @@ import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import DevMenuButton from "../components/DevMenuButton";
 
-export default DevMenu = () => {
+function DevMenu() {
   const navigation = useNavigation();
   const screens = [
     { title: "Welcome", name: "Welcome" },
@@ -32,4 +32,6 @@ export default DevMenu = () => {
       </View>
     </ScrollView>
   );
-};
+}
+
+export default DevMenu;

@@ -9,7 +9,7 @@ import { addressPush } from "../../../helpers/BackendPush";
 import { showToast } from "../../../components/Toast";
 import { KeyboardAvoidingWrapper } from "../../../KeyboardAvoidingWrapper";
 
-export default NomineeAddress = () => {
+function NomineeAddress() {
   const navigation = useNavigation();
   const id = useSelector((state) => state.auth.id);
   const address = useSelector((state) => state.esic.address);
@@ -35,4 +35,6 @@ export default NomineeAddress = () => {
       </View>
     </KeyboardAvoidingWrapper>
   );
-};
+}
+
+export default NomineeAddress;

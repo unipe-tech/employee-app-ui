@@ -13,7 +13,7 @@ import {
 } from "../../../../store/slices/licenseSlice";
 import DateEntry from "../../../../components/DateEntry";
 
-export default LicenseForm = () => {
+function LicenseForm() {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
@@ -103,4 +103,6 @@ export default LicenseForm = () => {
       </SafeAreaView>
     </>
   );
-};
+}
+
+export default LicenseForm;

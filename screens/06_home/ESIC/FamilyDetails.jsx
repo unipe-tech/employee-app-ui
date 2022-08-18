@@ -11,7 +11,7 @@ import { bankform, form, styles } from "../../../styles";
 import { showToast } from "../../../components/Toast";
 import { KeyboardAvoidingWrapper } from "../../../KeyboardAvoidingWrapper";
 
-export default FamilyDetails = () => {
+function FamilyDetails() {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const id = useSelector((state) => state.auth.id);
@@ -146,4 +146,6 @@ export default FamilyDetails = () => {
       </View>
     </KeyboardAvoidingWrapper>
   );
-};
+}
+
+export default FamilyDetails;

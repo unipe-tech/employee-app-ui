@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@react-native-material/core";
 
-export default ApiView = (props) => {
+function ApiView(props) {
   const { disabled, goForFetch, loading, style } = props;
   return (
     <Button
@@ -16,4 +16,6 @@ export default ApiView = (props) => {
       }}
     />
   );
-};
+}
+
+export default ApiView;

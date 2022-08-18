@@ -3,7 +3,7 @@ import TopTabNav from "../../../components/TopTabNav";
 import HomeView from "../HomeView";
 import LicenseForm from "./License/LicenseForm";
 
-export default Documents = () => {
+function Documents() {
   const tabs = [
     { name: "Offer Letter", component: HomeView },
     { name: "Pay Slips", component: HomeView },
@@ -11,4 +11,6 @@ export default Documents = () => {
     { name: "Driving License", component: LicenseForm },
   ];
   return <TopTabNav tabs={tabs} />;
-};
+}
+
+export default Documents;
