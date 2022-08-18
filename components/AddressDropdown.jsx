@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { addESICAddress } from "../store/slices/esicSlice";
 import { bankform, form } from "../styles";
-const customData = require("../assets/state_districts.json");
+// const customData = require("../assets/state_districts.json");
+import customData from "../assets/state_districts.json";
 
 function AddressDropdown(props) {
   const [districts, setDistricts] = useState(["Please Choose a State"]);
