@@ -4,7 +4,6 @@ import { useNavigation } from "@react-navigation/core";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView, ScrollView, Text, TextInput, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import ProgressBarTop from "../../components/ProgressBarTop";
 import {
   addAlternatePhone,
   addEducationalQualification,
@@ -16,6 +15,7 @@ import { bankform, form, styles } from "../../styles";
 import { KeyboardAvoidingWrapper } from "../../KeyboardAvoidingWrapper";
 import { COLORS } from "../../constants/Theme";
 import TextButton from "../../components/atoms/TextButton";
+import KYCSteps from "../../components/molecules/KYCSteps";
 
 export default PersonalDetailsForm = () => {
   const educationalQualifications = [
@@ -71,7 +71,7 @@ export default PersonalDetailsForm = () => {
       />
 
       <SafeAreaView style={styles.container}>
-        <ProgressBarTop step={4} />
+        <KYCSteps step={4} />
         <Text style={form.formHeader}>Employee basic details</Text>
         <KeyboardAvoidingWrapper>
           <View>
@@ -102,19 +102,6 @@ export default PersonalDetailsForm = () => {
                     }}
                     onPress={() => setMaritalStatus(item)}
                   />
-                  // <Button
-                  //   key={index}
-                  //   uppercase={false}
-                  //   style={
-                  //     maritalStatus == item
-                  //       ? form.chosenButton
-                  //       : form.choiceButton
-                  //   }
-                  //   title={item}
-                  //   type="solid"
-                  //   color="#4E46F1"
-                  //   onPress={() => setMaritalStatus(item)}
-                  // />
                 );
               })}
             </View>

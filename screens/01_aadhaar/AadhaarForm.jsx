@@ -12,7 +12,6 @@ import {
   TextInput,
   View,
 } from "react-native";
-import ProgressBarTop from "../../components/ProgressBarTop";
 import {
   addAadhaarNumber,
   addAadhaarSubmitOTPtxnId,
@@ -23,6 +22,8 @@ import { showToast } from "../../components/atoms/Toast";
 import { KeyboardAvoidingWrapper } from "../../KeyboardAvoidingWrapper";
 import { COLORS, FONTS } from "../../constants/Theme";
 import TextButton from "../../components/atoms/TextButton";
+import KYCSteps from "../../components/molecules/KYCSteps";
+import InfoCard from "../../components/atoms/InfoCard";
 
 export default AadhaarForm = () => {
   const [consent, setConsent] = useState(false);
@@ -144,7 +145,7 @@ export default AadhaarForm = () => {
         }
       />
       <SafeAreaView style={styles.container}>
-        <ProgressBarTop step={1} />
+        <KYCSteps step={1} />
         <Text style={form.formHeader}>
           Let's begin with your background verification processs with eKYC
         </Text>
@@ -161,13 +162,12 @@ export default AadhaarForm = () => {
               maxLength={12}
               numeric
             />
-            <View style={bankform.infoCard}>
-              <Icon name="info-outline" size={20} color={COLORS.primary} />
-              <Text style={bankform.infoText}>
-                My Mobile number is linked to my Aadhar card & I can receive the
-                OTP on my Aadhar Linked Mobile Number
-              </Text>
-            </View>
+
+            <InfoCard
+              info={
+                "My Mobile number is linked to my Aadhar card & I can receive the OTP on my Aadhar Linked Mobile Number"
+              }
+            />
             <View style={{ flexDirection: "row" }}>
               <CheckBox
                 value={consent}

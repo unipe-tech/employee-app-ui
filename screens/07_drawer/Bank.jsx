@@ -1,8 +1,10 @@
 import { View, Text, Alert } from "react-native";
 import React from "react";
 import DetailItem from "./DetailItem";
-import PrimaryButton from "../../components/PrimaryButton";
+
 import { useSelector } from "react-redux";
+import TextButton from "../../components/atoms/TextButton";
+import { styles } from "../../styles";
 
 const Bank = () => {
   const accountNumber = useSelector((state) => state.bank.accountNumber);
@@ -14,7 +16,7 @@ const Bank = () => {
   const verifyStatus = useSelector((state) => state.bank.verifyStatus);
 
   return (
-    <View style={{ flex: 1, backgroundColor: "white" }}>
+    <View style={styles.container}>
       <DetailItem label="Account Number" title={accountNumber} divider />
       <DetailItem label="IFSC Code" title={ifsc} divider />
       <DetailItem
@@ -25,9 +27,8 @@ const Bank = () => {
       <DetailItem label="UPI Id" title={upi} divider />
       <DetailItem label="Verify Status" title={verifyStatus} />
       <View style={{ flex: 1, justifyContent: "flex-end", paddingBottom: 20 }}>
-        <PrimaryButton
-          style={{ marginTop: 20 }}
-          title="Update"
+        <TextButton
+          label={"Update"}
           onPress={() =>
             Alert.alert(
               "The Bank Details are not editable, please ask your employer to update"

@@ -23,6 +23,7 @@ import { styles } from "../../styles";
 import { KeyboardAvoidingWrapper } from "../../KeyboardAvoidingWrapper";
 import { COLORS } from "../../constants/Theme";
 import TextButton from "../../components/atoms/TextButton";
+import { OTP_SUBTITLE, OTP_TITLE } from "../../constants/Strings";
 
 export default OTPScreen = () => {
   const phoneNumber = useSelector((state) => state.auth.phoneNumber);
@@ -99,7 +100,7 @@ export default OTPScreen = () => {
           />
           <Text style={styles.headline}>
             {" "}
-            Please wait, we will auto verify the OTP {"\n"} sent to{" "}
+            {OTP_TITLE}
             {phoneNumber}
             {back ? (
               <Icon
@@ -156,10 +157,7 @@ export default OTPScreen = () => {
               Resend
             </Text>
           ) : null}
-          <Text style={styles.otpreadtxt}>
-            Sit back & relax while we fetch the OTP & log you inside the Unipe
-            App
-          </Text>
+          <Text style={styles.otpreadtxt}>{OTP_SUBTITLE}</Text>
 
           <TextButton
             label={"Verify"}

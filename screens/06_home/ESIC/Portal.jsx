@@ -8,6 +8,7 @@ import { addESICPortal } from "../../../store/slices/esicSlice";
 import { bankform, form, styles } from "../../../styles";
 import { showToast } from "../../../components/atoms/Toast";
 import { KeyboardAvoidingWrapper } from "../../../KeyboardAvoidingWrapper";
+import TextButton from "../../../components/atoms/TextButton";
 
 export default Portal = () => {
   const dispatch = useDispatch();
@@ -43,12 +44,8 @@ export default Portal = () => {
           value={ipNumber}
           onChangeText={setIpNumber}
         />
-        <Button
-          uppercase={false}
-          title="Continue"
-          type="solid"
-          color="#4E46F1"
-          style={form.nextButton}
+        <TextButton
+          label={"Continue"}
           onPress={() => {
             portalPush({ id: id, ipNumber: ipNumber });
             showToast("ESIC Portal details recorded.");
@@ -60,6 +57,7 @@ export default Portal = () => {
             });
           }}
         />
+
         <View style={bankform.padding}></View>
       </View>
     </KeyboardAvoidingWrapper>

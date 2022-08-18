@@ -12,7 +12,6 @@ import {
   TextInput,
   View,
 } from "react-native";
-import ProgressBarTop from "../../components/ProgressBarTop";
 import {
   addPanNumber,
   addPanVerifyStatus,
@@ -27,6 +26,8 @@ import DateEntry from "../../components/DateEntry";
 import { KeyboardAvoidingWrapper } from "../../KeyboardAvoidingWrapper";
 import TextButton from "../../components/atoms/TextButton";
 import { COLORS } from "../../constants/Theme";
+import KYCSteps from "../../components/molecules/KYCSteps";
+import InfoCard from "../../components/atoms/InfoCard";
 
 export default PanCardInfo = () => {
   const navigation = useNavigation();
@@ -219,7 +220,7 @@ export default PanCardInfo = () => {
         }
       />
       <SafeAreaView style={styles.container}>
-        <ProgressBarTop step={2} />
+        <KYCSteps step={2} />
         <Text style={form.formHeader}>PAN Verification</Text>
         <KeyboardAvoidingWrapper>
           <View>
@@ -260,12 +261,10 @@ export default PanCardInfo = () => {
               setval={setDob}
             />
             {console.log(dob)}
-            <View style={bankform.infoCard}>
-              <Icon name="info-outline" size={20} color="#4E46F1" />
-              <Text style={bankform.infoText}>
-                PAN is needed to verify your name and date of birth
-              </Text>
-            </View>
+
+            <InfoCard
+              info={"PAN is needed to verify your name and date of birth"}
+            />
 
             <TextButton
               label={"Continue"}

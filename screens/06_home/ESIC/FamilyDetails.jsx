@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ScrollView, Text, TextInput, View } from "react-native";
 import { useNavigation } from "@react-navigation/core";
-import { Button } from "@react-native-material/core";
 import { Picker } from "@react-native-picker/picker";
 import relations from "../../../helpers/RelationData";
 import { addESICFamilyDetails } from "../../../store/slices/esicSlice";
@@ -10,6 +9,7 @@ import { familyDetailsPush } from "../../../helpers/BackendPush";
 import { bankform, form, styles } from "../../../styles";
 import { showToast } from "../../../components/atoms/Toast";
 import { KeyboardAvoidingWrapper } from "../../../KeyboardAvoidingWrapper";
+import TextButton from "../../../components/atoms/TextButton";
 
 export default FamilyDetails = () => {
   const navigation = useNavigation();
@@ -113,12 +113,8 @@ export default FamilyDetails = () => {
             return <Picker.Item label={value} value={value} key={index} />;
           })}
         </Picker>
-        <Button
-          uppercase={false}
-          title="Continue"
-          type="solid"
-          color="#4E46F1"
-          style={form.nextButton}
+        <TextButton
+          label={"Continue"}
           onPress={() => {
             familyDetailsPush({
               id: id,
@@ -142,6 +138,7 @@ export default FamilyDetails = () => {
             });
           }}
         />
+
         <View style={bankform.padding}></View>
       </View>
     </KeyboardAvoidingWrapper>

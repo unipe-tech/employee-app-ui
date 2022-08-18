@@ -2,8 +2,9 @@ import { View, Text, StyleSheet } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import React from "react";
 import StepsIndicator from "../atoms/StepsIndicator";
+import { SIZES } from "../../constants/Theme";
 
-const WelcomeSteps = () => {
+const KYCSteps = (props) => {
   const getStepIndicatorIconConfig = ({ position, stepStatus }) => {
     const iconConfig = {
       name: "feed",
@@ -56,19 +57,19 @@ const WelcomeSteps = () => {
     <View style={styles.container}>
       <StepsIndicator
         stepCount={6}
-        direction="vertical"
+        direction={props.step ? "horizontal" : "vertical"}
         renderStepIndicator={renderStepIndicator}
-        currentPosition={0}
+        currentPosition={props.step ? props.step : 0}
         labels={data}
+        styles={{ labelSize: props.step ? SIZES.body5 : SIZES.body4 }}
       />
     </View>
   );
 };
 const styles = StyleSheet.create({
   container: {
-    alignSelf: "center",
-    flex: 1,
+    //flex: 1,
   },
 });
 
-export default WelcomeSteps;
+export default KYCSteps;

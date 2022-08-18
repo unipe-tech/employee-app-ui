@@ -32,7 +32,7 @@ const StepsIndicator = ({
     stepIndicatorLabelFinishedColor: COLORS.primary,
     stepIndicatorLabelUnFinishedColor: COLORS.lightGray,
     labelColor: COLORS.gray,
-    labelSize: SIZES.body4,
+    labelSize: SIZES.body5,
     currentStepLabelColor: COLORS.primary,
     labelAlign: "flex-start",
   };

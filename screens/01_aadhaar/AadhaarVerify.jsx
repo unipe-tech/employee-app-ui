@@ -12,7 +12,6 @@ import {
   Alert,
 } from "react-native";
 import CountDown from "react-native-countdown-component";
-import ProgressBarTop from "../../components/ProgressBarTop";
 import {
   addAadhaarData,
   addAadhaarVerifyStatus,
@@ -20,6 +19,8 @@ import {
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { aadhaarBackendPush } from "../../helpers/BackendPush";
 import { form, styles } from "../../styles";
+import KYCSteps from "../../components/molecules/KYCSteps";
+import TextButton from "../../components/atoms/TextButton";
 
 export default AadhaarVerify = () => {
   const navigation = useNavigation();
@@ -136,7 +137,7 @@ export default AadhaarVerify = () => {
       />
 
       <SafeAreaView style={styles.container}>
-        <ProgressBarTop step={1} />
+        <KYCSteps step={1} />
         <ScrollView keyboardShouldPersistTaps="handled">
           <View style={styles.container}>
             <Text style={form.OtpAwaitMsg}>
@@ -162,26 +163,13 @@ export default AadhaarVerify = () => {
               timeLabels={{ m: "MM", s: "SS" }}
             />
 
-            {next ? (
-              <Button
-                uppercase={false}
-                title="Continue"
-                type="solid"
-                color="#4E46F1"
-                style={form.nextButton}
-                onPress={() => {
-                  confirmVerificationCode();
-                }}
-              />
-            ) : (
-              <Button
-                title="Continue"
-                uppercase={false}
-                type="solid"
-                style={form.nextButton}
-                disabled
-              />
-            )}
+            <TextButton
+              label={"Continue"}
+              disabled={next ? false : true}
+              onPress={() => {
+                confirmVerificationCode();
+              }}
+            />
           </View>
         </ScrollView>
       </SafeAreaView>

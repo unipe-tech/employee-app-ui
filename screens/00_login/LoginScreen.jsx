@@ -14,6 +14,7 @@ import {
 import SmsRetriever from "react-native-sms-retriever";
 import { useDispatch, useSelector } from "react-redux";
 import TextButton from "../../components/atoms/TextButton";
+import { LOGIN_SUBTITLE, LOGIN_TITLE } from "../../constants/Strings";
 import { COLORS, FONTS, SIZES } from "../../constants/Theme";
 
 import { GenerateDocument } from "../../helpers/GenerateDocument";
@@ -154,9 +155,7 @@ export default LoginScreen = () => {
             style={styles.logo}
             source={require("../../assets/unipe-Thumbnail.png")}
           />
-          <Text style={styles.headline}>
-            Enter Mobile Number for Verification
-          </Text>
+          <Text style={styles.headline}>{LOGIN_TITLE}</Text>
           <Text style={styles.fieldLabel}>Mobile Number</Text>
           <TextInput
             style={styles.textInput}
@@ -169,8 +168,7 @@ export default LoginScreen = () => {
             placeholder="9999999999"
           />
           <Text style={styles.dataUseText}>
-            This number will be used for all communication. You shall receive an
-            SMS with code for verification. By continuing, you agree to our{" "}
+            {LOGIN_SUBTITLE}
             <Text
               onPress={() =>
                 Linking.openURL("https://policies.google.com/terms?hl=en-US")

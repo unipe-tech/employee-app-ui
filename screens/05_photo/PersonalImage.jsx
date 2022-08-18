@@ -12,7 +12,6 @@ import {
 } from "react-native";
 import * as ImagePicker from "react-native-image-picker";
 
-import ProgressBarTop from "../../components/ProgressBarTop";
 import { GenerateDocument } from "../../helpers/GenerateDocument";
 import { putBackendData } from "../../services/employees/employeeServices";
 import { addSelfie } from "../../store/slices/profileSlice";
@@ -20,6 +19,7 @@ import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { checkBox, form, selfie, styles } from "../../styles";
 import { COLORS } from "../../constants/Theme";
 import TextButton from "../../components/atoms/TextButton";
+import KYCSteps from "../../components/molecules/KYCSteps";
 
 export default PersonalImage = () => {
   const navigation = useNavigation();
@@ -86,7 +86,7 @@ export default PersonalImage = () => {
         }
       />
       <SafeAreaView style={styles.container}>
-        <ProgressBarTop step={5} />
+        <KYCSteps step={5} />
         <ScrollView keyboardShouldPersistTaps="handled">
           <Text style={form.formHeader}>
             Upload your Passport size photo or capture your selfie.

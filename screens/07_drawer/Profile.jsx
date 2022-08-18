@@ -1,8 +1,8 @@
 import { View, Text, Alert } from "react-native";
 import React from "react";
 import DetailItem from "./DetailItem";
-import PrimaryButton from "../../components/PrimaryButton";
 import { useSelector } from "react-redux";
+import TextButton from "../../components/atoms/TextButton";
 
 const Profile = () => {
   const fullName = useSelector((state) => state.profile.fullName);
@@ -15,9 +15,8 @@ const Profile = () => {
       <DetailItem label="Email Id" title={email} divider />
       <DetailItem label="Mobile Number" title={mobile} />
       <View style={{ flex: 1, justifyContent: "flex-end", paddingBottom: 20 }}>
-        <PrimaryButton
-          style={{ marginTop: 20 }}
-          title="Update"
+        <TextButton
+          label={"Update"}
           onPress={() =>
             Alert.alert(
               "The Profile Details are not editable, please ask your employer to update"

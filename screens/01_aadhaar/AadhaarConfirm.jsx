@@ -10,11 +10,11 @@ import {
   Text,
   View,
 } from "react-native";
-import ProgressBarTop from "../../components/ProgressBarTop";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { aadhaarBackendPush } from "../../helpers/BackendPush";
 import { bankform, form, styles } from "../../styles";
 import { COLORS } from "../../constants/Theme";
+import KYCSteps from "../../components/molecules/KYCSteps";
 
 export default AadhaarConfirm = () => {
   const navigation = useNavigation();
@@ -57,7 +57,7 @@ export default AadhaarConfirm = () => {
       />
 
       <SafeAreaView style={styles.container}>
-        <ProgressBarTop step={1} />
+        <KYCSteps step={1} />
         <ScrollView keyboardShouldPersistTaps="handled">
           <View style={styles.container}>
             <Text style={form.OtpAwaitMsg}>

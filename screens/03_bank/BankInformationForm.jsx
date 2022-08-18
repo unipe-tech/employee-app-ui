@@ -5,7 +5,6 @@ import React, { useEffect, useState } from "react";
 import { Alert, SafeAreaView, Text, TextInput, View } from "react-native";
 import { Popable } from "react-native-popable";
 import { useDispatch, useSelector } from "react-redux";
-import ProgressBarTop from "../../components/ProgressBarTop";
 import { showToast } from "../../components/atoms/Toast";
 import { bankBackendPush } from "../../helpers/BackendPush";
 import { KeyboardAvoidingWrapper } from "../../KeyboardAvoidingWrapper";
@@ -21,6 +20,8 @@ import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { bankform, styles } from "../../styles";
 import TextButton from "../../components/atoms/TextButton";
 import { COLORS } from "../../constants/Theme";
+import KYCSteps from "../../components/molecules/KYCSteps";
+import InfoCard from "../../components/atoms/InfoCard";
 
 export default BankInformationForm = () => {
   const navigation = useNavigation();
@@ -173,21 +174,16 @@ export default BankInformationForm = () => {
         }
       />
       <SafeAreaView style={styles.container}>
-        <ProgressBarTop step={3} />
+        <KYCSteps step={3} />
         <Text style={bankform.Maintitle}>Bank Details Verification</Text>
 
         <KeyboardAvoidingWrapper>
           <View>
-            <View style={bankform.infoCard}>
-              <Icon name="info-outline" size={20} color="#4E46F1" />
-              <Text style={bankform.infoText}>
-                We will use this bank account / UPI ID to deposit your salary
-                every month, Please ensure the bank account belongs to you.
-                {"\n"}
-                We will also deposit INR 1 to your account for verification make
-                sure you enter the correct account details.
-              </Text>
-            </View>
+            <InfoCard
+              info={
+                "We will use this bank account / UPI ID to deposit your salary every month, Please ensure the bank account belongs to you.\n We will also deposit INR 1 to your account for verification make sure you enter the correct account details."
+              }
+            />
             <Text style={bankform.subTitle}>Enter your Bank Details</Text>
 
             <Text style={bankform.formtitle}>
