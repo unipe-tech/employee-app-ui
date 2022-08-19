@@ -35,8 +35,7 @@ export default PersonalImage = () => {
     setImageData(Profile.selfie);
     if (Profile.selfie) {
       setNext(true);
-    }
-    else{
+    } else {
       setNext(false);
     }
   }, [Profile.selfie]);

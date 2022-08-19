@@ -1,4 +1,3 @@
-
 import { OG_API_KEY } from "@env";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,10 +6,11 @@ import { useNavigation } from "@react-navigation/core";
 import {
   addData,
   addVerifyMsg,
-  addVerifyStatus
+  addVerifyStatus,
 } from "../../store/slices/aadhaarSlice";
 import ApiView from "../ApiView";
 import { aadhaarBackendPush } from "../../helpers/BackendPush";
+import BugsnagNotify from "../../helpers/BugsnagNotify";
 
 export default Verify = (props) => {
   const dispatch = useDispatch();
@@ -22,20 +22,22 @@ export default Verify = (props) => {
   const id = useSelector((state) => state.auth.id);
   const aadhaarSlice = useSelector((state) => state.aadhaar);
   const [data, setData] = useState(aadhaarSlice?.data);
-  const [submitOTPtxnId, setSubmitOTPtxnId] = useState(aadhaarSlice?.submitOTPtxnId);
+  const [submitOTPtxnId, setSubmitOTPtxnId] = useState(
+    aadhaarSlice?.submitOTPtxnId
+  );
   const [verifyMsg, setVerifyMsg] = useState(aadhaarSlice?.verifyMsg);
   const [verifyStatus, setVerifyStatus] = useState(aadhaarSlice?.verifyStatus);
 
   useEffect(() => {
-    dispatch(addData(data))
+    dispatch(addData(data));
   }, [data]);
 
   useEffect(() => {
-    dispatch(addVerifyMsg(verifyMsg))
+    dispatch(addVerifyMsg(verifyMsg));
   }, [verifyMsg]);
 
   useEffect(() => {
-    dispatch(addVerifyStatus(verifyStatus))
+    dispatch(addVerifyStatus(verifyStatus));
   }, [verifyStatus]);
 
   useEffect(() => {
@@ -88,25 +90,27 @@ export default Verify = (props) => {
                 navigation.navigate("AadhaarConfirm");
                 break;
               default:
+                BugsnagNotify(responseJson["data"]["message"]);
                 setVerifyMsg(responseJson["data"]["message"]);
                 setVerifyStatus("ERROR");
                 setBackendPush(true);
                 Alert.alert("Error", responseJson["data"]["message"]);
             }
           } else if (responseJson["error"]) {
+            BugsnagNotify(responseJson["error"]["message"]);
             setVerifyMsg(responseJson["error"]["message"]);
             setVerifyStatus("ERROR");
             setBackendPush(true);
             Alert.alert("Error", responseJson["error"]["message"]);
           } else {
+            BugsnagNotify(responseJson["message"]);
             setVerifyMsg(responseJson["message"]);
             setVerifyStatus("ERROR");
             setBackendPush(true);
             Alert.alert("Error", responseJson["message"]);
           }
-        }
-        catch(error) {
-          console.log("Error: ", error);
+        } catch (error) {
+          BugsnagNotify(error);
           setVerifyMsg(error);
           setVerifyStatus("ERROR");
           setBackendPush(true);
@@ -114,6 +118,7 @@ export default Verify = (props) => {
         }
       })
       .catch((error) => {
+        BugsnagNotify(error);
         setVerifyMsg(error);
         setVerifyStatus("ERROR");
         setBackendPush(true);
@@ -129,5 +134,4 @@ export default Verify = (props) => {
       style={props.style}
     />
   );
-
 };

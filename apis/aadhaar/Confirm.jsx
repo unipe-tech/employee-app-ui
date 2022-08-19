@@ -6,6 +6,7 @@ import { Button } from "@react-native-material/core";
 import { addVerifyMsg, addVerifyStatus } from "../../store/slices/aadhaarSlice";
 import { bankform, form, styles } from "../../styles";
 import { aadhaarBackendPush } from "../../helpers/BackendPush";
+import BugsnagNotify from "../../helpers/BugsnagNotify";
 
 export default Confirm = () => {
   const dispatch = useDispatch();
