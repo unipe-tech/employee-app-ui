@@ -4,7 +4,6 @@ module.exports = {
   transformIgnorePatterns: [
     "/node_modules/(?!(@react-native|react-native|react-native-sms-retriever|@react-native-async-storage/async-storage|react-native-modal|react-native-paper|@react-native-material/core|@expo/vector-icons|react-native-button|nodejs-mobile-react-native)/).*/",
   ],
-  setupFiles: ["./jestSetup.js"],
   transform: {
     "^.+\\.(ts|tsx)?$": "ts-jest",
     "^.+\\.(js|jsx)$": "babel-jest",
