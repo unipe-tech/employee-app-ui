@@ -1,5 +1,6 @@
 const { MaterialIcons } = require("@expo/vector-icons");
 // import { MaterialIcons } from "@expo/vector-icons";
+import * as RootNavigation from "../../navigators/RootNavigation";
 import { Button } from "@react-native-material/core";
 import { useNavigation } from "@react-navigation/core";
 import React, { useEffect } from "react";
@@ -11,14 +12,14 @@ import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { checkBox, form, styles, welcome } from "../../styles";
 import Loading from "../../components/Loading";
 
-function WelcomePage() {
+function WelcomePage({ navigation }) {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(addCurrentScreen("Welcome"));
   }, []);
 
-  const navigation = useNavigation();
-  SplashScreen.hide();
+  // const navigation = useNavigation();
+  // SplashScreen.hide();
   const getStepIndicatorIconConfig = ({ position, stepStatus }) => {
     const iconConfig = {
       name: "feed",
@@ -124,7 +125,7 @@ function WelcomePage() {
           onPress={() => {
             navigation.navigate("Login");
           }}
-        ></Button>
+        />
         <View style={checkBox.padding}></View>
       </SafeAreaView>
     </>

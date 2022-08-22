@@ -22,10 +22,11 @@ import KYCScreen from "../screens/07_drawer/KYCScreen";
 import Profile from "../screens/07_drawer/Profile";
 import LicenseConfirm from "../screens/06_home/Documents/License/LicenseConfirm";
 import BankConfirm from "../screens/03_bank/BankConfirm";
+import SplashScreen from "react-native-splash-screen";
 
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator();
-
+  SplashScreen.hide();
   const initialRoute = useSelector((state) => state.navigation.currentScreen);
 
   console.log("STAGE: ", STAGE);

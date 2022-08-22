@@ -157,6 +157,7 @@ function LoginScreen() {
           </Text>
           <Text style={styles.fieldLabel}>Mobile Number</Text>
           <TextInput
+            testID="login-number"
             style={styles.textInput}
             value={phoneNumber}
             onChangeText={setPhoneNumber}

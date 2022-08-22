@@ -2,7 +2,7 @@ module.exports = {
   preset: "react-native",
   setupFilesAfterEnv: ["<rootDir>/setup-tests.js"],
   transformIgnorePatterns: [
-    "/node_modules/(?!(@react-native|react-native|react-native-sms-retriever|@react-native-async-storage/async-storage|react-native-modal|react-native-paper|@react-native-material/core|@expo/vector-icons|react-native-button|nodejs-mobile-react-native)/).*/",
+    "/node_modules/(?!(@react-native|react-native|react-native-sms-retriever|@react-native-async-storage/async-storage|react-native-modal|react-native-paper|@react-native-material/core|@expo/vector-icons|react-native-button|nodejs-mobile-react-native|react-native-splash-screen|react-native-animatable|expo-font|expo-modules-core|expo-asset|expo-constants|expo-file-system|@react-navigation)/).*/",
   ],
   setupFiles: ["./jestSetup.js"],
   transform: {
@@ -14,4 +14,5 @@ module.exports = {
       "<rootDir>/assetsTransformer.js",
     "\\.(css|less)$": "<rootDir>/assetsTransformer.js",
   },
+  // testEnvironment: "node",
 };
