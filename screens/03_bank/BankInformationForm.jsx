@@ -181,7 +181,7 @@ export default BankInformationForm = () => {
           <View>
             <InfoCard
               info={
-                "We will use this bank account / UPI ID to deposit your salary every month, Please ensure the bank account belongs to you.\n We will also deposit INR 1 to your account for verification make sure you enter the correct account details."
+                "We will use this bank account / UPI ID to deposit your salary every month, Please ensure the bank account belongs to you.\nWe will also deposit INR 1 to your account for verification make sure you enter the correct account details."
               }
             />
             <Text style={bankform.subTitle}>Enter your Bank Details</Text>

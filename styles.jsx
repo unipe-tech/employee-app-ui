@@ -129,7 +129,7 @@ export const progressBar = StyleSheet.create({
 
 export const form = StyleSheet.create({
   formHeader: {
-    marginTop: 15,
+    marginTop: 20,
     color: COLORS.black,
     ...FONTS.body3,
     alignSelf: "center",
@@ -308,14 +308,14 @@ export const bankform = StyleSheet.create({
     color: COLORS.black,
   },
   Maintitle: {
-    marginTop: 10,
-    color: COLORS.gray,
+    marginTop: 20,
+    color: COLORS.black,
     alignSelf: "center",
     ...FONTS.body3,
   },
   subTitle: {
     marginTop: 20,
-    color: COLORS.gray,
+    color: COLORS.black,
     alignSelf: "center",
     ...FONTS.body3,
   },
