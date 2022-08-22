@@ -63,6 +63,7 @@ function AadhaarForm() {
     <>
       <SafeAreaView style={styles.container}>
         <AppBar
+          testID="AppBar"
           title="Setup Profile"
           color="#4E46F1"
           leading={

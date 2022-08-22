@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1661140586123" clover="3.2.0">
+  <project timestamp="1661140586124" name="All files">
+    <metrics statements="31" coveredstatements="26" conditionals="4" coveredconditionals="0" methods="5" coveredmethods="2" elements="40" coveredelements="28" complexity="0" loc="31" ncloc="31" packages="2" files="3" classes="3"/>
+    <package name="employee-app">
+      <metrics statements="15" coveredstatements="15" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="styles.jsx" path="F:\unipe-app\employee-app\styles.jsx">
+        <metrics statements="15" coveredstatements="15" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="114" count="1" type="stmt"/>
+        <line num="128" count="1" type="stmt"/>
+        <line num="143" count="1" type="stmt"/>
+        <line num="278" count="1" type="stmt"/>
+        <line num="295" count="1" type="stmt"/>
+        <line num="356" count="1" type="stmt"/>
+        <line num="386" count="1" type="stmt"/>
+        <line num="396" count="1" type="stmt"/>
+        <line num="411" count="1" type="stmt"/>
+        <line num="466" count="1" type="stmt"/>
+        <line num="493" count="1" type="stmt"/>
+        <line num="515" count="1" type="stmt"/>
+        <line num="525" count="1" type="stmt"/>
+        <line num="546" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="employee-app.components">
+      <metrics statements="16" coveredstatements="11" conditionals="4" coveredconditionals="0" methods="5" coveredmethods="2"/>
+      <file name="DateEntry.jsx" path="F:\unipe-app\employee-app\components\DateEntry.jsx">
+        <metrics statements="14" coveredstatements="9" conditionals="4" coveredconditionals="0" methods="4" coveredmethods="1"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="13" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="14" count="0" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="19" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
+      </file>
+      <file name="PrimaryButton.jsx" path="F:\unipe-app\employee-app\components\PrimaryButton.jsx">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="32" count="1" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>
