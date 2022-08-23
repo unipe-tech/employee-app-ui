@@ -57,3 +57,11 @@ build:prod
 test:dev
 - to test out the version using jest
 ```
+
+## For any errors in the debug mode
+
+1. Open android studio
+2. Go to SDK Manager
+3. Open SDK tools
+4. Check the 3.18.1 version for cmake instead of all the other ones. 
+5. Hit apply and then click ok
