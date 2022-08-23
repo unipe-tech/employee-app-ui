@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Welcome Screen should render UI properly 1`] = `
+exports[`Login Screen should render UI properly 1`] = `
 <RCTSafeAreaView
   emulateUnlessSupported={true}
   style={
@@ -96,7 +96,7 @@ exports[`Welcome Screen should render UI properly 1`] = `
                     "width": "80%",
                   }
                 }
-                testID="login-number"
+                testID="mobile-number"
                 textContentType="telephoneNumber"
                 value=""
               />
@@ -165,6 +165,7 @@ exports[`Welcome Screen should render UI properly 1`] = `
                     "width": 320,
                   }
                 }
+                testID="continue"
                 type="solid"
               >
                 <View

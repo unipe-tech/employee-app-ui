@@ -1,10 +1,10 @@
 module.exports = {
   preset: "react-native",
-  setupFilesAfterEnv: ["<rootDir>/setup-tests.js"],
+  setupFilesAfterEnv: ["jest-enzyme"],
   transformIgnorePatterns: [
-    "/node_modules/(?!(@react-native|react-native|react-native-sms-retriever|@react-native-async-storage/async-storage|react-native-modal|react-native-paper|@react-native-material/core|@expo/vector-icons|react-native-button|nodejs-mobile-react-native|react-native-splash-screen|react-native-animatable|expo-font|expo-modules-core|expo-asset|expo-constants|expo-file-system|@react-navigation)/).*/",
+    "/node_modules/(?!(@react-native|react-native|react-native-sms-retriever|@react-native-async-storage/async-storage|react-native-modal|react-native-paper|@react-native-material/core|@expo/vector-icons|react-native-button|nodejs-mobile-react-native|react-native-splash-screen|react-native-animatable|expo-font|expo-modules-core|expo-asset|expo-constants|expo-file-system|@react-navigation|react-native-countdown-component|react-native-image-picker|react-native-camera)/).*/",
   ],
-  setupFiles: ["./jestSetup.js"],
+  setupFiles: ["<rootDir>/setup-tests.js"],
   transform: {
     "^.+\\.(ts|tsx)?$": "ts-jest",
     "^.+\\.(js|jsx)$": "babel-jest",
@@ -14,5 +14,12 @@ module.exports = {
       "<rootDir>/assetsTransformer.js",
     "\\.(css|less)$": "<rootDir>/assetsTransformer.js",
   },
-  // testEnvironment: "node",
+  // testEnvironment: "enzyme",
+  // testEnvironmentOptions: {
+  //   enzymeAdapter: "react16",
+  // },
+  // testEnvironment: "enzyme",
+  // testEnvironmentOptions: {
+  //   enzymeAdapter: "react16",
+  // },
 };

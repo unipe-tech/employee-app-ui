@@ -10,9 +10,9 @@ describe("PrimaryButton", () => {
   });
 });
 
-describe("DateEntry", () => {
-  test("if DateEntry renders correctly", () => {
-    const tree = renderer.create(<DateEntry />).toJSON;
-    expect(tree).toMatchSnapshot();
-  });
-});
+// describe("DateEntry", () => {
+//   test("if DateEntry renders correctly", () => {
+//     const tree = renderer.create(<DateEntry />).toJSON;
+//     expect(tree).toMatchSnapshot();
+//   });
+// });

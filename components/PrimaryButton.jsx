@@ -17,7 +17,7 @@ import { styles } from "../styles";
  * @param otherProps -> used for defining other props to the Button
  */
 
-const PrimaryButton = ({
+function PrimaryButton({
   title,
   color,
   disabled,
@@ -28,7 +28,7 @@ const PrimaryButton = ({
   wrapperStyle,
   onPress,
   otherProps,
-}) => {
+}) {
   return (
     <View style={wrapperStyle}>
       <Button
@@ -45,6 +45,6 @@ const PrimaryButton = ({
       />
     </View>
   );
-};
+}
 
 export default PrimaryButton;

@@ -27,9 +27,9 @@ const setRecentStorage = async (recentSearch) => {
   }
 };
 
-beforeEach(async () => {
-  await AsyncStorage.clear();
-});
+// beforeAll(async () => {
+//   await AsyncStorage.clear();
+// }, 10000);
 
 describe("getRecentStorage", () => {
   // if no results exist at key, returns an empty array

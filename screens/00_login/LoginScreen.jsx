@@ -23,9 +23,8 @@ import { addId, addPhoneNumber } from "../../store/slices/authSlice";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { styles } from "../../styles";
 
-function LoginScreen() {
+function LoginScreen({ navigation }) {
   const dispatch = useDispatch();
-  const navigation = useNavigation();
 
   const [phoneNumber, setPhoneNumber] = useState(
     useSelector((state) => state.auth.phoneNumber)
@@ -157,10 +156,10 @@ function LoginScreen() {
           </Text>
           <Text style={styles.fieldLabel}>Mobile Number</Text>
           <TextInput
-            testID="login-number"
+            testID="mobile-number"
             style={styles.textInput}
             value={phoneNumber}
-            onChangeText={setPhoneNumber}
+            onChangeText={(text) => setPhoneNumber(text)}
             autoCompleteType="tel"
             keyboardType="phone-pad"
             textContentType="telephoneNumber"
@@ -189,26 +188,16 @@ function LoginScreen() {
             </Text>
           </Text>
           {!loading ? (
-            <>
-              {next ? (
-                <Button
-                  uppercase={false}
-                  title="Continue"
-                  type="solid"
-                  style={styles.ContinueButton}
-                  color="#4E46F1"
-                  onPress={() => signIn()}
-                />
-              ) : (
-                <Button
-                  uppercase={false}
-                  title="Continue"
-                  type="solid"
-                  style={styles.ContinueButton}
-                  disabled
-                />
-              )}
-            </>
+            <Button
+              testID="continue"
+              uppercase={false}
+              title="Continue"
+              type="solid"
+              style={styles.ContinueButton}
+              color="#4E46F1"
+              onPress={() => signIn(phoneNumber)}
+              disabled={!next}
+            />
           ) : (
             <TouchableOpacity>
               <View style={styles.LoadingButton}>
