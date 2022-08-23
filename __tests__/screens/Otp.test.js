@@ -4,6 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { Provider } from "react-redux";
 import OTPScreen from "../../screens/00_login/OTPScreen";
 import { store } from "../../store/store";
+import { shallow } from "enzyme";
 
 let navigation;
 beforeEach(() => {
@@ -16,13 +17,13 @@ beforeEach(() => {
 describe("OTP Screen", () => {
   // snapshot test
   it("should render OTPScreen UI properly", () => {
-    const tree = render(
+    const tree = shallow(
       <Provider store={store}>
         <NavigationContainer>
           <OTPScreen />
         </NavigationContainer>
       </Provider>
-    ).toJSON();
+    );
     expect(tree).toMatchSnapshot();
   }, 8000);
 });
