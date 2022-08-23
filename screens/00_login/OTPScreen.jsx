@@ -21,6 +21,7 @@ import { addLoginVerifyStatus } from "../../store/slices/authSlice";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { styles } from "../../styles";
 import { KeyboardAvoidingWrapper } from "../../KeyboardAvoidingWrapper";
+import { MaterialIcons } from "react-native-vector-icons";
 
 function OTPScreen() {
   const phoneNumber = useSelector((state) => state.auth.phoneNumber);
@@ -38,7 +39,17 @@ function OTPScreen() {
     dispatch(addCurrentScreen("Otp"));
   }, []);
 
-  // HHrHWFsvgjF
+  const otpVerify = () => {
+    const fullPhoneNumber = `+91${phoneNumber}`;
+    setNext(false);
+    checkVerification(fullPhoneNumber, otp).then((success) => {
+      if (!success) Alert.alert("err", "Incorrect OTP");
+      success && navigation.navigate("AadhaarForm");
+      console.log(fullPhoneNumber, otp);
+      dispatch(addLoginVerifyStatus("SUCCESS"));
+      SmsRetriever.removeSmsListener();
+    });
+  };
 
   // useEffect(() => {
   //   dispatch({
@@ -62,12 +73,16 @@ function OTPScreen() {
           <View style={styles.otpback}>
             {back ? (
               <IconButton
-                icon={<Icon name="arrow-back" size={30} color="#4E46F1" />}
+                icon={
+                  <MaterialIcons name="arrow-back" size={30} color="#4E46F1" />
+                }
                 onPress={() => navigation.navigate("Login")}
               />
             ) : (
               <IconButton
-                icon={<Icon name="arrow-back" size={30} color="#808080" />}
+                icon={
+                  <MaterialIcons name="arrow-back" size={30} color="#808080" />
+                }
                 onPress={() =>
                   Alert.alert(
                     "OTP Timer",
@@ -86,14 +101,14 @@ function OTPScreen() {
             Please wait, we will auto verify the OTP {"\n"} sent to{" "}
             {phoneNumber}
             {back ? (
-              <Icon
+              <MaterialIcons
                 name="edit"
                 size={12}
                 color="#4E46F1"
                 onPress={() => navigation.navigate("Login")}
               />
             ) : (
-              <Icon
+              <MaterialIcons
                 name="edit"
                 size={12}
                 color="#808080"
@@ -145,34 +160,15 @@ function OTPScreen() {
             Sit back & relax while we fetch the OTP & log you inside the Unipe
             App
           </Text>
-          {next ? (
-            <Button
-              uppercase={false}
-              title="Verify"
-              type="solid"
-              color="#4E46F1"
-              style={styles.ContinueButton}
-              onPress={() => {
-                const fullPhoneNumber = `+91${phoneNumber}`;
-                setNext(false);
-                checkVerification(fullPhoneNumber, otp).then((success) => {
-                  if (!success) Alert.alert("err", "Incorrect OTP");
-                  success && navigation.navigate("AadhaarForm");
-                  console.log(fullPhoneNumber, otp);
-                  dispatch(addLoginVerifyStatus("SUCCESS"));
-                  SmsRetriever.removeSmsListener();
-                });
-              }}
-            />
-          ) : (
-            <Button
-              title="Verify"
-              uppercase={false}
-              type="solid"
-              style={styles.ContinueButton}
-              disabled
-            />
-          )}
+          <Button
+            uppercase={false}
+            title="Verify"
+            type="solid"
+            color="#4E46F1"
+            style={styles.ContinueButton}
+            onPress={otpVerify}
+            disabled={!next}
+          />
         </View>
       </KeyboardAvoidingWrapper>
     </SafeAreaView>
