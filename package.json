@@ -10,7 +10,8 @@
     "build:debug": "gulp set --env=test && cd android && gradlew assembleDebug",
     "build:prod": "gulp set --env=prod && cd android && gradlew bundleRelease",
     "test": "jest -u",
-    "test:dev": "jest -u --watch"
+    "test:dev": "jest -u --watch",
+    "test:coverage": "jest -u --coverage"
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.12.1",

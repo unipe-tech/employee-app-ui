@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">8% </span>
+                <span class="strong">36% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>2/25</span>
+                <span class='fraction'>9/25</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">12.5% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>1/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>1/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">8% </span>
+                <span class="strong">36% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>2/25</span>
+                <span class='fraction'>9/25</span>
             </div>
         
             
@@ -120,9 +120,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -145,10 +148,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -157,7 +157,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -172,36 +172,36 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import axios from "axios";
 import * as APIS from "./endpoints";
 &nbsp;
-export const putBackendData = <span class="fstat-no" title="function not covered" >(p</span>rops) =&gt; {
-  var data = <span class="cstat-no" title="statement not covered" >JSON.stringify(props.document);</span>
-  var url = <span class="cstat-no" title="statement not covered" >"";</span>
-<span class="cstat-no" title="statement not covered" >  switch (props.src) {</span>
+export const putBackendData = (props) =&gt; {
+  var data = JSON.stringify(props.document);
+  var url = "";
+  switch (props.src) {
     case "Mobile":
-<span class="cstat-no" title="statement not covered" >      url = APIS.MOBILE_ONBOARD_API;</span>
-<span class="cstat-no" title="statement not covered" >      break;</span>
-    case "Aadhaar":
+      url = APIS.MOBILE_ONBOARD_API;
+      break;
+<span class="branch-1 cbranch-no" title="branch not covered" >    case "Aadhaar":</span>
 <span class="cstat-no" title="statement not covered" >      url = APIS.AADHAR_ONBOARD_API;</span>
 <span class="cstat-no" title="statement not covered" >      break;</span>
-    case "Pan":
+<span class="branch-2 cbranch-no" title="branch not covered" >    case "Pan":</span>
 <span class="cstat-no" title="statement not covered" >      url = APIS.PAN_ONBOARD_API;</span>
 <span class="cstat-no" title="statement not covered" >      break;</span>
-    case "Bank":
+<span class="branch-3 cbranch-no" title="branch not covered" >    case "Bank":</span>
 <span class="cstat-no" title="statement not covered" >      url = APIS.BANK_ONBOARD_API;</span>
 <span class="cstat-no" title="statement not covered" >      break;</span>
-    case "Profile":
+<span class="branch-4 cbranch-no" title="branch not covered" >    case "Profile":</span>
 <span class="cstat-no" title="statement not covered" >      url = APIS.PROFILE_ONBOARD_API;</span>
 <span class="cstat-no" title="statement not covered" >      break;</span>
-    case "FamilyDetails":
+<span class="branch-5 cbranch-no" title="branch not covered" >    case "FamilyDetails":</span>
 <span class="cstat-no" title="statement not covered" >      url = APIS.FAMILY_DETAILS_ONBOARD_API;</span>
 <span class="cstat-no" title="statement not covered" >      break;</span>
-    case "Address":
+<span class="branch-6 cbranch-no" title="branch not covered" >    case "Address":</span>
 <span class="cstat-no" title="statement not covered" >      url = APIS.ADDRESS_ONBOARD_API;</span>
 <span class="cstat-no" title="statement not covered" >      break;</span>
-    case "Portal":
+<span class="branch-7 cbranch-no" title="branch not covered" >    case "Portal":</span>
 <span class="cstat-no" title="statement not covered" >      url = APIS.PORTAL_ONBOARD_API;</span>
 <span class="cstat-no" title="statement not covered" >      break;</span>
   }
-  var config = <span class="cstat-no" title="statement not covered" >{</span>
+  var config = {
     method: "post",
     url: url,
     headers: {
@@ -210,7 +210,7 @@ export const putBackendData = <span class="fstat-no" title="function not covered
     data: data,
   };
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return axios(config);</span>
+  return axios(config);
 };
 &nbsp;
 export const getDocumentData = <span class="fstat-no" title="function not covered" >(e</span>mployeeId) =&gt; {
@@ -229,7 +229,7 @@ export const getDocumentData = <span class="fstat-no" title="function not covere
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-08-22T11:33:07.627Z
+                at 2022-08-23T11:21:37.597Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
