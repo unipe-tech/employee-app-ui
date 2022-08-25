@@ -2,8 +2,8 @@ import React from "react";
 import { render, fireEvent, waitFor } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { Provider } from "react-redux";
-import OTPScreen from "../../screens/00_login/OTPScreen";
-import { store } from "../../store/store";
+import OTPScreen from "../../../screens/00_login/OTPScreen";
+import { store } from "../../../store/store";
 import { shallow } from "enzyme";
 
 let navigation;

@@ -2,8 +2,8 @@ import React from "react";
 import { render, fireEvent, waitFor } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { Provider } from "react-redux";
-import LoginScreen from "../../screens/00_login/LoginScreen";
-import { store } from "../../store/store";
+import LoginScreen from "../../../screens/00_login/LoginScreen";
+import { store } from "../../../store/store";
 import { TextInput } from "react-native";
 import Enzyme, { shallow } from "enzyme";
 

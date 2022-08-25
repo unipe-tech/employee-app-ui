@@ -2,8 +2,8 @@ import React from "react";
 import { render, fireEvent, waitFor } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { Provider } from "react-redux";
-import WelcomePage from "../../screens/00_login/WelcomePage";
-import { store } from "../../store/store";
+import WelcomePage from "../../../screens/00_login/WelcomePage";
+import { store } from "../../../store/store";
 
 let navigation;
 beforeEach(() => {

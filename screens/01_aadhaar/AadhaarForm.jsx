@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Alert, SafeAreaView, Text, TextInput, View } from "react-native";
 import CheckBox from "@react-native-community/checkbox";
-import { AppBar, Button, Icon, IconButton } from "@react-native-material/core";
+import { AppBar, Button, IconButton } from "@react-native-material/core";
 import { useNavigation } from "@react-navigation/core";
 
 import ProgressBarTop from "../../components/ProgressBarTop";
@@ -12,10 +12,11 @@ import { bankform, checkBox, form, styles } from "../../styles";
 import Otp from "../../apis/aadhaar/Otp";
 import { addNumber } from "../../store/slices/aadhaarSlice";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
+import { MaterialIcons } from "react-native-vector-icons";
 
-function AadhaarForm() {
+function AadhaarForm({ navigation }) {
   const dispatch = useDispatch();
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
 
   const [consent, setConsent] = useState(false);
   const [validNumber, setValidNumber] = useState(true);
@@ -37,13 +38,18 @@ function AadhaarForm() {
     }
   }, [number]);
 
+  const returnNull = () => null;
+
+  const navigateToPan = () => navigation.navigate("PanForm");
+  const navigateToOtp = () => navigation.navigate("Otp");
+
   const SkipAadhaar = () => {
     Alert.alert(
       "Aadhaar KYC pending",
       `You have not completed Aadhaar KYC. Do you wish to Skip?`,
       [
-        { text: "No", onPress: () => null, style: "cancel" },
-        { text: "Yes", onPress: () => navigation.navigate("PanForm") },
+        { text: "No", onPress: returnNull, style: "cancel" },
+        { text: "Yes", onPress: navigateToPan },
       ]
     );
   };
@@ -53,8 +59,8 @@ function AadhaarForm() {
       "Do you want to go back ?",
       "If you go back your Mobile Number Verification will have to be redone.",
       [
-        { text: "No", onPress: () => null, style: "cancel" },
-        { text: "Yes", onPress: () => navigation.navigate("Otp") },
+        { text: "No", onPress: returnNull, style: "cancel" },
+        { text: "Yes", onPress: navigateToOtp },
       ]
     );
   };
@@ -67,7 +73,8 @@ function AadhaarForm() {
           color="#4E46F1"
           leading={
             <IconButton
-              icon={<Icon name="arrow-back" size={20} color="white" />}
+              testID="backIcon"
+              icon={<MaterialIcons name="arrow-back" size={20} color="white" />}
               onPress={() => {
                 backAlert();
               }}
@@ -94,7 +101,7 @@ function AadhaarForm() {
             ) : null}
 
             <View style={bankform.infoCard}>
-              <Icon name="info-outline" size={20} color="#4E46F1" />
+              <MaterialIcons name="info-outline" size={20} color="#4E46F1" />
               <Text style={bankform.infoText}>
                 My Mobile number is linked with AADHAAR on which you can receive
                 the OTP.
@@ -143,6 +150,7 @@ function AadhaarForm() {
             />
 
             <Button
+              testID="skipBtn"
               title="Skip"
               uppercase={false}
               type="solid"
