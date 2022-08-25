@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/core";
 import { Alert, SafeAreaView, ScrollView } from "react-native";
 import ProgressBarTop from "../../components/ProgressBarTop";
 import { styles } from "../../styles";
-
+import { MaterialIcons } from "react-native-vector-icons";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import Confirm from "../../apis/aadhaar/Confirm";
 
@@ -17,13 +17,17 @@ function AadhaarConfirm() {
     dispatch(addCurrentScreen("AadhaarConfirm"));
   }, []);
 
+  const returnNull = () => null;
+
+  const navigateToAadhaarVerify = () => navigation.navigate("AadhaarVerify");
+
   const backAlert = () => {
     Alert.alert(
       "Do you want to go back ?",
       "If you go back your AADHAAR Verification will have to be redone. Continue if you want to edit your Aadhaar number.",
       [
-        { text: "No", onPress: () => null, style: "cancel" },
-        { text: "Yes", onPress: () => navigation.navigate("AadhaarVerify") },
+        { text: "No", onPress: returnNull, style: "cancel" },
+        { text: "Yes", onPress: navigateToAadhaarVerify },
       ]
     );
   };
@@ -35,7 +39,8 @@ function AadhaarConfirm() {
         color="#4E46F1"
         leading={
           <IconButton
-            icon={<Icon name="arrow-back" size={20} color="white" />}
+            testID="backIcon"
+            icon={<MaterialIcons name="arrow-back" size={20} color="white" />}
             onPress={() => backAlert()}
           />
         }

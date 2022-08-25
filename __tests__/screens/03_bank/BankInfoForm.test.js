@@ -54,7 +54,7 @@ describe("BankInformationForm Screen", () => {
     it("testing yes button in alert box", () => {
       const SkipAadhaar = jest.fn();
       const navigate = jest.fn();
-      const navigateToPan = jest.fn();
+      const navigateToPersonalDetailsForm = jest.fn();
       const wrapper = render(
         <Provider store={store}>
           <NavigationContainer>
@@ -73,7 +73,7 @@ describe("BankInformationForm Screen", () => {
       act(async () => {
         await fireEvent.press(wrapper.findByLabelText("Yes"));
         await pressAlertButton("Navigates to next screen");
-        await expect(navigateToPan).toHaveBeenCalled();
+        await expect(navigateToPersonalDetailsForm).toHaveBeenCalled();
         await expect(navigate).toHaveBeenCalledWith("PanForm");
       }, 4000);
     });
@@ -110,7 +110,7 @@ describe("BankInformationForm Screen", () => {
       act(async () => {
         await fireEvent.press(wrapper.getByTestId("backIcon"));
         await expect(navigateToOtp).toHaveBeenCalled();
-        await expect(navigateToOtp).toHaveBeenCalledWith("Otp");
+        await expect(navigateToOtp).toHaveBeenCalledWith("PanForm");
       });
     });
   });

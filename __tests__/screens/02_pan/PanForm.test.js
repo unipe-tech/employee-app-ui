@@ -35,7 +35,7 @@ describe("PanForm Screen", () => {
           </NavigationContainer>
         </Provider>
       );
-      fireEvent.press(wrapper.getByText("Skip"));
+      fireEvent.press(wrapper.getByTestId("forwardIcon"));
       expect(SkipAadhaar).toBeTruthy();
       const spyAlert = jest
         .spyOn(Alert, "alert")
@@ -62,7 +62,7 @@ describe("PanForm Screen", () => {
           </NavigationContainer>
         </Provider>
       );
-      fireEvent.press(wrapper.getByText("Skip"));
+      fireEvent.press(wrapper.getByTestId("forwardIcon"));
       expect(SkipAadhaar).toBeTruthy();
       const spyAlert = jest
         .spyOn(Alert, "alert")

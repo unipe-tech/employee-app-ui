@@ -20,7 +20,6 @@ import { addLoginVerifyStatus } from "../../store/slices/authSlice";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { resetTimer, setLoginTimer } from "../../store/slices/timerSlice";
 import { styles } from "../../styles";
-import { KeyboardAvoidingWrapper } from "../../KeyboardAvoidingWrapper";
 import { MaterialIcons } from "react-native-vector-icons";
 
 function OTPScreen() {

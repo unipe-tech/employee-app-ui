@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
@@ -116,7 +116,12 @@
 <a name='L51'></a><a href='#L51'>51</a>
 <a name='L52'></a><a href='#L52'>52</a>
 <a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -136,17 +141,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -176,7 +186,7 @@ import { useNavigation } from "@react-navigation/core";
 import { Alert, SafeAreaView, ScrollView } from "react-native";
 import ProgressBarTop from "../../components/ProgressBarTop";
 import { styles } from "../../styles";
-&nbsp;
+import { MaterialIcons } from "react-native-vector-icons";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import Confirm from "../../apis/aadhaar/Confirm";
 &nbsp;
@@ -188,13 +198,17 @@ function <span class="fstat-no" title="function not covered" >AadhaarConfirm(</s
 <span class="cstat-no" title="statement not covered" >    dispatch(addCurrentScreen("AadhaarConfirm"));</span>
   }, []);
 &nbsp;
+  const returnNull = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >null;</span></span>
+&nbsp;
+  const navigateToAadhaarVerify = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigation.navigate("AadhaarVerify");</span></span>
+&nbsp;
   const backAlert = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    Alert.alert(</span>
       "Do you want to go back ?",
       "If you go back your AADHAAR Verification will have to be redone. Continue if you want to edit your Aadhaar number.",
       [
-        { text: "No", onPress: <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >null,</span> style: "cancel" },
-        { text: "Yes", onPress: <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >navigation.navigate("AadhaarVerify") </span>},
+        { text: "No", onPress: returnNull, style: "cancel" },
+        { text: "Yes", onPress: navigateToAadhaarVerify },
       ]
     );
   };
@@ -202,11 +216,12 @@ function <span class="fstat-no" title="function not covered" >AadhaarConfirm(</s
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;SafeAreaView style={styles.container}&gt;
       &lt;AppBar
-        title="Setup Profile"
+        title="Aadhaar Data Confirmation"
         color="#4E46F1"
         leading={
           &lt;IconButton
-            icon={&lt;Icon name="arrow-back" size={20} color="white" /&gt;}
+            testID="backIcon"
+            icon={&lt;MaterialIcons name="arrow-back" size={20} color="white" /&gt;}
             onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >backAlert()}</span>
           /&gt;
         }
@@ -229,7 +244,7 @@ export default AadhaarConfirm;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-08-25T03:00:43.300Z
+                at 2022-08-25T08:21:40.737Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

@@ -72,7 +72,10 @@ function PanForm({ navigation }) {
           }
           trailing={
             <IconButton
-              icon={<Icon name="arrow-forward" size={20} color="white" />}
+              testID="forwardIcon"
+              icon={
+                <MaterialIcons name="arrow-forward" size={20} color="white" />
+              }
               onPress={() => {
                 SkipPAN();
               }}

@@ -11,7 +11,7 @@ import {
 import ApiView from "../ApiView";
 import { aadhaarBackendPush } from "../../helpers/BackendPush";
 
-function Otp(props) {
+function Otp({ data, url, disabled, style }) {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
@@ -62,10 +62,10 @@ function Otp(props) {
         "X-API-Key": OG_API_KEY,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(props.data),
+      body: JSON.stringify(data),
     };
 
-    fetch(props.url, options)
+    fetch(url, options)
       .then((response) => response.json())
       .then((responseJson) => {
         try {
@@ -114,10 +114,10 @@ function Otp(props) {
 
   return (
     <ApiView
-      disabled={props.disabled}
+      disabled={disabled}
       loading={loading}
       goForFetch={goForFetch}
-      style={props.style}
+      style={style}
     />
   );
 }

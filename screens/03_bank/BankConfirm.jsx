@@ -9,21 +9,24 @@ import { styles } from "../../styles";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import Confirm from "../../apis/bank/Confirm";
 
-function BankConfirm() {
+function BankConfirm({ navigation }) {
   const dispatch = useDispatch();
-  const navigation = useNavigation();
 
   useEffect(() => {
     dispatch(addCurrentScreen("BankConfirm"));
   }, []);
+
+  const returnNull = () => null;
+
+  const navigateToBankForm = () => navigation.navigate("BankInfoForm");
 
   const backAlert = () => {
     Alert.alert(
       "Do you want to go back ?",
       "If you go back your Bank Verification will have to be redone. Continue only if you want to edit your Bank Account Details.",
       [
-        { text: "No", onPress: () => null, style: "cancel" },
-        { text: "Yes", onPress: () => navigation.navigate("BankInfoForm") },
+        { text: "No", onPress: returnNull, style: "cancel" },
+        { text: "Yes", onPress: navigateToBankForm },
       ]
     );
   };

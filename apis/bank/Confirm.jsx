@@ -73,6 +73,7 @@ function Confirm() {
         }}
       >
         <Button
+          testID="noButton"
           title="No"
           type="solid"
           uppercase={false}
@@ -86,6 +87,7 @@ function Confirm() {
           }}
         />
         <Button
+          testID="yesButton"
           title="Yes"
           type="solid"
           uppercase={false}

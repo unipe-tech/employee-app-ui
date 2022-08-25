@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PanConfirm Screen Back Button Testing testing UI rendering 1`] = `
+exports[`AadhaarConfirm Screen Back Button Testing testing UI rendering 1`] = `
 <ContextProvider
   value={
     Object {

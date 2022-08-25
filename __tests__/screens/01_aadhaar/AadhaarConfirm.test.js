@@ -11,7 +11,7 @@ import AadhaarConfirm from "../../../screens/01_aadhaar/AadhaarConfirm";
 
 const { pressAlertButton } = spyOnAlert();
 
-describe("PanConfirm Screen", () => {
+describe("AadhaarConfirm Screen", () => {
   describe("Back Button Testing", () => {
     it("testing UI rendering", () => {
       const tree = shallow(

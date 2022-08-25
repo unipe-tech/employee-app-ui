@@ -16,9 +16,9 @@ import {
 } from "../../store/slices/bankSlice";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { bankform, form, styles, checkBox } from "../../styles";
+import { MaterialIcons } from "react-native-vector-icons";
 
-function BankInformationForm() {
-  const navigation = useNavigation();
+function BankInformationForm({ navigation }) {
   const bankSlice = useSelector((state) => state.bank);
   const [ifsc, setIfsc] = useState(bankSlice?.ifsc);
   const [accountNumber, setAccountNumber] = useState(bankSlice?.accountNumber);
@@ -47,15 +47,20 @@ function BankInformationForm() {
     dispatch(addBankUpi(upi));
   }, [upi]);
 
+  const returnNull = () => null;
+
+  const navigateToPersonalDetailsForm = () =>
+    navigation.navigate("PersonalDetailsForm");
+
   const SkipBank = () => {
     Alert.alert(
       "Bank KYC pending",
       `If you want to receive your salary on time, Bank details are required.`,
       [
-        { text: "No", onPress: () => null, style: "cancel" },
+        { text: "No", onPress: returnNull, style: "cancel" },
         {
           text: "Yes",
-          onPress: () => navigation.navigate("PersonalDetailsForm"),
+          onPress: navigateToPersonalDetailsForm,
         },
       ]
     );
@@ -87,7 +92,8 @@ function BankInformationForm() {
           color="#4E46F1"
           leading={
             <IconButton
-              icon={<Icon name="arrow-back" size={20} color="white" />}
+              testID="backIcon"
+              icon={<MaterialIcons name="arrow-back" size={20} color="white" />}
               onPress={() => navigation.navigate("PanForm")}
             />
           }
@@ -98,7 +104,7 @@ function BankInformationForm() {
         <KeyboardAvoidingWrapper>
           <View>
             <View style={bankform.infoCard}>
-              <Icon name="info-outline" size={20} color="#4E46F1" />
+              <MaterialIcons name="info-outline" size={20} color="#4E46F1" />
               <Text style={bankform.infoText}>
                 We will use this bank account / UPI ID to deposit your salary
                 every month, Please ensure the bank account belongs to you.
@@ -118,7 +124,7 @@ function BankInformationForm() {
                 position="right"
                 caret={false}
               >
-                <Icon name="info-outline" size={20} color="grey" />
+                <MaterialIcons name="info-outline" size={20} color="grey" />
               </Popable>
             </Text>
             <TextInput
@@ -138,7 +144,7 @@ function BankInformationForm() {
                 position="right"
                 caret={false}
               >
-                <Icon name="info-outline" size={20} color="grey" />
+                <MaterialIcons name="info-outline" size={20} color="grey" />
               </Popable>
             </Text>
             <TextInput
@@ -161,7 +167,7 @@ function BankInformationForm() {
                 position="right"
                 caret={false}
               >
-                <Icon name="info-outline" size={20} color="grey" />
+                <MaterialIcons name="info-outline" size={20} color="grey" />
               </Popable>
             </Text>
             <TextInput
@@ -174,7 +180,16 @@ function BankInformationForm() {
             {ifsc && !ifscNext ? (
               <Text style={bankform.formatmsg}>Incorrect Format</Text>
             ) : null}
-            <Text style={{alignSelf:"center",fontWeight:"bold",marginTop:20,fontSize:18}}>-OR-</Text>
+            <Text
+              style={{
+                alignSelf: "center",
+                fontWeight: "bold",
+                marginTop: 20,
+                fontSize: 18,
+              }}
+            >
+              -OR-
+            </Text>
             <Text style={bankform.formtitle}>
               UPI ID
               <Popable
@@ -184,7 +199,7 @@ function BankInformationForm() {
                 position="right"
                 caret={false}
               >
-                <Icon name="info-outline" size={20} color="grey" />
+                <MaterialIcons name="info-outline" size={20} color="grey" />
               </Popable>
             </Text>
             <TextInput

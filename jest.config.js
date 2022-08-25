@@ -14,12 +14,5 @@ module.exports = {
       "<rootDir>/assetsTransformer.js",
     "\\.(css|less)$": "<rootDir>/assetsTransformer.js",
   },
-  // testEnvironment: "enzyme",
-  // testEnvironmentOptions: {
-  //   enzymeAdapter: "react16",
-  // },
-  // testEnvironment: "enzyme",
-  // testEnvironmentOptions: {
-  //   enzymeAdapter: "react16",
-  // },
+  testPathIgnorePatterns: ["<rootDir>/testHelpers"],
 };
