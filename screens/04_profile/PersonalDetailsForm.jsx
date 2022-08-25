@@ -82,7 +82,9 @@ function PersonalDetailsForm() {
         <Text style={form.formHeader}>Employee basic details</Text>
         <KeyboardAvoidingWrapper>
           <View>
-            <Text style={form.formLabel}>Select Education*</Text>
+            <Text style={form.formLabel}>
+              Select Education <Text style={bankform.asterisk}>*</Text>
+            </Text>
             <Picker
               selectedValue={educationalQualification}
               style={form.picker}
@@ -95,7 +97,7 @@ function PersonalDetailsForm() {
                 return <Picker.Item label={item} value={item} key={index} />;
               })}
             </Picker>
-            <Text style={form.formLabel}>Marital Status*</Text>
+            <Text style={form.formLabel}>Marital Status <Text style={bankform.asterisk}>*</Text></Text>
             <View style={styles.flexrow}>
               {maritalStatuses.map((item, index) => {
                 return (

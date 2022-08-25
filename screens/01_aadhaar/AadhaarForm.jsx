@@ -46,7 +46,7 @@ function AadhaarForm({ navigation }) {
   const SkipAadhaar = () => {
     Alert.alert(
       "Aadhaar KYC pending",
-      `You have not completed Aadhaar KYC. Do you wish to Skip?`,
+      `To formally complete your employment with the company, Aadhaar KYC is required.`,
       [
         { text: "No", onPress: returnNull, style: "cancel" },
         { text: "Yes", onPress: navigateToPan },
@@ -69,7 +69,7 @@ function AadhaarForm({ navigation }) {
     <>
       <SafeAreaView style={styles.container}>
         <AppBar
-          title="Setup Profile"
+          title="Aadhaar Verification"
           color="#4E46F1"
           leading={
             <IconButton
@@ -80,11 +80,18 @@ function AadhaarForm({ navigation }) {
               }}
             />
           }
+          trailing={
+            <IconButton
+              icon={<Icon name="arrow-forward" size={20} color="white" />}
+              onPress={() => {
+                SkipAadhaar();
+              }}
+            />
+          }
         />
 
         <ProgressBarTop step={1} />
         <Text style={form.formHeader}>Aadhaar Verification</Text>
-
         <KeyboardAvoidingWrapper>
           <View>
             <Text style={form.formLabel}>Enter AADHAAR Number</Text>
@@ -120,32 +127,10 @@ function AadhaarForm({ navigation }) {
                 verifiy my identity.
               </Text>
             </View>
-
-            {/* {next && consent ? (
-              <Button
-                uppercase={false}
-                title="Continue"
-                type="solid"
-                color="#4E46F1"
-                style={form.nextButton}
-                onPress={() => {
-                  GenerateOtp();
-                }}
-              />
-            ) : (
-              <Button
-                title="Continue"
-                uppercase={false}
-                type="solid"
-                style={form.nextButton}
-                disabled
-              />
-            )} */}
-
             <Otp
               url={"https://api.gridlines.io/aadhaar-api/boson/generate-otp"}
               data={{ aadhaar_number: number, consent: "Y" }}
-              style={form.skipButton}
+              style={form.nextButton}
               disabled={!validNumber || !consent}
             />
 

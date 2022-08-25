@@ -1,24 +1,24 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  Image,
-  Text,
-  View,
-  SafeAreaView,
-  TextInput,
-  ScrollView,
-  Alert,
-} from "react-native";
 import { Button, Icon, IconButton } from "@react-native-material/core";
 import { useNavigation } from "@react-navigation/core";
-import SmsRetriever from "react-native-sms-retriever";
+import React, { useEffect, useState } from "react";
+import {
+  Alert,
+  Image,
+  SafeAreaView,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 import CountDown from "react-native-countdown-component";
+import { useDispatch, useSelector } from "react-redux";
+import { KeyboardAvoidingWrapper } from "../../KeyboardAvoidingWrapper";
 import {
   checkVerification,
   sendSmsVerification,
-} from "../../services/otp/Twilio/verify";
+} from "../../services/otp/Gupshup/services";
 import { addLoginVerifyStatus } from "../../store/slices/authSlice";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
+import { resetTimer, setLoginTimer } from "../../store/slices/timerSlice";
 import { styles } from "../../styles";
 import { KeyboardAvoidingWrapper } from "../../KeyboardAvoidingWrapper";
 import { MaterialIcons } from "react-native-vector-icons";
@@ -30,7 +30,7 @@ function OTPScreen() {
   const [next, setNext] = useState(false);
   const [back, setBack] = useState(false);
   const auth = useSelector((state) => state.auth);
-
+  const countDownTime = useSelector((state) => state.timer.login);
   console.log("OTPScreen state.auth: ", auth);
 
   const dispatch = useDispatch();
@@ -38,25 +38,6 @@ function OTPScreen() {
   useEffect(() => {
     dispatch(addCurrentScreen("Otp"));
   }, []);
-
-  const otpVerify = () => {
-    const fullPhoneNumber = `+91${phoneNumber}`;
-    setNext(false);
-    checkVerification(fullPhoneNumber, otp).then((success) => {
-      if (!success) Alert.alert("err", "Incorrect OTP");
-      success && navigation.navigate("AadhaarForm");
-      console.log(fullPhoneNumber, otp);
-      dispatch(addLoginVerifyStatus("SUCCESS"));
-      SmsRetriever.removeSmsListener();
-    });
-  };
-
-  // useEffect(() => {
-  //   dispatch({
-  //     type: "SET_USER",
-  //     payload: user,
-  //   });
-  // }, [user]);
 
   useEffect(() => {
     if (otp.length === 6) {
@@ -115,7 +96,7 @@ function OTPScreen() {
                 onPress={() =>
                   Alert.alert(
                     "OTP Timer",
-                    "You must wait for 30 seconds to edit number"
+                    "You must wait for 2 minutes to edit number"
                   )
                 }
               />
@@ -131,7 +112,7 @@ function OTPScreen() {
             keyboardType="numeric"
           />
           <CountDown
-            until={60}
+            until={countDownTime}
             onFinish={() => {
               setBack(true);
             }}
@@ -141,15 +122,32 @@ function OTPScreen() {
             digitTxtStyle={{ color: "#4E46F1" }}
             timeToShow={["M", "S"]}
             timeLabels={{ m: "MM", s: "SS" }}
+            onChange={(time) => {
+              dispatch(setLoginTimer(time));
+            }}
           />
           {back ? (
             <Text
               style={styles.resendText}
               onPress={() => {
-                sendSmsVerification(`+91${phoneNumber}`).then((sent) => {
-                  console.log("Sent!");
-                });
-                setOtp("");
+                sendSmsVerification(phoneNumber)
+                  .then((res) => {
+                    if (res["response"]["status"] === "success") {
+                      setOtp("");
+                      setBack(false);
+                      dispatch(resetTimer());
+                      Alert.alert("OTP resent successfully");
+                    } else {
+                      Alert.alert(
+                        res["response"]["status"],
+                        res["response"]["details"]
+                      );
+                    }
+                  })
+                  .catch((error) => {
+                    console.log(error);
+                    Alert.alert("Error", error);
+                  });
               }}
             >
               Resend
@@ -165,9 +163,28 @@ function OTPScreen() {
             title="Verify"
             type="solid"
             color="#4E46F1"
-            style={styles.ContinueButton}
-            onPress={otpVerify}
             disabled={!next}
+            style={styles.ContinueButton}
+            onPress={() => {
+              setNext(false);
+              checkVerification(phoneNumber, otp)
+                .then((res) => {
+                  if (res["response"]["status"] === "success") {
+                    navigation.navigate("AadhaarForm");
+                    dispatch(addLoginVerifyStatus("SUCCESS"));
+                    dispatch(resetTimer());
+                  } else {
+                    Alert.alert(
+                      res["response"]["status"],
+                      res["response"]["details"]
+                    );
+                  }
+                })
+                .catch((error) => {
+                  console.log(error);
+                  Alert.alert("Error", error);
+                });
+            }}
           />
         </View>
       </KeyboardAvoidingWrapper>

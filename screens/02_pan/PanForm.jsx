@@ -48,7 +48,7 @@ function PanForm({ navigation }) {
   const SkipPAN = () => {
     Alert.alert(
       "PAN KYC pending",
-      `You have not completed PAN KYC. Do you wish to Skip?`,
+      `If you want to receive advance salary, PAN KYC is required.`,
       [
         { text: "No", onPress: returnNull, style: "cancel" },
         { text: "Yes", onPress: navigateToBankInfoForm },
@@ -60,7 +60,7 @@ function PanForm({ navigation }) {
     <>
       <SafeAreaView style={styles.container}>
         <AppBar
-          title="Setup Profile"
+          title="PAN Verification"
           color="#4E46F1"
           leading={
             <IconButton
@@ -68,6 +68,14 @@ function PanForm({ navigation }) {
               icon={<MaterialIcons name="arrow-back" size={20} color="white" />}
               // TODO: Conditional if Aadhaar verified or not
               onPress={() => navigation.navigate("AadhaarConfirm")}
+            />
+          }
+          trailing={
+            <IconButton
+              icon={<Icon name="arrow-forward" size={20} color="white" />}
+              onPress={() => {
+                SkipPAN();
+              }}
             />
           }
         />
@@ -127,17 +135,8 @@ function PanForm({ navigation }) {
             <Verify
               url={"https://api.gridlines.io/pan-api/fetch-detailed"}
               data={{ pan_number: number, consent: "Y" }}
-              style={form.skipButton}
+              style={form.nextButton}
               disabled={!validNumber || !consent}
-            />
-
-            <Button
-              title="Skip"
-              uppercase={false}
-              type="solid"
-              color="#4E46F1"
-              style={form.skipButton}
-              onPress={() => SkipPAN()}
             />
           </View>
         </KeyboardAvoidingWrapper>

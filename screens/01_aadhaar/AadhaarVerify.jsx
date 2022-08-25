@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/core";
 import { AppBar, Icon, IconButton } from "@react-native-material/core";
 import { SafeAreaView, ScrollView, Text, TextInput, View } from "react-native";
@@ -10,6 +10,7 @@ import { MaterialIcons } from "react-native-vector-icons";
 
 import Verify from "../../apis/aadhaar/Verify";
 import { form, styles } from "../../styles";
+import { setAadhaarTimer } from "../../store/slices/timerSlice";
 
 function AadhaarVerify({ navigation }) {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ function AadhaarVerify({ navigation }) {
   const [backDisabled, setBackDisabled] = useState(true);
   const [otp, setOtp] = useState("");
   const [validOtp, setValidOtp] = useState(true);
+  const countDownTime = useSelector((state) => state.timer.aadhaar);
 
   useEffect(() => {
     dispatch(addCurrentScreen("AadhaarVerify"));
@@ -29,7 +31,7 @@ function AadhaarVerify({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <AppBar
-        title="Setup Profile"
+        title="Aadhaar OTP Verification"
         color="#4E46F1"
         leading={
           <IconButton
@@ -59,7 +61,7 @@ function AadhaarVerify({ navigation }) {
           />
 
           <CountDown
-            until={60 * 10}
+            until={countDownTime}
             onFinish={() => setBackDisabled(false)}
             size={20}
             style={{ marginTop: 20 }}
@@ -67,12 +69,15 @@ function AadhaarVerify({ navigation }) {
             digitTxtStyle={{ color: "#4E46F1" }}
             timeToShow={["M", "S"]}
             timeLabels={{ m: "MM", s: "SS" }}
+            onChange={(time) => {
+              dispatch(setAadhaarTimer(time));
+            }}
           />
 
           <Verify
             url={"https://api.gridlines.io/aadhaar-api/boson/submit-otp"}
             data={{ otp: otp }}
-            style={form.skipButton}
+            style={form.nextButton}
             disabled={!validOtp}
           />
         </View>

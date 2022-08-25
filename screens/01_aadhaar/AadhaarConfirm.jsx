@@ -31,7 +31,7 @@ function AadhaarConfirm() {
   return (
     <SafeAreaView style={styles.container}>
       <AppBar
-        title="Setup Profile"
+        title="Aadhaar Data Confirmation"
         color="#4E46F1"
         leading={
           <IconButton

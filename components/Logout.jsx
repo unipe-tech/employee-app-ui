@@ -10,6 +10,7 @@ import { resetESIC } from "../store/slices/esicSlice";
 import { resetNavigation } from "../store/slices/navigationSlice";
 import { resetPan } from "../store/slices/panSlice";
 import { resetProfile } from "../store/slices/profileSlice";
+import { resetTimer } from "../store/slices/timerSlice";
 
 function Logout() {
   const dispatch = useDispatch();
@@ -26,7 +27,8 @@ function Logout() {
         dispatch(resetAadhaar());
         dispatch(resetESIC());
         dispatch(resetBank());
-
+        dispatch(resetTimer());
+        
         navigation.navigate("Welcome");
       }}
       style={{
