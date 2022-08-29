@@ -765,7 +765,7 @@ exports[`AadhaarConfirm Screen UI Testing testing UI rendering 1`] = `
           }
         >
           Name: 
-          Tanish garg
+          Xyz garg
         </Text>
         <Text
           style={

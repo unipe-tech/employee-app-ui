@@ -16,12 +16,14 @@ function PanConfirm({ navigation }) {
     dispatch(addCurrentScreen("PanConfirm"));
   }, []);
 
+  const returnNull = () => null;
+
   const backAlert = () => {
     Alert.alert(
       "Do you want to go back ?",
       "If you go back your PAN Verification will have to be redone. Continue if you want to edit your PAN number.",
       [
-        { text: "No", onPress: () => null, style: "cancel" },
+        { text: "No", onPress: returnNull, style: "cancel" },
         { text: "Yes", onPress: () => navigation.navigate("PanForm") },
       ]
     );
@@ -34,6 +36,7 @@ function PanConfirm({ navigation }) {
         color="#4E46F1"
         leading={
           <IconButton
+            testID="backIcon"
             icon={<MaterialIcons name="arrow-back" size={20} color="white" />}
             onPress={() => backAlert()}
           />

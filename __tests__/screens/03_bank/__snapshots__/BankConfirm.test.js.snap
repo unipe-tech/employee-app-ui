@@ -63,6 +63,7 @@ exports[`BankConfirm Screen UI Testing testing UI rendering 1`] = `
               undefined,
             ]
           }
+          testID="backIcon"
         >
           <View
             accessible={true}

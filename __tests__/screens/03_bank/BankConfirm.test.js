@@ -63,4 +63,55 @@ describe("BankConfirm Screen", () => {
       });
     });
   });
+  describe("Back Button Testing", () => {
+    it("NO returns null", () => {
+      const returnNull = jest.fn();
+      const navigate = jest.fn();
+      const wrapper = render(
+        <Provider store={createdStore}>
+          <NavigationContainer>
+            <BankConfirm navigation={{ navigate }} />
+          </NavigationContainer>
+        </Provider>
+      );
+      fireEvent.press(wrapper.getByTestId("backIcon"));
+      const spyAlert = jest
+        .spyOn(Alert, "alert")
+        //@ts-ignore
+        .mockImplementation((title, message, callbackOrButtons) =>
+          callbackOrButtons[1].onPress()
+        );
+      act(async () => {
+        await fireEvent.press(wrapper.findByLabelText("No"));
+        await pressAlertButton("Nothing happens");
+        await expect(returnNull).toHaveBeenCalled();
+        await expect(returnNull).toHaveReturned(null);
+      }, 4000);
+    });
+  });
+
+  it("YES navigates to OTP Screen", () => {
+    const navigate = jest.fn();
+    const navigateToBankForm = jest.fn();
+    const wrapper = render(
+      <Provider store={createdStore}>
+        <NavigationContainer>
+          <BankConfirm navigation={{ navigate }} />
+        </NavigationContainer>
+      </Provider>
+    );
+    fireEvent.press(wrapper.getByTestId("backIcon"));
+    const spyAlert = jest
+      .spyOn(Alert, "alert")
+      //@ts-ignore
+      .mockImplementation((title, message, callbackOrButtons) =>
+        callbackOrButtons[1].onPress()
+      );
+    act(async () => {
+      await fireEvent.press(wrapper.findByLabelText("Yes"));
+      await pressAlertButton("Navigates to next screen");
+      await expect(navigateToBankForm).toHaveBeenCalledWith();
+      await expect(navigate).toHaveBeenCalledWith("BankInfoForm");
+    }, 4000);
+  });
 });

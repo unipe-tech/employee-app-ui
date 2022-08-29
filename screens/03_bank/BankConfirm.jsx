@@ -39,6 +39,7 @@ function BankConfirm({ navigation }) {
         color="#4E46F1"
         leading={
           <IconButton
+            testID="backIcon"
             icon={<MaterialIcons name="arrow-back" size={20} color="white" />}
             onPress={() => backAlert()}
           />
