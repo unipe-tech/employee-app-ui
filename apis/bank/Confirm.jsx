@@ -10,9 +10,8 @@ import {
 import { bankBackendPush } from "../../helpers/BackendPush";
 import { bankform, form, styles } from "../../styles";
 
-function Confirm() {
+function Confirm({ navigation }) {
   const dispatch = useDispatch();
-  const navigation = useNavigation();
 
   const [backendPush, setBackendPush] = useState(false);
   const id = useSelector((state) => state.auth.id);

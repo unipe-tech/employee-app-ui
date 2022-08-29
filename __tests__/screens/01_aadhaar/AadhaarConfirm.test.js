@@ -8,42 +8,26 @@ import { Button } from "@react-native-material/core";
 import { Alert } from "react-native";
 import spyOnAlert from "../../../testHelpers/spyOnAlert";
 import AadhaarConfirm from "../../../screens/01_aadhaar/AadhaarConfirm";
-import mockStore from "redux-mock-store";
+import configureStore from "redux-mock-store";
+import mockStore from "../../../store/mockStore";
 
-// jest.mock("react-redux", () => ({
-//   ...jest.requireActual("react-redux"),
-//   useSelector: jest.fn().mockImplementation((selector) => selector()),
-//   useDispatch: jest.fn(),
-// }));
-
-const mockConfigState = {
-  data: {},
-  number: "123456789101",
-  submitOTPtxnId: "5",
-  verifyMsg: "Done",
-  verifyStatus: "PENDING",
-};
-const mockSearchState = {
-  data: {},
-  number: "987654321010",
-  submitOTPtxnId: "2",
-  verifyMsg: "Pending",
-  verifyStatus: "PENDING",
+const middleware = [];
+const mockedStore = configureStore(middleware);
+const data = {
+  auth: {
+    id: 1,
+  },
+  aadhaar: {
+    data: {
+      aadhaar_data: {
+        name: "Tanish garg",
+      },
+    },
+    number: "789456123010",
+  },
 };
 
-jest.mock("react-redux", () => ({
-  useSelector: jest
-    .fn()
-    .mockReturnValueOnce(mockConfigState)
-    .mockReturnValueOnce(mockSearchState),
-}));
-
-jest.mock("../../../helpers/Selectors.js", () => ({
-  id: jest.fn().mockReturnValue("1"),
-  data: jest.fn().mockReturnValue("myTestDob"),
-  number: jest.fn().mockReturnValue("myTestDob"),
-  aadhaarSlice: jest.fn().mockReturnValue("myTestDob"),
-}));
+const createdStore = mockedStore(mockStore);
 
 const { pressAlertButton } = spyOnAlert();
 
@@ -51,7 +35,7 @@ describe("AadhaarConfirm Screen", () => {
   describe("UI Testing", () => {
     it("testing UI rendering", () => {
       const tree = render(
-        <Provider store={store}>
+        <Provider store={createdStore}>
           <NavigationContainer>
             <AadhaarConfirm />
           </NavigationContainer>
@@ -60,28 +44,36 @@ describe("AadhaarConfirm Screen", () => {
       expect(tree).toMatchSnapshot();
     }, 8000);
   });
-  describe("Back Button testing", () => {
-    beforeEach(() => {
-      useSelectorMock.mockImplementation((selector) => selector(store));
-    });
-    afterEach(() => {
-      useSelector.mockClear();
-    });
-
-    const useSelectorMock = useSelector();
-
-    const backAlert = jest.fn();
-    it("testing button press", () => {
-      const component = render(
-        <Provider store={store}>
+  describe("Testing Main Buttons", () => {
+    it("testing No Button", () => {
+      const navigate = jest.fn();
+      const returnNull = jest.fn();
+      const wrapper = render(
+        <Provider store={createdStore}>
           <NavigationContainer>
-            <AadhaarConfirm />
+            <AadhaarConfirm navigation={{ navigate }} />
           </NavigationContainer>
         </Provider>
       );
-      fireEvent.press(component.findByTestId("backIcon"));
-      // expect(backAlert).toBeCalled();
-      console.log(component.debug);
+      act(async () => {
+        await fireEvent.press(wrapper.getByText("No"));
+        await expect(navigate).toHaveBeenCalledWith("AadhaarForm");
+      });
+    });
+    it("testing Yes Button", () => {
+      const navigate = jest.fn();
+      const returnNull = jest.fn();
+      const wrapper = render(
+        <Provider store={createdStore}>
+          <NavigationContainer>
+            <AadhaarConfirm navigation={{ navigate }} />
+          </NavigationContainer>
+        </Provider>
+      );
+      act(async () => {
+        await fireEvent.press(wrapper.getByText("Yes"));
+        await expect(navigate).toHaveBeenCalledWith("PanForm");
+      });
     });
   });
 });

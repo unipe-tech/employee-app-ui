@@ -5,13 +5,12 @@ import { useNavigation } from "@react-navigation/core";
 import { Alert, SafeAreaView, ScrollView } from "react-native";
 import ProgressBarTop from "../../components/ProgressBarTop";
 import { styles } from "../../styles";
-
+import { MaterialIcons } from "react-native-vector-icons";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import Confirm from "../../apis/pan/Confirm";
 
-function PanConfirm() {
+function PanConfirm({ navigation }) {
   const dispatch = useDispatch();
-  const navigation = useNavigation();
 
   useEffect(() => {
     dispatch(addCurrentScreen("PanConfirm"));
@@ -35,7 +34,7 @@ function PanConfirm() {
         color="#4E46F1"
         leading={
           <IconButton
-            icon={<Icon name="arrow-back" size={20} color="white" />}
+            icon={<MaterialIcons name="arrow-back" size={20} color="white" />}
             onPress={() => backAlert()}
           />
         }

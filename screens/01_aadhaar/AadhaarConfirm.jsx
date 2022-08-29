@@ -9,9 +9,9 @@ import { MaterialIcons } from "react-native-vector-icons";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import Confirm from "../../apis/aadhaar/Confirm";
 
-function AadhaarConfirm() {
+function AadhaarConfirm({ navigation }) {
   const dispatch = useDispatch();
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
 
   useEffect(() => {
     dispatch(addCurrentScreen("AadhaarConfirm"));
@@ -41,12 +41,12 @@ function AadhaarConfirm() {
           <IconButton
             testID="backIcon"
             icon={<MaterialIcons name="arrow-back" size={20} color="white" />}
-            onPress={() => backAlert()}
+            onPress={backAlert}
           />
         }
       />
 
-      {/* <ProgressBarTop step={1} /> */}
+      <ProgressBarTop step={1} />
 
       <ScrollView keyboardShouldPersistTaps="handled">
         <Confirm />

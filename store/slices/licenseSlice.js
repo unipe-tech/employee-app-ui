@@ -13,7 +13,7 @@ const initialState = {
 };
 
 const licenseSlice = createSlice({
-  name: "navigation",
+  name: "license",
   initialState: initialState,
   reducers: {
     addLicenseNumber(state, action) {

@@ -8,6 +8,7 @@ import { styles } from "../../styles";
 
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import Confirm from "../../apis/bank/Confirm";
+import { MaterialIcons } from "react-native-vector-icons";
 
 function BankConfirm({ navigation }) {
   const dispatch = useDispatch();
@@ -38,7 +39,7 @@ function BankConfirm({ navigation }) {
         color="#4E46F1"
         leading={
           <IconButton
-            icon={<Icon name="arrow-back" size={20} color="white" />}
+            icon={<MaterialIcons name="arrow-back" size={20} color="white" />}
             onPress={() => backAlert()}
           />
         }

@@ -50,12 +50,12 @@ function Confirm() {
         Are these your AADHAAR details ?{"\n"}
       </Text>
 
-      <Image
+      {/* <Image
         source={{
           uri: `data:image/jpeg;base64,${data["aadhaar_data"]["photo_base64"]}`,
         }}
         style={form.aadharimg}
-      />
+      /> */}
       <Text style={form.userData}>Number: {number}</Text>
       <Text style={form.userData}>Name: {data["aadhaar_data"]["name"]}</Text>
       <Text style={form.userData}>
@@ -92,6 +92,7 @@ function Confirm() {
           uppercase={false}
           style={form.yesButton}
           color="#4E46F1"
+          testID="YesButton"
           onPress={() => {
             setVerifyMsg("Confirmed by User");
             setVerifyStatus("SUCCESS");
