@@ -135,7 +135,6 @@ function AadhaarForm({ navigation }) {
               data={{ aadhaar_number: number, consent: "Y" }}
               style={form.nextButton}
               disabled={!validNumber || !consent}
-              navigation={navigation}
             />
 
             <Button

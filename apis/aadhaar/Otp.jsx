@@ -11,8 +11,9 @@ import {
 import ApiView from "../ApiView";
 import { aadhaarBackendPush } from "../../helpers/BackendPush";
 
-function Otp({ data, url, disabled, style, navigation }) {
+function Otp({ data, url, disabled, style }) {
   const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   const [loading, setLoading] = useState(false);
   const [backendPush, setBackendPush] = useState(false);
@@ -38,8 +39,8 @@ function Otp({ data, url, disabled, style, navigation }) {
   }, [verifyStatus]);
 
   useEffect(() => {
-    console.log(backendPush);
-    console.log("verifyStatus: ", verifyStatus);
+    // console.log(backendPush);
+    // console.log("verifyStatus: ", verifyStatus);
     if (backendPush) {
       aadhaarBackendPush({
         id: id,
@@ -96,7 +97,7 @@ function Otp({ data, url, disabled, style, navigation }) {
             Alert.alert("Error", responseJson["message"]);
           }
         } catch (error) {
-          console.log("Error: ", error);
+          // console.log("Error: ", error);
           setVerifyMsg(error);
           setVerifyStatus("ERROR");
           setBackendPush(true);

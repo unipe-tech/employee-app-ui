@@ -46,7 +46,7 @@ function AadhaarConfirm() {
         }
       />
 
-      <ProgressBarTop step={1} />
+      {/* <ProgressBarTop step={1} /> */}
 
       <ScrollView keyboardShouldPersistTaps="handled">
         <Confirm />
