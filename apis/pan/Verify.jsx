@@ -14,9 +14,9 @@ import {
 import { panBackendPush } from "../../helpers/BackendPush";
 import ApiView from "../ApiView";
 
-function Verify(props) {
+function Verify({ data, url, disabled, style, navigation }) {
   const dispatch = useDispatch();
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
 
   const [loading, setLoading] = useState(false);
   const [backendPush, setBackendPush] = useState(false);
@@ -82,10 +82,10 @@ function Verify(props) {
         "X-API-Key": OG_API_KEY,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(props.data),
+      body: JSON.stringify(data),
     };
 
-    fetch(props.url, options)
+    fetch(url, options)
       .then((response) => response.json())
       .then((responseJson) => {
         try {
@@ -93,6 +93,7 @@ function Verify(props) {
             switch (responseJson["data"]["code"]) {
               case "1000":
                 const names = ["first", "middle", "last"];
+                console.log("PanVerifyFetch");
                 console.log("getting data from fetch", responseJson);
                 setDob(responseJson["data"]["pan_data"]["date_of_birth"]);
                 setEmail(
@@ -145,10 +146,10 @@ function Verify(props) {
 
   return (
     <ApiView
-      disabled={props.disabled}
+      disabled={disabled}
       loading={loading}
       goForFetch={goForFetch}
-      style={props.style}
+      style={style}
     />
   );
 }

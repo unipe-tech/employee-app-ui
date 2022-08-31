@@ -140,6 +140,7 @@ function PanForm({ navigation }) {
               data={{ pan_number: number, consent: "Y" }}
               style={form.nextButton}
               disabled={!validNumber || !consent}
+              navigation={navigation}
             />
           </View>
         </KeyboardAvoidingWrapper>

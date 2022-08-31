@@ -23,18 +23,19 @@ describe("AadhaarVerify Screen", () => {
       );
       expect(tree).toMatchSnapshot();
     }, 8000);
-
-    // it("YES navigates to AadhaarForm Screen", () => {
-    //   const navigate = jest.fn();
-    //   const wrapper = render(
-    //     <Provider store={store}>
-    //       <NavigationContainer>
-    //         <AadhaarVerify navigation={{ navigate }} />
-    //       </NavigationContainer>
-    //     </Provider>
-    //   );
-    //   fireEvent.press(wrapper.getByTestId("backIcon"));
-    //   expect(navigate).toHaveBeenCalledWith("AadhaarForm");
-    // });
+  });
+  describe("Back Button Testing", () => {
+    it("Back Icon Navigates to Aadhaar Form", () => {
+      const navigate = jest.fn();
+      const wrapper = render(
+        <Provider store={store}>
+          <NavigationContainer>
+            <AadhaarVerify navigation={{ navigate }} />
+          </NavigationContainer>
+        </Provider>
+      );
+      fireEvent.press(wrapper.getByTestId("backIcon"));
+      expect(navigate).toBeCalledWith("AadhaarForm");
+    });
   });
 });
