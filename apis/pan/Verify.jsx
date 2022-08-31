@@ -4,12 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { Alert } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 import {
-  addDob,
-  addEmail,
-  addGender,
-  addName,
+  addData,
   addVerifyMsg,
   addVerifyStatus,
+<<<<<<< HEAD
+=======
+  addVerifyTimestamp
+>>>>>>> c9a1264b04cb68d3513a7893441edb337b8be7b1
 } from "../../store/slices/panSlice";
 import { panBackendPush } from "../../helpers/BackendPush";
 import ApiView from "../ApiView";
@@ -23,14 +24,13 @@ function Verify({ data, url, disabled, style, navigation }) {
 
   const id = useSelector((state) => state.auth.id);
   const panSlice = useSelector((state) => state.pan);
-  const [dob, setDob] = useState(panSlice?.dob);
-  const [email, setEmail] = useState(panSlice?.email);
-  const [gender, setGender] = useState(panSlice?.gender);
-  const [name, setName] = useState(panSlice?.name);
+  const [data, setData] = useState(panSlice?.data);
   const [verifyMsg, setVerifyMsg] = useState(panSlice?.verifyMsg);
   const [verifyStatus, setVerifyStatus] = useState(panSlice?.verifyStatus);
+  const [verifyTimestamp, setVerifyTimestamp] = useState(panSlice?.verifyTimestamp);
 
   useEffect(() => {
+<<<<<<< HEAD
     dispatch(addDob(dob));
   }, [dob]);
 
@@ -45,6 +45,10 @@ function Verify({ data, url, disabled, style, navigation }) {
   useEffect(() => {
     dispatch(addName(name));
   }, [name]);
+=======
+    dispatch(addData(data))
+  }, [data]);
+>>>>>>> c9a1264b04cb68d3513a7893441edb337b8be7b1
 
   useEffect(() => {
     dispatch(addVerifyMsg(verifyMsg));
@@ -55,18 +59,19 @@ function Verify({ data, url, disabled, style, navigation }) {
   }, [verifyStatus]);
 
   useEffect(() => {
-    console.log(backendPush);
-    console.log("verifyStatus: ", verifyStatus);
+    dispatch(addVerifyTimestamp(verifyTimestamp))
+  }, [verifyTimestamp]);
+
+  useEffect(() => {
+    console.log("panSlice: ", panSlice);
     if (backendPush) {
       panBackendPush({
         id: id,
-        dob: dob,
-        email: email,
-        gender: gender,
-        name: name,
+        data: data,
         number: panSlice?.number,
         verifyMsg: verifyMsg,
         verifyStatus: verifyStatus,
+        verifyTimestamp: verifyTimestamp,
       });
       setBackendPush(false);
       setLoading(false);
@@ -93,20 +98,12 @@ function Verify({ data, url, disabled, style, navigation }) {
             switch (responseJson["data"]["code"]) {
               case "1000":
                 const names = ["first", "middle", "last"];
-                console.log("PanVerifyFetch");
-                console.log("getting data from fetch", responseJson);
-                setDob(responseJson["data"]["pan_data"]["date_of_birth"]);
-                setEmail(
-                  responseJson["data"]["pan_data"]["email"]?.toLowerCase()
-                );
-                setGender(responseJson["data"]["pan_data"]["gender"]);
-                setName(
-                  names
-                    .map((k) => responseJson["data"]["pan_data"][`${k}_name`])
-                    .join(" ")
-                );
+                responseJson["data"]["pan_data"]["name"] = names.map(k => responseJson["data"]["pan_data"][`${k}_name`]).join(" ");
+                console.log("PAN fetched data: ", responseJson);
+                setData(responseJson["data"]["pan_data"]);
                 setVerifyMsg("To be confirmed by User");
                 setVerifyStatus("PENDING");
+                setVerifyTimestamp(responseJson["timestamp"]);
                 setBackendPush(true);
                 navigation.navigate("PanConfirm");
                 break;

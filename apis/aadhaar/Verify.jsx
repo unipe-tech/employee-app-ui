@@ -7,6 +7,7 @@ import {
   addData,
   addVerifyMsg,
   addVerifyStatus,
+  addVerifyTimestamp,
 } from "../../store/slices/aadhaarSlice";
 import ApiView from "../ApiView";
 import { aadhaarBackendPush } from "../../helpers/BackendPush";
@@ -26,6 +27,9 @@ function Verify(props) {
   );
   const [verifyMsg, setVerifyMsg] = useState(aadhaarSlice?.verifyMsg);
   const [verifyStatus, setVerifyStatus] = useState(aadhaarSlice?.verifyStatus);
+  const [verifyTimestamp, setVerifyTimestamp] = useState(
+    aadhaarSlice?.verifyTimestamp
+  );
 
   useEffect(() => {
     dispatch(addData(data));
@@ -40,6 +44,10 @@ function Verify(props) {
   }, [verifyStatus]);
 
   useEffect(() => {
+    dispatch(addVerifyTimestamp(verifyTimestamp));
+  }, [verifyTimestamp]);
+
+  useEffect(() => {
     console.log(backendPush);
     console.log("verifyStatus: ", verifyStatus);
     if (backendPush) {
@@ -49,6 +57,7 @@ function Verify(props) {
         number: aadhaarSlice?.number,
         verifyMsg: verifyMsg,
         verifyStatus: verifyStatus,
+        verifyTimestamp: verifyTimestamp,
       });
       setBackendPush(false);
       setLoading(false);
@@ -82,9 +91,22 @@ function Verify(props) {
           if (responseJson["status"] == "200") {
             switch (responseJson["data"]["code"]) {
               case "1002":
-                setData(responseJson["data"]);
+                const names = [
+                  "house",
+                  "street",
+                  "district",
+                  "locality",
+                  "state",
+                  "pincode",
+                ];
+                responseJson["data"]["aadhaar_data"]["address"] = names
+                  .map((k) => responseJson["data"]["aadhaar_data"][k])
+                  .join(", ");
+                console.log("AADHAAR fetched data: ", responseJson);
+                setData(responseJson["data"]["aadhaar_data"]);
                 setVerifyMsg("OTP validated by User");
                 setVerifyStatus("PENDING");
+                setVerifyTimestamp(responseJson["timestamp"]);
                 setBackendPush(true);
                 navigation.navigate("AadhaarConfirm");
                 break;
