@@ -7,15 +7,12 @@ import {
   addData,
   addVerifyMsg,
   addVerifyStatus,
-<<<<<<< HEAD
-=======
-  addVerifyTimestamp
->>>>>>> c9a1264b04cb68d3513a7893441edb337b8be7b1
+  addVerifyTimestamp,
 } from "../../store/slices/panSlice";
 import { panBackendPush } from "../../helpers/BackendPush";
 import ApiView from "../ApiView";
 
-function Verify({ data, url, disabled, style, navigation }) {
+function Verify(props) {
   const dispatch = useDispatch();
   // const navigation = useNavigation();
 
@@ -27,28 +24,13 @@ function Verify({ data, url, disabled, style, navigation }) {
   const [data, setData] = useState(panSlice?.data);
   const [verifyMsg, setVerifyMsg] = useState(panSlice?.verifyMsg);
   const [verifyStatus, setVerifyStatus] = useState(panSlice?.verifyStatus);
-  const [verifyTimestamp, setVerifyTimestamp] = useState(panSlice?.verifyTimestamp);
+  const [verifyTimestamp, setVerifyTimestamp] = useState(
+    panSlice?.verifyTimestamp
+  );
 
   useEffect(() => {
-<<<<<<< HEAD
-    dispatch(addDob(dob));
-  }, [dob]);
-
-  useEffect(() => {
-    dispatch(addEmail(email));
-  }, [email]);
-
-  useEffect(() => {
-    dispatch(addGender(gender));
-  }, [gender]);
-
-  useEffect(() => {
-    dispatch(addName(name));
-  }, [name]);
-=======
-    dispatch(addData(data))
+    dispatch(addData(data));
   }, [data]);
->>>>>>> c9a1264b04cb68d3513a7893441edb337b8be7b1
 
   useEffect(() => {
     dispatch(addVerifyMsg(verifyMsg));
@@ -59,7 +41,7 @@ function Verify({ data, url, disabled, style, navigation }) {
   }, [verifyStatus]);
 
   useEffect(() => {
-    dispatch(addVerifyTimestamp(verifyTimestamp))
+    dispatch(addVerifyTimestamp(verifyTimestamp));
   }, [verifyTimestamp]);
 
   useEffect(() => {
@@ -87,10 +69,10 @@ function Verify({ data, url, disabled, style, navigation }) {
         "X-API-Key": OG_API_KEY,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(props.data),
     };
 
-    fetch(url, options)
+    fetch(props.url, options)
       .then((response) => response.json())
       .then((responseJson) => {
         try {
@@ -98,14 +80,16 @@ function Verify({ data, url, disabled, style, navigation }) {
             switch (responseJson["data"]["code"]) {
               case "1000":
                 const names = ["first", "middle", "last"];
-                responseJson["data"]["pan_data"]["name"] = names.map(k => responseJson["data"]["pan_data"][`${k}_name`]).join(" ");
+                responseJson["data"]["pan_data"]["name"] = names
+                  .map((k) => responseJson["data"]["pan_data"][`${k}_name`])
+                  .join(" ");
                 console.log("PAN fetched data: ", responseJson);
                 setData(responseJson["data"]["pan_data"]);
                 setVerifyMsg("To be confirmed by User");
                 setVerifyStatus("PENDING");
                 setVerifyTimestamp(responseJson["timestamp"]);
                 setBackendPush(true);
-                navigation.navigate("PanConfirm");
+                props.navigation.navigate("PanConfirm");
                 break;
               default:
                 setVerifyMsg(responseJson["data"]["message"]);
@@ -143,10 +127,10 @@ function Verify({ data, url, disabled, style, navigation }) {
 
   return (
     <ApiView
-      disabled={disabled}
+      disabled={props.disabled}
       loading={loading}
       goForFetch={goForFetch}
-      style={style}
+      style={props.style}
     />
   );
 }
