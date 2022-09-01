@@ -8,7 +8,10 @@
     "build:dev": "gulp set --env=dev && cd android && gradlew assembleRelease",
     "build:test": "gulp set --env=test && cd android && gradlew assembleRelease",
     "build:debug": "gulp set --env=test && cd android && gradlew assembleDebug",
-    "build:prod": "gulp set --env=prod && cd android && gradlew bundleRelease"
+    "build:prod": "gulp set --env=prod && cd android && gradlew bundleRelease",
+    "test": "jest -u",
+    "test:dev": "jest -u --watch",
+    "test:coverage": "jest -u --coverage"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.17.6",
@@ -56,10 +59,31 @@
     "react-native-vector-icons": "^9.1.0",
     "react-native-web": "0.17.7",
     "react-redux": "^8.0.2",
-    "redux-persist": "^6.0.0"
+    "redux-persist": "^6.0.0",
+    "react-test-renderer": "17.0.2",
+    "redux-mock-store": "^1.5.4",
+    "ts-jest": "^28.0.8",
+    "react-native-iphone-x-helper": "^1.3.1",
+    "react-addons-test-utils": "^15.6.2",
+    "isomorphic-fetch": "^3.0.0",
+    "jest-environment-jsdom": "^28.1.3",
+    "metro-babel-register": "^0.72.0",
+    "babel-jest": "^28.1.3",
+    "enzyme": "^3.11.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9"
+    "@babel/core": "^7.12.9",
+    "@babel/preset-env": "^7.18.10",
+    "@testing-library/jest-native": "^4.0.11",
+    "@testing-library/react-native": "^11.0.0",
+    "@types/jest": "^28.1.7",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.7",
+    "enzyme-adapter-react-16": "^1.15.6",
+    "jest": "^28.1.3",
+    "jest-environment-enzyme": "^7.1.2",
+    "jest-enzyme": "^7.1.2",
+    "mock-async-storage": "^2.2.0",
+    "typescript": "^4.7.4"
   },
   "resolutions": {
     "glob": "7.2.0"

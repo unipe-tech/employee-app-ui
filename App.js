@@ -12,10 +12,15 @@ import { store, persistor } from "./store/store";
 
 export default function App() {
   SplashScreen.hide();
+  const navigationRef = createNavigationContainerRef();
+
+  if (navigationRef.isReady()) {
+    navigationRef.navigate("WelcomePage");
+  }
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <NavigationContainer>
+        <NavigationContainer ref={navigationRef}>
           <SafeAreaProvider style={{ backgroundColor: "white", flex: 1 }}>
             <IconComponentProvider IconComponent={Icon}>
               <StackNavigator />

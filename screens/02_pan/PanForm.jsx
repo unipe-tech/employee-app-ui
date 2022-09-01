@@ -14,15 +14,14 @@ import { useDispatch, useSelector } from "react-redux";
 import ProgressBarTop from "../../components/ProgressBarTop";
 import { KeyboardAvoidingWrapper } from "../../KeyboardAvoidingWrapper";
 import { bankform, form, styles, checkBox } from "../../styles";
-
+import { MaterialIcons } from "react-native-vector-icons";
 import Verify from "../../apis/pan/Verify";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { addNumber } from "../../store/slices/panSlice";
 import { OG_PAN_VERIFY_API } from "../../services/employees/endpoints";
 
-export default PanForm = () => {
+export default PanForm = ({ navigation }) => {
   const dispatch = useDispatch();
-  const navigation = useNavigation();
   const [consent, setConsent] = useState(false);
   const [validNumber, setValidNumber] = useState(true);
 
@@ -62,14 +61,18 @@ export default PanForm = () => {
           color="#4E46F1"
           leading={
             <IconButton
-              icon={<Icon name="arrow-back" size={20} color="white" />}
+              testID="backIcon"
+              icon={<MaterialIcons name="arrow-back" size={20} color="white" />}
               // TODO: Conditional if Aadhaar verified or not
               onPress={() => navigation.navigate("AadhaarConfirm")}
             />
           }
           trailing={
             <IconButton
-              icon={<Icon name="arrow-forward" size={20} color="white" />}
+              testID="forwardIcon"
+              icon={
+                <MaterialIcons name="arrow-forward" size={20} color="white" />
+              }
               onPress={() => {
                 SkipPAN();
               }}
@@ -110,7 +113,7 @@ export default PanForm = () => {
             </View>
 
             <View style={bankform.infoCard}>
-              <Icon name="info-outline" size={20} color="#4E46F1" />
+              <MaterialIcons name="info-outline" size={20} color="#4E46F1" />
               <Text style={bankform.infoText}>
                 PAN is required to verify name and date of birth.
               </Text>
