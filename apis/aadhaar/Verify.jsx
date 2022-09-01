@@ -1,7 +1,7 @@
 import { OG_API_KEY } from "@env";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Alert } from "react-native";
+import { Alert, View } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 import {
   addData,
@@ -144,12 +144,14 @@ function Verify(props) {
   };
 
   return (
-    <ApiView
-      disabled={props.disabled}
-      loading={loading}
-      goForFetch={goForFetch}
-      style={props.style}
-    />
+    <View testID="apiView">
+      <ApiView
+        disabled={props.disabled}
+        loading={loading}
+        goForFetch={goForFetch}
+        style={props.style}
+      />
+    </View>
   );
 }
 

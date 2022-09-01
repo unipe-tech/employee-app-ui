@@ -779,7 +779,6 @@ exports[`PanConfirm Screen UI Testing testing UI rendering 1`] = `
           }
         >
           Date of Birth: 
-          02/02/2002
         </Text>
         <Text
           style={

@@ -71,13 +71,16 @@ const store = {
   // PAN
 
   pan: {
-    dob: "02/02/2002",
-    email: "xyz@unipe.co",
-    gender: "Male",
-    name: "Xyz Goyal",
+    data: {
+      dob: "02/02/2002",
+      email: "xyz@unipe.co",
+      gender: "Male",
+      name: "Xyz Goyal",
+    },
     number: "ABCDE1234F",
     verifyMsg: "Verification Pending",
     verifyStatus: "PENDING",
+    verifyTimestamp: "2 july 2022",
   },
 
   // Profile

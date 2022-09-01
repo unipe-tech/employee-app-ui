@@ -46,7 +46,7 @@ function PanConfirm({ navigation }) {
       <ProgressBarTop step={2} />
 
       <ScrollView keyboardShouldPersistTaps="handled">
-        <Confirm />
+        <Confirm navigation={navigation} />
       </ScrollView>
     </SafeAreaView>
   );

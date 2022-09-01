@@ -7,9 +7,9 @@ import { addVerifyMsg, addVerifyStatus } from "../../store/slices/panSlice";
 import { panBackendPush } from "../../helpers/BackendPush";
 import { bankform, form, styles } from "../../styles";
 
-function Confirm() {
+function Confirm({ navigation }) {
   const dispatch = useDispatch();
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
 
   const [backendPush, setBackendPush] = useState(false);
 

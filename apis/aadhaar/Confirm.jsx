@@ -11,9 +11,9 @@ import {
 import { bankform, form, styles } from "../../styles";
 import { aadhaarBackendPush } from "../../helpers/BackendPush";
 
-function Confirm() {
+function Confirm({ navigation }) {
   const dispatch = useDispatch();
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
 
   const [backendPush, setBackendPush] = useState(false);
 

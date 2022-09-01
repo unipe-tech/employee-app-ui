@@ -49,7 +49,7 @@ function AadhaarConfirm({ navigation }) {
       <ProgressBarTop step={1} />
 
       <ScrollView keyboardShouldPersistTaps="handled">
-        <Confirm />
+        <Confirm navigation={navigation} />
       </ScrollView>
     </SafeAreaView>
   );
