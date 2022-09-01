@@ -88,6 +88,7 @@ describe("AadhaarOTP API", () => {
 
       act(async () => {
         await expect(goForFetch.mock.calls.length).toEqual(1);
+        await expect(goForFetch).toHaveBeenCalledTimes(1);
         await expect(navigate).toHaveBeenCalledWith("AadhaarConfirm");
       });
     });
