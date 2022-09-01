@@ -222,10 +222,10 @@ exports[`BankConfirm Screen UI Testing testing UI rendering 1`] = `
             style={
               Object {
                 "alignItems": "center",
-                "backgroundColor": "#4aae4f",
-                "borderColor": "#4aae4f",
+                "backgroundColor": "#E5EAF7",
+                "borderColor": "#4E46F1",
                 "borderRadius": 15,
-                "borderWidth": 0,
+                "borderWidth": 3,
                 "height": 30,
                 "justifyContent": "center",
                 "overflow": "hidden",
@@ -266,10 +266,10 @@ exports[`BankConfirm Screen UI Testing testing UI rendering 1`] = `
             style={
               Object {
                 "alignItems": "center",
-                "backgroundColor": "#4aae4f",
-                "borderColor": "#4aae4f",
+                "backgroundColor": "#E5EAF7",
+                "borderColor": "#4E46F1",
                 "borderRadius": 15,
-                "borderWidth": 0,
+                "borderWidth": 3,
                 "height": 30,
                 "justifyContent": "center",
                 "overflow": "hidden",
@@ -311,9 +311,9 @@ exports[`BankConfirm Screen UI Testing testing UI rendering 1`] = `
               Object {
                 "alignItems": "center",
                 "backgroundColor": "#ffffff",
-                "borderColor": "#4aae4f",
+                "borderColor": "#4E46F1",
                 "borderRadius": 15,
-                "borderWidth": 5,
+                "borderWidth": 3,
                 "height": 30,
                 "justifyContent": "center",
                 "overflow": "hidden",
@@ -354,10 +354,10 @@ exports[`BankConfirm Screen UI Testing testing UI rendering 1`] = `
             style={
               Object {
                 "alignItems": "center",
-                "backgroundColor": "#a4d4a5",
-                "borderColor": "#4aae4f",
+                "backgroundColor": "#ffffff",
+                "borderColor": "#aaaaaa",
                 "borderRadius": 15,
-                "borderWidth": 0,
+                "borderWidth": 3,
                 "height": 30,
                 "justifyContent": "center",
                 "overflow": "hidden",
@@ -398,10 +398,10 @@ exports[`BankConfirm Screen UI Testing testing UI rendering 1`] = `
             style={
               Object {
                 "alignItems": "center",
-                "backgroundColor": "#a4d4a5",
-                "borderColor": "#4aae4f",
+                "backgroundColor": "#ffffff",
+                "borderColor": "#aaaaaa",
                 "borderRadius": 15,
-                "borderWidth": 0,
+                "borderWidth": 3,
                 "height": 30,
                 "justifyContent": "center",
                 "overflow": "hidden",
@@ -442,10 +442,10 @@ exports[`BankConfirm Screen UI Testing testing UI rendering 1`] = `
             style={
               Object {
                 "alignItems": "center",
-                "backgroundColor": "#a4d4a5",
-                "borderColor": "#4aae4f",
+                "backgroundColor": "#ffffff",
+                "borderColor": "#aaaaaa",
                 "borderRadius": 15,
-                "borderWidth": 0,
+                "borderWidth": 3,
                 "height": 30,
                 "justifyContent": "center",
                 "overflow": "hidden",
@@ -501,11 +501,11 @@ exports[`BankConfirm Screen UI Testing testing UI rendering 1`] = `
                   "textAlign": "center",
                 },
                 Object {
-                  "color": "#000000",
+                  "color": "#999999",
                 },
                 Object {
                   "fontFamily": undefined,
-                  "fontSize": 13,
+                  "fontSize": 9,
                 },
               ]
             }
@@ -540,11 +540,11 @@ exports[`BankConfirm Screen UI Testing testing UI rendering 1`] = `
                   "textAlign": "center",
                 },
                 Object {
-                  "color": "#000000",
+                  "color": "#999999",
                 },
                 Object {
                   "fontFamily": undefined,
-                  "fontSize": 13,
+                  "fontSize": 9,
                 },
               ]
             }
@@ -579,11 +579,11 @@ exports[`BankConfirm Screen UI Testing testing UI rendering 1`] = `
                   "textAlign": "center",
                 },
                 Object {
-                  "color": "#4aae4f",
+                  "color": "#4E46F1",
                 },
                 Object {
                   "fontFamily": undefined,
-                  "fontSize": 13,
+                  "fontSize": 9,
                 },
               ]
             }
@@ -618,11 +618,11 @@ exports[`BankConfirm Screen UI Testing testing UI rendering 1`] = `
                   "textAlign": "center",
                 },
                 Object {
-                  "color": "#000000",
+                  "color": "#999999",
                 },
                 Object {
                   "fontFamily": undefined,
-                  "fontSize": 13,
+                  "fontSize": 9,
                 },
               ]
             }
@@ -657,11 +657,11 @@ exports[`BankConfirm Screen UI Testing testing UI rendering 1`] = `
                   "textAlign": "center",
                 },
                 Object {
-                  "color": "#000000",
+                  "color": "#999999",
                 },
                 Object {
                   "fontFamily": undefined,
-                  "fontSize": 13,
+                  "fontSize": 9,
                 },
               ]
             }
@@ -696,11 +696,11 @@ exports[`BankConfirm Screen UI Testing testing UI rendering 1`] = `
                   "textAlign": "center",
                 },
                 Object {
-                  "color": "#000000",
+                  "color": "#999999",
                 },
                 Object {
                   "fontFamily": undefined,
-                  "fontSize": 13,
+                  "fontSize": 9,
                 },
               ]
             }

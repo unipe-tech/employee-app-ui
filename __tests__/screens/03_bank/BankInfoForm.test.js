@@ -52,7 +52,7 @@ describe("BankInformationForm Screen", () => {
     });
 
     it("testing yes button in alert box", () => {
-      const SkipAadhaar = jest.fn();
+      const SkipBank = jest.fn();
       const navigate = jest.fn();
       const navigateToPersonalDetailsForm = jest.fn();
       const wrapper = render(
@@ -62,8 +62,8 @@ describe("BankInformationForm Screen", () => {
           </NavigationContainer>
         </Provider>
       );
-      fireEvent.press(wrapper.getByText("Skip"));
-      expect(SkipAadhaar).toBeTruthy();
+      fireEvent.press(wrapper.getByTestId("forwardIcon"));
+      expect(SkipBank).toBeTruthy();
       const spyAlert = jest
         .spyOn(Alert, "alert")
         //@ts-ignore

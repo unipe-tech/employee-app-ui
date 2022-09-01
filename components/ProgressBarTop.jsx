@@ -5,10 +5,10 @@ import { View } from "react-native";
 import { progressBar } from "../styles";
 import { useNavigation } from "@react-navigation/core";
 import { useSelector } from "react-redux";
-import { stepIndicatorStyles } from "../styles";
 
 function ProgressBarTop(props) {
-  const secondIndicatorStyles = {
+  const navigation = useNavigation();
+  const stepIndicatorStyles = {
     stepIndicatorSize: 30,
     currentStepIndicatorSize: 40,
     separatorStrokeWidth: 2,

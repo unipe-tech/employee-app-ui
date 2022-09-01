@@ -16,8 +16,8 @@ import { MaterialIcons } from "react-native-vector-icons";
 
 function AadhaarForm({ navigation }) {
   const dispatch = useDispatch();
-  // const navigation = useNavigation();
-
+  // const navigation = useNavigation()
+  
   const [consent, setConsent] = useState(false);
   const [validNumber, setValidNumber] = useState(true);
 
@@ -135,18 +135,6 @@ function AadhaarForm({ navigation }) {
               data={{ aadhaar_number: number, consent: "Y" }}
               style={form.nextButton}
               disabled={!validNumber || !consent}
-            />
-
-            <Button
-              testID="skipBtn"
-              title="Skip"
-              uppercase={false}
-              type="solid"
-              color="#4E46F1"
-              style={form.skipButton}
-              onPress={() => {
-                SkipAadhaar();
-              }}
             />
           </View>
         </KeyboardAvoidingWrapper>
