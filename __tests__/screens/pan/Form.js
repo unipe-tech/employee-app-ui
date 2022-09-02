@@ -1,7 +1,7 @@
 import { render, fireEvent, act } from "@testing-library/react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { Provider } from "react-redux";
-import PanForm from "../../../screens/02_pan/PanForm";
+import PanForm from "../../../screens/02_pan/Form";
 import { store } from "../../../store/store";
 import { shallow } from "enzyme";
 import { Alert } from "react-native";

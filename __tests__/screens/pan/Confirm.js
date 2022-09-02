@@ -3,7 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { Provider } from "react-redux";
 import { Alert } from "react-native";
 import spyOnAlert from "../../../testHelpers/spyOnAlert";
-import PanConfirm from "../../../screens/02_pan/PanConfirm";
+import PanConfirm from "../../../screens/02_pan/Confirm";
 import configureStore from "redux-mock-store";
 import mockStore from "../../../store/mockStore";
 

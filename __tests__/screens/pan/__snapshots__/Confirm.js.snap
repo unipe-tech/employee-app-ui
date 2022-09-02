@@ -730,8 +730,8 @@ exports[`PanConfirm Screen UI Testing testing UI rendering 1`] = `
               "color": "#230C45",
               "fontFamily": "Roboto",
               "fontSize": 16,
-              "marginRight": 20,
               "marginTop": 20,
+              "textAlign": "center",
             }
           }
         >

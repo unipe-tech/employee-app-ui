@@ -6,13 +6,13 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { KeyboardAvoidingWrapper } from "../../KeyboardAvoidingWrapper";
 import { bankform, checkBox, form, styles } from "../../styles";
-
+import { MaterialIcons } from "react-native-vector-icons";
 import PanVerifyApi from "../../apis/pan/Verify";
 import { addNumber } from "../../store/slices/panSlice";
 
 const PanFormTemplate = (props) => {
   const dispatch = useDispatch();
-  
+
   const [consent, setConsent] = useState(false);
   const [validNumber, setValidNumber] = useState(true);
 
@@ -62,7 +62,7 @@ const PanFormTemplate = (props) => {
           </View>
 
           <View style={bankform.infoCard}>
-            <Icon name="info-outline" size={20} color="#4E46F1" />
+            <MaterialIcons name="info-outline" size={20} color="#4E46F1" />
             <Text style={bankform.infoText}>
               PAN is required to verify name and date of birth.
             </Text>
@@ -87,7 +87,6 @@ const PanFormTemplate = (props) => {
             disabled={!validNumber || !consent}
             type={props?.route?.params?.type || ""}
           />
-
         </View>
       </KeyboardAvoidingWrapper>
     </>
