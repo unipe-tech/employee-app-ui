@@ -7,7 +7,7 @@ import ProgressBarTop from "../../components/ProgressBarTop";
 import { styles } from "../../styles";
 import { MaterialIcons } from "react-native-vector-icons";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
-import Confirm from "../../apis/pan/Confirm";
+import PanConfirmApi from "../../apis/pan/Confirm";
 
 export default PanConfirm = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -44,7 +44,7 @@ export default PanConfirm = ({ navigation }) => {
       <ProgressBarTop step={2} />
 
       <ScrollView keyboardShouldPersistTaps="handled">
-        <Confirm />
+        <PanConfirmApi />
       </ScrollView>
     </SafeAreaView>
   );

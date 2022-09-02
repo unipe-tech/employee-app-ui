@@ -11,9 +11,9 @@ import ProgressBarTop from "../../components/ProgressBarTop";
 import { styles } from "../../styles";
 
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
-import Confirm from "../../apis/aadhaar/Confirm";
+import AadhaarConfirmApi from "../../apis/aadhaar/Confirm";
 
-export default AadhaarConfirm = () => {
+const AadhaarConfirm = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
@@ -49,10 +49,12 @@ export default AadhaarConfirm = () => {
       <ProgressBarTop step={1} />
 
       <ScrollView keyboardShouldPersistTaps="handled">
-        <Confirm />
+        <AadhaarConfirmApi />
       </ScrollView>
     
     </SafeAreaView>
   );
   
 };
+
+export default AadhaarConfirm;

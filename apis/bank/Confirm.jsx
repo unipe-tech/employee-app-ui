@@ -4,49 +4,44 @@ import { Text, View } from "react-native";
 import { Button } from "@react-native-material/core";
 import { useNavigation } from "@react-navigation/core";
 import {
-  addBankVerifyMsg,
-  addBankVerifyStatus,
+  addVerifyMsg,
+  addVerifyStatus,
 } from "../../store/slices/bankSlice";
 import { bankBackendPush } from "../../helpers/BackendPush";
 import { bankform, form, styles } from "../../styles";
 
-export default Confirm = () => {
+
+const BankConfirmApi = (props) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
   const [backendPush, setBackendPush] = useState(false);
-  const id = useSelector((state) => state.auth.id);
 
-  const accountHolderName = useSelector((state) => state.bank.accountHolderName); 
-  const ifsc = useSelector((state) => state.bank?.ifsc);
-  const accountNumber = useSelector((state) => state.bank?.accountNumber);
-  const upi = useSelector((state) => state.bank?.upi);
-  const bankName = useSelector((state) => state.bank?.bankName);
-  const branch = useSelector((state) => state.bank?.bankBranch);
-  const city = useSelector((state) => state.bank?.branchCity);
+  const id = useSelector((state) => state.auth.id);
+  const data = useSelector((state) => state.bank.data);
+  const verifyTimestamp = useSelector((state) => state.bank.verifyTimestamp);
 
   const bankSlice = useSelector((state) => state.bank);
-  const [verifyStatus, setVerifyStatus] = useState(bankSlice?.verifyStatus);
   const [verifyMsg, setVerifyMsg] = useState(bankSlice?.verifyMsg);
+  const [verifyStatus, setVerifyStatus] = useState(bankSlice?.verifyStatus);
 
   useEffect(() => {
-    dispatch(addBankVerifyMsg(verifyMsg));
+    dispatch(addVerifyMsg(verifyMsg));
   }, [verifyMsg]);
 
   useEffect(() => {
-    dispatch(addBankVerifyStatus(verifyStatus));
+    dispatch(addVerifyStatus(verifyStatus));
   }, [verifyStatus]);
 
   useEffect(() => {
-    console.log("bankSlice : ", bankSlice);
+    console.log("BankConfirmApi bankSlice : ", bankSlice);
     if (backendPush) {
       bankBackendPush({
         id: id,
-        ifsc: ifsc,
-        accountNumber: accountNumber,
-        upi: upi,
-        verifyStatus: verifyStatus,
+        data: data,
         verifyMsg: verifyMsg,
+        verifyStatus: verifyStatus,
+        verifyTimestamp: verifyTimestamp,
       });
     }
     setBackendPush(false);
@@ -55,13 +50,13 @@ export default Confirm = () => {
   return (
     <View style={styles.container}>
       <Text style={form.OtpAwaitMsg}>Are these your Bank details ?{"\n"}</Text>
-      <Text style={form.userData}>BankName: {bankName}</Text>
-      <Text style={form.userData}>Branch: {branch}</Text>
-      <Text style={form.userData}>City: {city}</Text>
-      <Text style={form.userData}>AccountHolderName: {accountHolderName}</Text>
-      <Text style={form.userData}>AccountNumber: {accountNumber}</Text>
-      <Text style={form.userData}>IFSC: {ifsc}</Text>
-      <Text style={form.userData}>UPI: {upi}</Text>
+      <Text style={form.userData}>Bank Name: {data?.bankName}</Text>
+      <Text style={form.userData}>Branch Name: {data?.branchName}</Text>
+      <Text style={form.userData}>Branch City: {data?.branchCity}</Text>
+      <Text style={form.userData}>AccountHolderName: {data?.accountHolderName}</Text>
+      <Text style={form.userData}>AccountNumber: {data?.accountNumber}</Text>
+      <Text style={form.userData}>IFSC: {data?.ifsc}</Text>
+      <Text style={form.userData}>UPI: {data?.upi}</Text>
       <View
         style={{
           alignSelf: "center",
@@ -80,7 +75,16 @@ export default Confirm = () => {
             setVerifyMsg("Rejected by User");
             setVerifyStatus("ERROR");
             setBackendPush(true);
-            navigation.navigate("BankInfoForm");
+            {
+              props?.route?.params?.type == "KYC"
+                ? navigation.navigate("KYC", {
+                    screen: "BANK",
+                    params: {
+                      screen: "Bank Data",
+                    },
+                  })
+                : navigation.navigate("BankForm");
+            }
           }}
         />
         <Button
@@ -93,7 +97,13 @@ export default Confirm = () => {
             setVerifyMsg("Confirmed by User");
             setVerifyStatus("SUCCESS");
             setBackendPush(true);
-            navigation.navigate("PersonalDetailsForm");
+            {
+              props?.route?.params?.type == "KYC"
+                ? navigation.navigate("KYC", {
+                    screen: "BANK",
+                  })
+                : navigation.navigate("PersonalDetailsForm");
+            }
           }}
         />
         <View style={bankform.padding}></View>
@@ -101,3 +111,5 @@ export default Confirm = () => {
     </View>
   );
 };
+
+export default BankConfirmApi;
