@@ -7,11 +7,11 @@ import ProgressBarTop from "../../components/ProgressBarTop";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { styles } from "../../styles";
 import AadhaarVerifyTemplate from "../../templates/aadhaar/Verify";
+import { MaterialIcons } from "react-native-vector-icons";
 
-
-const AadhaarVerify = () => {
+const AadhaarVerify = ({ navigation }) => {
   const dispatch = useDispatch();
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
 
   const [backDisabled, setBackDisabled] = useState(true);
   const countDownTime = useSelector((state) => state.timer.aadhaar);
@@ -47,7 +47,8 @@ const AadhaarVerify = () => {
         color="#4E46F1"
         leading={
           <IconButton
-            icon={<Icon name="arrow-back" size={20} color="white" />}
+            testID="backIcon"
+            icon={<MaterialIcons name="arrow-back" size={20} color="white" />}
             onPress={() => navigation.navigate("AadhaarForm")}
             disabled={backDisabled}
           />

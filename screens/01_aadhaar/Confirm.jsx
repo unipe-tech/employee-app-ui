@@ -2,20 +2,17 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { AppBar, Icon, IconButton } from "@react-native-material/core";
 import { useNavigation } from "@react-navigation/core";
-import {
-  Alert,
-  SafeAreaView,
-  ScrollView,
-} from "react-native";
+import { Alert, SafeAreaView, ScrollView } from "react-native";
 import ProgressBarTop from "../../components/ProgressBarTop";
 import { styles } from "../../styles";
 
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import AadhaarConfirmApi from "../../apis/aadhaar/Confirm";
+import { MaterialIcons } from "react-native-vector-icons";
 
-const AadhaarConfirm = () => {
+const AadhaarConfirm = ({ navigation }) => {
   const dispatch = useDispatch();
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
 
   useEffect(() => {
     dispatch(addCurrentScreen("AadhaarConfirm"));
@@ -26,7 +23,7 @@ const AadhaarConfirm = () => {
       "Do you want to go back ?",
       "If you go back your AADHAAR Verification will have to be redone. Continue if you want to edit your Aadhaar number.",
       [
-        { text: "No",  onPress: () => null, style: "cancel" },
+        { text: "No", onPress: () => null, style: "cancel" },
         { text: "Yes", onPress: () => navigation.navigate("AadhaarVerify") },
       ]
     );
@@ -34,13 +31,13 @@ const AadhaarConfirm = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-
       <AppBar
         title="Aadhaar Data Confirmation"
         color="#4E46F1"
         leading={
           <IconButton
-            icon={<Icon name="arrow-back" size={20} color="white" />}
+            testID="backIcon"
+            icon={<MaterialIcons name="arrow-back" size={20} color="white" />}
             onPress={() => backAlert()}
           />
         }
@@ -51,10 +48,8 @@ const AadhaarConfirm = () => {
       <ScrollView keyboardShouldPersistTaps="handled">
         <AadhaarConfirmApi />
       </ScrollView>
-    
     </SafeAreaView>
   );
-  
 };
 
 export default AadhaarConfirm;

@@ -8,11 +8,11 @@ import ProgressBarTop from "../../components/ProgressBarTop";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import AadhaarFormTemplate from "../../templates/aadhaar/Form";
 import { styles } from "../../styles";
+import { MaterialIcons } from "react-native-vector-icons";
 
-
-const AadhaarForm = () => {
+const AadhaarForm = ({ navigation }) => {
   const dispatch = useDispatch();
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
 
   useEffect(() => {
     dispatch(addCurrentScreen("AadhaarForm"));
@@ -48,7 +48,8 @@ const AadhaarForm = () => {
           color="#4E46F1"
           leading={
             <IconButton
-              icon={<Icon name="arrow-back" size={20} color="white" />}
+              testID="backIcon"
+              icon={<MaterialIcons name="arrow-back" size={20} color="white" />}
               onPress={() => {
                 backAlert();
               }}
@@ -56,7 +57,10 @@ const AadhaarForm = () => {
           }
           trailing={
             <IconButton
-              icon={<Icon name="arrow-forward" size={20} color="white" />}
+              testID="forwardIcon"
+              icon={
+                <MaterialIcons name="arrow-forward" size={20} color="white" />
+              }
               onPress={() => {
                 SkipAadhaar();
               }}
