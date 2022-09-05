@@ -7,11 +7,11 @@ import ProgressBarTop from "../../components/ProgressBarTop";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { styles } from "../../styles";
 import BankFormTemplate from "../../templates/bank/Form";
+import { MaterialIcons } from "react-native-vector-icons";
 
-
-const BankForm = () => {
+const BankForm = ({ navigation }) => {
   const dispatch = useDispatch();
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
 
   useEffect(() => {
     dispatch(addCurrentScreen("BankForm"));
@@ -31,7 +31,6 @@ const BankForm = () => {
     );
   };
 
-
   return (
     <>
       <SafeAreaView style={styles.container}>
@@ -40,13 +39,17 @@ const BankForm = () => {
           color="#4E46F1"
           leading={
             <IconButton
-              icon={<Icon name="arrow-back" size={20} color="white" />}
+              testID="backIcon"
+              icon={<MaterialIcons name="arrow-back" size={20} color="white" />}
               onPress={() => navigation.navigate("PanForm")}
             />
           }
           trailing={
             <IconButton
-              icon={<Icon name="arrow-forward" size={20} color="white" />}
+              testID="forwardIcon"
+              icon={
+                <MaterialIcons name="arrow-forward" size={20} color="white" />
+              }
               onPress={() => {
                 SkipBank();
               }}
@@ -56,7 +59,6 @@ const BankForm = () => {
         <ProgressBarTop step={3} />
 
         <BankFormTemplate />
-        
       </SafeAreaView>
     </>
   );

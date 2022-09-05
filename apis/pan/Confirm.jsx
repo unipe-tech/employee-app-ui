@@ -9,7 +9,7 @@ import { bankform, form, styles } from "../../styles";
 
 const PanConfirmApi = (props) => {
   const dispatch = useDispatch();
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
 
   const [backendPush, setBackendPush] = useState(false);
 
@@ -21,7 +21,7 @@ const PanConfirmApi = (props) => {
   const panSlice = useSelector((state) => state.pan);
   const [verifyMsg, setVerifyMsg] = useState(panSlice?.verifyMsg);
   const [verifyStatus, setVerifyStatus] = useState(panSlice?.verifyStatus);
-  
+
   useEffect(() => {
     dispatch(addVerifyMsg(verifyMsg));
   }, [verifyMsg]);
@@ -76,10 +76,10 @@ const PanConfirmApi = (props) => {
             setBackendPush(true);
             {
               props?.route?.params?.type == "KYC"
-                ? navigation.navigate("KYC", {
+                ? props.navigation.navigate("KYC", {
                     screen: "PAN",
                   })
-                : navigation.navigate("PanForm");
+                : props.navigation.navigate("PanForm");
             }
           }}
         />
@@ -95,13 +95,13 @@ const PanConfirmApi = (props) => {
             setBackendPush(true);
             {
               props?.route?.params?.type == "KYC"
-                ? navigation.navigate("KYC", {
+                ? props.navigation.navigate("KYC", {
                     screen: "PAN",
                     params: {
                       screen: "PAN Data",
                     },
                   })
-                : navigation.navigate("BankForm");
+                : props.navigation.navigate("BankForm");
             }
           }}
         />

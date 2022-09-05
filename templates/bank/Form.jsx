@@ -13,7 +13,7 @@ import {
   addUpi,
 } from "../../store/slices/bankSlice";
 import { bankform, checkBox, form } from "../../styles";
-
+import { MaterialIcons } from "react-native-vector-icons";
 
 const BankFormTemplate = (props) => {
   const dispatch = useDispatch();
@@ -21,13 +21,17 @@ const BankFormTemplate = (props) => {
   const [accNumNext, setAccNumNext] = useState(false);
   const [ifscNext, setIfscNext] = useState(false);
   const [consent, setConsent] = useState(false);
-  
+
   const bankSlice = useSelector((state) => state.bank);
   const [ifsc, setIfsc] = useState(bankSlice?.data?.ifsc);
-  const [accountNumber, setAccountNumber] = useState(bankSlice?.data?.accountNumber);
-  const [accountHolderName, setAccountHolderName] = useState(bankSlice?.data?.accountHolderName);
+  const [accountNumber, setAccountNumber] = useState(
+    bankSlice?.data?.accountNumber
+  );
+  const [accountHolderName, setAccountHolderName] = useState(
+    bankSlice?.data?.accountHolderName
+  );
   const [upi, setUpi] = useState(bankSlice?.data?.upi);
-  
+
   useEffect(() => {
     dispatch(addAccountHolderName(accountHolderName));
   }, [accountHolderName]);
@@ -68,7 +72,7 @@ const BankFormTemplate = (props) => {
         <View>
           <Text style={bankform.Maintitle}>Bank Details Verification</Text>
           <View style={bankform.infoCard}>
-            <Icon name="info-outline" size={20} color="#4E46F1" />
+            <MaterialIcons name="info-outline" size={20} color="#4E46F1" />
             <Text style={bankform.infoText}>
               We will use this bank account / UPI ID to deposit your salary
               every month, Please ensure the bank account belongs to you.
@@ -88,7 +92,7 @@ const BankFormTemplate = (props) => {
               position="right"
               caret={false}
             >
-              <Icon name="info-outline" size={20} color="grey" />
+              <MaterialIcons name="info-outline" size={20} color="grey" />
             </Popable>
           </Text>
           <TextInput
@@ -108,7 +112,7 @@ const BankFormTemplate = (props) => {
               position="right"
               caret={false}
             >
-              <Icon name="info-outline" size={20} color="grey" />
+              <MaterialIcons name="info-outline" size={20} color="grey" />
             </Popable>
           </Text>
           <TextInput
@@ -131,7 +135,7 @@ const BankFormTemplate = (props) => {
               position="right"
               caret={false}
             >
-              <Icon name="info-outline" size={20} color="grey" />
+              <MaterialIcons name="info-outline" size={20} color="grey" />
             </Popable>
           </Text>
           <TextInput
@@ -153,7 +157,7 @@ const BankFormTemplate = (props) => {
               position="right"
               caret={false}
             >
-              <Icon name="info-outline" size={20} color="grey" />
+              <MaterialIcons name="info-outline" size={20} color="grey" />
             </Popable>
           </Text>
           <TextInput
@@ -181,9 +185,8 @@ const BankFormTemplate = (props) => {
             disabled={!ifscNext || !accNumNext || !consent}
             type={props?.route?.params?.type || ""}
           />
-          
-          <View style={bankform.padding}></View>
 
+          <View style={bankform.padding}></View>
         </View>
       </KeyboardAvoidingWrapper>
     </>

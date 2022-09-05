@@ -2,21 +2,17 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { AppBar, Icon, IconButton } from "@react-native-material/core";
 import { useNavigation } from "@react-navigation/core";
-import {
-  Alert,
-  SafeAreaView,
-  ScrollView,
-} from "react-native";
+import { Alert, SafeAreaView, ScrollView } from "react-native";
 import ProgressBarTop from "../../components/ProgressBarTop";
 import { styles } from "../../styles";
 
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import BankConfirmApi from "../../apis/bank/Confirm";
+import { MaterialIcons } from "react-native-vector-icons";
 
-
-const BankConfirm = () => {
+const BankConfirm = ({ navigation }) => {
   const dispatch = useDispatch();
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
 
   useEffect(() => {
     dispatch(addCurrentScreen("BankConfirm"));
@@ -27,7 +23,7 @@ const BankConfirm = () => {
       "Do you want to go back ?",
       "If you go back your Bank Verification will have to be redone. Continue only if you want to edit your Bank Account Details.",
       [
-        { text: "No",  onPress: () => null, style: "cancel" },
+        { text: "No", onPress: () => null, style: "cancel" },
         { text: "Yes", onPress: () => navigation.navigate("BankForm") },
       ]
     );
@@ -40,7 +36,8 @@ const BankConfirm = () => {
         color="#4E46F1"
         leading={
           <IconButton
-            icon={<Icon name="arrow-back" size={20} color="white" />}
+            testID="backIcon"
+            icon={<MaterialIcons name="arrow-back" size={20} color="white" />}
             onPress={() => backAlert()}
           />
         }
