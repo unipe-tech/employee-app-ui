@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AadhaarOTP API UI rendering test testing UI rendering 1`] = `
+<ContextProvider
+  value={
+    Object {
+      "getServerState": undefined,
+      "store": Object {
+        "@@observable": [Function],
+        "dispatch": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+      },
+      "subscription": Object {
+        "addNestedSub": [Function],
+        "getListeners": [Function],
+        "handleChangeWrapper": [Function],
+        "isSubscribed": [Function],
+        "notifyNestedSubs": [Function],
+        "trySubscribe": [Function],
+        "tryUnsubscribe": [Function],
+      },
+    }
+  }
+>
+  <ForwardRef(NavigationContainerInner)>
+    <AadhaarOtpApi
+      data={
+        Object {
+          "aadhaar_number": "123456789101",
+          "consent": "Y",
+        }
+      }
+      disabled={true}
+      url="http://unipeapi.herokuapp.com/aadhaar-api/boson/generate-otp"
+    />
+  </ForwardRef(NavigationContainerInner)>
+</ContextProvider>
+`;
