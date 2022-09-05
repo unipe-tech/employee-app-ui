@@ -1,0 +1,277 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Login Screen should render UI properly 1`] = `
+<RCTSafeAreaView
+  emulateUnlessSupported={true}
+  style={
+    Object {
+      "backgroundColor": "white",
+      "height": "100%",
+    }
+  }
+>
+  <RCTScrollView
+    keyboardShouldPersistTaps="handled"
+  >
+    <View>
+      <View
+        onLayout={[Function]}
+        style={
+          Array [
+            Object {
+              "backgroundColor": "white",
+              "height": "100%",
+            },
+            Object {
+              "paddingBottom": 0,
+            },
+          ]
+        }
+      >
+        <RCTScrollView>
+          <View>
+            <View
+              accessible={true}
+              focusable={true}
+              onClick={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+            >
+              <Image
+                source={
+                  Object {
+                    "process": [Function],
+                  }
+                }
+                style={
+                  Object {
+                    "height": 87,
+                    "marginLeft": 70,
+                    "marginTop": 30,
+                    "width": 250,
+                  }
+                }
+              />
+              <Text
+                style={
+                  Object {
+                    "color": "#230C45",
+                    "fontFamily": "Roboto",
+                    "fontSize": 16,
+                    "marginLeft": 55,
+                    "marginTop": 40,
+                  }
+                }
+              >
+                Please enter your mobile number to login:
+              </Text>
+              <Text
+                style={
+                  Object {
+                    "color": "#020614",
+                    "fontFamily": "Noto Sans",
+                    "fontSize": 14,
+                    "marginLeft": 40,
+                    "marginTop": 60,
+                  }
+                }
+              >
+                Mobile Number
+              </Text>
+              <TextInput
+                autoCompleteType="tel"
+                keyboardType="phone-pad"
+                maxLength={13}
+                onChangeText={[Function]}
+                placeholder="9999999999"
+                style={
+                  Object {
+                    "borderBottomWidth": 1,
+                    "height": 50,
+                    "marginLeft": 40,
+                    "width": "80%",
+                  }
+                }
+                testID="mobile-number"
+                textContentType="telephoneNumber"
+                value=""
+              />
+              <Text
+                style={
+                  Object {
+                    "color": "gray",
+                    "fontFamily": "Roboto",
+                    "fontSize": 14,
+                    "marginLeft": 40,
+                    "marginRight": 20,
+                    "marginTop": 20,
+                  }
+                }
+              >
+                This number will be used for all communication. You shall receive an SMS with code for verification. By continuing, you agree to our
+                 
+                <Text
+                  onPress={[Function]}
+                  style={
+                    Object {
+                      "color": "#4E46F1",
+                      "fontWeight": "bold",
+                    }
+                  }
+                >
+                  Terms of Service
+                </Text>
+                 
+                &
+                 
+                <Text
+                  onPress={[Function]}
+                  style={
+                    Object {
+                      "color": "#4E46F1",
+                      "fontWeight": "bold",
+                    }
+                  }
+                >
+                  Privacy Policy
+                </Text>
+              </Text>
+              <View
+                collapsable={false}
+                style={
+                  Object {
+                    "alignSelf": "center",
+                    "backgroundColor": "#4E46F1",
+                    "borderBottomEndRadius": 4,
+                    "borderBottomStartRadius": 4,
+                    "borderRadius": 6,
+                    "borderTopEndRadius": 4,
+                    "borderTopStartRadius": 4,
+                    "fontSize": 20,
+                    "height": 60,
+                    "marginTop": 20,
+                    "padding": 10,
+                    "shadowColor": "#000",
+                    "shadowOffset": Object {
+                      "height": 0,
+                      "width": 0,
+                    },
+                    "shadowOpacity": 0,
+                    "shadowRadius": 0,
+                    "width": 320,
+                  }
+                }
+                type="solid"
+              >
+                <View
+                  style={
+                    Array [
+                      Object {
+                        "borderBottomEndRadius": 4,
+                        "borderBottomStartRadius": 4,
+                        "borderTopEndRadius": 4,
+                        "borderTopStartRadius": 4,
+                        "overflow": "hidden",
+                      },
+                      undefined,
+                    ]
+                  }
+                >
+                  <View
+                    accessibilityState={
+                      Object {
+                        "disabled": true,
+                      }
+                    }
+                    accessible={true}
+                    collapsable={false}
+                    focusable={true}
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onLayout={[Function]}
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    onResponderGrant={[Function]}
+                    onResponderMove={[Function]}
+                    onResponderRelease={[Function]}
+                    onResponderTerminate={[Function]}
+                    onResponderTerminationRequest={[Function]}
+                    onStartShouldSetResponder={[Function]}
+                    style={
+                      Array [
+                        Object {
+                          "alignItems": "center",
+                          "flexDirection": "row",
+                          "height": 36,
+                          "justifyContent": "center",
+                          "minWidth": 64,
+                          "paddingEnd": 16,
+                          "paddingStart": 16,
+                        },
+                        undefined,
+                      ]
+                    }
+                  >
+                    <View
+                      style={
+                        Array [
+                          Object {
+                            "bottom": 0,
+                            "left": 0,
+                            "position": "absolute",
+                            "right": 0,
+                            "top": 0,
+                          },
+                          Object {
+                            "backgroundColor": "transparent",
+                          },
+                          Object {
+                            "transition": "background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
+                          },
+                        ]
+                      }
+                    />
+                    <Text
+                      selectable={false}
+                      style={
+                        Array [
+                          Object {
+                            "fontSize": 14,
+                            "fontWeight": "500",
+                            "letterSpacing": 1.25,
+                            "textTransform": "uppercase",
+                          },
+                          Object {
+                            "color": "#000000",
+                          },
+                          Array [
+                            Object {
+                              "color": "#a6a6a6",
+                            },
+                            Object {
+                              "opacity": 1,
+                              "textTransform": "none",
+                            },
+                            undefined,
+                          ],
+                        ]
+                      }
+                    >
+                      Continue
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+        </RCTScrollView>
+      </View>
+    </View>
+  </RCTScrollView>
+</RCTSafeAreaView>
+`;
