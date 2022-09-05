@@ -22,9 +22,9 @@ import { addId, addPhoneNumber } from "../../store/slices/authSlice";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { styles } from "../../styles";
 
-export default LoginScreen = () => {
+export default LoginScreen = ({ navigation }) => {
   const dispatch = useDispatch();
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
 
   const [phoneNumber, setPhoneNumber] = useState(
     useSelector((state) => state.auth.phoneNumber)
@@ -87,7 +87,7 @@ export default LoginScreen = () => {
   const signIn = () => {
     setLoading(true);
     var fullPhoneNumber = `+91${phoneNumber}`;
-    putBackendData({ document: {number: fullPhoneNumber}, xpath: "mobile" })
+    putBackendData({ document: { number: fullPhoneNumber }, xpath: "mobile" })
       .then((res) => {
         console.log(res.data);
         if (res.data["status"] == 200) {
@@ -109,7 +109,7 @@ export default LoginScreen = () => {
             .catch((error) => {
               setLoading(false);
               console.log(error);
-              Alert("Error","Something is Wrong");
+              Alert("Error", "Something is Wrong");
             });
         } else {
           setLoading(false);
@@ -158,6 +158,7 @@ export default LoginScreen = () => {
           </Text>
           <Text style={styles.fieldLabel}>Mobile Number</Text>
           <TextInput
+            testID="mobile-number"
             style={styles.textInput}
             value={phoneNumber}
             onChangeText={setPhoneNumber}

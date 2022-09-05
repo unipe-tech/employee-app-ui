@@ -21,11 +21,10 @@ import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { resetTimer, setLoginTimer } from "../../store/slices/timerSlice";
 import { styles } from "../../styles";
 
-export default OTPScreen = () => {
-
+export default OTPScreen = ({ navigation }) => {
   const dispatch = useDispatch();
-  const navigation = useNavigation();
-  
+  // const navigation = useNavigation();
+
   const [otp, setOtp] = useState("");
   const [next, setNext] = useState(false);
   const [back, setBack] = useState(false);
@@ -52,12 +51,18 @@ export default OTPScreen = () => {
           <View style={styles.otpback}>
             {back ? (
               <IconButton
-                icon={<Icon name="arrow-back" size={30} color="#4E46F1" />}
+                testID="backIcon"
+                icon={
+                  <MaterialIcons name="arrow-back" size={30} color="#4E46F1" />
+                }
                 onPress={() => navigation.navigate("Login")}
               />
             ) : (
               <IconButton
-                icon={<Icon name="arrow-back" size={30} color="#808080" />}
+                testID="backIcon"
+                icon={
+                  <MaterialIcons name="arrow-back" size={30} color="#808080" />
+                }
                 onPress={() =>
                   Alert.alert(
                     "OTP Timer",
@@ -76,14 +81,14 @@ export default OTPScreen = () => {
             Please wait, we will auto verify the OTP {"\n"} sent to{" "}
             {phoneNumber}
             {back ? (
-              <Icon
+              <MaterialIcons
                 name="edit"
                 size={12}
                 color="#4E46F1"
                 onPress={() => navigation.navigate("Login")}
               />
             ) : (
-              <Icon
+              <MaterialIcons
                 name="edit"
                 size={12}
                 color="#808080"
@@ -164,7 +169,7 @@ export default OTPScreen = () => {
                 checkVerification(phoneNumber, otp)
                   .then((res) => {
                     if (res["response"]["status"] === "success") {
-                      // TODO: 
+                      // TODO:
                       // 1. pull and update aadhaar, pan, bank, profile slices
                       // 2. check if already fully verified, then take to home screen
                       // else navigate to 1st remaining screen
