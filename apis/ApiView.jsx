@@ -5,6 +5,7 @@ export default ApiView = (props) => {
   const { disabled, goForFetch, loading, style } = props;
   return (
     <Button
+      testID="apiButton"
       title={loading ? "Verifying" : "Continue"}
       uppercase={false}
       type="solid"
