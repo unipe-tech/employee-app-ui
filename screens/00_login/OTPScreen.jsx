@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import {
   Alert,
   Image,
+  Keyboard,
   SafeAreaView,
   Text,
   TextInput,
@@ -20,12 +21,12 @@ import { addLoginVerifyStatus } from "../../store/slices/authSlice";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { resetTimer, setLoginTimer } from "../../store/slices/timerSlice";
 import { styles } from "../../styles";
+// import RNOtpVerify from "react-native-otp-verify";
 
 export default OTPScreen = () => {
-
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  
+
   const [otp, setOtp] = useState("");
   const [next, setNext] = useState(false);
   const [back, setBack] = useState(false);
@@ -33,9 +34,28 @@ export default OTPScreen = () => {
   const countDownTime = useSelector((state) => state.timer.login);
   const phoneNumber = useSelector((state) => state.auth.phoneNumber);
 
-  useEffect(() => {
-    dispatch(addCurrentScreen("Otp"));
-  }, []);
+  // const otpHandler = (message) => {
+  //   // let regexForOtp = /(\d{4})/g;
+  //   // const lOtp = regexForOtp.exec(message)[1];
+  //   // setOtp(message);
+  //   console.log("LOTP 🧑‍💻: ", message);
+  //   RNOtpVerify.removeListener();
+  //   Keyboard.dismiss();
+  // };
+
+  // useEffect(() => {
+  //   RNOtpVerify.getHash().then(console.log).catch(console.log);
+  //   RNOtpVerify.getOtp()
+  //     .then((p) => {
+  //       console.log("added listener: ", p);
+  //       RNOtpVerify.addListener(otpHandler);
+  //     })
+  //     .catch((p) => console.log(p));
+  // }, []);
+
+  // useEffect(() => {
+  //   console.log("OTP rocks!", otp);
+  // }, [otp]);
 
   useEffect(() => {
     if (otp.length === 6) {
@@ -100,10 +120,12 @@ export default OTPScreen = () => {
             style={styles.otpInput}
             letterSpacing={23}
             maxLength={6}
+            autoFocus
             numeric
             value={otp}
             onChangeText={setOtp}
             keyboardType="numeric"
+            textContentType="oneTimeCode"
           />
           <CountDown
             until={countDownTime}
@@ -164,7 +186,7 @@ export default OTPScreen = () => {
                 checkVerification(phoneNumber, otp)
                   .then((res) => {
                     if (res["response"]["status"] === "success") {
-                      // TODO: 
+                      // TODO:
                       // 1. pull and update aadhaar, pan, bank, profile slices
                       // 2. check if already fully verified, then take to home screen
                       // else navigate to 1st remaining screen

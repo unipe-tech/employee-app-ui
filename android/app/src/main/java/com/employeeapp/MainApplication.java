@@ -10,6 +10,7 @@ import com.facebook.react.ReactApplication;
 import me.furtado.smsretriever.RNSmsRetrieverPackage;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
+import com.faizal.OtpVerify.RNOtpVerifyPackage;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.config.ReactFeatureFlags;
 import com.facebook.soloader.SoLoader;
@@ -22,6 +23,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
+import com.react.SmsPackage;
 
 public class MainApplication extends Application implements ReactApplication {
   private final ReactNativeHost mReactNativeHost = new ReactNativeHostWrapper(
@@ -38,6 +40,8 @@ public class MainApplication extends Application implements ReactApplication {
       List<ReactPackage> packages = new PackageList(this).getPackages();
       // Packages that cannot be autolinked yet can be added manually here, for example:
       // packages.add(new MyReactNativePackage());
+      new SmsPackage();
+      // new RNOtpVerifyPackage();
       return packages;
     }
 

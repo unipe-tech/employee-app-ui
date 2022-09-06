@@ -8,6 +8,7 @@ export default DevMenu = () => {
   const screens = [
     { title: "Welcome", name: "Welcome" },
     { title: "Login", name: "Login" },
+    { title: "OTP", name: "Otp" },
     { title: "AADHAAR", name: "AadhaarForm" },
     { title: "PAN", name: "PanForm" },
     { title: "Bank", name: "BankForm" },
@@ -16,6 +17,7 @@ export default DevMenu = () => {
     { title: "Home", name: "Home" },
     { title: "KYC Details", name: "KYC" },
     { title: "Profile Details", name: "Profile" },
+    { title: "SMS", name: "SMS" },
   ];
 
   return (
