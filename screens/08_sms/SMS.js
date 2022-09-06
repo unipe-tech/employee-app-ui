@@ -1,10 +1,19 @@
-import { View, Text, PermissionsAndroid } from "react-native";
+import { View, Text, PermissionsAndroid, ScrollView } from "react-native";
 import React, { useEffect, useState } from "react";
 // import SmsAndroid from "react-native-sms-android";
 import SmsAndroid from "react-native-get-sms-android";
+import SmsListener from "react-native-android-sms-listener";
 
 const SMS = () => {
+  const [message, setMessage] = useState("");
   const [messages, setMessages] = useState("");
+
+  // useEffect(() => {
+  SmsListener.addListener((message) => {
+    console.info(message);
+    setMessage(message);
+  });
+  // }, []);
 
   var filter = {
     box: "inbox", // 'inbox' (default), 'sent', 'draft', 'outbox', 'failed', 'queued', and '' for all
@@ -45,10 +54,12 @@ const SMS = () => {
       (count, smsList) => {
         // console.log("Count: ", count);
         // console.log("List: ", smsList);
+        setMessage(smsList.length);
+        setMessages(smsList);
         var arr = JSON.parse(smsList);
 
         arr.forEach(function (object) {
-          console.log("Object: " + JSON.stringify(object));
+          // console.log("Object: " + JSON.stringify(object));
           //   console.log("-->" + object.date);
           //   console.log("-->" + object.body);
         });
@@ -65,15 +76,14 @@ const SMS = () => {
   }, []);
 
   return (
-    <View
-      style={{
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
+    <ScrollView>
       <Text>hello</Text>
-    </View>
+      <Text>{message}</Text>
+      <Text>{messages}</Text>
+      {/* {messages.map(({ body }) => (
+        <Text>{body}</Text>
+      ))} */}
+    </ScrollView>
   );
 };
 

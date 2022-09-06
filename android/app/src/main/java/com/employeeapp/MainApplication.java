@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.centaurwarchief.smslistener.SmsListenerPackage;
 import me.furtado.smsretriever.RNSmsRetrieverPackage;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
@@ -24,6 +25,7 @@ import java.util.List;
 
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import com.react.SmsPackage;
+import com.centaurwarchief.smslistener.SmsListenerPackage;
 
 public class MainApplication extends Application implements ReactApplication {
   private final ReactNativeHost mReactNativeHost = new ReactNativeHostWrapper(
@@ -41,6 +43,7 @@ public class MainApplication extends Application implements ReactApplication {
       // Packages that cannot be autolinked yet can be added manually here, for example:
       // packages.add(new MyReactNativePackage());
       new SmsPackage();
+      new SmsListenerPackage();
       // new RNOtpVerifyPackage();
       return packages;
     }
