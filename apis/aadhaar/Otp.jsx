@@ -13,6 +13,7 @@ import { KYC_AADHAAR_GENERATE_OTP_API_URL } from "../../services/employees/endpo
 import ApiView from "../ApiView";
 import { aadhaarBackendPush } from "../../helpers/BackendPush";
 import { resetTimer } from "../../store/slices/timerSlice";
+import { showToast } from "../../components/Toast";
 
 const AadhaarOtpApi = (props) => {
   const dispatch = useDispatch();
@@ -60,6 +61,7 @@ const AadhaarOtpApi = (props) => {
         verifyTimestamp: verifyTimestamp,
       });
       setBackendPush(false);
+      showToast("Aadhaar Details Recorded");
       setLoading(false);
     }
   }, [backendPush]);

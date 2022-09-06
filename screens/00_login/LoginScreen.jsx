@@ -97,6 +97,7 @@ export default LoginScreen = () => {
               console.log("result: ", result);
               if (result["response"]["status"] === "success") {
                 console.log(result);
+                showToast("Mobile Number Registered");
                 navigation.navigate("Otp");
               } else {
                 setLoading(false);

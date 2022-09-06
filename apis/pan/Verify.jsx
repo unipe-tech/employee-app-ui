@@ -12,6 +12,7 @@ import {
 import { KYC_PAN_VERIFY_API_URL } from "../../services/employees/endpoints";
 import { panBackendPush } from "../../helpers/BackendPush";
 import ApiView from "../ApiView";
+import { showToast } from "../../components/Toast";
 
 const PanVerifyApi = (props) => {
   const dispatch = useDispatch();
@@ -57,6 +58,7 @@ const PanVerifyApi = (props) => {
         verifyTimestamp: verifyTimestamp,
       });
       setBackendPush(false);
+      showToast("PAN Details Recorded");
       setLoading(false);
     }
   }, [backendPush]);

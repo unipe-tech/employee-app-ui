@@ -14,6 +14,7 @@ import {
 import { KYC_BANK_VERIFY_API_URL } from "../../services/employees/endpoints";
 import { bankBackendPush } from "../../helpers/BackendPush";
 import ApiView from "../ApiView";
+import { showToast } from "../../components/Toast";
 import {
   STAGE,
   EMPLOYEE_API_BASE_URL,
@@ -78,6 +79,7 @@ const BankVerifyApi = (props) => {
       });
     }
     setBackendPush(false);
+    showToast("Bank Account Details Recorded");
     setLoading(false);
   }, [backendPush]);
 
