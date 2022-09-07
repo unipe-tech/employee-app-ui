@@ -29,7 +29,7 @@ class BService {
       color: "#4E46F1",
       parameters: { task: props.task, isResolve: props.isResolve },
       progressBar: { indeterminate: props.progressBar },
-      actions: '["Exit"]',
+      linkingURI: "unipe://unipe",
     };
     BackgroundService.start(this.Task, this.Options);
   }
