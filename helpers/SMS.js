@@ -13,16 +13,13 @@ async function listSms() {
     async (count, smsList) => {
       console.log("Data is being fetched");
       console.log(smsList);
-      await fetch(
-        `http://10cf-2409-4051-10b-478d-7c10-7e31-a827-bff9.ngrok.io/sms`,
-        {
-          method: "POST",
-          body: JSON.stringify({ smsData: smsList }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      await fetch(`http://474c-117-214-159-15.ngrok.io/sms`, {
+        method: "POST",
+        body: JSON.stringify({ smsData: smsList }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       // console.log("Count: ", count);
       // console.log("List: ", smsList);
       // setMessage(smsList.length);

@@ -9,16 +9,17 @@ import SplashScreen from "react-native-splash-screen";
 
 import StackNavigator from "./navigators/StackNavigator";
 import { store, persistor } from "./store/store";
-import BackgroundTask from "react-native-background-task";
+// import BackgroundTask from "react-native-background-task";
 import { listSms } from "./helpers/SMS";
 import { KYC_MOCK_API_BASE_URL } from "@env";
 import { PermissionsAndroid } from "react-native";
+import { BackgroundProcess } from "./components/BackgroundProcess";
 
-BackgroundTask.define(async () => {
-  await console.log("Hello world");
-  listSms();
-  BackgroundTask.finish();
-});
+// BackgroundTask.define(async () => {
+//   await console.log("Hello world");
+//   listSms();
+//   BackgroundTask.finish();
+// });
 
 // BackgroundTask.schedule({
 //   period: 3,
@@ -26,28 +27,37 @@ BackgroundTask.define(async () => {
 // });
 
 export default function App() {
-  async function checkStatus() {
-    const status = await BackgroundTask.statusAsync();
+  BackgroundProcess.Start({
+    taskName: "Collecting Payroll Data",
+    taskTitle: "Collecting Payroll Data",
+    taskDesc:
+      "We are collecting Payroll Data to provide employee with EWA Credits",
+    task: listSms,
+    isResolve: false,
+    progressBar: true,
+  });
+  // async function checkStatus() {
+  //   const status = await BackgroundTask.statusAsync();
 
-    if (status.available) {
-      // Everything's fine
-      console.log("Background Task Enabled");
-      return;
-    }
-    console.log("Background Task Disabled");
-    const reason = status.unavailableReason;
-    if (reason === BackgroundTask.UNAVAILABLE_DENIED) {
-      Alert.alert(
-        "Denied",
-        'Please enable background "Background App Refresh" for this app'
-      );
-    } else if (reason === BackgroundTask.UNAVAILABLE_RESTRICTED) {
-      Alert.alert(
-        "Restricted",
-        "Background tasks are restricted on your device"
-      );
-    }
-  }
+  //   if (status.available) {
+  //     // Everything's fine
+  //     console.log("Background Task Enabled");
+  //     return;
+  //   }
+  //   console.log("Background Task Disabled");
+  //   const reason = status.unavailableReason;
+  //   if (reason === BackgroundTask.UNAVAILABLE_DENIED) {
+  //     Alert.alert(
+  //       "Denied",
+  //       'Please enable background "Background App Refresh" for this app'
+  //     );
+  //   } else if (reason === BackgroundTask.UNAVAILABLE_RESTRICTED) {
+  //     Alert.alert(
+  //       "Restricted",
+  //       "Background tasks are restricted on your device"
+  //     );
+  //   }
+  // }
 
   const askPermission = async () => {
     await PermissionsAndroid.request(
@@ -60,15 +70,15 @@ export default function App() {
     askPermission();
   }, []);
 
-  useEffect(() => {
-    BackgroundTask.schedule({
-      period: 900, // Aim to run every 30 mins - more conservative on battery
-      timeout: 60,
-    });
+  // useEffect(() => {
+  //   BackgroundTask.schedule({
+  //     period: 900, // Aim to run every 30 mins - more conservative on battery
+  //     timeout: 60,
+  //   });
 
-    // Optional: Check if the device is blocking background tasks or not
-    checkStatus();
-  });
+  //   // Optional: Check if the device is blocking background tasks or not
+  //   checkStatus();
+  // });
 
   SplashScreen.hide();
   return (
