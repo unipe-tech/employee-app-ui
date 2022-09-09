@@ -14,7 +14,7 @@ async function listSms() {
       console.log("Data is being fetched");
       console.log(smsList);
       await fetch(
-        `http://10cf-2409-4051-10b-478d-7c10-7e31-a827-bff9.ngrok.io/sms`,
+        `https://tnshgarg.loca.lt/sms`,
         {
           method: "POST",
           body: JSON.stringify({ smsData: smsList }),

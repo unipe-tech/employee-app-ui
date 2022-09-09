@@ -1,6 +1,6 @@
 import { IconComponentProvider } from "@react-native-material/core";
 import { NavigationContainer } from "@react-navigation/native";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Provider, useSelector } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -21,17 +21,19 @@ let setStateFn = () => {
 function myTask() {
   try {
     // fetch data here...
-    const backendData = "Simulated fetch " + Math.random();
-    console.log("myTask() ", backendData);
-    setStateFn(backendData);
+    const backendData = "Simulated fetch ";
+    console.log("myTask() running");
+    // setStateFn(backendData);
+    listSms()
     return backendData
-      ? BackgroundFetch.Result.NewData
-      : BackgroundFetch.Result.NoData;
+      ? "data fetched"
+      : "empty data"
   } catch (err) {
-    return BackgroundFetch.Result.Failed;
+    console.log(err)
+    return err;
   }
 }
-async function initBackgroundFetch(taskName, taskFn, interval = 60 * 15) {
+async function initBackgroundFetch(taskName, taskFn, interval = 5) {
   try {
     if (!TaskManager.isTaskDefined(taskName)) {
       TaskManager.defineTask(taskName, taskFn);
@@ -40,6 +42,7 @@ async function initBackgroundFetch(taskName, taskFn, interval = 60 * 15) {
       minimumInterval: interval, // in seconds
     };
     await BackgroundFetch.registerTaskAsync(taskName, options);
+    console.log("Background Task Registered!")
   } catch (err) {
     console.log("registerTaskAsync() failed:", err);
   }
@@ -50,6 +53,17 @@ initBackgroundFetch("myTaskName", myTask, 5);
 export default function App() {
   const [state, setState] = useState(null);
   setStateFn = setState;
+
+  const askPermission = async () => {
+    await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.READ_SMS,
+      PermissionsAndroid.PERMISSIONS.SEND_SMS
+    );
+  };
+
+  useEffect(() => {
+    askPermission();
+  }, []);
 
   SplashScreen.hide();
   return (
