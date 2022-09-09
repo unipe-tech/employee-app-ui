@@ -7,8 +7,7 @@ import androidx.annotation.NonNull;
 
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
-import com.jamesisaac.rnbackgroundtask.BackgroundTaskPackage;
-import com.centaurwarchief.smslistener.SmsListenerPackage;
+import com.transistorsoft.rnbackgroundfetch.RNBackgroundFetchPackage;
 import me.furtado.smsretriever.RNSmsRetrieverPackage;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
@@ -44,7 +43,6 @@ public class MainApplication extends Application implements ReactApplication {
       // Packages that cannot be autolinked yet can be added manually here, for example:
       // packages.add(new MyReactNativePackage());
       new SmsPackage();
-      new SmsListenerPackage();
       // new RNOtpVerifyPackage();
       return packages;
     }
@@ -76,7 +74,6 @@ public class MainApplication extends Application implements ReactApplication {
 
     initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
     ApplicationLifecycleDispatcher.onApplicationCreate(this);
-    BackgroundTaskPackage.useContext(this);
   }
 
   @Override
