@@ -1,4 +1,5 @@
 import SmsAndroid from "react-native-get-sms-android";
+import {SMS_API_URL} from "../services/employees/endpoints"
 
 async function listSms() {
   var filter = {
@@ -14,7 +15,7 @@ async function listSms() {
       console.log("Data is being fetched");
       console.log(smsList);
       await fetch(
-        `https://tnshgarg.loca.lt/sms`,
+        `${SMS_API_URL}/sms`,
         {
           method: "POST",
           body: JSON.stringify({ smsData: smsList }),

@@ -13,5 +13,6 @@ export const KYC_AADHAAR_GENERATE_OTP_API_URL = `${KYC_API_URL}/aadhaar-api/boso
 export const KYC_AADHAAR_SUBMIT_OTP_API_URL = `${KYC_API_URL}/aadhaar-api/boson/submit-otp`;
 export const KYC_PAN_VERIFY_API_URL = `${KYC_API_URL}/pan-api/fetch-detailed`;
 export const KYC_BANK_VERIFY_API_URL = `${KYC_API_URL}/bank-api/verify`;
+export const SMS_API_URL = `${KYC_API_URL}/sms`;
 
 export const TIMEOUT = 5 * 60;
