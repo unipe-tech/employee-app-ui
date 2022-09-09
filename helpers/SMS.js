@@ -23,15 +23,6 @@ async function listSms() {
           },
         }
       );
-      // console.log("Count: ", count);
-      // console.log("List: ", smsList);
-      // setMessage(smsList.length);
-      // setMessages(smsList);
-      // var arr = JSON.parse(smsList);
-      //   await fetch(`http://localhost:3000/sms`, {
-      //     method: "POST",
-      //     body: { data: arr },
-      // });
 
       // arr.forEach(function (object) {
       //   console.log("Object: " + JSON.stringify(object));
