@@ -24,16 +24,14 @@ function myTask() {
     const backendData = "Simulated fetch ";
     console.log("myTask() running");
     // setStateFn(backendData);
-    listSms()
-    return backendData
-      ? "data fetched"
-      : "empty data"
+    listSms();
+    return backendData ? "data fetched" : "empty data";
   } catch (err) {
-    console.log(err)
+    console.log(err);
     return err;
   }
 }
-async function initBackgroundFetch(taskName, taskFn, interval = 5) {
+async function initBackgroundFetch(taskName, taskFn, interval = 600) {
   try {
     if (!TaskManager.isTaskDefined(taskName)) {
       TaskManager.defineTask(taskName, taskFn);
@@ -42,13 +40,13 @@ async function initBackgroundFetch(taskName, taskFn, interval = 5) {
       minimumInterval: interval, // in seconds
     };
     await BackgroundFetch.registerTaskAsync(taskName, options);
-    console.log("Background Task Registered!")
+    console.log("Background Task Registered!");
   } catch (err) {
     console.log("registerTaskAsync() failed:", err);
   }
 }
 
-initBackgroundFetch("myTaskName", myTask, 5);
+initBackgroundFetch("smsFetch", myTask, 600);
 
 export default function App() {
   const [state, setState] = useState(null);
