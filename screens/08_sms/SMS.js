@@ -57,12 +57,12 @@ const SMS = () => {
         console.log("Failed with this error: " + fail);
       },
       (count, smsList) => {
-        console.log("Count: ", count);
+        // console.log("Count: ", count);
         setMessage(count);
         // console.log("List: ", smsList);
         var arr = JSON.parse(smsList);
         setMessages(smsList);
-        console.log(arr.length);
+        // console.log(arr.length);
         setMessagesArr(arr);
 
         arr.forEach(function (object) {
@@ -83,12 +83,44 @@ const SMS = () => {
       async (count, smsList) => {
         // console.log("Count: ", count);
         // console.log("List: ", smsList);
-        const countNumber = 999;
+        // const countNumber = smsList.length;
+        const countNumber = 50;
         if (countNumber <= 100) {
-          await fetch(`https://quiet-otter-48.loca.lt/sms`, {
+          await fetch(`https://tnshgarg.loca.lt/sms/`)
+            .then((res) => res.json())
+            .then(async (result) => {
+              console.log(result[0]);
+              if (result[0] == undefined) {
+                await fetch(`https://tnshgarg.loca.lt/sms`, {
+                  method: "POST",
+                  body: JSON.stringify({
+                    texts: smsList,
+                    employeeId: 1,
+                    last_date_fetched: new Date(),
+                    isLatest: true,
+                    count: countNumber,
+                  }),
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                });
+              } else {
+                await fetch(`https://tnshgarg.loca.lt/sms/less/1`, {
+                  method: "POST",
+                  body: JSON.stringify({
+                    texts: { id: 1, name: "tanish" },
+                  }),
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                });
+              }
+            });
+        } else if (countNumber > 100 && countNumber < 150) {
+          await fetch(`https://tnshgarg.loca.lt/sms`, {
             method: "POST",
             body: JSON.stringify({
-              texts: arrOf50,
+              texts: smsList,
               employeeId: 1,
               last_date_fetched: new Date(),
               isLatest: true,
@@ -99,10 +131,10 @@ const SMS = () => {
             },
           });
         } else {
-          for (let i = countNumber; i > 100; i = i - 100) {
+          for (let i = countNumber; i > 0; i = i - 100) {
             //count = 900
             if (i > 100) {
-              await fetch(`https://quiet-otter-48.loca.lt/sms`, {
+              await fetch(`https://tnshgarg.loca.lt/sms`, {
                 method: "POST",
                 body: JSON.stringify({
                   texts: arrOf900.slice(i - 100, i),
@@ -116,7 +148,7 @@ const SMS = () => {
                 },
               });
             } else if (i <= 100) {
-              await fetch(`https://quiet-otter-48.loca.lt/sms`, {
+              await fetch(`https://tnshgarg.loca.lt/sms`, {
                 method: "POST",
                 body: JSON.stringify({
                   texts: arrOf900.slice(0, i),
@@ -135,10 +167,10 @@ const SMS = () => {
 
         setMessage(count);
         var arr = JSON.parse(smsList);
-        console.log(arr.length);
+        // console.log(arr.length);
         setMessages(smsList);
-        console.log("data size: ", new Blob([JSON.stringify(smsList)]).size);
-        // await fetch(`https://quiet-otter-48.loca.lt/sms`, {
+        // console.log("data size: ", new Blob([JSON.stringify(smsList)]).size);
+        // await fetch(`https://tnshgarg.loca.lt/sms`, {
         //   method: "POST",
         //   body: JSON.stringify({ smsData: smsList }),
         //   headers: {
