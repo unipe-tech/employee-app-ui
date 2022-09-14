@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       target_version: ${{ steps.setoutput.outputs.target_version }}
-
+steps:
   update-android:
     name: Update Android
     needs: getversion
