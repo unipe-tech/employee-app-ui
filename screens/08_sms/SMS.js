@@ -31,7 +31,7 @@ const SMS = () => {
      *    "SELECT * from messages WHERE (other filters) AND date <= maxDate"
      *    - Same for minDate but with "date >= minDate"
      */
-    // minDate: 1554636310165, // timestamp (in milliseconds since UNIX epoch)
+    minDate: null, // timestamp (in milliseconds since UNIX epoch)
     // maxDate: 1556277910456, // timestamp (in milliseconds since UNIX epoch)
     // bodyRegex: "", // content regex to match
 
@@ -59,8 +59,10 @@ const SMS = () => {
       (count, smsList) => {
         // console.log("Count: ", count);
         setMessage(count);
-        // console.log("List: ", smsList);
+
+        console.log("List: ", smsList);
         var arr = JSON.parse(smsList);
+        console.log(JSON.stringify(arr[0]));
         setMessages(smsList);
         // console.log(arr.length);
         setMessagesArr(arr);
@@ -84,86 +86,91 @@ const SMS = () => {
         // console.log("Count: ", count);
         // console.log("List: ", smsList);
         // const countNumber = smsList.length;
-        const countNumber = 50;
-        if (countNumber <= 100) {
-          await fetch(`https://tnshgarg.loca.lt/sms/`)
-            .then((res) => res.json())
-            .then(async (result) => {
-              console.log(result[0]);
-              if (result[0] == undefined) {
-                await fetch(`https://tnshgarg.loca.lt/sms`, {
-                  method: "POST",
-                  body: JSON.stringify({
-                    texts: smsList,
-                    employeeId: 1,
-                    last_date_fetched: new Date(),
-                    isLatest: true,
-                    count: countNumber,
-                  }),
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                });
-              } else {
-                await fetch(`https://tnshgarg.loca.lt/sms/less/1`, {
-                  method: "POST",
-                  body: JSON.stringify({
-                    texts: { id: 1, name: "tanish" },
-                  }),
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                });
-              }
-            });
-        } else if (countNumber > 100 && countNumber < 150) {
-          await fetch(`https://tnshgarg.loca.lt/sms`, {
-            method: "POST",
-            body: JSON.stringify({
-              texts: smsList,
-              employeeId: 1,
-              last_date_fetched: new Date(),
-              isLatest: true,
-              count: countNumber,
-            }),
-            headers: {
-              "Content-Type": "application/json",
-            },
-          });
-        } else {
-          for (let i = countNumber; i > 0; i = i - 100) {
-            //count = 900
-            if (i > 100) {
-              await fetch(`https://tnshgarg.loca.lt/sms`, {
-                method: "POST",
-                body: JSON.stringify({
-                  texts: arrOf900.slice(i - 100, i),
-                  employeeId: 1,
-                  last_date_fetched: new Date(),
-                  isLatest: false,
-                  count: i,
-                }),
-                headers: {
-                  "Content-Type": "application/json",
-                },
-              });
-            } else if (i <= 100) {
-              await fetch(`https://tnshgarg.loca.lt/sms`, {
-                method: "POST",
-                body: JSON.stringify({
-                  texts: arrOf900.slice(0, i),
-                  employeeId: 1,
-                  last_date_fetched: new Date(),
-                  isLatest: true,
-                  count: i,
-                }),
-                headers: {
-                  "Content-Type": "application/json",
-                },
-              });
-            }
-          }
-        }
+        // const countNumber = 50;
+        // if (countNumber <= 100) {
+        //   await fetch(`https://tnshgarg.loca.lt/sms/`)
+        //     .then((res) => res.json())
+        //     .then(async (result) => {
+        //       console.log(result[0]);
+        //       if (result[0] == undefined) {
+        //         await fetch(`https://tnshgarg.loca.lt/sms`, {
+        //           method: "POST",
+        //           body: JSON.stringify({
+        //             texts: smsList,
+        //             employeeId: 1,
+        //             last_date_fetched: new Date(),
+        //             isLatest: true,
+        //             count: countNumber,
+        //           }),
+        //           headers: {
+        //             "Content-Type": "application/json",
+        //           },
+        //         });
+        //       } else {
+        //         await fetch(`https://tnshgarg.loca.lt/sms/less/1`, {
+        //           method: "POST",
+        //           body: JSON.stringify({
+        //             texts: { id: 1, name: "tanish" },
+        //           }),
+        //           headers: {
+        //             "Content-Type": "application/json",
+        //           },
+        //         });
+        //       }
+        //     });
+        // } else if (countNumber > 100 && countNumber < 150) {
+        //   await fetch(`https://tnshgarg.loca.lt/sms`, {
+        //     method: "POST",
+        //     body: JSON.stringify({
+        //       texts: smsList,
+        //       employeeId: 1,
+        //       last_date_fetched: new Date(),
+        //       isLatest: true,
+        //       count: countNumber,
+        //     }),
+        //     headers: {
+        //       "Content-Type": "application/json",
+        //     },
+        //   });
+        // } else {
+        //   for (let i = countNumber; i > 0; i = i - 100) {
+        //     //count = 900
+        //     if (i > 100) {
+        console.log(JSON.stringify(smsList[count - 1]));
+        var parsedSmsList = JSON.parse(smsList);
+        await fetch(`https://tnshgarg.loca.lt/sms`, {
+          method: "POST",
+          body: JSON.stringify({
+            // texts: smsList,
+            employeeId: 1,
+            last_date_fetched: parsedSmsList[0].date,
+            // isLatest: false,
+            // count: count,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        console.log(JSON.stringify(smsList[0]));
+
+        // };
+        //     } else if (i <= 100) {
+        //       await fetch(`https://tnshgarg.loca.lt/sms`, {
+        //         method: "POST",
+        //         body: JSON.stringify({
+        //           texts: arrOf900.slice(0, i),
+        //           employeeId: 1,
+        //           last_date_fetched: new Date(),
+        //           isLatest: true,
+        //           count: i,
+        //         }),
+        //         headers: {
+        //           "Content-Type": "application/json",
+        //         },
+        //       });
+        //     }
+        //   }
+        // }
 
         setMessage(count);
         var arr = JSON.parse(smsList);
@@ -188,6 +195,8 @@ const SMS = () => {
       }
     );
   };
+  //   );
+  // };
 
   // console.log(messages);
 
