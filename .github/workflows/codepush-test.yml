@@ -1,34 +1,59 @@
-name: Codepush-TEST
+name: Deploy Code Push
 
-on:
- workflow_dispatch:
-    
-env:
-  APP_CENTER_TOKEN: ${{ secrets.APP_CENTER_TOKEN_DEV }}
-  APP_NAME: ${{ 'Unipe/EmployeeApp' }}
+# This workflow is manually triggered. 
+# It seemed to use like the simplest and safest option.
+on: workflow_dispatch
 
 jobs:
-  getversion:
-    name: Get Version
-    runs-on: ubuntu-latest
-    outputs:
-      target_version: ${{ steps.setoutput.outputs.target_version }}
-steps:
-  update-android:
-    name: Update Android
-    needs: getversion
-    runs-on: ubuntu-latest
+  deploy-code-push:
+    runs-on: windows-latest
+    
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v2
-
-      - name: Install Dependencies
-        run: npm install
-
-      - name: Codepush Update
-        uses: NishanthShankar/codepush-action@master
-        with:
-          args: release-react -a ${{ env.APP_NAME}} -d Dev  
+          
+      - name: Get NPM Version
+        uses: nyaa8/package-version@v1
+        
+      - name: Install app dependencies
+        uses: bahmutov/npm-install@v1
+        
+      # We use .env files to secure our keys,
+      # but this part depends on how you handle keys and secrets in your app.
+      - name: Generate .env
+        run: |-
+          # ...
+          echo STAGE=${{ secrets.STAGE }} >> .env
+          echo GUPSHUP_PASSWORD=${{ secrets.GUPSHUP_PASSWORD }} >> .env
+          echo GUPSHUP_USERID=${{ secrets.GUPSHUP_USERID }} >> .env
+          echo OG_API_TEST_KEY=${{ secrets.OG_API_TEST_KEY }} >> .env
+          echo OG_API_KEY =${{ secrets.OG_API_KEY  }} >> .env
+          echo KYC_API_BASE_URL=${{ secrets.KYC_API_BASE_URL }} >> .env
+          echo KYC_MOCK_API_BASE_URL=${{ secrets.KYC_MOCK_API_BASE_URL }} >> .env
+          echo EMPLOYEE_API_BASE_URL=${{ secrets.EMPLOYEE_API_BASE_URL }} >> .env
+          
+      # This step parses a composite package version (such as 1.0.1-fix.1),
+      # splits the string at '-' and then returns the first item (1.0.1).
+      # We need this version number so we can tell CodePush which app version
+      # we'd like to update.
+#       - name: Parse version name
+#         run: |-
+#           echo "PARSED_VERSION_NAME=$(cut -d'-' -f1 <<< ${{ env.PACKAGE_VERSION }})" >> $GITHUB_ENV
+          
+#       # Since we're skipping Play Store entirely, 
+#       # the versionCode doesn't really matter, only the versionName.
+#       - name: Bump version Android
+#         uses: chkfung/android-version-actions@v1.1
+#         with:
+#           gradlePath: ./android/app/build.gradle
+#           versionName: ${{ env.PARSED_VERSION_NAME}}
+#           versionCode: 0
+          
+      # Required!
+      - name: Install AppCenter CLI
+        run: npm install -g appcenter-cli
+        
+      - name: Deploy to CodePush Android
+        run: appcenter codepush release-react -a Unipe/EmployeeApp -d Dev
         env:
-          APPCENTER_ACCESS_TOKEN: ${{ env.APP_CENTER_TOKEN }}
-  
+          APPCENTER_ACCESS_TOKEN: ${{ secrets.APPCENTER_TOKEN_DEV}}
