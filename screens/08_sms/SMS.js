@@ -38,7 +38,7 @@ const SMS = () => {
      *    "SELECT * from messages WHERE (other filters) AND date <= maxDate"
      *    - Same for minDate but with "date >= minDate"
      */
-    minDate: store.getState().sms.lastReceivedDate + 1, // timestamp (in milliseconds since UNIX epoch)
+    minDate: store.getState().sms.lastReceivedDate, // timestamp (in milliseconds since UNIX epoch)
     // maxDate: 1556277910456, // timestamp (in milliseconds since UNIX epoch)
     // bodyRegex: "", // content regex to match
 

@@ -16,7 +16,7 @@ async function listSms() {
     },
     async (count, smsList) => {
       console.log(JSON.stringify(smsList[count - 1]));
-      var parsedSmsList = JSON.parse(smsList);
+
       console.log("Data is being fetched");
 
       await fetch(`${SMS_API_URL}/sms`, {
@@ -30,6 +30,7 @@ async function listSms() {
         },
       })
         .then((res) => {
+          var parsedSmsList = JSON.parse(smsList);
           store.dispatch(
             addLastReceivedDate(
               parsedSmsList[0].date ? parsedSmsList[0].date : "No Data for Date"
