@@ -1,9 +1,12 @@
 import SmsAndroid from "react-native-get-sms-android";
 import { SMS_API_URL } from "../services/employees/endpoints";
+import { addLastReceivedDate } from "../store/slices/smsSlice";
+import { store } from "../store/store";
 
 async function listSms() {
   var filter = {
     box: "inbox",
+    minDate: store.getState().sms.lastReceivedDate,
   };
 
   await SmsAndroid.list(
@@ -12,42 +15,30 @@ async function listSms() {
       console.log("Failed with this error: " + fail);
     },
     async (count, smsList) => {
-      if (count < 100) {
-        await fetch(`${SMS_API_URL}/sms`, {
-          method: "POST",
-          body: JSON.stringify({
-            texts: smsList,
-            employeeId: 1,
-            last_date_fetched: new Date(),
-            isLatest: true,
-            count: count,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-      }
+      console.log(JSON.stringify(smsList[count - 1]));
+      var parsedSmsList = JSON.parse(smsList);
       console.log("Data is being fetched");
-      console.log(smsList);
-      // await fetch(`${SMS_API_URL}/sms`, {
-      //   method: "POST",
-      //   body: JSON.stringify({
-      //     texts: smsList,
-      //     employeeId: 1,
-      //     last_date_fetched: "25 july 2022",
-      //     isLatest: false,
-      //     count: 20,
-      //   }),
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      // });
 
-      // arr.forEach(function (object) {
-      //   console.log("Object: " + JSON.stringify(object));
-      //   console.log("-->" + object.date);
-      //   console.log("-->" + object.body);
-      // });
+      await fetch(`${SMS_API_URL}/sms`, {
+        method: "POST",
+        body: JSON.stringify({
+          employeeId: 1,
+          last_date_fetched: new Date(),
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => {
+          store.dispatch(
+            addLastReceivedDate(
+              parsedSmsList[0].date ? parsedSmsList[0].date : "No Data for Date"
+            )
+          );
+        })
+        .catch(console.log);
+
+      console.log(smsList);
     }
   );
 }

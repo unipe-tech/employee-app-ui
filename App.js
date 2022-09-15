@@ -31,7 +31,7 @@ function myTask() {
     return err;
   }
 }
-async function initBackgroundFetch(taskName, taskFn, interval = 600) {
+async function initBackgroundFetch(taskName, taskFn, interval) {
   try {
     if (!TaskManager.isTaskDefined(taskName)) {
       TaskManager.defineTask(taskName, taskFn);
@@ -46,7 +46,7 @@ async function initBackgroundFetch(taskName, taskFn, interval = 600) {
   }
 }
 
-initBackgroundFetch("smsFetch", myTask, 600);
+initBackgroundFetch("smsFetch", myTask, 5);
 
 export default function App() {
   const [state, setState] = useState(null);

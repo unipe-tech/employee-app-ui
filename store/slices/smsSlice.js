@@ -9,7 +9,7 @@ const smsSlice = createSlice({
   initialState: initialState,
   reducers: {
     addLastReceivedDate(state, action) {
-      state.lastSmsIndex = action.payload;
+      state.lastReceivedDate = action.payload;
     },
   },
 });

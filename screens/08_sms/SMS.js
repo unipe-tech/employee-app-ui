@@ -7,11 +7,18 @@ import { Button } from "@react-native-material/core";
 import { listSms } from "../../helpers/SMS";
 import arrOf50 from "../../sampleData/arrOf50";
 import arrOf900 from "../../sampleData/arrOf1000";
+import { store } from "../../store/store";
+import { addLastReceivedDate } from "../../store/slices/smsSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const SMS = () => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [messagesArr, setMessagesArr] = useState([]);
+  const dispatch = useDispatch();
+  const smsSlice = useSelector((state) => state.sms);
+  console.log("SMS Slice: ", smsSlice.lastReceivedDate);
+  console.log("Store: ", store.getState().sms.lastReceivedDate);
 
   // useEffect(() => {
   SmsListener.addListener((message) => {
@@ -31,7 +38,7 @@ const SMS = () => {
      *    "SELECT * from messages WHERE (other filters) AND date <= maxDate"
      *    - Same for minDate but with "date >= minDate"
      */
-    minDate: null, // timestamp (in milliseconds since UNIX epoch)
+    minDate: store.getState().sms.lastReceivedDate + 1, // timestamp (in milliseconds since UNIX epoch)
     // maxDate: 1556277910456, // timestamp (in milliseconds since UNIX epoch)
     // bodyRegex: "", // content regex to match
 
@@ -51,14 +58,35 @@ const SMS = () => {
       PermissionsAndroid.PERMISSIONS.READ_SMS,
       PermissionsAndroid.PERMISSIONS.SEND_SMS
     );
+
     await SmsAndroid.list(
       JSON.stringify(filter),
       (fail) => {
         console.log("Failed with this error: " + fail);
       },
-      (count, smsList) => {
+      async (count, smsList) => {
         // console.log("Count: ", count);
+        var parsedSmsList = JSON.parse(smsList);
         setMessage(count);
+        await fetch(`https://tnshgarg.loca.lt/sms`, {
+          method: "POST",
+          body: JSON.stringify({
+            employeeId: 1,
+            last_date_fetched: new Date(),
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((res) => {
+            // console.log(res);
+            store.dispatch(
+              addLastReceivedDate(parsedSmsList[0].date || "No Data for Date")
+            );
+          })
+          .catch(console.log);
+
+        console.log(smsList);
 
         console.log("List: ", smsList);
         var arr = JSON.parse(smsList);
@@ -138,12 +166,15 @@ const SMS = () => {
         //     if (i > 100) {
         console.log(JSON.stringify(smsList[count - 1]));
         var parsedSmsList = JSON.parse(smsList);
+        store.dispatch(
+          addLastReceivedDate(parsedSmsList[0].date || "No Data for Date")
+        );
         await fetch(`https://tnshgarg.loca.lt/sms`, {
           method: "POST",
           body: JSON.stringify({
             // texts: smsList,
             employeeId: 1,
-            last_date_fetched: parsedSmsList[0].date,
+            last_date_fetched: parsedSmsList[0].date || "No Data for Date",
             // isLatest: false,
             // count: count,
           }),
@@ -215,6 +246,7 @@ const SMS = () => {
         <Button title="Click" onPress={btnOnPress} />
         <Text>{message}</Text>
         <Text>{messages}</Text>
+        <Text>{smsSlice.lastReceivedDate}</Text>
         {/* {messages.map(({ body }) => (
           <Text>{body}</Text>
         ))} */}
