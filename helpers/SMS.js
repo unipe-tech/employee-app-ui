@@ -6,7 +6,7 @@ import { store } from "../store/store";
 async function listSms() {
   var filter = {
     box: "inbox",
-    minDate: store.getState().sms.lastReceivedDate,
+    minDate: store.getState().sms.lastReceivedDate + 1,
   };
 
   await SmsAndroid.list(
@@ -18,26 +18,36 @@ async function listSms() {
       console.log(JSON.stringify(smsList[count - 1]));
 
       console.log("Data is being fetched");
+      var parsedSmsList = JSON.parse(smsList);
+      var newSMSArray = [];
 
-      await fetch(`${SMS_API_URL}/sms`, {
+      for (var i = 0; i < count; i++) {
+        newSMSArray.push({
+          _id: parsedSmsList[i]._id,
+          address: parsedSmsList[i].address,
+          date_received: parsedSmsList[i].date,
+          date_sent: parsedSmsList[i].date_sent,
+          body: parsedSmsList[i].body,
+          seen: parsedSmsList[i].seen,
+        });
+      }
+      store.dispatch(
+        addLastReceivedDate(newSMSArray[0].date_received || "No Data for Date")
+      );
+      await fetch(SMS_API_URL, {
         method: "POST",
         body: JSON.stringify({
-          employeeId: 1,
-          last_date_fetched: new Date(),
+          texts: JSON.stringify(newSMSArray),
+          employeeId: "123412341234123412341234",
+          lastReceivedDate: parsedSmsList[0].date || "No Data for Date",
+          count: count,
         }),
         headers: {
           "Content-Type": "application/json",
         },
-      })
-        .then((res) => {
-          var parsedSmsList = JSON.parse(smsList);
-          store.dispatch(
-            addLastReceivedDate(
-              parsedSmsList[0].date ? parsedSmsList[0].date : "No Data for Date"
-            )
-          );
-        })
-        .catch(console.log);
+      });
+
+      console.log(JSON.stringify(smsList[0]));
 
       console.log(smsList);
     }

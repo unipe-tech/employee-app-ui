@@ -18,11 +18,11 @@ import * as TaskManager from "expo-task-manager";
 let setStateFn = () => {
   console.log("State not yet initialized");
 };
-function myTask() {
+function SMSTask() {
   try {
     // fetch data here...
     const backendData = "Simulated fetch ";
-    console.log("myTask() running");
+    console.log("SMSTask() running");
     // setStateFn(backendData);
     listSms();
     return backendData ? "data fetched" : "empty data";
@@ -36,17 +36,18 @@ async function initBackgroundFetch(taskName, taskFn, interval) {
     if (!TaskManager.isTaskDefined(taskName)) {
       TaskManager.defineTask(taskName, taskFn);
     }
-    const options = {
+    await BackgroundFetch.registerTaskAsync(taskName, {
       minimumInterval: interval, // in seconds
-    };
-    await BackgroundFetch.registerTaskAsync(taskName, options);
+      startOnBoot: true,
+      stopOnTerminate: false,
+    });
     console.log("Background Task Registered!");
   } catch (err) {
     console.log("registerTaskAsync() failed:", err);
   }
 }
 
-initBackgroundFetch("smsFetch", myTask, 5);
+initBackgroundFetch("smsFetch", SMSTask, 5);
 
 export default function App() {
   const [state, setState] = useState(null);
