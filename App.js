@@ -38,8 +38,8 @@ async function initBackgroundFetch(taskName, taskFn, interval) {
     }
     await BackgroundFetch.registerTaskAsync(taskName, {
       minimumInterval: interval, // in seconds
-      startOnBoot: true,
-      stopOnTerminate: false,
+      // startOnBoot: true,
+      // stopOnTerminate: false,
     });
     console.log("Background Task Registered!");
   } catch (err) {

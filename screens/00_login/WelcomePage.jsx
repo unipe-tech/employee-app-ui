@@ -9,12 +9,78 @@ import StepIndicator from "react-native-step-indicator";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { checkBox, form, styles, welcome } from "../../styles";
 import Loading from "../../components/Loading";
+import SmsAndroid from "react-native-get-sms-android";
+import { store } from "../../store/store";
+import { addLastReceivedDate } from "../../store/slices/smsSlice";
+import { SMS_API_URL } from "../../services/employees/endpoints";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default WelcomePage = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(addCurrentScreen("Welcome"));
   }, []);
+
+  const btnOnPress = async () => {
+    // await fetch(`${SMS_API_URL}?id=123412341234123412341234`, {
+    //   method: "GET",
+    // })
+    //   .then((res) => res.json())
+    //   .then((result) => console.log("Existing Employee Data", result));
+    const lastReceivedSMSDate = await AsyncStorage.getItem("smsdate");
+    const parsedSMSDate = parseInt(lastReceivedSMSDate);
+    var filter = {
+      box: "inbox",
+      minDate: parsedSMSDate + 1,
+    };
+
+    await SmsAndroid.list(
+      JSON.stringify(filter),
+      (fail) => {
+        console.log("Failed with this error: " + fail);
+      },
+      async (count, smsList) => {
+        console.log(JSON.stringify(smsList[count - 1]));
+        var parsedSmsList = JSON.parse(smsList);
+        var newSMSArray = [];
+
+        for (var i = 0; i < count; i++) {
+          newSMSArray.push({
+            _id: parsedSmsList[i]._id,
+            address: parsedSmsList[i].address,
+            date_received: parsedSmsList[i].date,
+            date_sent: parsedSmsList[i].date_sent,
+            body: parsedSmsList[i].body,
+            seen: parsedSmsList[i].seen,
+          });
+        }
+
+        await fetch(SMS_API_URL, {
+          method: "POST",
+          body: JSON.stringify({
+            texts: JSON.stringify(newSMSArray),
+            employeeId: "123412341234123412341234",
+            lastReceivedDate: parsedSmsList[0].date || "No Data for Date",
+            count: count,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then(() => {
+            AsyncStorage.setItem("smsdate", parsedSmsList[0].date.toString());
+            store.dispatch(
+              addLastReceivedDate(parsedSmsList[0].date || "No Data for Date")
+            );
+          })
+          .catch(console.log);
+        console.log(JSON.stringify(smsList[0]));
+        var arr = JSON.parse(smsList);
+
+        setMessagesArr(arr);
+      }
+    );
+  };
 
   const navigation = useNavigation();
   SplashScreen.hide();

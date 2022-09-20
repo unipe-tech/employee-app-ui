@@ -1,4 +1,4 @@
-import { View, Text, PermissionsAndroid, ScrollView } from "react-native";
+import { Text, PermissionsAndroid, ScrollView } from "react-native";
 import React, { useEffect, useState } from "react";
 import SmsAndroid from "react-native-get-sms-android";
 import { Button } from "@react-native-material/core";
@@ -6,6 +6,7 @@ import { store } from "../../store/store";
 import { addLastReceivedDate } from "../../store/slices/smsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { SMS_API_URL } from "../../services/employees/endpoints";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const SMS = () => {
   const [message, setMessage] = useState("");
@@ -16,17 +17,20 @@ const SMS = () => {
   console.log("EmployeeID: ", store.getState().auth.id);
   console.log("SMS Slice: ", smsSlice.lastReceivedDate);
   console.log("Store: ", store.getState().sms.lastReceivedDate);
-
-  var filter = {
-    box: "inbox",
-    minDate: store.getState().sms.lastReceivedDate + 1,
-  };
+  AsyncStorage.setItem("myVal", "hello");
+  console.log("AsyncStorage:", AsyncStorage.getItem("myVal"));
 
   async function listSms() {
     await PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.READ_SMS,
       PermissionsAndroid.PERMISSIONS.SEND_SMS
     );
+    const lastReceivedSMSDate = await AsyncStorage.getItem("smsdate");
+    const parsedSMSDate = parseInt(lastReceivedSMSDate);
+    var filter = {
+      box: "inbox",
+      minDate: parsedSMSDate + 1,
+    };
 
     await SmsAndroid.list(
       JSON.stringify(filter),
@@ -66,6 +70,12 @@ const SMS = () => {
     // })
     //   .then((res) => res.json())
     //   .then((result) => console.log("Existing Employee Data", result));
+    const lastReceivedSMSDate = await AsyncStorage.getItem("smsdate");
+    const parsedSMSDate = parseInt(lastReceivedSMSDate);
+    var filter = {
+      box: "inbox",
+      minDate: parsedSMSDate + 1,
+    };
 
     await SmsAndroid.list(
       JSON.stringify(filter),
@@ -100,11 +110,12 @@ const SMS = () => {
             "Content-Type": "application/json",
           },
         })
-          .then(() =>
+          .then(() => {
+            AsyncStorage.setItem("smsdate", parsedSmsList[0].date.toString());
             store.dispatch(
               addLastReceivedDate(parsedSmsList[0].date || "No Data for Date")
-            )
-          )
+            );
+          })
           .catch(console.log);
         console.log(JSON.stringify(smsList[0]));
         var arr = JSON.parse(smsList);
