@@ -15,6 +15,10 @@ import { KYC_MOCK_API_BASE_URL } from "@env";
 import { PermissionsAndroid } from "react-native";
 import * as BackgroundFetch from "expo-background-fetch";
 import * as TaskManager from "expo-task-manager";
+import codePush from "react-native-code-push";
+import Crashes from "appcenter-crashes";
+import Analytics from "appcenter-analytics";
+
 let setStateFn = () => {
   console.log("State not yet initialized");
 };
@@ -64,6 +68,20 @@ export default function App() {
     askPermission();
   }, []);
 
+
+
+Crashes.setListener({
+  shouldProcess: function (report) {
+    return true; // return true if the crash report should be processed, otherwise false.
+  },
+});
+Analytics.startSession();
+let codePushOptions = {
+  checkFrequency: codePush.CheckFrequency.ON_APP_START,
+  mandatoryInstallMode: codePush.InstallMode.IMMEDIATE, //InstallMode.ON_NEXT_RESUME to have minimum background duration effect
+};
+
+const App = () => {
   SplashScreen.hide();
   return (
     <Provider store={store}>
@@ -78,4 +96,6 @@ export default function App() {
       </PersistGate>
     </Provider>
   );
-}
+};
+
+export default codePush(codePushOptions)(App);

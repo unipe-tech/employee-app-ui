@@ -14,6 +14,7 @@ import BankForm from "../screens/03_bank/Form";
 import PersonalDetailsForm from "../screens/04_profile/PersonalDetailsForm";
 import PersonalImage from "../screens/05_photo/PersonalImage";
 import DevMenu from "../screens/DevMenu";
+import BackendSync from "../screens/BackendSync";
 import RNPhotoCapture from "../components/RNPhotoCapture";
 import DrawerNavigator from "./DrawerNavigator";
 
@@ -45,13 +46,6 @@ const StackNavigator = () => {
         }}
       />
       <Stack.Screen
-        name="Welcome"
-        component={WelcomePage}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
         name="Login"
         component={LoginScreen}
         options={{
@@ -68,6 +62,20 @@ const StackNavigator = () => {
       <Stack.Screen
         name="SMS"
         component={SMS}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="BackendSync"
+        component={BackendSync}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Welcome"
+        component={WelcomePage}
         options={{
           headerShown: false,
         }}

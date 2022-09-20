@@ -1,6 +1,6 @@
-import { Button, Icon, IconButton } from "@react-native-material/core";
+import { Icon, IconButton } from "@react-native-material/core";
 import { useNavigation } from "@react-navigation/core";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Alert,
   Image,
@@ -17,9 +17,9 @@ import {
   checkVerification,
   sendSmsVerification,
 } from "../../services/otp/Gupshup/services";
-import { addLoginVerifyStatus } from "../../store/slices/authSlice";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { resetTimer, setLoginTimer } from "../../store/slices/timerSlice";
+import PrimaryButton from "../../components/PrimaryButton";
 import { styles } from "../../styles";
 // import RNOtpVerify from "react-native-otp-verify";
 
@@ -33,6 +33,7 @@ export default OTPScreen = () => {
 
   const countDownTime = useSelector((state) => state.timer.login);
   const phoneNumber = useSelector((state) => state.auth.phoneNumber);
+  const onboarded = useSelector((state) => state.auth.onboarded);
 
   // const otpHandler = (message) => {
   //   // let regexForOtp = /(\d{4})/g;
@@ -174,47 +175,41 @@ export default OTPScreen = () => {
             Sit back & relax while we fetch the OTP & log you inside the Unipe
             App
           </Text>
-          {next ? (
-            <Button
-              uppercase={false}
-              title="Verify"
-              type="solid"
-              color="#4E46F1"
-              style={styles.ContinueButton}
-              onPress={() => {
-                setNext(false);
-                checkVerification(phoneNumber, otp)
-                  .then((res) => {
-                    if (res["response"]["status"] === "success") {
-                      // TODO:
-                      // 1. pull and update aadhaar, pan, bank, profile slices
-                      // 2. check if already fully verified, then take to home screen
-                      // else navigate to 1st remaining screen
-                      navigation.navigate("AadhaarForm");
-                      dispatch(addLoginVerifyStatus("SUCCESS"));
-                      dispatch(resetTimer());
+          <PrimaryButton
+            uppercase={false}
+            title="Verify"
+            type="solid"
+            color="#4E46F1"
+            disabled={!next}
+            onPress={() => {
+              setNext(false);
+              checkVerification(phoneNumber, otp)
+                .then((res) => {
+                  if (res["response"]["status"] === "success") {
+                    navigation.navigate("AadhaarForm");
+                    if (onboarded) {
+                      navigation.navigate("BackendSync", {
+                        destination: "Home",
+                      });
                     } else {
-                      Alert.alert(
-                        res["response"]["status"],
-                        res["response"]["details"]
-                      );
+                      navigation.navigate("BackendSync", {
+                        destination: "Welcome",
+                      });
                     }
-                  })
-                  .catch((error) => {
-                    console.log(error);
-                    Alert.alert("Error", error);
-                  });
-              }}
-            />
-          ) : (
-            <Button
-              title="Verify"
-              uppercase={false}
-              type="solid"
-              style={styles.ContinueButton}
-              disabled
-            />
-          )}
+                    dispatch(resetTimer());
+                  } else {
+                    Alert.alert(
+                      res["response"]["status"],
+                      res["response"]["details"]
+                    );
+                  }
+                })
+                .catch((error) => {
+                  console.log(error);
+                  Alert.alert("Error", error);
+                });
+            }}
+          />
         </View>
       </KeyboardAvoidingWrapper>
     </SafeAreaView>

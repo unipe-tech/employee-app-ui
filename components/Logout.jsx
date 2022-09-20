@@ -10,13 +10,18 @@ import { resetESIC } from "../store/slices/esicSlice";
 import { resetNavigation } from "../store/slices/navigationSlice";
 import { resetPan } from "../store/slices/panSlice";
 import { resetProfile } from "../store/slices/profileSlice";
+import { resetLicense } from "../store/slices/licenseSlice";
 import { resetTimer } from "../store/slices/timerSlice";
 
 export default Logout = () => {
+
   const dispatch = useDispatch();
+  const navigation = useNavigation();
+
   const store = useSelector((state) => state);
   console.log(store);
-  const navigation = useNavigation();
+  
+
   return (
     <Pressable
       onPress={() => {
@@ -27,9 +32,10 @@ export default Logout = () => {
         dispatch(resetAadhaar());
         dispatch(resetESIC());
         dispatch(resetBank());
+        dispatch(resetLicense());
         dispatch(resetTimer());
         
-        navigation.navigate("Welcome");
+        navigation.navigate("Login");
       }}
       style={{
         flexDirection: "row",
