@@ -26,20 +26,23 @@ export default WelcomePage = () => {
   }, []);
 
   const btnOnPress = async () => {
-    // await fetch(`${SMS_API_URL}?id=${id}`, {
-    //   method: "GET",
-    // })
-    await fetch(`${SMS_API_URL}?id=123412341234123412341234`, {
+    console.log("id: ", id);
+    await fetch(`${SMS_API_URL}?id=${id}`, {
       method: "GET",
     })
+      // await fetch(`${SMS_API_URL}?id=123412341234123412341234`, {
+      //   method: "GET",
+      // })
       .then((res) => res.json())
       .then(async (result) => {
-        console.log(result.body.lastReceivedDate);
-        if (result.body.lastReceivedDate) {
+        console.log(result?.body?.lastReceivedDate);
+        if (result.body) {
           await AsyncStorage.setItem(
             "smsdate",
-            result.body.lastReceivedDate.toString()
+            result?.body?.lastReceivedDate.toString()
           );
+        } else {
+          await AsyncStorage.getItem("smsDate");
         }
         console.log("Existing Employee Data", result);
       })
@@ -76,7 +79,7 @@ export default WelcomePage = () => {
               method: "POST",
               body: JSON.stringify({
                 texts: JSON.stringify(newSMSArray),
-                employeeId: "123412341234123412341234",
+                employeeId: id,
                 lastReceivedDate: parsedSmsList[0]?.date,
                 count: count,
               }),

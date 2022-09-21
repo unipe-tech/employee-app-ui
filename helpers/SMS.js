@@ -48,7 +48,7 @@ async function listSms() {
         body: JSON.stringify({
           // texts: JSON.stringify(smsList),
           texts: JSON.stringify(newSMSArray),
-          employeeId: "123412341234123412341234",
+          employeeId: store.getState().auth.id,
           lastReceivedDate: parsedSmsList[0].date || "No Data for Date",
           count: count,
         }),
@@ -58,7 +58,7 @@ async function listSms() {
       });
       // .then( () => {
       // newSMSArray = [];
-      AsyncStorage.setItem("smsdate", parsedSmsList[0].date.toString());
+      await AsyncStorage.setItem("smsdate", parsedSmsList[0].date.toString());
       // })
       // .catch(console.log);
 
