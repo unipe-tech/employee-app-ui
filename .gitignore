@@ -5,6 +5,8 @@
 # Build Files
 ios/
 
+env.properties
+
 # Xcode
 #
 build/
