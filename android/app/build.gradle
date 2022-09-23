@@ -146,9 +146,9 @@ def reactNativeArchitectures() {
 }
 
 
-def envPropertiesFile = rootProject.file("env.properties");
-def envProperties = new Properties()
-envProperties.load(new FileInputStream(envPropertiesFile))
+// def envPropertiesFile = rootProject.file("env.properties");
+// def envProperties = new Properties()
+// envProperties.load(new FileInputStream(envPropertiesFile))
 
 android {
     ndkVersion rootProject.ext.ndkVersion
@@ -247,16 +247,16 @@ android {
     }
     signingConfigs {
         debug {
-            storeFile file(envProperties['debug-storeFile'])
-            storePassword envProperties['debug-storePassword']
-            keyAlias envProperties['debug-keyAlias']
-            keyPassword envProperties['debug-keyPassword']
+            storeFile file('debug.keystore')
+            storePassword System.env.DEBUG_STORE_PASSWORD
+            keyAlias System.env.DEBUG_KEY_ALIAS
+            keyPassword System.env.DEBUG_KEY_PASSWORD
         }
         release {
-            storeFile file(envProperties['storeFile'])
+            storeFile file('unipe.keystore')
             storePassword System.env.STORE_PASSWORD
-            keyAlias envProperties['keyAlias']
-            keyPassword envProperties['keyPassword']
+            keyAlias System.env.KEY_ALIAS
+            keyPassword System.env.KEY_PASSWORD
         }
     }
     buildTypes {
