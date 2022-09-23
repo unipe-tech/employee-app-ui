@@ -254,7 +254,7 @@ android {
         }
         release {
             storeFile file(envProperties['storeFile'])
-            storePassword envProperties['storePassword']
+            storePassword System.env.STORE_PASSWORD
             keyAlias envProperties['keyAlias']
             keyPassword envProperties['keyPassword']
         }
