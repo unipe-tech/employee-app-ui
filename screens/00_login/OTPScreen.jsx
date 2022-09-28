@@ -21,7 +21,6 @@ import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { resetTimer, setLoginTimer } from "../../store/slices/timerSlice";
 import PrimaryButton from "../../components/PrimaryButton";
 import { styles } from "../../styles";
-// import RNOtpVerify from "react-native-otp-verify";
 
 export default OTPScreen = () => {
   const dispatch = useDispatch();
@@ -34,29 +33,6 @@ export default OTPScreen = () => {
   const countDownTime = useSelector((state) => state.timer.login);
   const phoneNumber = useSelector((state) => state.auth.phoneNumber);
   const onboarded = useSelector((state) => state.auth.onboarded);
-
-  // const otpHandler = (message) => {
-  //   // let regexForOtp = /(\d{4})/g;
-  //   // const lOtp = regexForOtp.exec(message)[1];
-  //   // setOtp(message);
-  //   console.log("LOTP 🧑‍💻: ", message);
-  //   RNOtpVerify.removeListener();
-  //   Keyboard.dismiss();
-  // };
-
-  // useEffect(() => {
-  //   RNOtpVerify.getHash().then(console.log).catch(console.log);
-  //   RNOtpVerify.getOtp()
-  //     .then((p) => {
-  //       console.log("added listener: ", p);
-  //       RNOtpVerify.addListener(otpHandler);
-  //     })
-  //     .catch((p) => console.log(p));
-  // }, []);
-
-  // useEffect(() => {
-  //   console.log("OTP rocks!", otp);
-  // }, [otp]);
 
   useEffect(() => {
     if (otp.length === 6) {
