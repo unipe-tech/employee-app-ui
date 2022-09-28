@@ -15,6 +15,7 @@ import { aadhaarBackendPush } from "../../helpers/BackendPush";
 import { bankform, form, styles } from "../../styles";
 import { COLORS } from "../../constants/Theme";
 import KYCSteps from "../../components/molecules/KYCSteps";
+import TextButton from "../../components/atoms/TextButton";
 
 export default AadhaarConfirm = () => {
   const navigation = useNavigation();
@@ -83,8 +84,8 @@ export default AadhaarConfirm = () => {
               Locality: {aadhaarData["aadhaar_data"]["locality"]}
             </Text>
             <View style={{ flexDirection: "row" }}>
-              <Button
-                title="No"
+              <TextButton
+                label="No"
                 type="solid"
                 uppercase={false}
                 style={form.noButton}
@@ -93,8 +94,8 @@ export default AadhaarConfirm = () => {
                   navigation.navigate("AadhaarForm");
                 }}
               />
-              <Button
-                title="Yes"
+              <TextButton
+                label="Yes"
                 type="solid"
                 uppercase={false}
                 style={form.yesButton}

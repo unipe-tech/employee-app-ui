@@ -11,7 +11,7 @@ const DrawerNavigator = () => {
   return (
     <Drawer.Navigator
       drawerContent={(props) => <CustomDrawer {...props} />}
-      defaultStatus="open"
+      defaultStatus="closed"
       initialRouteName="DrawerHome"
       screenOptions={{
         activeTintColor: "#e91e63",
