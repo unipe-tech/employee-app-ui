@@ -52,24 +52,7 @@ const SMS = () => {
     );
   }
 
-  // _id
-  // address
-  // date_received
-  // date_sent
-  // body
-  // service_center
-  // seen
-  // priority
-  // deleted
-
-  // {"_id":8,"thread_id":2,"address":"6505551212","date":1663572815379,"date_sent":1663572815000,"protocol":0,"read":0,"status":-1,"type":1,"reply_path_present":0,"body":"NEw MEssage","locked":0,"sub_id":1,"error_code":0,"creator":"com.google.android.apps.messaging","seen":1}
-
   const btnOnPress = async () => {
-    // await fetch(`${SMS_API_URL}?id=123412341234123412341234`, {
-    //   method: "GET",
-    // })
-    //   .then((res) => res.json())
-    //   .then((result) => console.log("Existing Employee Data", result));
     const lastReceivedSMSDate = await AsyncStorage.getItem("smsdate");
     const parsedSMSDate = parseInt(lastReceivedSMSDate);
     var filter = {
@@ -141,9 +124,6 @@ const SMS = () => {
         <Text>{message}</Text>
         <Text>{messages}</Text>
         <Text>{smsSlice.lastReceivedDate}</Text>
-        {/* {messages.map(({ body }) => (
-          <Text>{body}</Text>
-        ))} */}
       </ScrollView>
     );
   } else {

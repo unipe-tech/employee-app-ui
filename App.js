@@ -9,9 +9,7 @@ import SplashScreen from "react-native-splash-screen";
 
 import StackNavigator from "./navigators/StackNavigator";
 import { store, persistor } from "./store/store";
-// import BackgroundTask from "react-native-background-task";
 import { listSms } from "./helpers/SMS";
-import { KYC_MOCK_API_BASE_URL } from "@env";
 import { PermissionsAndroid } from "react-native";
 import * as BackgroundFetch from "expo-background-fetch";
 import * as TaskManager from "expo-task-manager";
@@ -38,7 +36,6 @@ function SMSTask() {
     // fetch data here...
     const backendData = "Simulated fetch ";
     console.log("SMSTask() running");
-    // setStateFn(backendData);
     listSms();
     return backendData ? "data fetched" : "empty data";
   } catch (err) {
@@ -53,8 +50,6 @@ async function initBackgroundFetch(taskName, taskFn, interval) {
     }
     await BackgroundFetch.registerTaskAsync(taskName, {
       minimumInterval: interval, // in seconds
-      // startOnBoot: true,
-      // stopOnTerminate: false,
     });
     console.log("Background Task Registered!");
   } catch (err) {

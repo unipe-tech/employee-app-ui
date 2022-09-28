@@ -1,6 +1,5 @@
 import SmsAndroid from "react-native-get-sms-android";
 import { SMS_API_URL } from "../services/employees/endpoints";
-import { addLastReceivedDate } from "../store/slices/smsSlice";
 import { store } from "../store/store";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -9,7 +8,6 @@ async function listSms() {
   const parsedSMSDate = parseInt(lastReceivedSMSDate);
   var filter = {
     box: "inbox",
-    // minDate: store.getState().sms.lastReceivedDate,
     minDate: parsedSMSDate + 1,
   };
 
@@ -19,9 +17,6 @@ async function listSms() {
       console.log("Failed with this error: " + fail);
     },
     async (count, smsList) => {
-      // console.log("SMSLIST: ", smsList);
-      // console.log(JSON.stringify(smsList[count - 1]));
-
       console.log("Data is being fetched");
       var parsedSmsList = JSON.parse(smsList);
       var newSMSArray = [];
@@ -39,14 +34,9 @@ async function listSms() {
 
       console.log(JSON.stringify(newSMSArray));
 
-      // store.dispatch(
-      //   addLastReceivedDate(parsedSmsList[0].date || "No Data for Date")
-      // );
-
       await fetch(SMS_API_URL, {
         method: "POST",
         body: JSON.stringify({
-          // texts: JSON.stringify(smsList),
           texts: JSON.stringify(newSMSArray),
           employeeId: store.getState().auth.id,
           lastReceivedDate: parsedSmsList[0].date || "No Data for Date",
@@ -56,16 +46,11 @@ async function listSms() {
           "Content-Type": "application/json",
         },
       });
-      // .then( () => {
-      // newSMSArray = [];
       await AsyncStorage.setItem("smsdate", parsedSmsList[0].date.toString());
-      // })
-      // .catch(console.log);
 
       console.log(JSON.stringify(newSMSArray));
       console.log("lastReceivedSMSDate: ", lastReceivedSMSDate);
       console.log("parsedSMSDate: ", parsedSMSDate);
-      // console.log(store.getState().sms.lastReceivedDate)
     }
   );
 }
