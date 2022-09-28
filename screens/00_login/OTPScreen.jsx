@@ -1,53 +1,43 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  Image,
-  Text,
-  View,
-  SafeAreaView,
-  TextInput,
-  ScrollView,
-  Alert,
-} from "react-native";
-import { Button, Icon, IconButton } from "@react-native-material/core";
+import { Icon, IconButton } from "@react-native-material/core";
 import { useNavigation } from "@react-navigation/core";
-import SmsRetriever from "react-native-sms-retriever";
+import { useEffect, useState } from "react";
+import {
+  Alert,
+  Image,
+  SafeAreaView,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 import CountDown from "react-native-countdown-component";
+import { useDispatch, useSelector } from "react-redux";
+import { KeyboardAvoidingWrapper } from "../../KeyboardAvoidingWrapper";
 import {
   checkVerification,
   sendSmsVerification,
-} from "../../services/otp/Twilio/verify";
-import { addLoginVerifyStatus } from "../../store/slices/authSlice";
+} from "../../services/otp/Gupshup/services";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
+import { resetTimer, setLoginTimer } from "../../store/slices/timerSlice";
 import { styles } from "../../styles";
-import { KeyboardAvoidingWrapper } from "../../KeyboardAvoidingWrapper";
 import { COLORS } from "../../constants/Theme";
 import TextButton from "../../components/atoms/TextButton";
-import { OTP_SUBTITLE, OTP_TITLE } from "../../constants/Strings";
+import { OTP_TITLE } from "../../constants/Strings";
 
 export default OTPScreen = () => {
-  const phoneNumber = useSelector((state) => state.auth.phoneNumber);
+  const dispatch = useDispatch();
   const navigation = useNavigation();
+
   const [otp, setOtp] = useState("");
   const [next, setNext] = useState(false);
   const [back, setBack] = useState(false);
-  const auth = useSelector((state) => state.auth);
 
-  console.log("OTPScreen state.auth: ", auth);
+  const countDownTime = useSelector((state) => state.timer.login);
+  const phoneNumber = useSelector((state) => state.auth.phoneNumber);
+  const onboarded = useSelector((state) => state.auth.onboarded);
 
-  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(addCurrentScreen("Otp"));
   }, []);
-
-  // HHrHWFsvgjF
-
-  // useEffect(() => {
-  //   dispatch({
-  //     type: "SET_USER",
-  //     payload: user,
-  //   });
-  // }, [user]);
 
   useEffect(() => {
     if (otp.length === 6) {
@@ -117,7 +107,7 @@ export default OTPScreen = () => {
                 onPress={() =>
                   Alert.alert(
                     "OTP Timer",
-                    "You must wait for 30 seconds to edit number"
+                    "You must wait for 2 minutes to edit number"
                   )
                 }
               />
@@ -133,7 +123,7 @@ export default OTPScreen = () => {
             keyboardType="numeric"
           />
           <CountDown
-            until={60}
+            until={countDownTime}
             onFinish={() => {
               setBack(true);
             }}
@@ -143,26 +133,76 @@ export default OTPScreen = () => {
             digitTxtStyle={{ color: COLORS.primary }}
             timeToShow={["M", "S"]}
             timeLabels={{ m: "MM", s: "SS" }}
+            onChange={(time) => {
+              dispatch(setLoginTimer(time));
+            }}
           />
           {back ? (
             <Text
               style={styles.resendText}
               onPress={() => {
-                sendSmsVerification(`+91${phoneNumber}`).then((sent) => {
-                  console.log("Sent!");
-                });
-                setOtp("");
+                sendSmsVerification(phoneNumber)
+                  .then((res) => {
+                    if (res["response"]["status"] === "success") {
+                      setOtp("");
+                      setBack(false);
+                      dispatch(resetTimer());
+                      Alert.alert("OTP resent successfully");
+                    } else {
+                      Alert.alert(
+                        res["response"]["status"],
+                        res["response"]["details"]
+                      );
+                    }
+                  })
+                  .catch((error) => {
+                    console.log(error);
+                    Alert.alert("Error", error);
+                  });
               }}
             >
               Resend
             </Text>
           ) : null}
-          <Text style={styles.otpreadtxt}>{OTP_SUBTITLE}</Text>
-
+          <Text style={styles.otpreadtxt}>
+            {" "}
+            Sit back & relax while we fetch the OTP & log you inside the Unipe
+            App
+          </Text>
           <TextButton
-            label={"Verify"}
-            onPress={onVerify}
-            disabled={next ? false : true}
+            uppercase={false}
+            label="Verify"
+            type="solid"
+            color="#4E46F1"
+            disabled={!next}
+            onPress={() => {
+              setNext(false);
+              checkVerification(phoneNumber, otp)
+                .then((res) => {
+                  if (res["response"]["status"] === "success") {
+                    navigation.navigate("AadhaarForm");
+                    if (onboarded) {
+                      navigation.navigate("BackendSync", {
+                        destination: "Home",
+                      });
+                    } else {
+                      navigation.navigate("BackendSync", {
+                        destination: "Welcome",
+                      });
+                    }
+                    dispatch(resetTimer());
+                  } else {
+                    Alert.alert(
+                      res["response"]["status"],
+                      res["response"]["details"]
+                    );
+                  }
+                })
+                .catch((error) => {
+                  console.log(error);
+                  Alert.alert("Error", error);
+                });
+            }}
           />
         </View>
       </KeyboardAvoidingWrapper>

@@ -5,20 +5,24 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginScreen from "../screens/00_login/LoginScreen";
 import OTPScreen from "../screens/00_login/OTPScreen";
 import WelcomePage from "../screens/00_login/WelcomePage";
-import AadhaarConfirm from "../screens/01_aadhaar/AadhaarConfirm";
-import AadhaarForm from "../screens/01_aadhaar/AadhaarForm";
-import AadhaarVerify from "../screens/01_aadhaar/AadhaarVerify";
-import PanCardInfo from "../screens/02_pan/PanCardInfo";
-import BankInformationForm from "../screens/03_bank/BankInformationForm";
+import AadhaarConfirm from "../screens/01_aadhaar/Confirm";
+import AadhaarForm from "../screens/01_aadhaar/Form";
+import AadhaarVerify from "../screens/01_aadhaar/Verify";
+import PanForm from "../screens/02_pan/Form";
+import PanConfirm from "../screens/02_pan/Confirm";
+import BankForm from "../screens/03_bank/Form";
 import PersonalDetailsForm from "../screens/04_profile/PersonalDetailsForm";
 import PersonalImage from "../screens/05_photo/PersonalImage";
 import DevMenu from "../screens/DevMenu";
+import BackendSync from "../screens/BackendSync";
 import RNPhotoCapture from "../components/RNPhotoCapture";
 import DrawerNavigator from "./DrawerNavigator";
 
 import { STAGE } from "@env";
 import KYCScreen from "../screens/07_drawer/KYCScreen";
 import Profile from "../screens/07_drawer/Profile";
+import LicenseConfirm from "../screens/06_home/Documents/License/Confirm";
+import BankConfirm from "../screens/03_bank/Confirm";
 
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator();
@@ -41,13 +45,6 @@ const StackNavigator = () => {
         }}
       />
       <Stack.Screen
-        name="Welcome"
-        component={WelcomePage}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
         name="Login"
         component={LoginScreen}
         options={{
@@ -57,6 +54,20 @@ const StackNavigator = () => {
       <Stack.Screen
         name="Otp"
         component={OTPScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="BackendSync"
+        component={BackendSync}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Welcome"
+        component={WelcomePage}
         options={{
           headerShown: false,
         }}
@@ -102,21 +113,38 @@ const StackNavigator = () => {
         }}
       />
       <Stack.Screen
-        name="PanCardInfo"
-        component={PanCardInfo}
+        name="PanForm"
+        component={PanForm}
         options={{
           headerShown: false,
           header: null,
         }}
       />
       <Stack.Screen
-        name="BankInfoForm"
-        component={BankInformationForm}
+        name="PanConfirm"
+        component={PanConfirm}
         options={{
           headerShown: false,
           header: null,
         }}
       />
+      <Stack.Screen
+        name="BankForm"
+        component={BankForm}
+        options={{
+          headerShown: false,
+          header: null,
+        }}
+      />
+       <Stack.Screen
+        name="BankConfirm"
+        component={BankConfirm}
+        options={{
+          headerShown: false,
+          header: null,
+        }}
+      />
+
       <Stack.Screen
         name="Home"
         component={DrawerNavigator}
@@ -150,6 +178,15 @@ const StackNavigator = () => {
           headerTitle: "Profile Details",
         }}
       />
+      <Stack.Screen
+        name="LicenseConfirm"
+        component={LicenseConfirm}
+        options={{
+          headerShown: true,
+          headerTitle: "Profile Details",
+        }}
+      />
+
     </Stack.Navigator>
   );
 };

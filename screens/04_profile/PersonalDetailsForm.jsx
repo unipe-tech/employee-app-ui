@@ -2,11 +2,11 @@ import { AppBar, Button, Icon, IconButton } from "@react-native-material/core";
 import { Picker } from "@react-native-picker/picker";
 import { useNavigation } from "@react-navigation/core";
 import React, { useEffect, useState } from "react";
-import { SafeAreaView, ScrollView, Text, TextInput, View } from "react-native";
+import { SafeAreaView, Text, TextInput, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  addAlternatePhone,
-  addEducationalQualification,
+  addAltMobile,
+  addQualification,
   addEmail,
   addMaritalStatus,
 } from "../../store/slices/profileSlice";
@@ -15,80 +15,95 @@ import { bankform, form, styles } from "../../styles";
 import { KeyboardAvoidingWrapper } from "../../KeyboardAvoidingWrapper";
 import { COLORS } from "../../constants/Theme";
 import TextButton from "../../components/atoms/TextButton";
-import KYCSteps from "../../components/molecules/KYCSteps";
 
 export default PersonalDetailsForm = () => {
-  const educationalQualifications = [
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+
+  const [next, setNext] = useState(false);
+
+  const panSlice = useSelector((state) => state.pan);
+  const profileSlice = useSelector((state) => state.profile);
+  const [maritalStatus, setMaritalStatus] = useState(
+    profileSlice?.maritalStatus
+  );
+  const [qualification, setQualification] = useState(
+    profileSlice?.qualification
+  );
+  const [altMobile, setAltMobile] = useState(profileSlice?.altMobile);
+  const [email, setEmail] = useState(profileSlice?.email || panSlice?.email);
+
+  useEffect(() => {
+    dispatch(addCurrentScreen("PersonalDetailsForm"));
+  }, []);
+
+  useEffect(() => {
+    dispatch(addMaritalStatus(maritalStatus));
+  }, [maritalStatus]);
+
+  useEffect(() => {
+    dispatch(addQualification(qualification));
+  }, [qualification]);
+
+  useEffect(() => {
+    dispatch(addAltMobile(altMobile));
+  }, [altMobile]);
+
+  useEffect(() => {
+    dispatch(addEmail(email));
+  }, [email]);
+
+  useEffect(() => {
+    if (maritalStatus && qualification) {
+      setNext(true);
+    } else {
+      setNext(false);
+    }
+  }, [maritalStatus, qualification]);
+
+  const qualifications = [
     "10th Pass",
     "12th Pass",
     "Graduate",
     "Post Graduate",
     "None of the Above",
   ];
-  const maritalStatuses = ["Unmarried", "Married"];
-  const [maritalStatus, setMaritalStatus] = useState(
-    useSelector((state) => state.profile["maritalStatus"])
-  );
-  const [educationalQualification, setEducationallQualification] = useState(
-    useSelector((state) => state.profile["educationalQualification"])
-  );
-  const [alternatePhone, setAlternatePhone] = useState(
-    useSelector((state) => state.profile["alternatePhone"])
-  );
-  const [email, setEmail] = useState(
-    useSelector((state) => state.profile["email"])
-  );
-  const navigation = useNavigation();
-  const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(addCurrentScreen("PersonalDetailsForm"));
-  }, []);
-  useEffect(() => {
-    dispatch(addMaritalStatus(maritalStatus));
-  }, [maritalStatus]);
-  useEffect(() => {
-    dispatch(addEducationalQualification(educationalQualification));
-  }, [educationalQualification]);
-  useEffect(() => {
-    dispatch(addAlternatePhone(alternatePhone));
-  }, [alternatePhone]);
-  useEffect(() => {
-    dispatch(addEmail(email));
-  }, [email]);
+  const maritalStatuses = ["Unmarried", "Married"];
 
   return (
     <>
       <AppBar
         title="Setup Profile"
-        color={COLORS.primary}
+        color="#4E46F1"
         leading={
           <IconButton
             icon={<Icon name="arrow-back" size={20} color="white" />}
-            onPress={() => navigation.navigate("BankInfoForm")}
+            onPress={() => navigation.navigate("BankForm")}
           />
         }
       />
-
       <SafeAreaView style={styles.container}>
-        <KYCSteps step={4} />
+        <ProgressBarTop step={3} />
         <Text style={form.formHeader}>Employee basic details</Text>
         <KeyboardAvoidingWrapper>
           <View>
-            <Text style={form.formLabel}>Select Education*</Text>
+            <Text style={form.formLabel}>
+              Select Education <Text style={bankform.asterisk}>*</Text>
+            </Text>
             <Picker
-              selectedValue={educationalQualification}
+              selectedValue={qualification}
               style={form.picker}
-              onValueChange={(itemValue) =>
-                setEducationallQualification(itemValue)
-              }
+              onValueChange={(itemValue) => setQualification(itemValue)}
               prompt="Educational Qualification"
             >
-              {educationalQualifications.map((item, index) => {
-                return <Picker.Item label={item} value={item} />;
+              {qualifications.map((item, index) => {
+                return <Picker.Item label={item} value={item} key={index} />;
               })}
             </Picker>
-            <Text style={form.formLabel}>Marital Status*</Text>
+            <Text style={form.formLabel}>
+              Marital Status <Text style={bankform.asterisk}>*</Text>
+            </Text>
             <View style={styles.flexrow}>
               {maritalStatuses.map((item, index) => {
                 return (
@@ -109,9 +124,9 @@ export default PersonalDetailsForm = () => {
               Enter your alternate mobile number
             </Text>
             <TextInput
-              style={styles.textInput}
-              value={alternatePhone}
-              onChangeText={setAlternatePhone}
+              style={form.formTextInput}
+              value={altMobile}
+              onChangeText={setAltMobile}
               autoCompleteType="tel"
               keyboardType="phone-pad"
               textContentType="telephoneNumber"
@@ -123,6 +138,8 @@ export default PersonalDetailsForm = () => {
               style={form.formTextInput}
               value={email}
               onChangeText={setEmail}
+              autoCompleteType="email"
+              keyboardType="email-address"
               placeholder="Enter Email"
               required
             />
@@ -133,6 +150,7 @@ export default PersonalDetailsForm = () => {
                 navigation.navigate("PersonalImage");
               }}
             />
+
             <View style={bankform.padding}></View>
           </View>
         </KeyboardAvoidingWrapper>

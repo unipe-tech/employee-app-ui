@@ -1,39 +1,53 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  submitOTPtxnId: "",
+  data: {},
   number: "",
-  data: "",
+  submitOTPtxnId: "",
+  verifyMsg: "",
   verifyStatus: "PENDING",
+  verifyTimestamp: "",
 };
 
 const aadhaarSlice = createSlice({
   name: "aadhaar",
   initialState: initialState,
   reducers: {
-    addAadhaarData(state, action) {
+    addData(state, action) {
       state.data = action.payload;
     },
-    addAadhaarNumber(state, action) {
+    addNumber(state, action) {
       state.number = action.payload;
     },
-    addAadhaarSubmitOTPtxnId(state, action) {
+    addSubmitOTPtxnId(state, action) {
       state.submitOTPtxnId = action.payload;
     },
-    addAadhaarVerifyStatus(state, action) {
+    addVerifyMsg(state, action) {
+      state.verifyMsg = action.payload;
+    },
+    addVerifyStatus(state, action) {
       state.verifyStatus = action.payload;
     },
-    resetAadhaar(state) {
-      Object.assign(state, initialState);
+    addVerifyTimestamp(state, action) {
+      state.verifyTimestamp = action.payload;
+    },
+    resetAadhaar(state, action) {
+      if (!action.payload) {
+        Object.assign(state, initialState);
+      } else {
+        Object.assign(state, action.payload);
+      }
     },
   },
 });
 
 export const {
-  addAadhaarData,
-  addAadhaarNumber,
-  addAadhaarSubmitOTPtxnId,
-  addAadhaarVerifyStatus,
+  addData,
+  addNumber,
+  addSubmitOTPtxnId,
+  addVerifyMsg,
+  addVerifyStatus,
+  addVerifyTimestamp,
   resetAadhaar,
 } = aadhaarSlice.actions;
 

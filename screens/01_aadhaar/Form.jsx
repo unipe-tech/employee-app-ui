@@ -8,9 +8,7 @@ import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import AadhaarFormTemplate from "../../templates/aadhaar/Form";
 import { styles } from "../../styles";
 
-
 const AadhaarForm = () => {
-  
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
@@ -42,28 +40,27 @@ const AadhaarForm = () => {
 
   return (
     <>
+      <AppBar
+        title="Aadhaar Verification"
+        color="#4E46F1"
+        leading={
+          <IconButton
+            icon={<Icon name="arrow-back" size={20} color="white" />}
+            onPress={() => {
+              backAlert();
+            }}
+          />
+        }
+        trailing={
+          <IconButton
+            icon={<Icon name="arrow-forward" size={20} color="white" />}
+            onPress={() => {
+              SkipAadhaar();
+            }}
+          />
+        }
+      />
       <SafeAreaView style={styles.container}>
-        <AppBar
-          title="Aadhaar Verification"
-          color="#4E46F1"
-          leading={
-            <IconButton
-              icon={<Icon name="arrow-back" size={20} color="white" />}
-              onPress={() => {
-                backAlert();
-              }}
-            />
-          }
-          trailing={
-            <IconButton
-              icon={<Icon name="arrow-forward" size={20} color="white" />}
-              onPress={() => {
-                SkipAadhaar();
-              }}
-            />
-          }
-        />
-
         <ProgressBarTop step={0} />
         <AadhaarFormTemplate />
       </SafeAreaView>

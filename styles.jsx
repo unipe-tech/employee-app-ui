@@ -25,7 +25,8 @@ export const styles = StyleSheet.create({
     color: "#020614",
   },
   textInput: {
-    width: "100%",
+    marginLeft: 40,
+    width: "80%",
     height: 50,
     borderBottomWidth: 1,
     alignSelf: "center",
@@ -39,6 +40,7 @@ export const styles = StyleSheet.create({
     textDecorationLine: "underline",
   },
   otpInput: {
+    alignSelf: "center",
     marginTop: 40,
     width: "70%",
     alignSelf: "center",
@@ -51,11 +53,23 @@ export const styles = StyleSheet.create({
   ContinueButton: {
     padding: 5,
     alignSelf: "center",
-    marginTop: 50,
+    marginTop: 20,
+    width: 320,
+    height: 60,
+    fontSize: 20,
+    backgroundColor: "#4E46F1",
+    borderRadius: 6,
+  },
+  PrimaryButton: {
+    alignSelf: "center",
+    marginTop: 20,
+    width: 320,
+    height: 60,
+    fontSize: 20,
+  },
+  ButtonContainer: {
     width: "100%",
-    height: 50,
-    alignItems: "center",
-    justifyContent: "center",
+    height: "100%",
   },
   flexrow: {
     flexDirection: "row",
@@ -88,13 +102,19 @@ export const styles = StyleSheet.create({
   LoadingButton: {
     padding: 10,
     alignSelf: "center",
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 50,
-    width: "100%",
-    height: 50,
-    backgroundColor: COLORS.primary,
-    borderRadius: 5,
+    marginTop: 20,
+    width: 320,
+    height: 60,
+    fontSize: 20,
+    backgroundColor: "#4E46F1",
+    borderRadius: 6,
+  },
+  Maintitle: {
+    marginLeft: 30,
+    marginTop: 10,
+    color: "black",
+    fontSize: 18,
+    fontFamily: "Roboto",
   },
 });
 
@@ -140,6 +160,7 @@ export const form = StyleSheet.create({
     color: "grey",
   },
   formTextInput: {
+    // marginLeft: 34,
     width: "100%",
     height: 50,
     borderBottomWidth: 1,
@@ -165,20 +186,11 @@ export const form = StyleSheet.create({
     width: "100%",
     height: 50,
   },
-  skipButton: {
-    padding: 5,
-    alignSelf: "center",
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 10,
-    width: "100%",
-    height: 50,
-  },
   OtpAwaitMsg: {
     color: "#230C45",
-    marginLeft: 40,
-    marginRight: 20,
-    marginTop: 30,
+    alignSelf: "center",
+    textAlign: "center",
+    marginTop: 20,
     fontSize: 16,
     fontFamily: "Roboto",
   },
@@ -198,23 +210,22 @@ export const form = StyleSheet.create({
   },
   yesButton: {
     padding: 10,
-    marginLeft: 34,
-    marginTop: 50,
+    marginLeft: 40,
+    marginTop: 20,
     width: 150,
     height: 60,
     fontSize: 20,
   },
   noButton: {
     padding: 10,
-    marginLeft: 34,
-    marginTop: 50,
+    marginTop: 20,
     width: 150,
     height: 60,
     fontSize: 20,
   },
   aadharimg: {
-    marginLeft: 100,
-    marginTop: 30,
+    alignSelf: "center",
+    marginTop: 20,
     width: 200,
     height: 200,
   },
@@ -234,6 +245,7 @@ export const form = StyleSheet.create({
     fontWeight: "bold",
   },
   forgotText: {
+    marginLeft: "70%",
     marginTop: 10,
     flexDirection: "row",
     alignItems: "center",
@@ -275,8 +287,14 @@ export const bankform = StyleSheet.create({
     color: COLORS.gray,
     ...FONTS.body4,
   },
+  formatmsg: {
+    marginLeft: 34,
+    color: "red",
+    fontSize: 12,
+  },
   formInput: {
-    width: "100%",
+    marginLeft: 34,
+    width: "80%",
     height: 40,
     borderBottomWidth: 1,
   },
@@ -319,6 +337,7 @@ export const bankform = StyleSheet.create({
     alignSelf: "center",
     ...FONTS.body3,
   },
+  asterisk: { fontWeight: "bold", color: "#4E46F1" },
 });
 
 export const homeCard = StyleSheet.create({
@@ -394,7 +413,7 @@ export const Camera = StyleSheet.create({
     padding: 15,
     paddingHorizontal: 20,
     alignSelf: "center",
-    marginTop: 500,
+    marginTop: 450,
   },
   wait: {
     flex: 1,
@@ -449,9 +468,11 @@ export const welcome = StyleSheet.create({
   },
   subTitle: {
     marginTop: 20,
-    color: COLORS.black,
-    ...FONTS.body4,
-    textAlign: "center",
+    alignSelf: "center",
+    justifyContent: "center",
+    color: "black",
+    fontSize: 18,
+    fontFamily: "Roboto",
   },
   steps: { alignSelf: "center", flex: 1 },
 });
@@ -487,3 +508,77 @@ export const esic = StyleSheet.create({
     fontFamily: "Roboto",
   },
 });
+
+export const license = StyleSheet.create({
+  authority: {
+    color: "#4E46F1",
+    marginLeft: "20%",
+    fontSize: 12,
+    fontFamily: "Roboto",
+  },
+  valid: {
+    color: "green",
+    marginLeft: "10%",
+    fontSize: 12,
+    fontFamily: "Roboto",
+  },
+  invalid: {
+    color: "red",
+    marginLeft: "20%",
+    fontSize: 12,
+    fontFamily: "Roboto",
+  },
+});
+
+export const card = StyleSheet.create({
+  alertCard: {
+    marginTop: 20,
+    padding: 10,
+    flexDirection: "column",
+  },
+  infoText: {
+    fontSize: 16,
+  },
+  alertText: {
+    color: "black",
+    fontSize: 14,
+    fontWeight: "bold",
+    textDecorationLine: "underline",
+    paddingLeft: 10,
+    paddingTop: 10,
+  },
+});
+
+export const dev = StyleSheet.create({
+  title: {
+    alignSelf: "center",
+    marginTop: 20,
+    width: "60%",
+  },
+});
+
+export const stepIndicatorStyles = {
+  stepIndicatorSize: 30,
+  currentStepIndicatorSize: 30,
+  separatorStrokeWidth: 2,
+  currentStepStrokeWidth: 3,
+  stepStrokeCurrentColor: "#4E46F1",
+  stepStrokeWidth: 3,
+  separatorStrokeFinishedWidth: 4,
+  stepStrokeFinishedColor: "#4E46F1",
+  stepStrokeUnFinishedColor: "#aaaaaa",
+  separatorFinishedColor: "#4E46F1",
+  separatorUnFinishedColor: "#aaaaaa",
+  stepIndicatorFinishedColor: "#E5EAF7",
+  stepIndicatorUnFinishedColor: "#ffffff",
+  stepIndicatorCurrentColor: "#ffffff",
+  stepIndicatorLabelFontSize: 14,
+  currentStepIndicatorLabelFontSize: 14,
+  stepIndicatorLabelCurrentColor: "#4E46F1",
+  stepIndicatorLabelFinishedColor: "#4E46F1",
+  stepIndicatorLabelUnFinishedColor: "#aaaaaa",
+  labelColor: "#999999",
+  labelSize: 14,
+  currentStepLabelColor: "#4E46F1",
+  labelAlign: "flex-start",
+};

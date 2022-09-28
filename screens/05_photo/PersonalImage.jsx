@@ -1,60 +1,46 @@
 import { AppBar, Button, Icon, IconButton } from "@react-native-material/core";
 import { useNavigation } from "@react-navigation/core";
 import React, { useCallback, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  Alert,
-  Image,
-  SafeAreaView,
-  ScrollView,
-  Text,
-  View,
-} from "react-native";
+import { Image, SafeAreaView, ScrollView, Text, View } from "react-native";
 import * as ImagePicker from "react-native-image-picker";
-
-import { GenerateDocument } from "../../helpers/GenerateDocument";
-import { putBackendData } from "../../services/employees/employeeServices";
-import { addSelfie } from "../../store/slices/profileSlice";
+import { useDispatch, useSelector } from "react-redux";
+import PrimaryButton from "../../components/PrimaryButton";
+import ProgressBarTop from "../../components/ProgressBarTop";
+import RNIPPhotoCapture from "../../components/RNIPPhotoCapture";
+import { profileBackendPush } from "../../helpers/BackendPush";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
+import { addPhoto } from "../../store/slices/profileSlice";
 import { checkBox, form, selfie, styles } from "../../styles";
 import { COLORS } from "../../constants/Theme";
 import TextButton from "../../components/atoms/TextButton";
 import KYCSteps from "../../components/molecules/KYCSteps";
 
 export default PersonalImage = () => {
-  const navigation = useNavigation();
-  const id = useSelector((state) => state.auth.id);
-  const Profile = useSelector((state) => state.profile);
-  const [imageData, setImageData] = useState(Profile.selfie);
   const dispatch = useDispatch();
+  const navigation = useNavigation();
 
+  const [next, setNext] = useState(false);
+
+  const id = useSelector((state) => state.auth.id);
+  const profileSlice = useSelector((state) => state.profile);
+  const [image, setImage] = useState(
+    useSelector((state) => state.profile.photo)
+  );
   useEffect(() => {
     dispatch(addCurrentScreen("PersonalImage"));
   }, []);
 
   useEffect(() => {
-    setImageData(Profile.selfie);
-  }, [Profile.selfie]);
+    setImage(profileSlice.photo);
+  }, [profileSlice.photo]);
 
-  const ProfilePush = () => {
-    var profilePayload = GenerateDocument({
-      src: "Profile",
-      id: id,
-      maritalStatus: Profile["maritalStatus"],
-      qualification: Profile["educationalQualification"],
-      altMobile: Profile["alternatePhone"],
-      email: Profile["email"],
-      photo: imageData,
-    });
-    putBackendData({ document: profilePayload, src: "Profile" })
-      .then((res) => {
-        console.log(res.data);
-        navigation.navigate("Home");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  useEffect(() => {
+    if (image) {
+      setNext(true);
+    } else {
+      setNext(false);
+    }
+  }, [image]);
 
   const onImageLibraryPress = useCallback(() => {
     const options = {
@@ -68,7 +54,7 @@ export default PersonalImage = () => {
       } else if (response.error) {
         console.log("ImagePicker Error: ", response.error);
       } else {
-        dispatch(addSelfie(response?.assets && response.assets[0].base64));
+        dispatch(addPhoto(response?.assets[0]?.base64));
       }
     });
   }, []);
@@ -86,14 +72,14 @@ export default PersonalImage = () => {
         }
       />
       <SafeAreaView style={styles.container}>
-        <KYCSteps step={5} />
+        <ProgressBarTop step={4} />
         <ScrollView keyboardShouldPersistTaps="handled">
           <Text style={form.formHeader}>
             Upload your Passport size photo or capture your selfie.
           </Text>
-          {imageData ? (
+          {image ? (
             <Image
-              source={{ uri: `data:image/jpeg;base64,${imageData}` }}
+              source={{ uri: `data:image/jpeg;base64,${image}` }}
               style={selfie.selfie}
             />
           ) : (
@@ -112,20 +98,23 @@ export default PersonalImage = () => {
                 onImageLibraryPress();
               }}
             />
-            <IconButton
-              icon={<Icon name="camera-alt" size={25} color="black" />}
-              style={selfie.iconButton}
-              onPress={() => {
-                navigation.navigate("RNPhotoCapture", {
-                  type: "SELFIE",
-                });
-              }}
-            />
+            <RNIPPhotoCapture />
           </View>
           <TextButton
-            label={"Finish"}
+            label="Finish"
+            type="solid"
+            uppercase={false}
+            color="#4E46F1"
+            disabled={!next}
             onPress={() => {
-              ProfilePush();
+              profileBackendPush({
+                id: id,
+                maritalStatus: profileSlice?.maritalStatus,
+                qualification: profileSlice?.educationalQualification,
+                altMobile: profileSlice?.alternatePhone,
+                email: profileSlice?.email,
+                photo: profileSlice?.photo,
+              });
               navigation.navigate("Home");
             }}
           />

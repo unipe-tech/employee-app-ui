@@ -3,34 +3,53 @@ import React from "react";
 import DetailItem from "./DetailItem";
 import { useSelector } from "react-redux";
 import TextButton from "../../components/atoms/TextButton";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { styles } from "../../styles";
 
 const Profile = () => {
-  const fullName = useSelector((state) => state.profile.fullName);
-  const email = useSelector((state) => state.profile.email);
-  const mobile = useSelector((state) => state.profile.mobile);
+  const aadhaarData = useSelector(
+    (state) => state.aadhaar.data["aadhaar_data"]
+  );
+  const fullName =
+    aadhaarData?.["name"] || useSelector((state) => state.pan?.name) || "User";
+  const profile = useSelector((state) => state.profile);
+  const email = profile?.email;
+  const mobile = useSelector((state) => state.auth.phoneNumber);
+  const alternateMobile = profile?.altMobile;
+  const maritalStatus = profile?.maritalStatus;
+  const qualification = profile?.qualification;
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={{ flex: 1, backgroundColor: "white" }}>
-        <DetailItem label="Full Name" title={fullName} divider />
-        <DetailItem label="Email Id" title={email} divider />
-        <DetailItem label="Mobile Number" title={mobile} />
-        <View
-          style={{ flex: 1, justifyContent: "flex-end", paddingBottom: 20 }}
-        >
-          <TextButton
-            label={"Update"}
-            onPress={() =>
-              Alert.alert(
-                "The Profile Details are not editable, please ask your employer to update"
-              )
-            }
-          />
-        </View>
+    <View style={{ flex: 1, backgroundColor: "white" }}>
+      <DetailItem
+        label="Full Name"
+        value={fullName || "Not Provided"}
+        divider
+      />
+      <DetailItem label="Email Id" value={email || "Not Provided"} divider />
+      <DetailItem label="Mobile Number" value={mobile || "Not Provided"} />
+      <DetailItem
+        label="Alternate Mobile Number"
+        value={alternateMobile || "Not Provided"}
+      />
+      <DetailItem
+        label="Educational Qualification"
+        value={qualification || "Not Provided"}
+      />
+      <DetailItem
+        label="Marital Status"
+        value={maritalStatus || "Not Provided"}
+      />
+      <View style={{ flex: 1, justifyContent: "flex-end", paddingBottom: 20 }}>
+        <TextButton
+          style={{ marginTop: 20 }}
+          label="Update"
+          onPress={() =>
+            Alert.alert(
+              "The Profile Details are not editable, please ask your employer to update"
+            )
+          }
+        />
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 

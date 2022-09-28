@@ -1,30 +1,49 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  data: {},
   number: "",
-  verifyStatus: "PENDING",
   verifyMsg: "",
+  verifyStatus: "PENDING",
+  verifyTimestamp: "",
 };
 
 const panSlice = createSlice({
   name: "pan",
   initialState: initialState,
   reducers: {
-    addPanNumber(state, action) {
+    addData(state, action) {
+      state.data = action.payload;
+    },
+    addNumber(state, action) {
       state.number = action.payload;
     },
-    addPanVerifyStatus(state, action) {
-      state.verifyStatus = action.payload;
-    },
-    addPanVerifyMsg(state, action) {
+    addVerifyMsg(state, action) {
       state.verifyMsg = action.payload;
     },
-    resetPan(state) {
-      Object.assign(state, initialState);
+    addVerifyStatus(state, action) {
+      state.verifyStatus = action.payload;
+    },
+    addVerifyTimestamp(state, action) {
+      state.verifyTimestamp = action.payload;
+    },
+    resetPan(state, action) {
+      if (!action.payload) {
+        Object.assign(state, initialState);
+      } else {
+        Object.assign(state, action.payload);
+      }
     },
   },
 });
 
-export const { addPanNumber, addPanVerifyStatus, addPanVerifyMsg, resetPan } =
-  panSlice.actions;
+export const {
+  addData,
+  addNumber,
+  addVerifyMsg,
+  addVerifyStatus,
+  addVerifyTimestamp,
+  resetPan,
+} = panSlice.actions;
+
 export default panSlice.reducer;

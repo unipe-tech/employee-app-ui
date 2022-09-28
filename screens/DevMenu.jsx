@@ -1,74 +1,35 @@
-import { StyleSheet, View } from "react-native";
+import { View, ScrollView } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
-import { ScrollView } from "react-native-gesture-handler";
-import { COLORS, SIZES } from "../constants/Theme";
-import TextButton from "../components/atoms/TextButton";
+import DevMenuButton from "../components/DevMenuButton";
 
-const DevMenu = () => {
+export default DevMenu = () => {
   const navigation = useNavigation();
+  const screens = [
+    { title: "Welcome", name: "Welcome" },
+    { title: "Login", name: "Login" },
+    { title: "AADHAAR", name: "AadhaarForm" },
+    { title: "PAN", name: "PanForm" },
+    { title: "Bank", name: "BankForm" },
+    { title: "Profile", name: "PersonalDetailsForm" },
+    { title: "Photo", name: "PersonalImage" },
+    { title: "Home", name: "Home" },
+    { title: "KYC Details", name: "KYC" },
+    { title: "Profile Details", name: "Profile" },
+  ];
+
   return (
     <ScrollView>
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          padding: SIZES.padding,
-        }}
-      >
-        <TextButton
-          containerStyle={{ marginTop: 20 }}
-          label="Welcome"
-          onPress={() => navigation.navigate("Welcome")}
-        />
-        <TextButton
-          containerStyle={{ marginTop: 20 }}
-          label="OTP Login"
-          onPress={() => navigation.navigate("Login")}
-        />
-        <TextButton
-          containerStyle={{ marginTop: 20 }}
-          label="Aadhaar"
-          onPress={() => navigation.navigate("AadhaarForm")}
-        />
-        <TextButton
-          containerStyle={{ marginTop: 20 }}
-          label="PAN"
-          onPress={() => navigation.navigate("PanCardInfo")}
-        />
-        <TextButton
-          containerStyle={{ marginTop: 20 }}
-          label="Bank Details"
-          onPress={() => navigation.navigate("BankInfoForm")}
-        />
-        <TextButton
-          containerStyle={{ marginTop: 20 }}
-          label="Profile"
-          onPress={() => navigation.navigate("PersonalDetailsForm")}
-        />
-        <TextButton
-          containerStyle={{ marginTop: 20 }}
-          label="Personal Photo"
-          onPress={() => navigation.navigate("PersonalImage")}
-        />
-        <TextButton
-          containerStyle={{ marginTop: 20 }}
-          label="Home Screen"
-          onPress={() => navigation.navigate("Home")}
-        />
-        <TextButton
-          containerStyle={{ marginTop: 20 }}
-          label="KYC Screen"
-          onPress={() => navigation.navigate("KYC")}
-        />
-        <TextButton
-          containerStyle={{ marginTop: 20 }}
-          label="Profile Details Screen"
-          onPress={() => navigation.navigate("Profile")}
-        />
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        {screens.map((screen, index) => (
+          <DevMenuButton
+            key={index}
+            style={{ marginTop: 20 }}
+            title={screen.title}
+            onPress={() => navigation.navigate(screen.name)}
+          />
+        ))}
       </View>
     </ScrollView>
   );
 };
-
-export default DevMenu;

@@ -1,35 +1,66 @@
-import { View, Text, Alert } from "react-native";
-import React from "react";
-import DetailItem from "./DetailItem";
+import { View } from "react-native";
 import { useSelector } from "react-redux";
-import TextButton from "../../components/atoms/TextButton";
+import DetailItem from "./DetailItem";
+import TopTabNav from "../../components/TopTabNav";
+import AadhaarFormTemplate from "../../templates/aadhaar/Form";
+import AadhaarVerifyTemplate from "../../templates/aadhaar/Verify";
+import AadhaarConfirmApi from "../../apis/aadhaar/Confirm";
 import { styles } from "../../styles";
 
 const Aadhaar = () => {
-  const fullName = useSelector((state) => state.aadhaar.fullName);
-  const aadhaarNumber = useSelector((state) => state.aadhaar.number);
-  const DOB = useSelector((state) => state.aadhaar.DOB);
-  const address = useSelector((state) => state.aadhaar.address);
+  const number = useSelector((state) => state.aadhaar.number);
+  const data = useSelector((state) => state.aadhaar.data);
+  const address = data?.address;
+  const dob = data?.date_of_birth;
+  const name = data?.name;
   const verifyStatus = useSelector((state) => state.aadhaar.verifyStatus);
-  //Todo: Full Name, DOB and Address not present
+
+  const dataDetails = [
+    { label: "Full Name", value: name },
+    { label: "Date of Birth", value: dob },
+    { label: "Aadhaar Number", value: number },
+    { label: "Address", value: address },
+    { label: "Verify Status", value: verifyStatus, divider: false },
+  ];
+
+  const tabs = [
+    {
+      name: "Aadhaar Form",
+      component: AadhaarFormTemplate,
+      initialParams: { type: "KYC" },
+      disable: true,
+    },
+    {
+      name: "Verify",
+      component: AadhaarVerifyTemplate,
+      initialParams: { type: "KYC" },
+      disable: true,
+    },
+
+    {
+      name: "Confirm",
+      component: AadhaarConfirmApi,
+      initialParams: { type: "KYC" },
+      disable: true,
+    },
+  ];
 
   return (
     <View style={styles.container}>
-      <DetailItem label="Full Name" title={fullName} divider />
-      <DetailItem label="Aadhaar Number" title={aadhaarNumber} divider />
-      <DetailItem label="DOB" title={DOB} divider />
-      <DetailItem label="Address" title={address} divider />
-      <DetailItem label="Verify Status" title={verifyStatus.OCR} />
-      <View style={{ flex: 1, justifyContent: "flex-end", paddingBottom: 20 }}>
-        <TextButton
-          label={"Update"}
-          onPress={() =>
-            Alert.alert(
-              "The Aadhaar Details are not editable, please ask your employer to update"
-            )
-          }
-        />
-      </View>
+      {verifyStatus == "SUCCESS" ? (
+        <>
+          {dataDetails.map((item, index) => (
+            <DetailItem
+              key={index}
+              label={item.label}
+              value={item.value || "Not Provided"}
+              divider={item?.divider ?? true}
+            />
+          ))}
+        </>
+      ) : (
+        <TopTabNav tabs={tabs} hide={true} />
+      )}
     </View>
   );
 };

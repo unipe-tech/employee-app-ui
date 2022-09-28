@@ -173,17 +173,18 @@ export default BankInformationForm = () => {
           />
         }
       />
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <KYCSteps step={3} />
+        <Text style={bankform.Maintitle}>Bank Details Verification</Text>
+
         <KeyboardAvoidingWrapper>
           <View>
-            <Text style={bankform.Maintitle}>Bank Details Verification</Text>
             <InfoCard
               info={
                 "We will use this bank account / UPI ID to deposit your salary every month, Please ensure the bank account belongs to you.\nWe will also deposit INR 1 to your account for verification make sure you enter the correct account details."
               }
             />
-            {/* <Text style={bankform.subTitle}>Enter your Bank Details</Text> */}
+            <Text style={bankform.subTitle}>Enter your Bank Details</Text>
 
             <Text style={bankform.formtitle}>
               Account Holder Name*
@@ -273,7 +274,7 @@ export default BankInformationForm = () => {
             <View style={bankform.padding}></View>
           </View>
         </KeyboardAvoidingWrapper>
-      </View>
+      </SafeAreaView>
     </>
   );
 };

@@ -22,7 +22,6 @@ const PanConfirmApi = (props) => {
   const panSlice = useSelector((state) => state.pan);
   const [verifyMsg, setVerifyMsg] = useState(panSlice?.verifyMsg);
   const [verifyStatus, setVerifyStatus] = useState(panSlice?.verifyStatus);
-
   useEffect(() => {
     dispatch(addVerifyMsg(verifyMsg));
   }, [verifyMsg]);

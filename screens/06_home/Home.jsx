@@ -1,17 +1,17 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { AppBar, Icon, IconButton } from "@react-native-material/core";
 import { useNavigation } from "@react-navigation/core";
-import { Image, SafeAreaView } from "react-native";
+import React, { useEffect } from "react";
+import { SafeAreaView } from "react-native";
 import { FAB, Portal, Provider } from "react-native-paper";
+import { useDispatch } from "react-redux";
 
 import BottomTabNav from "../../navigators/BottomTabNav";
 import Benefits from "./Benefits";
+import Documents from "./Documents/Documents";
 import HomeView from "./HomeView";
-import Documents from "./Documents";
+import HomeMain from "./HomeMain";
 
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
-import { buttons, nav } from "../../styles";
+import { buttons } from "../../styles";
 
 export default Home = () => {
   const navigation = useNavigation();
@@ -21,10 +21,10 @@ export default Home = () => {
 
   const { open } = state;
   const tabs = [
-    { name: "Home", component: HomeView },
+    { name: "Home", component: HomeMain },
     { name: "Documents", component: Documents },
     { name: "Benefits", component: Benefits },
-    { name: "Banking", component: HomeView },
+    { name: "Money", component: HomeView },
   ];
 
   const dispatch = useDispatch();
@@ -36,27 +36,6 @@ export default Home = () => {
     <>
       <SafeAreaView style={{ flex: 1 }}>
         <Provider>
-          <AppBar
-            title={
-              <Image
-                style={nav.titleLogo}
-                source={require("../../assets/unipe-Thumbnail.png")}
-              />
-            }
-            centerTitle={true}
-            contentContainerStyle={nav.navbar}
-            color="#ffffff"
-            leading={
-              <IconButton
-                icon={<Icon name="menu" size={30} />}
-                onPress={() => {
-                  console.log("Menu");
-                  navigation.toggleDrawer();
-                }}
-              />
-            }
-            trailing={<IconButton icon={<Icon name="more-vert" size={30} />} />}
-          />
           <Portal>
             <FAB.Group
               open={open}
