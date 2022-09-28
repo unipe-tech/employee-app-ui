@@ -23,7 +23,6 @@ import KYCScreen from "../screens/07_drawer/KYCScreen";
 import Profile from "../screens/07_drawer/Profile";
 import LicenseConfirm from "../screens/06_home/Documents/License/Confirm";
 import BankConfirm from "../screens/03_bank/Confirm";
-import SMS from "../screens/08_sms/SMS";
 
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator();
@@ -55,13 +54,6 @@ const StackNavigator = () => {
       <Stack.Screen
         name="Otp"
         component={OTPScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="SMS"
-        component={SMS}
         options={{
           headerShown: false,
         }}

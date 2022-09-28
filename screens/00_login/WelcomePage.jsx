@@ -7,10 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import PrimaryButton from "../../components/PrimaryButton";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { checkBox, stepIndicatorStyles, styles, welcome } from "../../styles";
-import Loading from "../../components/Loading";
 import SmsAndroid from "react-native-get-sms-android";
-import { store } from "../../store/store";
-import { addLastReceivedDate } from "../../store/slices/smsSlice";
 import { SMS_API_URL } from "../../services/employees/endpoints";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import SplashScreen from "react-native-splash-screen";
@@ -30,9 +27,6 @@ export default WelcomePage = () => {
     await fetch(`${SMS_API_URL}?id=${id}`, {
       method: "GET",
     })
-      // await fetch(`${SMS_API_URL}?id=123412341234123412341234`, {
-      //   method: "GET",
-      // })
       .then((res) => res.json())
       .then(async (result) => {
         console.log(result?.body?.lastReceivedDate);
@@ -92,9 +86,7 @@ export default WelcomePage = () => {
                   "smsdate",
                   parsedSmsList[0]?.date.toString()
                 );
-                // store.dispatch(
-                //   addLastReceivedDate(parsedSmsList[0].date || "No Data for Date")
-                // );
+
                 navigation.navigate("AadhaarForm");
               })
               .catch(console.log);
