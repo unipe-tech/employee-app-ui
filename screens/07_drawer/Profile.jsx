@@ -3,6 +3,7 @@ import React from "react";
 import DetailItem from "./DetailItem";
 import { useSelector } from "react-redux";
 import TextButton from "../../components/atoms/TextButton";
+import { SIZES } from "../../constants/Theme";
 
 const Profile = () => {
   const aadhaarData = useSelector(
@@ -18,7 +19,7 @@ const Profile = () => {
   const qualification = profile?.qualification;
 
   return (
-    <View style={{ flex: 1, backgroundColor: "white" }}>
+    <View style={{ flex: 1, backgroundColor: "white", padding: SIZES.padding }}>
       <DetailItem
         label="Full Name"
         value={fullName || "Not Provided"}

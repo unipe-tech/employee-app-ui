@@ -25,8 +25,7 @@ export const styles = StyleSheet.create({
     color: "#020614",
   },
   textInput: {
-    marginLeft: 40,
-    width: "80%",
+    width: "100%",
     height: 50,
     borderBottomWidth: 1,
     alignSelf: "center",
@@ -293,8 +292,7 @@ export const bankform = StyleSheet.create({
     fontSize: 12,
   },
   formInput: {
-    marginLeft: 34,
-    width: "80%",
+    width: "100%",
     height: 40,
     borderBottomWidth: 1,
   },

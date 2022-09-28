@@ -30,7 +30,7 @@ import { resetTimer } from "../../store/slices/timerSlice";
 import { styles } from "../../styles";
 
 export default LoginScreen = () => {
-  SplashScreen.hide();
+  // SplashScreen.hide();
 
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -179,9 +179,9 @@ export default LoginScreen = () => {
           </Text>
           {!loading ? (
             <>
-              <PrimaryButton
+              <TextButton
                 uppercase={false}
-                title="Continue"
+                label="Continue"
                 type="solid"
                 color="#4E46F1"
                 disabled={!next}

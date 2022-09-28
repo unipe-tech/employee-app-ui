@@ -8,7 +8,6 @@ import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { styles } from "../../styles";
 import BankFormTemplate from "../../templates/bank/Form";
 
-
 const BankForm = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -31,32 +30,30 @@ const BankForm = () => {
     );
   };
 
-
   return (
     <>
+      <AppBar
+        title="Bank Details"
+        color="#4E46F1"
+        leading={
+          <IconButton
+            icon={<Icon name="arrow-back" size={20} color="white" />}
+            onPress={() => navigation.navigate("PanForm")}
+          />
+        }
+        trailing={
+          <IconButton
+            icon={<Icon name="arrow-forward" size={20} color="white" />}
+            onPress={() => {
+              SkipBank();
+            }}
+          />
+        }
+      />
       <SafeAreaView style={styles.container}>
-        <AppBar
-          title="Bank Details"
-          color="#4E46F1"
-          leading={
-            <IconButton
-              icon={<Icon name="arrow-back" size={20} color="white" />}
-              onPress={() => navigation.navigate("PanForm")}
-            />
-          }
-          trailing={
-            <IconButton
-              icon={<Icon name="arrow-forward" size={20} color="white" />}
-              onPress={() => {
-                SkipBank();
-              }}
-            />
-          }
-        />
         <ProgressBarTop step={2} />
 
         <BankFormTemplate />
-        
       </SafeAreaView>
     </>
   );
