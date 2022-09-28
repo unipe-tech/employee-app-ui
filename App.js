@@ -62,7 +62,7 @@ async function initBackgroundFetch(taskName, taskFn, interval) {
   }
 }
 
-initBackgroundFetch("smsFetch", SMSTask, 5);
+initBackgroundFetch("smsFetch", SMSTask, 43200);
 
 function App() {
   const [state, setState] = useState(null);
