@@ -1,7 +1,7 @@
 import { AppBar, Icon, IconButton } from "@react-native-material/core";
 import { useNavigation } from "@react-navigation/core";
 import React, { useEffect } from "react";
-import { Alert, SafeAreaView } from "react-native";
+import { Alert, SafeAreaView, View } from "react-native";
 import { useDispatch } from "react-redux";
 import ProgressBarTop from "../../components/ProgressBarTop";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
@@ -50,11 +50,11 @@ const BankForm = () => {
           />
         }
       />
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
         <ProgressBarTop step={2} />
 
         <BankFormTemplate />
-      </SafeAreaView>
+      </View>
     </>
   );
 };

@@ -3,13 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { Text, TextInput, View } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 import { Picker } from "@react-native-picker/picker";
-import relations from "../../../helpers/RelationData";
-import { addESICFamilyDetails } from "../../../store/slices/esicSlice";
-import { relationPush } from "../../../helpers/BackendPush";
-import { bankform, form } from "../../../styles";
-import { showToast } from "../../../components/atoms/Toast";
-import { KeyboardAvoidingWrapper } from "../../../KeyboardAvoidingWrapper";
-import TextButton from "../../../components/atoms/TextButton";
+import relations from "../../../../helpers/RelationData";
+import { addESICFamilyDetails } from "../../../../store/slices/esicSlice";
+import { relationPush } from "../../../../helpers/RelationData";
+import { bankform, form } from "../../../../styles";
+import { showToast } from "../../../../components/atoms/Toast";
+import { KeyboardAvoidingWrapper } from "../../../../KeyboardAvoidingWrapper";
+import TextButton from "../../../../components/atoms/TextButton";
 
 export default Relation = () => {
   const dispatch = useDispatch();

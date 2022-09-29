@@ -7,7 +7,7 @@ import AddressDropdown from "../../../../components/AddressDropdown";
 import { bankform, form } from "../../../../styles";
 import { useSelector } from "react-redux";
 import { addressPush } from "../../../../helpers/BackendPush";
-import { showToast } from "../../../../components/Toast";
+import { showToast } from "../../../../components/atoms/Toast";
 import { KeyboardAvoidingWrapper } from "../../../../KeyboardAvoidingWrapper";
 
 export default EmployeeAddress = () => {

@@ -6,7 +6,7 @@ import { useNavigation } from "@react-navigation/core";
 import { portalPush } from "../../../../helpers/BackendPush";
 import { addESICPortal } from "../../../../store/slices/esicSlice";
 import { bankform, form } from "../../../../styles";
-import { showToast } from "../../../../components/Toast";
+import { showToast } from "../../../../components/atoms/Toast";
 import { KeyboardAvoidingWrapper } from "../../../../KeyboardAvoidingWrapper";
 
 export default Portal = () => {

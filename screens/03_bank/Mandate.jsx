@@ -15,7 +15,7 @@ const Mandate = () => {
     dispatch(addCurrentScreen("BankForm"));
   }, []);
   return (
-    <SafeAreaView style={styles.container}>
+    <>
       <AppBar
         title="Mandate Confirmation"
         color="#4E46F1"
@@ -32,9 +32,11 @@ const Mandate = () => {
           />
         }
       />
-      <ProgressBarTop step={3} />
-      <Form type="Onboarding"/>
-    </SafeAreaView>
+      <SafeAreaView style={styles.container}>
+        <ProgressBarTop step={3} />
+        <Form type="Onboarding" />
+      </SafeAreaView>
+    </>
   );
 };
 
