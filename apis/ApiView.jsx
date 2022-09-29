@@ -2,8 +2,9 @@ import React from "react";
 import { Button } from "@react-native-material/core";
 import TextButton from "../components/atoms/TextButton";
 
-export default ApiView = (props) => {
-  const { disabled, goForFetch, loading, style } = props;
+const ApiView = (props) => {
+  const { disabled, goForFetch, loading, style, title } = props;
+
   return (
     <TextButton
       label={loading ? "Verifying" : "Continue"}
@@ -18,3 +19,5 @@ export default ApiView = (props) => {
     />
   );
 };
+
+export default ApiView;

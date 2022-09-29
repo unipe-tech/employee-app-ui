@@ -131,10 +131,10 @@ export default Confirm = () => {
           color="#EB5757"
           onPress={() => {
             setVerifyMsg("Rejected by User");
-            navigation.navigate("Home", {
-              screen: "Documents",
+            navigation.navigate("Documents", {
+              screen: "Driving License",
               params: {
-                screen: "Drivers License",
+                screen: "Form",
               },
             });
           }}
@@ -149,11 +149,8 @@ export default Confirm = () => {
             setVerifyMsg("Confirmed by User");
             setVerifyStatus("SUCCESS");
             setBackendPush(true);
-            navigation.navigate("Home", {
-              screen: "Documents",
-              params: {
-                screen: "Drivers License",
-              },
+            navigation.navigate("Documents", {
+              screen: "Driving License",
             });
           }}
         />

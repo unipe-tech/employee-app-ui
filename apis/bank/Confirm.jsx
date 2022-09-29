@@ -7,6 +7,7 @@ import { addVerifyMsg, addVerifyStatus } from "../../store/slices/bankSlice";
 import { bankBackendPush } from "../../helpers/BackendPush";
 import { bankform, form, styles } from "../../styles";
 import TextButton from "../../components/atoms/TextButton";
+import FuzzyCheck from "../../components/FuzzyCheck";
 
 const BankConfirmApi = (props) => {
   const dispatch = useDispatch();
@@ -86,6 +87,7 @@ const BankConfirmApi = (props) => {
             }
           }}
         />
+        <FuzzyCheck name={data?.accountHolderName} step="Bank Account" />
         <TextButton
           label="Yes"
           type="solid"
@@ -101,7 +103,7 @@ const BankConfirmApi = (props) => {
                 ? navigation.navigate("KYC", {
                     screen: "BANK",
                   })
-                : navigation.navigate("PersonalDetailsForm");
+                : navigation.navigate("Mandate");
             }
           }}
         />

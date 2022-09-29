@@ -7,6 +7,7 @@ import { addVerifyMsg, addVerifyStatus } from "../../store/slices/panSlice";
 import { panBackendPush } from "../../helpers/BackendPush";
 import { bankform, form, styles } from "../../styles";
 import TextButton from "../../components/atoms/TextButton";
+import FuzzyCheck from "../../components/FuzzyCheck";
 
 const PanConfirmApi = (props) => {
   const dispatch = useDispatch();
@@ -64,6 +65,7 @@ const PanConfirmApi = (props) => {
           flex: 1,
         }}
       >
+        <FuzzyCheck name={data["name"]} step="PAN" />
         <TextButton
           label="No"
           type="solid"

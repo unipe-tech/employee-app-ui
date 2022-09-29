@@ -8,6 +8,7 @@ import {
   addAltMobile,
   addQualification,
   addEmail,
+  addMotherName,
   addMaritalStatus,
 } from "../../store/slices/profileSlice";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
@@ -31,7 +32,10 @@ export default PersonalDetailsForm = () => {
     profileSlice?.qualification
   );
   const [altMobile, setAltMobile] = useState(profileSlice?.altMobile);
-  const [email, setEmail] = useState(profileSlice?.email || panSlice?.email);
+  const [email, setEmail] = useState(
+    panSlice?.data?.email || profileSlice?.email
+  );
+  const [motherName, setMotherName] = useState(profileSlice?.motherName);
 
   useEffect(() => {
     dispatch(addCurrentScreen("PersonalDetailsForm"));
@@ -46,6 +50,10 @@ export default PersonalDetailsForm = () => {
   }, [qualification]);
 
   useEffect(() => {
+    dispatch(addMotherName(motherName));
+  }, [motherName]);
+
+  useEffect(() => {
     dispatch(addAltMobile(altMobile));
   }, [altMobile]);
 
@@ -54,7 +62,7 @@ export default PersonalDetailsForm = () => {
   }, [email]);
 
   useEffect(() => {
-    if (maritalStatus && qualification) {
+    if (maritalStatus && qualification && motherName && email) {
       setNext(true);
     } else {
       setNext(false);
@@ -84,7 +92,7 @@ export default PersonalDetailsForm = () => {
         }
       />
       <SafeAreaView style={styles.container}>
-        <ProgressBarTop step={3} />
+        <ProgressBarTop step={4} />
         <Text style={form.formHeader}>Employee basic details</Text>
         <KeyboardAvoidingWrapper>
           <View>
@@ -121,6 +129,16 @@ export default PersonalDetailsForm = () => {
               })}
             </View>
             <Text style={form.formLabel}>
+              Mother's Name<Text style={bankform.asterisk}>*</Text>
+            </Text>
+            <TextInput
+              style={form.formTextInput}
+              value={motherName}
+              onChangeText={setMotherName}
+              placeholder="Enter Mother's Name"
+              autoCapitalize="words"
+            />
+            <Text style={form.formLabel}>
               Enter your alternate mobile number
             </Text>
             <TextInput
@@ -130,7 +148,6 @@ export default PersonalDetailsForm = () => {
               autoCompleteType="tel"
               keyboardType="phone-pad"
               textContentType="telephoneNumber"
-              required
               placeholder="XXXXXXXXXX"
             />
             <Text style={form.formLabel}>Enter your Email ID</Text>
@@ -141,7 +158,6 @@ export default PersonalDetailsForm = () => {
               autoCompleteType="email"
               keyboardType="email-address"
               placeholder="Enter Email"
-              required
             />
 
             <TextButton
