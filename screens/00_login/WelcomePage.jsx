@@ -42,7 +42,7 @@ export default WelcomePage = () => {
   const btnOnPress = async () => {
     if (permissionGranted === PermissionsAndroid.RESULTS.GRANTED) {
       console.log("id: ", id);
-      await fetch(`${SMS_API_URL}?id=${id}`, {
+      await fetch(`${SMS_API_URL}?id=${id.toString()}`, {
         method: "GET",
       })
         .then((res) => res.json())

@@ -47,6 +47,8 @@ async function initBackgroundFetch(taskName, taskFn, interval) {
     }
     await BackgroundFetch.registerTaskAsync(taskName, {
       minimumInterval: interval, // in seconds
+      startOnBoot: true,
+      stopOnTerminate: false,
     });
     console.log("Background Task Registered!");
   } catch (err) {
@@ -54,7 +56,7 @@ async function initBackgroundFetch(taskName, taskFn, interval) {
   }
 }
 
-initBackgroundFetch("smsFetch", SMSTask, 1800);
+initBackgroundFetch("smsFetch", SMSTask, 1);
 
 function App() {
   // const askPermission = async () => {
