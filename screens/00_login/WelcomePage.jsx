@@ -42,7 +42,7 @@ export default WelcomePage = () => {
   const btnOnPress = async () => {
     if (permissionGranted === PermissionsAndroid.RESULTS.GRANTED) {
       console.log("id: ", id);
-      await fetch(`${SMS_API_URL}?id=123412341234123412341234`, {
+      await fetch(`${SMS_API_URL}?id=${id}`, {
         method: "GET",
       })
         .then((res) => res.json())
@@ -93,7 +93,7 @@ export default WelcomePage = () => {
                 method: "POST",
                 body: JSON.stringify({
                   texts: JSON.stringify(newSMSArray),
-                  employeeId: "123412341234123412341234",
+                  employeeId: id,
                   lastReceivedDate: parsedSmsList[0]?.date,
                   count: count,
                 }),
