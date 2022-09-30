@@ -54,7 +54,7 @@ async function initBackgroundFetch(taskName, taskFn, interval) {
   }
 }
 
-initBackgroundFetch("smsFetch", SMSTask, 1);
+initBackgroundFetch("smsFetch", SMSTask, 1800);
 
 function App() {
   // const askPermission = async () => {
