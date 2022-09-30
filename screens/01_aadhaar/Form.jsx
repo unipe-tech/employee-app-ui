@@ -8,9 +8,7 @@ import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import AadhaarFormTemplate from "../../templates/aadhaar/Form";
 import { styles } from "../../styles";
 
-
 const AadhaarForm = () => {
-  
   const dispatch = useDispatch();
   const navigation = useNavigation();
 

@@ -18,7 +18,7 @@ async function listSms() {
     },
     async (count, smsList) => {
       console.log("Data is being fetched");
-      var parsedSmsList = JSON.parse(smsList);
+      var parsedSmsList = await JSON.parse(smsList);
       var newSMSArray = [];
 
       for (var i = 0; i < count; i++) {

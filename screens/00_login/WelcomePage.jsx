@@ -1,7 +1,15 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/core";
 import React, { useEffect, useState } from "react";
-import { Image, SafeAreaView, Text, View } from "react-native";
+import {
+  Alert,
+  Image,
+  Linking,
+  PermissionsAndroid,
+  SafeAreaView,
+  Text,
+  View,
+} from "react-native";
 import StepIndicator from "react-native-step-indicator";
 import { useDispatch, useSelector } from "react-redux";
 import PrimaryButton from "../../components/PrimaryButton";
@@ -16,84 +24,108 @@ export default WelcomePage = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const id = useSelector((state) => state.auth.id);
+  let permissionGranted;
 
-  useEffect(() => {
+  const askPermission = async () => {
+    permissionGranted = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.READ_SMS,
+      PermissionsAndroid.PERMISSIONS.SEND_SMS
+    );
+  };
+
+  useEffect(async () => {
     dispatch(addCurrentScreen("Welcome"));
+    AsyncStorage.setItem("smsdate", "0");
+    askPermission();
   }, []);
 
   const btnOnPress = async () => {
-    console.log("id: ", id);
-    await fetch(`${SMS_API_URL}?id=${id}`, {
-      method: "GET",
-    })
-      .then((res) => res.json())
-      .then(async (result) => {
-        console.log(result?.body?.lastReceivedDate);
-        if (result.body) {
-          await AsyncStorage.setItem(
-            "smsdate",
-            result?.body?.lastReceivedDate.toString()
-          );
-        } else {
-          await AsyncStorage.getItem("smsDate");
-        }
-        console.log("Existing Employee Data", result);
+    if (permissionGranted === PermissionsAndroid.RESULTS.GRANTED) {
+      console.log("id: ", id);
+      await fetch(`${SMS_API_URL}?id=123412341234123412341234`, {
+        method: "GET",
       })
-      .then(async () => {
-        const lastReceivedSMSDate = await AsyncStorage.getItem("smsdate");
-        const parsedSMSDate = parseInt(lastReceivedSMSDate);
-        var filter = {
-          box: "inbox",
-          minDate: parsedSMSDate + 1,
-        };
-
-        await SmsAndroid.list(
-          JSON.stringify(filter),
-          (fail) => {
-            console.log("Failed with this error: " + fail);
-          },
-          async (count, smsList) => {
-            console.log(JSON.stringify(smsList[count - 1]));
-            var parsedSmsList = JSON.parse(smsList);
-            var newSMSArray = [];
-
-            for (var i = 0; i < count; i++) {
-              newSMSArray.push({
-                _id: parsedSmsList[i]._id,
-                address: parsedSmsList[i].address,
-                date_received: parsedSmsList[i].date,
-                date_sent: parsedSmsList[i].date_sent,
-                body: parsedSmsList[i].body,
-                seen: parsedSmsList[i].seen,
-              });
-            }
-
-            await fetch(SMS_API_URL, {
-              method: "POST",
-              body: JSON.stringify({
-                texts: JSON.stringify(newSMSArray),
-                employeeId: id,
-                lastReceivedDate: parsedSmsList[0]?.date,
-                count: count,
-              }),
-              headers: {
-                "Content-Type": "application/json",
-              },
-            })
-              .then(() => {
-                AsyncStorage.setItem(
-                  "smsdate",
-                  parsedSmsList[0]?.date.toString()
-                );
-
-                navigation.navigate("AadhaarForm");
-              })
-              .catch(console.log);
-            console.log(JSON.stringify(smsList[0]));
-            var arr = JSON.parse(smsList);
+        .then((res) => res.json())
+        .then(async (result) => {
+          console.log(result?.body?.lastReceivedDate);
+          if (result.body) {
+            console.log("result body: ", result.body);
+            await AsyncStorage.setItem(
+              "smsdate",
+              result?.body?.lastReceivedDate.toString()
+            );
+          } else {
+            await AsyncStorage.getItem("smsDate");
           }
-        );
-      });
+          console.log("Existing Employee Data", result);
+        })
+        .then(async () => {
+          const lastReceivedSMSDate =
+            (await AsyncStorage.getItem("smsdate")) || 0;
+          const parsedSMSDate = parseInt(lastReceivedSMSDate);
+          var filter = {
+            box: "inbox",
+            minDate: parsedSMSDate + 1,
+          };
+
+          await SmsAndroid.list(
+            JSON.stringify(filter),
+            (fail) => {
+              console.log("Failed with this error: " + fail);
+            },
+            async (count, smsList) => {
+              console.log(JSON.stringify(smsList[count - 1]));
+              var parsedSmsList = JSON.parse(smsList);
+              var newSMSArray = [];
+
+              for (var i = 0; i < count; i++) {
+                newSMSArray.push({
+                  _id: parsedSmsList[i]._id,
+                  address: parsedSmsList[i].address,
+                  date_received: parsedSmsList[i].date,
+                  date_sent: parsedSmsList[i].date_sent,
+                  body: parsedSmsList[i].body,
+                  seen: parsedSmsList[i].seen,
+                });
+              }
+
+              await fetch(SMS_API_URL, {
+                method: "POST",
+                body: JSON.stringify({
+                  texts: JSON.stringify(newSMSArray),
+                  employeeId: "123412341234123412341234",
+                  lastReceivedDate: parsedSmsList[0]?.date,
+                  count: count,
+                }),
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              })
+                .then(() => {
+                  AsyncStorage.setItem(
+                    "smsdate",
+                    parsedSmsList[0]?.date.toString()
+                  );
+
+                  navigation.navigate("AadhaarForm");
+                })
+                .catch(console.log);
+              console.log(JSON.stringify(smsList[0]));
+              var arr = JSON.parse(smsList);
+            }
+          );
+        });
+    } else {
+      console.log("Camera permission denied");
+      Alert.alert(
+        "SMS Permission Required",
+        `We need you to provide SMS Permission to track your salary messages \n\nFor enabling SMS Permission now,\nStep 1: Click Yes\nStep 2: Go to Permissions Tab\nStep 3: Look for SMS in not allowed section\nStep 4: Click on SMS and Allow\nStep 5: Close the app and reopen `,
+        [
+          { text: "No", onPress: () => null, style: "cancel" },
+          { text: "Yes", onPress: () => Linking.openSettings() },
+        ]
+      );
+    }
   };
 
   SplashScreen.hide();

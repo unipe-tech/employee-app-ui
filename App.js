@@ -28,9 +28,6 @@ let codePushOptions = {
   mandatoryInstallMode: codePush.InstallMode.IMMEDIATE, //InstallMode.ON_NEXT_RESUME to have minimum background duration effect
 };
 
-let setStateFn = () => {
-  console.log("State not yet initialized");
-};
 function SMSTask() {
   try {
     // fetch data here...
@@ -57,22 +54,19 @@ async function initBackgroundFetch(taskName, taskFn, interval) {
   }
 }
 
-initBackgroundFetch("smsFetch", SMSTask, 43200);
+initBackgroundFetch("smsFetch", SMSTask, 1);
 
 function App() {
-  const [state, setState] = useState(null);
-  setStateFn = setState;
+  // const askPermission = async () => {
+  //   await PermissionsAndroid.request(
+  //     PermissionsAndroid.PERMISSIONS.READ_SMS,
+  //     PermissionsAndroid.PERMISSIONS.SEND_SMS
+  //   );
+  // };
 
-  const askPermission = async () => {
-    await PermissionsAndroid.request(
-      PermissionsAndroid.PERMISSIONS.READ_SMS,
-      PermissionsAndroid.PERMISSIONS.SEND_SMS
-    );
-  };
-
-  useEffect(() => {
-    askPermission();
-  }, []);
+  // useEffect(() => {
+  //   askPermission();
+  // }, []);
 
   SplashScreen.hide();
   return (
