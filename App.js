@@ -11,11 +11,49 @@ import StackNavigator from "./navigators/StackNavigator";
 import { store, persistor } from "./store/store";
 import { listSms } from "./helpers/SMS";
 import { PermissionsAndroid } from "react-native";
-import * as BackgroundFetch from "expo-background-fetch";
+// import * as BackgroundFetch from "expo-background-fetch";
 import * as TaskManager from "expo-task-manager";
 import codePush from "react-native-code-push";
 import Crashes from "appcenter-crashes";
 import Analytics from "appcenter-analytics";
+import BackgroundFetch from "react-native-background-fetch";
+
+import BackgroundFetch from "react-native-background-fetch";
+
+// Start the background worker
+const initBackgroundFetch = async () => {
+  const status = await BackgroundFetch.configure(
+    {
+      minimumFetchInterval: 1, // 15 minutes
+
+      // ADDITIONAL CONFIG HERE
+    },
+    handleTask,
+    onTimeout
+  );
+
+  console.log("[ RNBF STATUS ]", status);
+};
+
+// handleTask is called periodically when RNBF triggers an event
+const handleTask = async (taskId) => {
+  console.log("[ RNBF TASK ID ]", taskId);
+
+  // DO BACKGROUND WORK HERE
+
+  // This MUST be called in order to signal to the OS that your task is complete
+  BackgroundFetch.finish(taskId);
+};
+
+const onTimeout = async () => {
+  // The timeout function is called when the OS signals that the task has reached its maximum execution time.
+
+  // ADD CLEANUP WORK HERE (IF NEEDED)
+
+  BackgroundFetch.finish(taskId);
+};
+
+initBackgroundFetch();
 
 Crashes.setListener({
   shouldProcess: function (report) {
@@ -28,35 +66,35 @@ let codePushOptions = {
   mandatoryInstallMode: codePush.InstallMode.IMMEDIATE, //InstallMode.ON_NEXT_RESUME to have minimum background duration effect
 };
 
-function SMSTask() {
-  try {
-    // fetch data here...
-    const backendData = "Simulated fetch ";
-    console.log("SMSTask() running");
-    listSms();
-    return backendData ? "data fetched" : "empty data";
-  } catch (err) {
-    console.log(err);
-    return err;
-  }
-}
-async function initBackgroundFetch(taskName, taskFn, interval) {
-  try {
-    if (!TaskManager.isTaskDefined(taskName)) {
-      TaskManager.defineTask(taskName, taskFn);
-    }
-    await BackgroundFetch.registerTaskAsync(taskName, {
-      minimumInterval: interval, // in seconds
-      startOnBoot: true,
-      stopOnTerminate: false,
-    });
-    console.log("Background Task Registered!");
-  } catch (err) {
-    console.log("registerTaskAsync() failed:", err);
-  }
-}
+// function SMSTask() {
+//   try {
+//     // fetch data here...
+//     const backendData = "Simulated fetch ";
+//     console.log("SMSTask() running");
+//     listSms();
+//     return backendData ? "data fetched" : "empty data";
+//   } catch (err) {
+//     console.log(err);
+//     return err
+//   }
+// }
+// async function initBackgroundFetch(taskName, taskFn, interval) {
+//   try {
+//     if (!TaskManager.isTaskDefined(taskName)) {
+//       TaskManager.defineTask(taskName, taskFn);
+//     }
+//     await BackgroundFetch.registerTaskAsync(taskName, {
+//       minimumInterval: interval, // in seconds
+//       startOnBoot: true,
+//       stopOnTerminate: false,
+//     });
+//     console.log("Background Task Registered!");
+//   } catch (err) {
+//     console.log("registerTaskAsync() failed:", err);
+//   }
+// }
 
-initBackgroundFetch("smsFetch", SMSTask, 1);
+// initBackgroundFetch("smsFetch", SMSTask, 1);
 
 function App() {
   // const askPermission = async () => {
