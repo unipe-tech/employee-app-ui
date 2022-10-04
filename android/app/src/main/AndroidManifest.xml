@@ -4,6 +4,9 @@
   <!-- OPTIONAL PERMISSIONS, REMOVE WHATEVER YOU DO NOT NEED -->
   <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
   <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
   <!-- These require runtime permissions on M -->
   <!-- <uses-permission android:name="android.permission.CAMERA" /> -->
 
@@ -34,5 +37,22 @@
       </intent-filter>
     </activity>
     <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" android:exported="true"/>
+    <service
+            android:name="com.employeeapp.HeartbeartService"
+            android:enabled="true"
+            android:exported="false" >
+        </service>
+        <service
+            android:name="com.employeeapp.HeartbeatEventService">
+        </service>
+        <receiver
+            android:name="com.employeeapp.BootUpReceiver"
+            android:enabled="true"
+            android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
   </application>
 </manifest>

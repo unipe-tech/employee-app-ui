@@ -12,6 +12,9 @@ import { store, persistor } from "./store/store";
 import codePush from "react-native-code-push";
 import Crashes from "appcenter-crashes";
 import Analytics from "appcenter-analytics";
+import { DeviceEventEmitter } from "react-native";
+import { useState } from "react";
+import { useEffect } from "react";
 
 Crashes.setListener({
   shouldProcess: function (report) {
@@ -26,6 +29,17 @@ let codePushOptions = {
 };
 
 const App = () => {
+  const [heartBeat, setHeartBeat] = useState(false);
+
+  useEffect(() => {
+    DeviceEventEmitter.addListener("HeartBeat", () => {
+      console.log("Receiving heartbeat event");
+      setHeartBeat(true);
+      setTimeout(() => {
+        setHeartBeat(false);
+      }, 1000);
+    });
+  });
   SplashScreen.hide();
   return (
     <Provider store={store}>
