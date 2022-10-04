@@ -8,7 +8,7 @@ apply plugin: "com.android.application"
 //   testbuild: ".env.test",
 //   prodbuild: ".env.prod",
 // ]
-// apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 
 import com.android.build.OutputFile
 import org.apache.tools.ant.taskdefs.condition.Os
@@ -99,7 +99,7 @@ project.ext.react = [
 ]
 
 apply from: new File(["node", "--print", "require.resolve('react-native/package.json')"].execute(null, rootDir).text.trim(), "../react.gradle")
-
+apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
 /**
  * Set this to true to create two separate APKs instead of one:
  *   - An APK that only works on ARM devices
@@ -157,8 +157,8 @@ android {
         versionCode 1
         versionName "1.0"
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
-        missingDimensionStrategy 'react-native-camera', 'general' 
 
+        // missingDimensionStrategy 'react-native-camera', 'general'
         if (isNewArchitectureEnabled()) {
             // We configure the NDK build only if you decide to opt-in for the New Architecture.
             externalNativeBuild {
@@ -242,20 +242,21 @@ android {
     signingConfigs {
         debug {
             storeFile file('debug.keystore')
-            storePassword 'android'
-            keyAlias 'androiddebugkey'
-            keyPassword 'android'
+            storePassword project.env.get("DEBUG_STORE_PASSWORD")
+            keyAlias project.env.get("DEBUG_KEY_ALIAS")
+            keyPassword project.env.get("DEBUG_KEY_PASSWORD")
         }
         release {
             storeFile file('unipe.keystore')
-            storePassword 'unipe1234'
-            keyAlias 'unipe'
-            keyPassword 'unipe1234'
+            storePassword project.env.get("STORE_PASSWORD")
+            keyAlias project.env.get("KEY_ALIAS")
+            keyPassword project.env.get("KEY_PASSWORD")
         }
     }
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
+            // resValue 'string', "envDeploymentKey", project.env.get("CODE_PUSH_DEPLOYMENT_KEY")
         }
         release {
             // Caution! In production, you need to generate your own keystore file.
@@ -264,6 +265,8 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            // resValue 'string', "envDeploymentKey", project.env.get("CODE_PUSH_DEPLOYMENT_KEY")
+            
         }
     }
 
@@ -309,31 +312,8 @@ dependencies {
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation project(':react-native-splash-screen')
-
-    def isGifEnabled = (findProperty('expo.gif.enabled') ?: "") == "true";
-    def isWebpEnabled = (findProperty('expo.webp.enabled') ?: "") == "true";
-    def isWebpAnimatedEnabled = (findProperty('expo.webp.animated') ?: "") == "true";
-
-    // If your app supports Android versions before Ice Cream Sandwich (API level 14)
-    // All fresco packages should use the same version
-    if (isGifEnabled || isWebpEnabled) {
-        implementation 'com.facebook.fresco:fresco:2.0.0'
-        implementation 'com.facebook.fresco:imagepipeline-okhttp3:2.0.0'
-    }
-
-    if (isGifEnabled) {
-        // For animated gif support
-        implementation 'com.facebook.fresco:animated-gif:2.0.0'
-    }
-
-    if (isWebpEnabled) {
-        // For webp support
-        implementation 'com.facebook.fresco:webpsupport:2.0.0'
-        if (isWebpAnimatedEnabled) {
-            // Animated webp support
-            implementation 'com.facebook.fresco:animated-webp:2.0.0'
-        }
-    }
+    implementation 'com.facebook.fresco:fresco:2.0.0'
+    implementation 'com.facebook.fresco:animated-gif:2.6.0'
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {

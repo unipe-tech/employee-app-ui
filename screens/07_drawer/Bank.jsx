@@ -1,41 +1,59 @@
-import { View, Text, Alert } from "react-native";
+import { View } from "react-native";
 import React from "react";
 import DetailItem from "./DetailItem";
-
 import { useSelector } from "react-redux";
-import TextButton from "../../components/atoms/TextButton";
-import { styles } from "../../styles";
+import BankFormTemplate from "../../templates/bank/Form";
+import BankConfirmApi from "../../apis/bank/Confirm";
+import TopTabNav from "../../navigators/TopTabNav";
+
 
 const Bank = () => {
-  const accountNumber = useSelector((state) => state.bank.accountNumber);
-  const ifsc = useSelector((state) => state.bank.ifsc);
-  const upi = useSelector((state) => state.bank.upi);
-  const accountHolderName = useSelector(
-    (state) => state.bank.accountHolderName
-  );
+  const accountHolderName = useSelector((state) => state.bank.data.accountHolderName);
+  const accountNumber = useSelector((state) => state.bank.data.accountNumber);
+  const ifsc = useSelector((state) => state.bank.data.ifsc);
+  const upi = useSelector((state) => state.bank.data.upi);
   const verifyStatus = useSelector((state) => state.bank.verifyStatus);
 
+  const data = [
+    { label: "Account Number", value: accountNumber },
+    { label: "Account Holder Name", value: accountHolderName },
+    { label: "IFSC Code", value: ifsc },
+    { label: "UPI Id", value: upi },
+    { label: "Verify Status", value: verifyStatus, divider: false },
+  ];
+
+  const tabs = [
+    {
+      name: "Bank Data",
+      component: BankFormTemplate,
+      initialParams: { type: "KYC" },
+      disable: true,
+    },
+    {
+      name: "Confirm",
+      component: BankConfirmApi,
+      initialParams: { type: "KYC" },
+      disable: true,
+    },
+  ];
+
+
   return (
-    <View style={styles.container}>
-      <DetailItem label="Account Number" title={accountNumber} divider />
-      <DetailItem label="IFSC Code" title={ifsc} divider />
-      <DetailItem
-        label="Account Holder Name"
-        title={accountHolderName}
-        divider
-      />
-      <DetailItem label="UPI Id" title={upi} divider />
-      <DetailItem label="Verify Status" title={verifyStatus} />
-      <View style={{ flex: 1, justifyContent: "flex-end", paddingBottom: 20 }}>
-        <TextButton
-          label={"Update"}
-          onPress={() =>
-            Alert.alert(
-              "The Bank Details are not editable, please ask your employer to update"
-            )
-          }
-        />
-      </View>
+    <View style={{ flex: 1, backgroundColor: "white" }}>
+      {verifyStatus == "SUCCESS" ? (
+        <>
+          {data.map((item, index) => (
+            <DetailItem
+              key={index}
+              label={item.label}
+              value={item.value || "Not Provided"}
+              divider={item?.divider??true}
+            />
+          ))}
+        </>
+      ) : (
+        <TopTabNav tabs={tabs} hide={true} />
+      )}
     </View>
   );
 };

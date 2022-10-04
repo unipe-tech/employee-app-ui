@@ -1,26 +1,31 @@
-import { Icon } from "@react-native-material/core";
-import React from "react";
-import { SafeAreaView, ScrollView, TextInput, View } from "react-native";
-import DocumentTile from "../../components/DocumentTile";
-import { docSearch, styles } from "../../styles";
+import { SafeAreaView, Text } from "react-native";
+import { useSelector } from "react-redux";
+import { styles } from "../../styles";
+import { allAreNull } from "../../helpers/nullCheck";
+import KycCheckCard from "../../components/KycCheckCard";
+import HomeOfferCard from "../../components/HomeOfferCard";
 
-export default HomeView = () => {
-  documents = [
-    { title: "Document 1", date: "2020-01-01" },
-    { title: "Document 2", date: "2020-01-01" },
-    { title: "Document 3", date: "2020-01-01" },
+const HomeView = () => {
+  const bankStatus = useSelector((state) => state.bank.verifyStatus);
+  const panStatus = useSelector((state) => state.pan.verifyStatus);
+  const aadhaarStatus = useSelector((state) => state.aadhaar.verifyStatus);
+  const mandateStatus = useSelector((state) => state.mandate.verifyStatus);
+
+  const message = [
+    aadhaarStatus != "SUCCESS" ? "AADHAAR" : null,
+    bankStatus != "SUCCESS" ? "BANK" : null,
+    mandateStatus != "SUCCESS" ? "Mandate" : null,
+    panStatus != "SUCCESS" ? "PAN" : null,
   ];
+
   return (
     <>
       <SafeAreaView style={styles.container}>
-        <View style={docSearch.searchBar}>
-          <Icon style={docSearch.searchIcon} name="search" size={30} />
-          <TextInput style={docSearch.searchInput} placeholder="Search" />
-        </View>
-        <ScrollView>
-          <DocumentTile documents={documents} />
-        </ScrollView>
+        <KycCheckCard />
+        {allAreNull(message) ? <HomeOfferCard /> : null}
       </SafeAreaView>
     </>
   );
 };
+
+export default HomeView;

@@ -3,22 +3,50 @@ import { Ionicons, Octicons } from "react-native-vector-icons";
 
 import Home from "../screens/06_home/Home";
 import CustomDrawer from "../components/CustomDrawer";
-import { COLORS } from "../constants/Theme";
+import Profile from "../screens/07_drawer/Profile";
+import KYCScreen from "../screens/07_drawer/KYCScreen";
+import { AppBar, Icon, IconButton } from "@react-native-material/core";
+import { Image } from "react-native";
+import { nav } from "../styles";
 
 const Drawer = createDrawerNavigator();
 
 const DrawerNavigator = () => {
+  
   return (
     <Drawer.Navigator
       drawerContent={(props) => <CustomDrawer {...props} />}
-      defaultStatus="open"
+      defaultStatus="closed"
       initialRouteName="DrawerHome"
       screenOptions={{
         activeTintColor: "#e91e63",
         itemStyle: { marginVertical: 5 },
-        headerShown: false,
-        drawerActiveBackgroundColor: COLORS.primary,
-        drawerActiveTintColor: COLORS.white,
+        headerShown: true,
+        drawerActiveBackgroundColor: "#4E46F1",
+        drawerActiveTintColor: "white",
+        header: ({ navigation }) => (
+          <AppBar
+            title={
+              <Image
+                style={nav.titleLogo}
+                source={require("../assets/unipe-Thumbnail.png")}
+              />
+            }
+            centerTitle={true}
+            contentContainerStyle={nav.navbar}
+            color="#ffffff"
+            leading={
+              <IconButton
+                icon={<Icon name="menu" size={30} />}
+                onPress={() => {
+                  console.log("Menu");
+                  navigation.toggleDrawer();
+                }}
+              />
+            }
+            trailing={<IconButton icon={<Icon name="more-vert" size={30} />} />}
+          />
+        ),
       }}
     >
       <Drawer.Screen
@@ -39,7 +67,7 @@ const DrawerNavigator = () => {
           ),
         }}
         name="DrawerProfile"
-        component={Home}
+        component={Profile}
       />
       <Drawer.Screen
         options={{
@@ -49,7 +77,7 @@ const DrawerNavigator = () => {
           ),
         }}
         name="DrawerKYC"
-        component={Home}
+        component={KYCScreen}
       />
       <Drawer.Screen
         options={{

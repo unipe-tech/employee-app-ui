@@ -2,21 +2,22 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   maritalStatus: "",
-  educationalQualification: "",
-  alternatePhone: "",
+  qualification: "",
+  altMobile: "",
   email: "",
-  selfie: "",
+  photo: "",
+  motherName: ""
 };
 
 const profileSlice = createSlice({
   name: "profile",
   initialState: initialState,
   reducers: {
-    addAlternatePhone(state, action) {
-      state.alternatePhone = action.payload;
+    addAltMobile(state, action) {
+      state.altMobile = action.payload;
     },
-    addEducationalQualification(state, action) {
-      state.educationalQualification = action.payload;
+    addQualification(state, action) {
+      state.qualification = action.payload;
     },
     addEmail(state, action) {
       state.email = action.payload;
@@ -24,21 +25,30 @@ const profileSlice = createSlice({
     addMaritalStatus(state, action) {
       state.maritalStatus = action.payload;
     },
-    addSelfie(state, action) {
-      state.selfie = action.payload;
+    addPhoto(state, action) {
+      state.photo = action.payload;
     },
-    resetProfile(state) {
-      Object.assign(state, initialState);
+    addMotherName(state, action) {
+      state.motherName = action.payload;
+    },
+    resetProfile(state, action) {
+      if (!action.payload) {
+        Object.assign(state, initialState);
+      } else {
+        Object.assign(state, action.payload);
+      }
     },
   },
 });
 
 export const {
-  addAlternatePhone,
-  addEducationalQualification,
+  addAltMobile,
+  addQualification,
   addEmail,
   addMaritalStatus,
-  addSelfie,
+  addPhoto,
   resetProfile,
+  addMotherName
 } = profileSlice.actions;
+
 export default profileSlice.reducer;

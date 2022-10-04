@@ -1,24 +1,20 @@
-import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import TopTabNav from "../../navigators/TopTabNav";
+import Mandate from "./Mandate";
 import Aadhaar from "./Aadhaar";
-import PAN from "./PAN";
 import Bank from "./Bank";
-
-const Tab = createMaterialTopTabNavigator();
+import Pan from "./PAN";
 
 const KYCScreen = () => {
+  const tabs = [
+    { name: "AADHAAR", component: Aadhaar },
+    { name: "PAN", component: Pan },
+    { name: "BANK", component: Bank },
+    { name: "MANDATE", component:  Mandate },
+  ];
   return (
-    <Tab.Navigator
-      screenOptions={{ tabBarIndicatorStyle: { backgroundColor: "#4E46F1" } }}
-    >
-      <Tab.Screen name="Aadhaar" component={Aadhaar} />
-      <Tab.Screen name="PAN" component={PAN} />
-      <Tab.Screen name="Bank Details" component={Bank} />
-    </Tab.Navigator>
+    <TopTabNav tabs={tabs} hide={false}/>
   );
 };
 
 export default KYCScreen;
-
-const styles = StyleSheet.create({});

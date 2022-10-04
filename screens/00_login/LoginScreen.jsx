@@ -1,4 +1,3 @@
-import { Button } from "@react-native-material/core";
 import { useNavigation } from "@react-navigation/core";
 import React, { useEffect, useState } from "react";
 import {
@@ -10,113 +9,47 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  SafeAreaView,
 } from "react-native";
 import SmsRetriever from "react-native-sms-retriever";
 import { useDispatch, useSelector } from "react-redux";
-import TextButton from "../../components/atoms/TextButton";
-import { LOGIN_SUBTITLE, LOGIN_TITLE } from "../../constants/Strings";
-import { COLORS, FONTS, SIZES } from "../../constants/Theme";
-
-import { GenerateDocument } from "../../helpers/GenerateDocument";
+import PrimaryButton from "../../components/PrimaryButton";
+import SplashScreen from "react-native-splash-screen";
 import { KeyboardAvoidingWrapper } from "../../KeyboardAvoidingWrapper";
 import { putBackendData } from "../../services/employees/employeeServices";
-import { sendSmsVerification } from "../../services/otp/Twilio/verify";
-import { addId, addPhoneNumber } from "../../store/slices/authSlice";
+import { sendSmsVerification } from "../../services/otp/Gupshup/services";
+import { addId, addOnboarded, addPhoneNumber } from "../../store/slices/authSlice";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
+import { resetTimer } from "../../store/slices/timerSlice";
 import { styles } from "../../styles";
 
 export default LoginScreen = () => {
-  const navigation = useNavigation();
-  const [phoneNumber, setPhoneNumber] = useState(
-    useSelector((state) => state.auth.phoneNumber)
-  );
-  const [next, setNext] = useState(false);
+  SplashScreen.hide();
+
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(false);
-  const [id, setId] = useState(null);
-  var phn = "";
+  const navigation = useNavigation();
+
+  const [loading, setLoading] = useState(false);
+  const [next, setNext] = useState(false);
+  
+  const authSlice = useSelector((state) => state.auth);
+  const [id, setId] = useState(authSlice?.id);
+  const [onboarded, setOnboarded] = useState(authSlice?.onboarded);
+  const [phoneNumber, setPhoneNumber] = useState(authSlice?.phoneNumber);
+  
+  var phone_number = "";
+
   useEffect(() => {
     dispatch(addCurrentScreen("Login"));
   }, []);
 
-  const onPhoneNumberPressed = async () => {
-    try {
-      phn = await SmsRetriever.requestPhoneNumber();
-      setPhoneNumber(phn.replace("+91", ""));
-    } catch (error) {
-      console.log(JSON.stringify(error));
-    }
-  };
-
-  // const signIn = () => {
-  //   Auth.signIn(phoneNumber)
-  //     .then((result) => {
-  //       setSession(result);
-  //       console.log(result);
-  //       navigation.navigate("Otp");
-  //     })
-  //     .catch((e) => {
-  //       if (e.code === 'UserNotFoundException') {
-  //         signUp();
-  //         console.log('User not found');
-  //       } else if (e.code === 'UsernameExistsException') {
-  //         signIn();
-  //         console.log('User already exists');
-  //       } else {
-  //         console.log(e.code);
-  //         console.error(e);
-  //       }
-  //     });
-  // };
-  // const signUp = async () => {
-  //   const result = await Auth.signUp({
-  //     username: phoneNumber,
-  //     password,
-  //     attributes: {
-  //       phone_number: phoneNumber,
-  //     },
-  //   }).then(() => signIn());
-  //   return result;
-  // };
-  // useEffect(() => {
-  //   dispatch({
-  //     type: "SET_SESSION",
-  //     payload: session,
-  //   })}, [session]);
-
-  const signIn = () => {
-    setIsLoading(true);
-    var fullPhoneNumber = `+91${phoneNumber}`;
-    var phonePayload = GenerateDocument({
-      src: "otp",
-      number: fullPhoneNumber,
-    });
-    putBackendData({ document: phonePayload, src: "Mobile" })
-      .then((res) => {
-        console.log(phonePayload);
-        console.log(res.data);
-        if (res.data["status"] == 201) {
-          setId(res.data["id"]);
-          sendSmsVerification(fullPhoneNumber)
-            .then((sent) => {
-              console.log("Sent!");
-              navigation.navigate("Otp");
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        } else {
-          Alert.alert("Error", res.data["message"]);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
   useEffect(() => {
     dispatch(addId(id));
   }, [id]);
+
+  useEffect(() => {
+    dispatch(addOnboarded(onboarded));
+  }, [onboarded]);
 
   useEffect(() => {
     dispatch(addPhoneNumber(phoneNumber));
@@ -133,29 +66,69 @@ export default LoginScreen = () => {
     }
   }, [phoneNumber]);
 
+  const onPhoneNumberPressed = async () => {
+    try {
+      phone_number = await SmsRetriever.requestPhoneNumber();
+      setPhoneNumber(phone_number.replace("+91", ""));
+    } catch (error) {
+      console.log(JSON.stringify(error));
+    }
+  };
+
   useEffect(() => {
     onPhoneNumberPressed();
   }, []);
 
+  const signIn = () => {
+    setLoading(true);
+    dispatch(resetTimer());
+    var fullPhoneNumber = `+91${phoneNumber}`;
+    putBackendData({ document: {number: fullPhoneNumber}, xpath: "mobile" })
+      .then((res) => {
+        console.log("LoginScreen res.data: ", res.data);
+        if (res.data.status === 200) {
+          setId(res.data.body.id);
+          setOnboarded(res.data.body.onboarded);
+          sendSmsVerification(phoneNumber)
+            .then((result) => {
+              console.log("sendSmsVerification result: ", result);
+              if (result["response"]["status"] === "success") {
+                navigation.navigate("Otp");
+              } else {
+                setLoading(false);
+                Alert.alert(
+                  result["response"]["status"],
+                  result["response"]["details"]
+                );
+              }
+            })
+            .catch((error) => {
+              setLoading(false);
+              console.log(error);
+              Alert("Error", "Something is Wrong");
+            });
+        } else {
+          setLoading(false);
+          Alert.alert("Error", res.data["message"]);
+        }
+      })
+      .catch((error) => {
+        setLoading(false);
+        console.log(error);
+      });
+  };
+
   return (
-    <View
-      style={{
-        backgroundColor: COLORS.white,
-        flex: 1,
-      }}
-    >
+    <SafeAreaView style={styles.container}>
       <KeyboardAvoidingWrapper>
-        <View
-          style={{
-            padding: SIZES.padding,
-            backgroundColor: COLORS.white,
-          }}
-        >
+        <View>
           <Image
             style={styles.logo}
             source={require("../../assets/unipe-Thumbnail.png")}
           />
-          <Text style={styles.headline}>{LOGIN_TITLE}</Text>
+          <Text style={styles.headline}>
+            Please enter your mobile number to login:
+          </Text>
           <Text style={styles.fieldLabel}>Mobile Number</Text>
           <TextInput
             style={styles.textInput}
@@ -168,7 +141,8 @@ export default LoginScreen = () => {
             placeholder="9999999999"
           />
           <Text style={styles.dataUseText}>
-            {LOGIN_SUBTITLE}
+            This number will be used for all communication. You shall receive an
+            SMS with code for verification. By continuing, you agree to our{" "}
             <Text
               onPress={() =>
                 Linking.openURL("https://policies.google.com/terms?hl=en-US")
@@ -187,17 +161,26 @@ export default LoginScreen = () => {
               Privacy Policy
             </Text>
           </Text>
-          {!isLoading ? (
-            <TextButton
-              label={"Continue"}
-              onPress={() => signIn()}
-              disabled={next ? false : true}
-            />
+          {!loading ? (
+            <>
+              <PrimaryButton
+                uppercase={false}
+                title="Continue"
+                type="solid"
+                color="#4E46F1"
+                disabled={!next}
+                onPress={() => signIn()}
+              />
+            </>
           ) : (
-            <TextButton loading={true} />
+            <TouchableOpacity>
+              <View style={styles.LoadingButton}>
+                <ActivityIndicator size="large" color="white" />
+              </View>
+            </TouchableOpacity>
           )}
         </View>
       </KeyboardAvoidingWrapper>
-    </View>
+    </SafeAreaView>
   );
 };

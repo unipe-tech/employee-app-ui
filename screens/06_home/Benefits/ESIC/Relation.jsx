@@ -1,19 +1,21 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { ScrollView, Text, TextInput, View } from "react-native";
-import { useNavigation } from "@react-navigation/core";
+import { Button } from "@react-native-material/core";
 import { Picker } from "@react-native-picker/picker";
-import relations from "../../../helpers/RelationData";
-import { addESICFamilyDetails } from "../../../store/slices/esicSlice";
-import { familyDetailsPush } from "../../../helpers/BackendPush";
-import { bankform, form, styles } from "../../../styles";
-import { showToast } from "../../../components/atoms/Toast";
-import { KeyboardAvoidingWrapper } from "../../../KeyboardAvoidingWrapper";
-import TextButton from "../../../components/atoms/TextButton";
+import { useNavigation } from "@react-navigation/core";
+import React, { useEffect, useState } from "react";
+import { Text, TextInput, View } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import { showToast } from "../../../../components/atoms/Toast";
+import { relationPush } from "../../../../helpers/BackendPush";
+import relations from "../../../../helpers/RelationData";
+import { KeyboardAvoidingWrapper } from "../../../../KeyboardAvoidingWrapper";
+import { addESICFamilyDetails } from "../../../../store/slices/esicSlice";
+import { bankform, form } from "../../../../styles";
 
-export default FamilyDetails = () => {
-  const navigation = useNavigation();
+export default Relation = () => {
+
   const dispatch = useDispatch();
+  const navigation = useNavigation();
+  
   const id = useSelector((state) => state.auth.id);
   const [fatherHusbandRelation, setRelation] = useState(
     useSelector((state) => state.esic.familyDetails.fatherHusband.relation)
@@ -116,19 +118,20 @@ export default FamilyDetails = () => {
         <TextButton
           label={"Continue"}
           onPress={() => {
-            familyDetailsPush({
+            relationPush({
               id: id,
               type: "fh",
               relation: fatherHusbandRelation,
               name: fatherHusbandName,
             });
 
-            familyDetailsPush({
+            relationPush({
               id: id,
               type: "nominee",
               relation: nomineeRelation,
               name: nomineeName,
             });
+
             showToast("Family details recorded.");
             navigation.navigate("Benefits", {
               screen: "ESIC",

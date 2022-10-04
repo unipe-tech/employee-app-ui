@@ -1,22 +1,22 @@
 import React from "react";
 import { SafeAreaView } from "react-native";
-import TopTabNav from "../../../navigators/TopTabNav";
+import TopTabNav from "../../../../navigators/TopTabNav";
 import Portal from "./Portal";
-import FamilyDetails from "./FamilyDetails";
+import Relation from "./Relation";
 import EmployeeAddress from "./EmployeeAddress";
 import NomineeAddress from "./NomineeAddress";
-import { styles } from "../../../styles";
+import { styles } from "../../../../styles";
 
 export default ESICForm = () => {
   const tabs = [
     { name: "Portal", component: Portal },
-    { name: "Family Details", component: FamilyDetails },
+    { name: "Family Details", component: Relation },
     { name: "Employee Address", component: EmployeeAddress },
     { name: "Nominee Address", component: NomineeAddress },
   ];
   return (
     <SafeAreaView style={styles.container}>
-      <TopTabNav tabs={tabs} />
+      <TopTabNav tabs={tabs} hide={false} />
     </SafeAreaView>
   );
 };
