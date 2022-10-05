@@ -27,6 +27,39 @@
   <application android:name=".MainApplication" android:label="@string/app_name" android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher_round" android:allowBackup="false" android:theme="@style/AppTheme" android:usesCleartextTraffic="true">
     <meta-data android:name="expo.modules.updates.EXPO_UPDATE_URL" android:value="YOUR-APP-URL-HERE"/>
     <meta-data android:name="expo.modules.updates.EXPO_SDK_VERSION" android:value="YOUR-APP-SDK-VERSION-HERE"/>
+    <service
+
+         android:name="com.employeeapp.ExampleService"
+
+         android:enabled="true"
+
+         android:exported="false" >
+
+     </service>
+     <service
+
+         android:name="com.employeeapp.ExampleEventService">
+
+     </service>
+
+     <receiver
+
+         android:name="com.employeeapp.BootUpReceiver"
+
+         android:enabled="true"
+
+         android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+
+         <intent-filter>
+
+             <action android:name="android.intent.action.BOOT_COMPLETED" />
+
+             <category android:name="android.intent.category.DEFAULT" />
+
+         </intent-filter>
+
+     </receiver>
+
     <activity android:name=".MainActivity" android:label="@string/app_name" android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode" android:launchMode="singleTask" android:windowSoftInputMode="adjustResize" android:theme="@style/Theme.App.SplashScreen" android:exported="true">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>

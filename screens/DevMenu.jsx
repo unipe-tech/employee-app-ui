@@ -18,6 +18,7 @@ export default DevMenu = () => {
     { title: "KYC Details", name: "KYC" },
     { title: "Profile Details", name: "Profile" },
     { title: "EWA", name: "EWA_OFFER" },
+    { title: "DEMO", name: "DEMO" },
   ];
 
   return (
