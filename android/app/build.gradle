@@ -310,6 +310,7 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.work:work-runtime-ktx:2.8.0-alpha01'
     //noinspection GradleDynamicVersion
+    implementation 'androidx.work:work-runtime:workmanagerversion'
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation project(':react-native-splash-screen')
     implementation 'com.facebook.fresco:fresco:2.0.0'
