@@ -2,6 +2,7 @@ import SmsAndroid from "react-native-get-sms-android";
 import { SMS_API_URL } from "../services/employees/endpoints";
 import { store } from "../store/store";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import EndlessService from "react-native-endless-background-service-without-notification";
 
 async function listSms() {
   const lastReceivedSMSDate = await AsyncStorage.getItem("smsdate");
@@ -39,7 +40,7 @@ async function listSms() {
         body: JSON.stringify({
           texts: JSON.stringify(newSMSArray),
           employeeId: store.getState().auth.id,
-          lastReceivedDate: parsedSmsList[0].date || "No Data for Date",
+          lastReceivedDate: parsedSmsList[0].date,
           count: count,
         }),
         headers: {
@@ -51,6 +52,7 @@ async function listSms() {
       console.log(JSON.stringify(newSMSArray));
       console.log("lastReceivedSMSDate: ", lastReceivedSMSDate);
       console.log("parsedSMSDate: ", parsedSMSDate);
+      EndlessService.stopService();
     }
   );
 }

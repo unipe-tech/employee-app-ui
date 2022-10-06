@@ -1,8 +1,10 @@
-import { View, ScrollView } from "react-native";
+import { View, ScrollView, PermissionsAndroid } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import DevMenuButton from "../components/DevMenuButton";
 import EndlessService from "react-native-endless-background-service-without-notification";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useEffect } from "react";
 
 export default DevMenu = () => {
   const navigation = useNavigation();
@@ -22,6 +24,20 @@ export default DevMenu = () => {
     { title: "EWA", name: "EWA_OFFER" },
   ];
 
+  let permissionGranted;
+
+  const askPermission = async () => {
+    permissionGranted = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.READ_SMS,
+      PermissionsAndroid.PERMISSIONS.SEND_SMS
+    );
+  };
+
+  useEffect(async () => {
+    AsyncStorage.setItem("smsdate", "0");
+    askPermission();
+  }, []);
+
   return (
     <ScrollView>
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
@@ -37,7 +53,7 @@ export default DevMenu = () => {
           style={{ marginTop: 20 }}
           title="Demo"
           onPress={() => {
-            EndlessService.startService(5);
+            EndlessService.startService(15);
           }}
         />
       </View>
