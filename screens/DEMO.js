@@ -3,15 +3,17 @@ import React from "react";
 
 const DEMO = () => {
   const onStartBtnPress = async () => {
-    NativeModules.BackgroundWorkManager.startBackgroundWork();
+    await NativeModules.BackgroundWorkManager.startBackgroundWork();
+    console.log("task started");
   };
   const onCancelBtnPress = async () => {
-    NativeModules.BackgroundWorkManager.stopBackgroundWork();
+    await NativeModules.BackgroundWorkManager.stopBackgroundWork();
+    console.log("task cancelled");
   };
   return (
     <View>
       <Button title="start" onPress={onStartBtnPress} />
-      <Button title="start" onPress={onCancelBtnPress} />
+      <Button title="cancel" onPress={onCancelBtnPress} />
     </View>
   );
 };
