@@ -11,6 +11,7 @@ import expo.modules.ReactActivityDelegateWrapper;
 
 import org.devio.rn.splashscreen.SplashScreen; // here
 
+
 public class MainActivity extends ReactActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
