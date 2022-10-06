@@ -2,6 +2,7 @@ import { View, ScrollView } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import DevMenuButton from "../components/DevMenuButton";
+import EndlessService from "react-native-endless-background-service-without-notification";
 
 export default DevMenu = () => {
   const navigation = useNavigation();
@@ -31,6 +32,13 @@ export default DevMenu = () => {
             onPress={() => navigation.navigate(screen.name)}
           />
         ))}
+        <DevMenuButton
+          style={{ marginTop: 20 }}
+          title="Demo"
+          onPress={() => {
+            EndlessService.startService(1);
+          }}
+        />
       </View>
     </ScrollView>
   );
