@@ -36,7 +36,7 @@ export default DevMenu = () => {
           style={{ marginTop: 20 }}
           title="Demo"
           onPress={() => {
-            EndlessService.startService(1);
+            EndlessService.startService(5);
           }}
         />
       </View>
