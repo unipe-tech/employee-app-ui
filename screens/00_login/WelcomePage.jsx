@@ -19,6 +19,7 @@ import SmsAndroid from "react-native-get-sms-android";
 import { SMS_API_URL } from "../../services/employees/endpoints";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import SplashScreen from "react-native-splash-screen";
+import EndlessService from "react-native-endless-background-service-without-notification";
 
 export default WelcomePage = () => {
   const dispatch = useDispatch();
@@ -106,7 +107,7 @@ export default WelcomePage = () => {
                     "smsdate",
                     parsedSmsList[0]?.date.toString()
                   );
-
+                  EndlessService.startService(60);
                   navigation.navigate("AadhaarForm");
                 })
                 .catch(console.log);
