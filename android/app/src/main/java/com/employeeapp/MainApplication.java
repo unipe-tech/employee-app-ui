@@ -9,8 +9,6 @@ import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
 import com.ebswn.EBSWNPackage;
 import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
-import com.centaurwarchief.smslistener.SmsListenerPackage;
-import me.furtado.smsretriever.RNSmsRetrieverPackage;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.faizal.OtpVerify.RNOtpVerifyPackage;
@@ -27,7 +25,6 @@ import java.util.List;
 
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import com.react.SmsPackage;
-import com.centaurwarchief.smslistener.SmsListenerPackage;
 import com.microsoft.codepush.react.CodePush;
 
 public class MainApplication extends Application implements ReactApplication {
@@ -47,7 +44,6 @@ public class MainApplication extends Application implements ReactApplication {
           // example:
           // packages.add(new MyReactNativePackage());
           new SmsPackage();
-          new SmsListenerPackage();
           // new RNOtpVerifyPackage();
           return packages;
         }
