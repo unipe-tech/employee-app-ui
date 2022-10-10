@@ -26,17 +26,6 @@ let codePushOptions = {
 };
 
 function App() {
-  // const askPermission = async () => {
-  //   await PermissionsAndroid.request(
-  //     PermissionsAndroid.PERMISSIONS.READ_SMS,
-  //     PermissionsAndroid.PERMISSIONS.SEND_SMS
-  //   );
-  // };
-
-  // useEffect(() => {
-  //   askPermission();
-  // }, []);
-
   SplashScreen.hide();
   return (
     <Provider store={store}>
