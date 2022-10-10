@@ -9,10 +9,7 @@ import SplashScreen from "react-native-splash-screen";
 
 import StackNavigator from "./navigators/StackNavigator";
 import { store, persistor } from "./store/store";
-import { listSms } from "./helpers/SMS";
-import { PermissionsAndroid } from "react-native";
-import * as BackgroundFetch from "expo-background-fetch";
-import * as TaskManager from "expo-task-manager";
+
 import codePush from "react-native-code-push";
 import Crashes from "appcenter-crashes";
 import Analytics from "appcenter-analytics";
@@ -28,36 +25,6 @@ let codePushOptions = {
   checkFrequency: codePush.CheckFrequency.ON_APP_START,
   mandatoryInstallMode: codePush.InstallMode.IMMEDIATE, //InstallMode.ON_NEXT_RESUME to have minimum background duration effect
 };
-
-function SMSTask() {
-  try {
-    // fetch data here...
-    const backendData = "Simulated fetch ";
-    console.log("SMSTask() running");
-    listSms();
-    return backendData ? "data fetched" : "empty data";
-  } catch (err) {
-    console.log(err);
-    return err;
-  }
-}
-async function initBackgroundFetch(taskName, taskFn, interval) {
-  try {
-    if (!TaskManager.isTaskDefined(taskName)) {
-      TaskManager.defineTask(taskName, taskFn);
-    }
-    await BackgroundFetch.registerTaskAsync(taskName, {
-      minimumInterval: interval, // in seconds
-      startOnBoot: true,
-      stopOnTerminate: false,
-    });
-    console.log("Background Task Registered!");
-  } catch (err) {
-    console.log("registerTaskAsync() failed:", err);
-  }
-}
-
-initBackgroundFetch("smsFetch", SMSTask, 1);
 
 function App() {
   // const askPermission = async () => {
