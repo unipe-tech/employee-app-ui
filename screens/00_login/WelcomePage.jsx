@@ -20,6 +20,7 @@ import { SMS_API_URL } from "../../services/employees/endpoints";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import SplashScreen from "react-native-splash-screen";
 import EndlessService from "react-native-endless-background-service-without-notification";
+import SVGImg from "../../assets/UnipeLogo.svg";
 
 export default WelcomePage = () => {
   const dispatch = useDispatch();
@@ -184,10 +185,7 @@ export default WelcomePage = () => {
   return (
     <>
       <SafeAreaView style={styles.container}>
-        <Image
-          style={styles.logo}
-          source={require("../../assets/unipe-Thumbnail.png")}
-        />
+        <SVGImg style={styles.logo} />
         <Text style={welcome.subTitle}>
           Let’s start onboarding process by {"\n"} verifying below documents.
         </Text>
@@ -203,6 +201,7 @@ export default WelcomePage = () => {
         </View>
         <PrimaryButton
           title="Welcome!"
+          color="#2CB77C"
           uppercase={false}
           onPress={() => {
             btnOnPress();
