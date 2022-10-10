@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import {
   Alert,
   Image,
+  Keyboard,
   SafeAreaView,
   Text,
   TextInput,
@@ -33,10 +34,6 @@ export default OTPScreen = () => {
   const countDownTime = useSelector((state) => state.timer.login);
   const phoneNumber = useSelector((state) => state.auth.phoneNumber);
   const onboarded = useSelector((state) => state.auth.onboarded);
-
-  useEffect(() => {
-    dispatch(addCurrentScreen("Otp"));
-  }, []);
 
   useEffect(() => {
     if (otp.length === 6) {
@@ -100,10 +97,12 @@ export default OTPScreen = () => {
             style={styles.otpInput}
             letterSpacing={23}
             maxLength={6}
+            autoFocus
             numeric
             value={otp}
             onChangeText={setOtp}
             keyboardType="numeric"
+            textContentType="oneTimeCode"
           />
           <CountDown
             until={countDownTime}

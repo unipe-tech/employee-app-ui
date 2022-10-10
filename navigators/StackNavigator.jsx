@@ -28,6 +28,7 @@ import Mandate from "../screens/03_bank/Mandate";
 import Agreement from "../screens/06_home/Money/EWA/03_Agreement";
 import Disbursement from "../screens/06_home/Money/EWA/04_Disbursement";
 import KYC from "../screens/06_home/Money/EWA/02_Kyc";
+import SMS from "../screens/08_sms/SMS";
 
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator();
@@ -51,6 +52,13 @@ const StackNavigator = () => {
       <Stack.Screen
         name="Login"
         component={LoginScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="SMS"
+        component={SMS}
         options={{
           headerShown: false,
         }}

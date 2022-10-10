@@ -49,7 +49,7 @@ const AadhaarOtpApi = (props) => {
   }, [verifyTimestamp]);
 
   useEffect(() => {
-    console.log("AadhaarOtpApi aadhaarSlice: ", aadhaarSlice);
+    // console.log("AadhaarOtpApi aadhaarSlice: ", aadhaarSlice);
     if (backendPush) {
       aadhaarBackendPush({
         id: id,

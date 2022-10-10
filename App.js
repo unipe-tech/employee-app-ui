@@ -1,6 +1,6 @@
 import { IconComponentProvider } from "@react-native-material/core";
 import { NavigationContainer } from "@react-navigation/native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Provider, useSelector } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -9,6 +9,7 @@ import SplashScreen from "react-native-splash-screen";
 
 import StackNavigator from "./navigators/StackNavigator";
 import { store, persistor } from "./store/store";
+
 import codePush from "react-native-code-push";
 import Crashes from "appcenter-crashes";
 import Analytics from "appcenter-analytics";
@@ -20,12 +21,11 @@ Crashes.setListener({
 });
 Analytics.startSession();
 let codePushOptions = {
-  deploymentKey: "NVWL2F2UKSif5SJWBOWtkSyPC3aRIYXM_adgy",
   checkFrequency: codePush.CheckFrequency.ON_APP_START,
   mandatoryInstallMode: codePush.InstallMode.IMMEDIATE, //InstallMode.ON_NEXT_RESUME to have minimum background duration effect
 };
 
-const App = () => {
+function App() {
   SplashScreen.hide();
   return (
     <Provider store={store}>
@@ -40,6 +40,6 @@ const App = () => {
       </PersistGate>
     </Provider>
   );
-};
+}
 
 export default codePush(codePushOptions)(App);

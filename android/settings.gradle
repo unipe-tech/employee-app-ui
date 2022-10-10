@@ -1,4 +1,6 @@
 rootProject.name = 'employeeapp'
+include ':react-native-endless-background-service-without-notification'
+project(':react-native-endless-background-service-without-notification').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-endless-background-service-without-notification/android')
 include ':react-native-config'
 project(':react-native-config').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-config/android')
 include ':react-native-sms-retriever'
@@ -6,6 +8,9 @@ project(':react-native-sms-retriever').projectDir = new File(rootProject.project
 
 include ':react-native-splash-screen'   
 project(':react-native-splash-screen').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-splash-screen/android')
+
+include ':react-native-get-sms-android'
+project(':react-native-get-sms-android').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-get-sms-android/android')
 
 apply from: new File(["node", "--print", "require.resolve('expo/package.json')"].execute(null, rootDir).text.trim(), "../scripts/autolinking.gradle");
 useExpoModules()
