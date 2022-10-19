@@ -10,6 +10,8 @@ import SVGImg from "../assets/UnipeLogo.svg";
 import { nav } from "../styles";
 import { COLORS } from "../constants/Theme";
 import CustomDrawer from "./CustomDrawer";
+import TermsAndConditions from "../screens/07_drawer/TermsAndConditions";
+import PrivacyPolicy from "../screens/07_drawer/PrivacyPolicy";
 
 const Drawer = createDrawerNavigator();
 
@@ -27,10 +29,7 @@ const DrawerNavigator = () => {
         drawerActiveTintColor: "white",
         header: ({ navigation }) => (
           <AppBar
-            title={
-              <SVGImg
-              />
-            }
+            title={<SVGImg />}
             centerTitle={true}
             contentContainerStyle={nav.navbar}
             color="#ffffff"
@@ -106,7 +105,7 @@ const DrawerNavigator = () => {
           ),
         }}
         name="DrawerPrivacyPolicy"
-        component={Home}
+        component={PrivacyPolicy}
       />
       <Drawer.Screen
         options={{
@@ -120,7 +119,7 @@ const DrawerNavigator = () => {
           ),
         }}
         name="DrawerTermsConditions"
-        component={Home}
+        component={TermsAndConditions}
       />
     </Drawer.Navigator>
   );
