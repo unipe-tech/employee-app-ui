@@ -28,9 +28,9 @@ export const styles = EStyleSheet.create({
   },
 
   btn: {
-    marginTop: 20,
+    marginTop: "20rem",
     width: "100%",
-    height: 50,
+    height: "45rem",
     backgroundColor: COLORS.primary,
     borderRadius: 6,
   },
@@ -45,15 +45,8 @@ export const styles = EStyleSheet.create({
   flexrow: {
     flexDirection: "row",
   },
-  otpback: {
-    backgroundColor: COLORS.white,
-    width: 50,
-    borderRadius: 40,
-
-    marginTop: 20,
-  },
   dataUseText: {
-    marginTop: 20,
+    marginTop: "1rem",
     ...FONTS.body4,
     color: COLORS.gray,
     textAlign: "center",
@@ -63,129 +56,67 @@ export const styles = EStyleSheet.create({
     color: COLORS.primary,
   },
   otpreadtxt: {
-    marginTop: 20,
+    marginTop: "16rem",
     color: COLORS.gray,
     ...FONTS.h4,
     textAlign: "center",
-  },
-  LoadingButton: {
-    padding: 10,
-    alignSelf: "center",
-    marginTop: 20,
-    width: 320,
-    height: 60,
-    fontSize: 20,
-    backgroundColor: COLORS.primary,
-    borderRadius: 6,
-  },
-});
-
-export const buttons = EStyleSheet.create({
-  ContinueButton: {
-    padding: 10,
-    alignSelf: "center",
-    marginTop: 50,
-    width: 320,
-    height: 60,
-    fontSize: 20,
-  },
-  FAB: {
-    backgroundColor: COLORS.primary,
   },
 });
 
 export const progressBar = EStyleSheet.create({
   progressView: {
-    marginTop: 20,
+    marginTop: "18rem",
   },
   progressBar: {
     width: "100%",
     color: COLORS.primary,
   },
-  progressNos: {
-    marginLeft: 8,
-    marginTop: -3,
-    color: COLORS.gray,
-  },
 });
 
 export const form = EStyleSheet.create({
   formHeader: {
-    marginTop: 10,
+    marginTop: "10rem",
     color: COLORS.black,
     ...FONTS.h3,
     textAlign: "center",
   },
   formLabel: {
-    marginTop: 30,
+    marginTop: "30rem",
     color: COLORS.gray,
   },
-  formTextInput: {
-    width: "100%",
-    height: 50,
-    borderBottomWidth: 1,
-  },
-  picker: {
-    marginLeft: 34,
-    width: "79%",
-    borderBottomWidth: 1,
-  },
-  chosenButton: {
-    padding: 2,
-
-    marginTop: 20,
-    width: 140,
-    height: 40,
-    fontSize: 20,
-  },
-  choiceButton: {
-    padding: 2,
-
-    marginTop: 20,
-    width: 140,
-    height: 40,
-    fontSize: 20,
-    backgroundColor: COLORS.gray,
-  },
   nextButton: {
-    padding: 5,
+    padding: "5rem",
     alignSelf: "center",
-    marginTop: 20,
+    marginTop: "20rem",
     width: "100%",
-    height: 50,
-    fontSize: 20,
+    height: "50rem",
+    fontSize: "20rem",
   },
   OtpAwaitMsg: {
     color: COLORS.secondary,
     alignSelf: "center",
     textAlign: "center",
-    marginTop: 20,
+    marginTop: "20rem",
     ...FONTS.body3,
   },
   userData: {
     color: COLORS.secondary,
-    marginLeft: 55,
-    marginTop: 10,
-    ...FONTS.body3,
-  },
-  aadharConfirmText: {
-    color: COLORS.secondary,
-    marginLeft: 69,
-    marginTop: 10,
+    marginLeft: "55rem",
+    marginTop: "10rem",
     ...FONTS.body3,
   },
   yesButton: {
     flex: 1,
-    height: 50,
+    height: "50rem",
     backgroundColor: COLORS.primaryBackground,
     alignItems: "center",
     justifyContent: "center",
-    marginLeft: 10,
+    marginLeft: "10rem",
   },
   noButton: {
     flex: 1,
     width: SIZES.width / 2.5,
-    height: 50,
+    height: "50rem",
     backgroundColor: COLORS.warningBackground,
     alignItems: "center",
     justifyContent: "center",
@@ -193,112 +124,70 @@ export const form = EStyleSheet.create({
   },
   aadharimg: {
     alignSelf: "center",
-    marginTop: 20,
-    width: 200,
-    height: 200,
-  },
-  aadhaarOr: {
-    marginBottom: 20,
-    marginTop: 20,
-    alignSelf: "center",
-    ...FONTS.body3,
-  },
-  AadharLinkedStatus: {
-    marginTop: 30,
-    alignSelf: "center",
-    color: COLORS.primary,
-    width: 300,
-    textDecorationLine: "underline",
-    fontWeight: "bold",
+    marginTop: "20rem",
+    width: "180rem",
+    height: "180rem",
   },
   forgotText: {
-    marginTop: 10,
+    marginTop: "10rem",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-end",
   },
   year: {
-    height: 40,
-    width: 40,
+    height: "40rem",
+    width: "40rem",
     textAlign: "center",
     borderBottomWidth: 1,
   },
   monthday: {
-    height: 40,
-    width: 40,
+    height: "40rem",
+    width: "40rem",
     textAlign: "center",
     borderBottomWidth: 1,
   },
-  hypenView: { width: 30, alignSelf: "center" },
-  hypen: { alignSelf: "center", fontSize: 30 },
+  hypenView: { width: "30rem", alignSelf: "center" },
+  hypen: { alignSelf: "center", fontSize: "28rem" },
 });
 
 export const checkBox = EStyleSheet.create({
   checkBox: {
-    marginTop: 30,
+    marginTop: "30rem",
   },
   checkBoxText: {
-    marginLeft: 10,
-    marginRight: 40,
-    marginTop: 30,
-    fontSize: 14,
+    marginLeft: "10rem",
+    marginRight: "40rem",
+    marginTop: "30rem",
+    fontSize: "14rem",
     color: "#828282",
   },
   padding: {
-    marginTop: 30,
+    marginTop: "30rem",
   },
 });
 
 export const bankform = EStyleSheet.create({
-  formtitle: {
-    marginTop: 20,
-    color: COLORS.gray,
-    ...FONTS.body4,
-  },
   formatmsg: {
     color: COLORS.warning,
     ...FONTS.body4,
   },
   formInput: {
     width: "100%",
-    height: 40,
+    height: "40rem",
     borderBottomWidth: 1,
   },
-  nextButton: {
-    padding: 10,
-    alignSelf: "center",
-    marginTop: 40,
-    width: 320,
-    height: 60,
-    fontSize: 20,
-  },
   padding: {
-    marginTop: 30,
-  },
-  infoCard: {
-    backgroundColor: "rgba(78, 70, 241, 0.1)",
-    width: "100%",
-    marginLeft: 30,
-    marginTop: 20,
-    padding: 10,
-    flex: 0,
-    flexDirection: "row",
-    alignItems: "flex-start",
-  },
-  infoText: {
-    width: "93%",
-    color: COLORS.darkGray,
-    paddingLeft: 7,
+    marginTop: "40rem",
   },
   Maintitle: {
-    marginLeft: 30,
-    marginTop: 10,
+    marginLeft: "30rem",
+    marginTop: "10rem",
     color: COLORS.black,
-    fontSize: 18,
+    fontSize: "18rem",
     fontFamily: "Roboto",
   },
   subTitle: {
-    marginTop: 20,
+    marginTop: "20rem",
     color: COLORS.black,
     ...FONTS.h3,
     alignSelf: "center",
@@ -306,56 +195,12 @@ export const bankform = EStyleSheet.create({
   asterisk: { fontWeight: "bold", color: COLORS.primary },
 });
 
-export const homeCard = EStyleSheet.create({
-  card: {
-    marginTop: 20,
-    width: 170,
-    borderWidth: 1,
-    borderRadius: 10,
-    marginRight: 10,
-  },
-  title: {
-    ...FONTS.h3,
-  },
-  subtitle: {
-    ...FONTS.body4,
-  },
-  downloadIcon: {
-    marginTop: 30,
-    color: COLORS.primary,
-  },
-  downloadText: {
-    marginTop: 30,
-    ...FONTS.h4,
-    color: COLORS.primary,
-  },
-});
-
 export const nav = EStyleSheet.create({
-  titleLogo: {
-    width: 160,
-    height: 80,
-  },
   navbar: {
-    height: 80,
+    height: "70rem",
   },
 });
 
-export const docSearch = EStyleSheet.create({
-  searchBar: {
-    marginLeft: 20,
-    flexDirection: "row",
-    flexWrap: "wrap",
-  },
-  searchIcon: {
-    marginTop: 20,
-  },
-  searchInput: {
-    width: 320,
-    borderBottomWidth: 2,
-    textAlignVertical: "center",
-  },
-});
 export const Camera = EStyleSheet.create({
   container: {
     flex: 1,
@@ -370,11 +215,11 @@ export const Camera = EStyleSheet.create({
   capture: {
     flex: 0,
     backgroundColor: COLORS.primary,
-    borderRadius: 10,
-    padding: 15,
-    paddingHorizontal: 20,
+    borderRadius: "10rem",
+    padding: "15rem",
+    paddingHorizontal: "20rem",
     alignSelf: "center",
-    marginTop: 450,
+    marginTop: "400rem",
   },
   wait: {
     flex: 1,
@@ -387,86 +232,50 @@ export const Camera = EStyleSheet.create({
     flex: 1,
   },
   buttonText: {
-    fontSize: 16,
+    fontSize: "14rem",
     color: COLORS.white,
   },
   back: {
     backgroundColor: "rgba(78, 70, 241, 0.9)",
-    borderRadius: 30,
-    padding: 10,
+    borderRadius: "30rem",
+    padding: "8rem",
     alignSelf: "center",
-    marginTop: 10,
+    marginTop: "10rem",
     marginLeft: -300,
-  },
-  cameraButton: {
-    marginLeft: 30,
-    marginTop: 20,
-    borderWidth: 2,
-    borderRadius: 10,
-    paddingHorizontal: 30,
-  },
-  previewImage: {
-    height: 200,
-    width: "100%",
   },
 });
 
 export const welcome = EStyleSheet.create({
-  title: {
-    marginTop: 20,
-    color: COLORS.black,
-    ...FONTS.body4,
-  },
-  mainTitle: {
-    marginTop: 20,
-    marginLeft: 30,
-    color: COLORS.black,
-    ...FONTS.h2,
-  },
-  subTitle: {
-    alignSelf: "center",
-    color: COLORS.black,
-    ...FONTS.h3,
-    textAlign: "center",
-  },
   steps: { alignSelf: "center", flex: 1 },
 });
 
 export const selfie = EStyleSheet.create({
   uploadButton: {
-    marginTop: 20,
+    marginTop: "18rem",
     borderWidth: 2,
-    borderRadius: 10,
-    paddingHorizontal: 30,
+    borderRadius: "10rem",
+    paddingHorizontal: "30rem",
   },
   cameraButton: {
-    marginLeft: 60,
-    marginTop: 20,
+    marginLeft: "50rem",
+    marginTop: "17rem",
     borderWidth: 2,
-    borderRadius: 10,
-    paddingHorizontal: 30,
+    borderRadius: "8rem",
+    paddingHorizontal: "26rem",
   },
   selfieContainer: {
-    marginTop: 20,
+    marginTop: "18rem",
     width: "100%",
     height: SIZES.width * 0.6,
     backgroundColor: COLORS.lightgray_01,
-    borderRadius: 10,
+    borderRadius: "10rem",
     alignItems: "center",
     justifyContent: "center",
   },
   selfie: {
     alignSelf: "center",
     height: "100%",
-    borderRadius: 10,
-  },
-});
-
-export const esic = EStyleSheet.create({
-  CollapseTitle: {
-    marginTop: 20,
-    color: COLORS.primary,
-    ...FONTS.body4,
+    borderRadius: "10rem",
   },
 });
 
@@ -490,16 +299,16 @@ export const license = EStyleSheet.create({
 
 export const ewa = EStyleSheet.create({
   padding: {
-    marginTop: 10,
+    marginTop: "10rem",
   },
   loanCard: {
-    marginTop: 20,
+    marginTop: "20rem",
     alignSelf: "center",
     width: "100%",
     backgroundColor: COLORS.lightgray_01,
     paddingVertical: "4%",
     paddingHorizontal: "3%",
-    borderRadius: 10,
+    borderRadius: "10rem",
   },
   successImg: {
     alignSelf: "center",
@@ -508,30 +317,30 @@ export const ewa = EStyleSheet.create({
     marginTop: "-8%",
   },
   checkBox: {
-    marginTop: 10,
+    marginTop: "10rem",
   },
   checkBoxText: {
-    marginRight: 40,
-    marginTop: 10,
+    marginRight: "40rem",
+    marginTop: "10rem",
     color: COLORS.gray,
   },
 });
 
 export const card = EStyleSheet.create({
   alertCard: {
-    marginTop: 20,
-    padding: 10,
+    marginTop: "20rem",
+    padding: "10rem",
     flexDirection: "column",
   },
   infoText: {
-    fontSize: 16,
+    fontSize: "14rem",
   },
   alertText: {
     color: COLORS.black,
     ...FONTS.h4,
     textDecorationLine: "underline",
-    paddingLeft: 10,
-    paddingTop: 10,
+    paddingLeft: "8rem",
+    paddingTop: "8rem",
   },
 });
 
@@ -541,7 +350,7 @@ export const datacard = EStyleSheet.create({
     marginTop: "3%",
     padding: "3%",
     width: "95%",
-    borderRadius: 4,
+    borderRadius: "4rem",
     flexDirection: "row",
     backgroundColor: "rgba(228, 238, 240, 0.4)",
     justifyContent: "space-between",
@@ -555,19 +364,19 @@ export const datacard = EStyleSheet.create({
 export const dev = EStyleSheet.create({
   title: {
     alignSelf: "center",
-    marginTop: 20,
+    marginTop: "20rem",
     width: "60%",
   },
 });
 
 export const stepIndicatorStyles = {
-  stepIndicatorSize: 30,
-  currentStepIndicatorSize: 30,
-  separatorStrokeWidth: 2,
-  currentStepStrokeWidth: 3,
+  stepIndicatorSize: "30rem",
+  currentStepIndicatorSize: "30rem",
+  separatorStrokeWidth: "1.6rem",
+  currentStepStrokeWidth: "2.1rem",
   stepStrokeCurrentColor: COLORS.primary,
-  stepStrokeWidth: 3,
-  separatorStrokeFinishedWidth: 4,
+  stepStrokeWidth: "2rem",
+  separatorStrokeFinishedWidth: "3.6rem",
   stepStrokeFinishedColor: COLORS.primary,
   stepStrokeUnFinishedColor: COLORS.lightGray,
   separatorFinishedColor: COLORS.primary,
