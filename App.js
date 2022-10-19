@@ -11,7 +11,13 @@ import StackNavigator from "./navigators/StackNavigator";
 import { store, persistor } from "./store/store";
 import codePush from "react-native-code-push";
 import Crashes from "appcenter-crashes";
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from "@tanstack/react-query";
 
+export const queryClient = new QueryClient();
 Crashes.setListener({
   shouldProcess: function (report) {
     return true; // return true if the crash report should be processed, otherwise false.
@@ -29,11 +35,13 @@ const App = () => {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <NavigationContainer>
-          <SafeAreaProvider style={{ backgroundColor: "white", flex: 1 }}>
-            <IconComponentProvider IconComponent={Icon}>
-              <StackNavigator />
-            </IconComponentProvider>
-          </SafeAreaProvider>
+          <QueryClientProvider client={queryClient}>
+            <SafeAreaProvider style={{ backgroundColor: "white", flex: 1 }}>
+              <IconComponentProvider IconComponent={Icon}>
+                <StackNavigator />
+              </IconComponentProvider>
+            </SafeAreaProvider>
+          </QueryClientProvider>
         </NavigationContainer>
       </PersistGate>
     </Provider>
