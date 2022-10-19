@@ -34,6 +34,15 @@ const BankConfirmApi = (props) => {
   }, [verifyStatus]);
 
   useEffect(() => {
+    if(verifyStatus=="SUCCESS" && verifyMsg=="Confirmed by User") {
+      setBackendPush(true);
+    }
+    if(verifyStatus=="ERROR" && verifyMsg=="Rejected by User") {
+      setBackendPush(true);
+    }
+  }, [verifyMsg, verifyStatus]);
+  
+  useEffect(() => {
     console.log("BankConfirmApi bankSlice : ", bankSlice);
     if (backendPush) {
       bankBackendPush({
@@ -88,7 +97,7 @@ const BankConfirmApi = (props) => {
           onPress={() => {
             setVerifyMsg("Rejected by User");
             setVerifyStatus("ERROR");
-            setBackendPush(true);
+            // setBackendPush(true);
             Analytics.trackEvent("Bank|Confirm|Error", {
               userId: id,
               error: "Rejected by User",
@@ -118,7 +127,7 @@ const BankConfirmApi = (props) => {
           onPress={() => {
             setVerifyMsg("Confirmed by User");
             setVerifyStatus("SUCCESS");
-            setBackendPush(true);
+            // setBackendPush(true);
             Analytics.trackEvent("Bank|Confirm|Success", {
               userId: id,
             });
