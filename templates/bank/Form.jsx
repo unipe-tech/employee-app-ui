@@ -12,14 +12,14 @@ import {
   addIfsc,
   addUpi,
 } from "../../store/slices/bankSlice";
-import { bankform, checkBox, form } from "../../styles";
+import { bankform, form } from "../../styles";
 
 const BankFormTemplate = (props) => {
   const dispatch = useDispatch();
 
   const [accNumNext, setAccNumNext] = useState(false);
   const [ifscNext, setIfscNext] = useState(false);
-  const [consent, setConsent] = useState(false);
+  const [consent, setConsent] = useState(true);
 
   const bankSlice = useSelector((state) => state.bank);
   const [ifsc, setIfsc] = useState(bankSlice?.data?.ifsc);

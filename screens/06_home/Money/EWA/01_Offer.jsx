@@ -35,7 +35,7 @@ const Offer = () => {
   const [deviceId, setDeviceId] = useState(0);
   const [ipAddress, setIpAdress] = useState(0);
 
-  const [consent, setConsent] = useState(false);
+  const [consent, setConsent] = useState(true);
   const [loading, setLoading] = useState(false);
 
   const [validAmount, setValidAmount] = useState(true);

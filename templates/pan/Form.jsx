@@ -16,7 +16,7 @@ import Checkbox from "../../components/atoms/Checkbox";
 const PanFormTemplate = (props) => {
   const dispatch = useDispatch();
 
-  const [consent, setConsent] = useState(false);
+  const [consent, setConsent] = useState(true);
   const [validNumber, setValidNumber] = useState(true);
 
   const panSlice = useSelector((state) => state.pan);
