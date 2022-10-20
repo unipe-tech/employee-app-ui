@@ -1,17 +1,17 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   data: {},
-  number: "",
-  submitOTPtxnId: "",
-  verifyMsg: "",
-  verifyStatus: "PENDING",
-  verifyTimestamp: "",
+  number: '',
+  submitOTPtxnId: '',
+  verifyMsg: '',
+  verifyStatus: 'PENDING',
+  verifyTimestamp: '',
 };
 
 const aadhaarSlice = createSlice({
-  name: "aadhaar",
-  initialState: initialState,
+  name: 'aadhaar',
+  initialState,
   reducers: {
     addData(state, action) {
       state.data = action.payload;

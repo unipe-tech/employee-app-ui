@@ -1,3 +1,4 @@
+/* eslint-disable no-irregular-whitespace */
 const termsOfUse = `
 <div
   data-mesh-id="comp-l8ii70i0inlineContent-gridContainer"

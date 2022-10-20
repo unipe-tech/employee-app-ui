@@ -1,24 +1,24 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   data: {
-    accountHolderName: "",
-    accountNumber: "",
-    bankName: "",
-    branchName: "",
-    branchCity: "",
-    ifsc: "",
-    upi: "",
+    accountHolderName: '',
+    accountNumber: '',
+    bankName: '',
+    branchName: '',
+    branchCity: '',
+    ifsc: '',
+    upi: '',
   },
-  verifyMsg: "",
-  verifyStatus: "PENDING",
-  verifyTimestamp: "",
-  misMatch: "",
+  verifyMsg: '',
+  verifyStatus: 'PENDING',
+  verifyTimestamp: '',
+  misMatch: '',
 };
 
 const bankSlice = createSlice({
-  name: "bank",
-  initialState: initialState,
+  name: 'bank',
+  initialState,
   reducers: {
     addAccountHolderName(state, action) {
       state.data.accountHolderName = action.payload;

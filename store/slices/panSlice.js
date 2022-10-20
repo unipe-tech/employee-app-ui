@@ -1,17 +1,17 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   data: {},
-  number: "",
-  verifyMsg: "",
-  verifyStatus: "PENDING",
-  verifyTimestamp: "",
-  misMatch: "",
+  number: '',
+  verifyMsg: '',
+  verifyStatus: 'PENDING',
+  verifyTimestamp: '',
+  misMatch: '',
 };
 
 const panSlice = createSlice({
-  name: "pan",
-  initialState: initialState,
+  name: 'pan',
+  initialState,
   reducers: {
     addData(state, action) {
       state.data = action.payload;

@@ -1,19 +1,19 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  offerId: "",
-  dueDate: "",
+  offerId: '',
+  dueDate: '',
   eligibleAmount: 0,
   fees: 5,
-  loanAmount: "",
-  stage: "",
+  loanAmount: '',
+  stage: '',
   netAmount: 0,
   processingFees: 0,
 };
 
 const ewaLiveSlice = createSlice({
-  name: "ewaLive",
-  initialState: initialState,
+  name: 'ewaLive',
+  initialState,
   reducers: {
     addOfferId(state, action) {
       state.offerId = action.payload;

@@ -1,16 +1,16 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   data: {},
-  number: "",
-  verifyMsg: "",
-  verifyStatus: "PENDING",
-  verifyTimestamp: "",
+  number: '',
+  verifyMsg: '',
+  verifyStatus: 'PENDING',
+  verifyTimestamp: '',
 };
 
 const licenseSlice = createSlice({
-  name: "license",
-  initialState: initialState,
+  name: 'license',
+  initialState,
   reducers: {
     addData(state, action) {
       state.data = action.payload;

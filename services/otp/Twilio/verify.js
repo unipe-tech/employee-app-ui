@@ -1,16 +1,16 @@
-import { BASE_URL } from "@env";
+import { BASE_URL } from '@env';
 
 const sendSmsVerification = async (phoneNumber) => {
   try {
     const data = JSON.stringify({
       to: phoneNumber,
-      channel: "sms",
+      channel: 'sms',
     });
 
     const response = await fetch(`${BASE_URL}/start-verify`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: data,
     });
@@ -27,13 +27,13 @@ const checkVerification = async (phoneNumber, code) => {
   try {
     const data = JSON.stringify({
       to: phoneNumber,
-      code: code,
+      code,
     });
 
     const response = await fetch(`${BASE_URL}/check-verify`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: data,
     });

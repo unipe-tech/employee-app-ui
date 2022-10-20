@@ -1,17 +1,17 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  data: { type: "" },
-  customerId: "",
-  orderId: "",
-  verifyMsg: "",
-  verifyStatus: "PENDING",
-  verifyTimestamp: "",
+  data: { type: '' },
+  customerId: '',
+  orderId: '',
+  verifyMsg: '',
+  verifyStatus: 'PENDING',
+  verifyTimestamp: '',
 };
 
 const mandateSlice = createSlice({
-  name: "mandate",
-  initialState: initialState,
+  name: 'mandate',
+  initialState,
   reducers: {
     addData(state, action) {
       state.data = action.payload;

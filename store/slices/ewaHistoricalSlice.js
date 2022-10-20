@@ -1,17 +1,16 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = [];
 
 const ewaHistoricalSlice = createSlice({
-  name: "ewaHistorical",
-  initialState: initialState,
+  name: 'ewaHistorical',
+  initialState,
   reducers: {
     resetEwaHistorical(state, action) {
       if (!action.payload || action.payload.length === 0) {
         return initialState;
-      } else {
-        return [...action.payload];
       }
+      return [...action.payload];
     },
   },
 });

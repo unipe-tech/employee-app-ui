@@ -1,12 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  currentScreen: "Login",
+  currentScreen: 'Login',
 };
 
 const navigationSlice = createSlice({
-  name: "navigation",
-  initialState: initialState,
+  name: 'navigation',
+  initialState,
   reducers: {
     addCurrentScreen(state, action) {
       state.currentScreen = action.payload;

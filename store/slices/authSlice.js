@@ -1,14 +1,14 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  id: "", //TODO: this should be fetched from AsyncStorage
+  id: '', // TODO: this should be fetched from AsyncStorage
   onboarded: false,
-  phoneNumber: "",
+  phoneNumber: '',
 };
 
 const authSlice = createSlice({
-  name: "auth",
-  initialState: initialState,
+  name: 'auth',
+  initialState,
   reducers: {
     addId(state, action) {
       state.id = action.payload;
@@ -25,7 +25,8 @@ const authSlice = createSlice({
   },
 });
 
-export const { addId, addOnboarded, addPhoneNumber, resetAuth } =
-  authSlice.actions;
+export const {
+  addId, addOnboarded, addPhoneNumber, resetAuth,
+} = authSlice.actions;
 
 export default authSlice.reducer;
