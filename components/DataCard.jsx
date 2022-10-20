@@ -42,6 +42,7 @@ const OfferCard = ({ offer }) => {
   }
 
   var day = format(timestamp, "dd");
+  console.log(day)
   var month = format(timestamp, "MMM");
 
   return (
