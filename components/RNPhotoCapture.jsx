@@ -1,13 +1,13 @@
-import { Icon } from "@react-native-material/core";
-import { useNavigation } from "@react-navigation/core";
-import React, { useEffect, useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import {Icon} from '@react-native-material/core';
+import {useNavigation} from '@react-navigation/core';
+import React, {useEffect, useState} from 'react';
+import {Text, TouchableOpacity, View} from 'react-native';
 // import { RNCamera } from "react-native-camera";
-const RNFS = require("react-native-fs");
+const RNFS = require('react-native-fs');
 
-import { useDispatch } from "react-redux";
-import { addSelfie } from "../store/slices/profileSlice";
-import { Camera } from "../styles";
+import {useDispatch} from 'react-redux';
+import {addSelfie} from '../store/slices/profileSlice';
+import {Camera} from '../styles';
 
 const PendingView = () => (
   <View style={Camera.wait}>
@@ -25,9 +25,9 @@ export default function RNPhotoCapture(props) {
   }, [id]);
 
   takePicture = async function (camera) {
-    const options = { quality: 0.5, base64: true };
+    const options = {quality: 0.5, base64: true};
     const data = await camera.takePictureAsync(options);
-    const base64image = await RNFS.readFile(data.uri, "base64");
+    const base64image = await RNFS.readFile(data.uri, 'base64');
     setId(base64image);
     navigation.goBack();
   };
@@ -39,20 +39,20 @@ export default function RNPhotoCapture(props) {
         type={RNCamera.Constants.Type.front}
         flashMode={RNCamera.Constants.FlashMode.off}
         androidCameraPermissionOptions={{
-          title: "Permission to use camera",
-          message: "We need your permission to use your camera",
-          buttonPositive: "Ok",
-          buttonNegative: "Cancel",
+          title: 'Permission to use camera',
+          message: 'We need your permission to use your camera',
+          buttonPositive: 'Ok',
+          buttonNegative: 'Cancel',
         }}
         androidRecordAudioPermissionOptions={{
-          title: "Permission to use audio recording",
-          message: "We need your permission to use your audio",
-          buttonPositive: "Ok",
-          buttonNegative: "Cancel",
+          title: 'Permission to use audio recording',
+          message: 'We need your permission to use your audio',
+          buttonPositive: 'Ok',
+          buttonNegative: 'Cancel',
         }}
       >
-        {({ camera, status, recordAudioPermissionStatus }) => {
-          if (status !== "READY") return <PendingView />;
+        {({camera, status, recordAudioPermissionStatus}) => {
+          if (status !== 'READY') return <PendingView />;
           return (
             <View style={Camera.buttons}>
               <TouchableOpacity

@@ -1,17 +1,17 @@
-import React from "react";
-import { View, ActivityIndicator, StyleSheet } from "react-native";
-import Modal from "react-native-modal";
+import React from 'react';
+import {View, ActivityIndicator, StyleSheet} from 'react-native';
+import Modal from 'react-native-modal';
 
-function LoadingComponent({ loaderColor }) {
+function LoadingComponent({loaderColor}) {
   return (
     <View style={styles.cont}>
       <View
         style={{
-          width: "100%",
-          height: "100%",
-          alignItems: "center",
-          justifyContent: "center",
-          backgroundColor: "white",
+          width: '100%',
+          height: '100%',
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: 'white',
         }}
       >
         <ActivityIndicator size="large" color={loaderColor} />
@@ -20,11 +20,7 @@ function LoadingComponent({ loaderColor }) {
   );
 }
 
-function Loading({
-  isLoading = false,
-  withModal = true,
-  loaderColor = "blue",
-}) {
+function Loading({isLoading = false, withModal = true, loaderColor = 'blue'}) {
   if (withModal) {
     return (
       <Modal style={styles.cont} transparent visible={isLoading}>
@@ -42,9 +38,9 @@ export default Loading;
 
 const styles = StyleSheet.create(() => ({
   cont: {
-    backgroundColor: "white",
+    backgroundColor: 'white',
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 }));

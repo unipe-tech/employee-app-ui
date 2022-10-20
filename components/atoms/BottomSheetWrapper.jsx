@@ -1,10 +1,10 @@
-import React from "react";
-import { View, StyleSheet } from "react-native";
-import Modal from "react-native-modal";
+import React from 'react';
+import {View, StyleSheet} from 'react-native';
+import Modal from 'react-native-modal';
 
-import { COLORS, SIZES } from "../../constants/Theme";
+import {COLORS, SIZES} from '../../constants/Theme';
 
-const BottomSheetWrapper = ({ open, setOpen, children }) => {
+const BottomSheetWrapper = ({open, setOpen, children}) => {
   return (
     <Modal
       isVisible={open}
@@ -18,17 +18,17 @@ const BottomSheetWrapper = ({ open, setOpen, children }) => {
 
 const styles = StyleSheet.create({
   modal: {
-    justifyContent: "flex-end",
+    justifyContent: 'flex-end',
     margin: 0,
   },
   container: {
     //flex: 0.35,
     backgroundColor: COLORS.white,
-    justifyContent: "flex-start",
+    justifyContent: 'flex-start',
     padding: 15,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    width: "100%",
+    width: '100%',
     maxHeight: SIZES.height * 0.75,
   },
 });

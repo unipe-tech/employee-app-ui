@@ -4,22 +4,16 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
-} from "react-native";
-import React from "react";
-import FormInput from "../atoms/FormInput";
-import { Icon, IconButton } from "@react-native-material/core";
-import { COLORS, FONTS } from "../../constants/Theme";
-import BottomSheetWrapper from "../atoms/BottomSheetWrapper";
-import { useState } from "react";
-import PrimaryButton from "../PrimaryButton";
+} from 'react-native';
+import React from 'react';
+import FormInput from '../atoms/FormInput';
+import {Icon, IconButton} from '@react-native-material/core';
+import {COLORS, FONTS} from '../../constants/Theme';
+import BottomSheetWrapper from '../atoms/BottomSheetWrapper';
+import {useState} from 'react';
+import PrimaryButton from '../PrimaryButton';
 
-const DropDownForm = ({
-  data,
-  containerStyle,
-  value,
-  setValue,
-  placeholder,
-}) => {
+const DropDownForm = ({data, containerStyle, value, setValue, placeholder}) => {
   const [visible, setVisible] = useState(false);
   return (
     <>
@@ -30,7 +24,7 @@ const DropDownForm = ({
         }}
       >
         <FormInput
-          containerStyle={{ ...containerStyle }}
+          containerStyle={{...containerStyle}}
           placeholder={placeholder}
           value={value}
           disabled={true}
@@ -53,8 +47,8 @@ const DropDownForm = ({
                 <Icon
                   name={
                     value == item
-                      ? "radio-button-checked"
-                      : "radio-button-unchecked"
+                      ? 'radio-button-checked'
+                      : 'radio-button-unchecked'
                   }
                   size={24}
                   color={value == item ? COLORS.primary : COLORS.gray}
@@ -78,17 +72,17 @@ const DropDownForm = ({
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
-    flexDirection: "column",
+    width: '100%',
+    flexDirection: 'column',
   },
   header: {
     ...FONTS.h3,
     marginBottom: 10,
-    alignSelf: "center",
+    alignSelf: 'center',
   },
   listItem: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     paddingVertical: 15,
   },
   listText: {

@@ -1,16 +1,16 @@
-import { View, Text, StyleSheet } from "react-native";
-import React from "react";
-import CheckBox from "@react-native-community/checkbox";
-import { checkBox } from "../../styles";
-import { COLORS, FONTS } from "../../constants/Theme";
+import {View, Text, StyleSheet} from 'react-native';
+import React from 'react';
+import CheckBox from '@react-native-community/checkbox';
+import {checkBox} from '../../styles';
+import {COLORS, FONTS} from '../../constants/Theme';
 
-const Checkbox = ({ value, setValue, text }) => {
+const Checkbox = ({value, setValue, text}) => {
   return (
     <View style={styles.container}>
       <CheckBox
         value={value}
         onValueChange={setValue}
-        tintColors={{ true: COLORS.primary }}
+        tintColors={{true: COLORS.primary}}
       />
       <Text style={styles.title}>{text}</Text>
     </View>
@@ -19,8 +19,8 @@ const Checkbox = ({ value, setValue, text }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     marginVertical: 10,
   },
   title: {

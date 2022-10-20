@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
-import { Text, View } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-import { KeyboardAvoidingWrapper } from "../../KeyboardAvoidingWrapper";
-import { bankform, styles } from "../../styles";
-import AadhaarOtpApi from "../../apis/aadhaar/Otp";
-import { addNumber } from "../../store/slices/aadhaarSlice";
-import InfoCard from "../../components/atoms/InfoCard";
-import FormInput from "../../components/atoms/FormInput";
-import Checkbox from "../../components/atoms/Checkbox";
+import {useEffect, useState} from 'react';
+import {Text, View} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
+import {KeyboardAvoidingWrapper} from '../../KeyboardAvoidingWrapper';
+import {bankform, styles} from '../../styles';
+import AadhaarOtpApi from '../../apis/aadhaar/Otp';
+import {addNumber} from '../../store/slices/aadhaarSlice';
+import InfoCard from '../../components/atoms/InfoCard';
+import FormInput from '../../components/atoms/FormInput';
+import Checkbox from '../../components/atoms/Checkbox';
 
 const AadhaarFormTemplate = (props) => {
   const dispatch = useDispatch();
@@ -30,11 +30,11 @@ const AadhaarFormTemplate = (props) => {
 
   return (
     <KeyboardAvoidingWrapper>
-      <View style={[styles.container, { padding: 0 }]}>
+      <View style={[styles.container, {padding: 0}]}>
         {/* <Text style={form.formHeader}>Aadhaar Verification</Text> */}
         <FormInput
-          placeholder={"Enter AADHAAR Number"}
-          containerStyle={{ marginVertical: 10 }}
+          placeholder={'Enter AADHAAR Number'}
+          containerStyle={{marginVertical: 10}}
           keyboardType="phone-pad"
           value={number}
           onChange={setNumber}
@@ -48,23 +48,23 @@ const AadhaarFormTemplate = (props) => {
 
         <InfoCard
           info={
-            "My Mobile number is linked to my Aadhar card & I can receive the OTP on my Aadhar Linked Mobile Number"
+            'My Mobile number is linked to my Aadhar card & I can receive the OTP on my Aadhar Linked Mobile Number'
           }
         />
 
         <Checkbox
           text={
-            "I agree with the KYC registration Terms and Conditions to verifiy my identity."
+            'I agree with the KYC registration Terms and Conditions to verifiy my identity.'
           }
           value={consent}
           setValue={setConsent}
         />
 
         <AadhaarOtpApi
-          data={{ aadhaar_number: number, consent: "Y" }}
+          data={{aadhaar_number: number, consent: 'Y'}}
           style={styles.btn}
           disabled={!validNumber || !consent}
-          type={props?.route?.params?.type || ""}
+          type={props?.route?.params?.type || ''}
         />
       </View>
     </KeyboardAvoidingWrapper>

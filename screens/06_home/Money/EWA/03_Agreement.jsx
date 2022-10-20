@@ -1,37 +1,41 @@
-import CheckBox from "@react-native-community/checkbox";
-import { useNavigation } from "@react-navigation/core";
-import Analytics from "appcenter-analytics";
-import { useEffect, useState } from "react";
+import CheckBox from '@react-native-community/checkbox';
+import {useNavigation} from '@react-navigation/core';
+import Analytics from 'appcenter-analytics';
+import {useEffect, useState} from 'react';
 import {
-  Alert, Dimensions,
-  Pressable, SafeAreaView,
+  Alert,
+  Dimensions,
+  Pressable,
+  SafeAreaView,
   ScrollView,
-  Text, useWindowDimensions, View
-} from "react-native";
-import { getUniqueId } from "react-native-device-info";
-import Modal from "react-native-modal";
-import { NetworkInfo } from "react-native-network-info";
-import RenderHtml from "react-native-render-html";
-import { AntDesign } from "react-native-vector-icons";
-import { useDispatch, useSelector } from "react-redux";
-import Header from "../../../../components/atoms/Header";
-import CollapsibleCard from "../../../../components/CollapsibleCard";
-import PrimaryButton from "../../../../components/PrimaryButton";
-import { COLORS } from "../../../../constants/Theme";
-import { ewaAgreementPush } from "../../../../helpers/BackendPush";
-import { resetEwaHistorical } from "../../../../store/slices/ewaHistoricalSlice";
+  Text,
+  useWindowDimensions,
+  View,
+} from 'react-native';
+import {getUniqueId} from 'react-native-device-info';
+import Modal from 'react-native-modal';
+import {NetworkInfo} from 'react-native-network-info';
+import RenderHtml from 'react-native-render-html';
+import {AntDesign} from 'react-native-vector-icons';
+import {useDispatch, useSelector} from 'react-redux';
+import Header from '../../../../components/atoms/Header';
+import CollapsibleCard from '../../../../components/CollapsibleCard';
+import PrimaryButton from '../../../../components/PrimaryButton';
+import {COLORS} from '../../../../constants/Theme';
+import {ewaAgreementPush} from '../../../../helpers/BackendPush';
+import {resetEwaHistorical} from '../../../../store/slices/ewaHistoricalSlice';
 import {
   addNetAmount,
   addProcessingFees,
-  resetEwaLive
-} from "../../../../store/slices/ewaLiveSlice";
-import { checkBox, ewa, styles } from "../../../../styles";
-import agreement from "../../../../templates/docs/LiquidLoansLoanAgreement";
+  resetEwaLive,
+} from '../../../../store/slices/ewaLiveSlice';
+import {checkBox, ewa, styles} from '../../../../styles';
+import agreement from '../../../../templates/docs/LiquidLoansLoanAgreement';
 
 const Agreement = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const { width } = useWindowDimensions();
+  const {width} = useWindowDimensions();
 
   const [fetched, setFetched] = useState(false);
   const [deviceId, setDeviceId] = useState(0);
@@ -50,7 +54,7 @@ const Agreement = () => {
 
   const [netAmount, setNetAmount] = useState();
   const [processingFees, setProcessingFees] = useState(
-    useSelector((state) => state.ewaLive.processingFees)
+    useSelector((state) => state.ewaLive.processingFees),
   );
   const [apr, setApr] = useState();
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -60,21 +64,28 @@ const Agreement = () => {
   function ValueEntry(text) {
     text.data = text.data.replace(
       /\{todayDate\}/g,
-      today.getDate() + "/" + (today.getMonth() + 1) + "/" + today.getFullYear()
+      today.getDate() +
+        '/' +
+        (today.getMonth() + 1) +
+        '/' +
+        today.getFullYear(),
     );
     text.data = text.data.replace(/\{panName\}/g, panSlice?.data?.name);
     text.data = text.data.replace(
       /\{aadhaarAddress\}/g,
-      aadhaarSlice?.data?.address
+      aadhaarSlice?.data?.address,
     );
     text.data = text.data.replace(/\{email\}/g, profileSlice?.email);
     text.data = text.data.replace(/\{mobile\}/g, authSlice?.phoneNumber);
-    text.data = text.data.replace(/\{loanAccountNumber\}/g, ewaLiveSlice?.offerId);
+    text.data = text.data.replace(
+      /\{loanAccountNumber\}/g,
+      ewaLiveSlice?.offerId,
+    );
     text.data = text.data.replace(/\{loanAmount\}/g, ewaLiveSlice?.loanAmount);
     text.data = text.data.replace(/\{processingFees\}/g, processingFees);
     text.data = text.data.replace(
       /\{accountNumber\}/g,
-      bankSlice?.data?.accountNumber
+      bankSlice?.data?.accountNumber,
     );
     text.data = text.data.replace(/\{ifsc\}/g, bankSlice?.data?.ifsc);
   }
@@ -96,7 +107,11 @@ const Agreement = () => {
 
   useEffect(() => {
     setProcessingFees(
-      Math.round((((((ewaLiveSlice?.loanAmount * ewaLiveSlice?.fees) / 100) + 1) / 10) * 10) - 1)
+      Math.round(
+        (((ewaLiveSlice?.loanAmount * ewaLiveSlice?.fees) / 100 + 1) / 10) *
+          10 -
+          1,
+      ),
     );
   }, [ewaLiveSlice]);
 
@@ -111,25 +126,25 @@ const Agreement = () => {
   }, [netAmount]);
 
   const profileData = [
-    { subTitle: "Name", value: aadhaarSlice?.data?.name },
-    { subTitle: "PAN Number", value: panSlice?.number },
-    { subTitle: "Date of Birth", value: aadhaarSlice?.data?.date_of_birth },
+    {subTitle: 'Name', value: aadhaarSlice?.data?.name},
+    {subTitle: 'PAN Number', value: panSlice?.number},
+    {subTitle: 'Date of Birth', value: aadhaarSlice?.data?.date_of_birth},
   ];
 
   const bankData = [
-    { subTitle: "Bank Name", value: bankSlice?.data?.bankName },
-    { subTitle: "Branch", value: bankSlice?.data?.branchName },
-    { subTitle: "Account Number", value: bankSlice?.data?.accountNumber },
-    { subTitle: "IFSC", value: bankSlice?.data?.ifsc },
+    {subTitle: 'Bank Name', value: bankSlice?.data?.bankName},
+    {subTitle: 'Branch', value: bankSlice?.data?.branchName},
+    {subTitle: 'Account Number', value: bankSlice?.data?.accountNumber},
+    {subTitle: 'IFSC', value: bankSlice?.data?.ifsc},
   ];
 
   const APR = () => {
     var today = new Date();
-    var dueDateComponents = ewaLiveSlice.dueDate.split("/");
+    var dueDateComponents = ewaLiveSlice.dueDate.split('/');
     var dueDate = new Date(
       dueDateComponents[2],
       parseInt(dueDateComponents[1]) - 1,
-      dueDateComponents[0]
+      dueDateComponents[0],
     );
     var timeDiff = dueDate.getTime() - today.getTime();
     var daysDiff = parseInt(timeDiff / (1000 * 3600 * 24));
@@ -139,16 +154,16 @@ const Agreement = () => {
   };
 
   const data = [
-    { subTitle: "Loan Amount", value: "₹" + ewaLiveSlice?.loanAmount },
+    {subTitle: 'Loan Amount', value: '₹' + ewaLiveSlice?.loanAmount},
     {
-      subTitle: "Processing Fees *",
-      value: "₹" + processingFees,
+      subTitle: 'Processing Fees *',
+      value: '₹' + processingFees,
     },
     {
-      subTitle: "Net Disbursement Amount *",
-      value: "₹" + netAmount,
+      subTitle: 'Net Disbursement Amount *',
+      value: '₹' + netAmount,
     },
-    { subTitle: "Due Date", value: ewaLiveSlice?.dueDate },
+    {subTitle: 'Due Date', value: ewaLiveSlice?.dueDate},
   ];
 
   const unipeEmployeeId = useSelector((state) => state.auth.id);
@@ -158,17 +173,17 @@ const Agreement = () => {
       ewaAgreementPush({
         offerId: ewaLiveSlice?.offerId,
         unipeEmployeeId: unipeEmployeeId,
-        status: "INPROGRESS",
+        status: 'INPROGRESS',
         timestamp: Date.now(),
         ipAddress: ipAddress,
         deviceId: deviceId,
       })
         .then((response) => {
-          console.log("ewaAgreementPush response.data: ", response.data);
+          console.log('ewaAgreementPush response.data: ', response.data);
         })
         .catch((error) => {
-          console.log("ewaAgreementPush error: ", error);
-          Alert.alert("An Error occured", error);
+          console.log('ewaAgreementPush error: ', error);
+          Alert.alert('An Error occured', error);
         });
     }
   }, [fetched]);
@@ -178,7 +193,7 @@ const Agreement = () => {
     ewaAgreementPush({
       offerId: ewaLiveSlice?.offerId,
       unipeEmployeeId: unipeEmployeeId,
-      status: "CONFIRMED",
+      status: 'CONFIRMED',
       timestamp: Date.now(),
       ipAddress: ipAddress,
       deviceId: deviceId,
@@ -190,9 +205,9 @@ const Agreement = () => {
       loanAccountNumber: ewaLiveSlice?.offerId,
     })
       .then((response) => {
-        console.log("ewaAgreementPush response.data: ", response.data);
-        navigation.navigate("EWA_DISBURSEMENT", { offer: ewaLiveSlice });
-        Analytics.trackEvent("Ewa|Agreement|Success", {
+        console.log('ewaAgreementPush response.data: ', response.data);
+        navigation.navigate('EWA_DISBURSEMENT', {offer: ewaLiveSlice});
+        Analytics.trackEvent('Ewa|Agreement|Success', {
           userId: unipeEmployeeId,
         });
         dispatch(resetEwaLive());
@@ -200,89 +215,89 @@ const Agreement = () => {
         setLoading(false);
       })
       .catch((error) => {
-        console.log("ewaAgreementPush error: ", error);
-        Analytics.trackEvent("Ewa|Agreement|Error", {
+        console.log('ewaAgreementPush error: ', error);
+        Analytics.trackEvent('Ewa|Agreement|Error', {
           userId: unipeEmployeeId,
           error: error,
         });
-        Alert.alert("An Error occured", error);
+        Alert.alert('An Error occured', error);
         setLoading(false);
       });
   }
 
   return (
-    <SafeAreaView style={[styles.container, { padding: 0 }]}>
+    <SafeAreaView style={[styles.container, {padding: 0}]}>
       <Header title="Agreement" onLeftIconPress={() => navigation.goBack()} />
       <ScrollView>
-      <View style={styles.container}>
-        <CollapsibleCard
-          data={data}
-          title="Loan Details"
-          isClosed={false}
-          // info="Disbursed amount will be adjusted in your next salary."
-        />
-        <CollapsibleCard
-          title="Personal Details"
-          isClosed={false}
-          data={profileData}
-        />
-        <CollapsibleCard
-          title="Bank Details"
-          isClosed={false}
-          data={bankData}
-        />
-        <View style={{ flexDirection: "row", marginTop: 10 }}>
-          <CheckBox
-            style={ewa.checkBox}
-            tintColors={{ true: COLORS.primary }}
-            value={confirm}
-            onValueChange={setConfirm}
+        <View style={styles.container}>
+          <CollapsibleCard
+            data={data}
+            title="Loan Details"
+            isClosed={false}
+            // info="Disbursed amount will be adjusted in your next salary."
           />
-          <Text style={ewa.checkBoxText}>I confirm the above details.</Text>
-        </View>
-        <View style={{ flexDirection: "row" }}>
-          <CheckBox
-            style={ewa.checkBox}
-            tintColors={{ true: COLORS.primary }}
-            value={consent}
-            onValueChange={setConsent}
+          <CollapsibleCard
+            title="Personal Details"
+            isClosed={false}
+            data={profileData}
           />
-          <Text style={ewa.checkBoxText}>
-            I agree to the{" "}
-            <Text
-              style={styles.termsText}
-              onPress={() => setIsModalVisible(true)}
-            >
-              Terms and Conditions
+          <CollapsibleCard
+            title="Bank Details"
+            isClosed={false}
+            data={bankData}
+          />
+          <View style={{flexDirection: 'row', marginTop: 10}}>
+            <CheckBox
+              style={ewa.checkBox}
+              tintColors={{true: COLORS.primary}}
+              value={confirm}
+              onValueChange={setConfirm}
+            />
+            <Text style={ewa.checkBoxText}>I confirm the above details.</Text>
+          </View>
+          <View style={{flexDirection: 'row'}}>
+            <CheckBox
+              style={ewa.checkBox}
+              tintColors={{true: COLORS.primary}}
+              value={consent}
+              onValueChange={setConsent}
+            />
+            <Text style={ewa.checkBoxText}>
+              I agree to the{' '}
+              <Text
+                style={styles.termsText}
+                onPress={() => setIsModalVisible(true)}
+              >
+                Terms and Conditions
+              </Text>
+              .
             </Text>
-            .
+          </View>
+          <PrimaryButton
+            title={loading ? 'Booking' : 'Finish'}
+            onPress={() => {
+              handleAgreement();
+            }}
+            disabled={!confirm || !consent || loading}
+          />
+          <View style={checkBox.padding}></View>
+          <Text style={{marginLeft: '6%', fontSize: 6, marginTop: '25%'}}>
+            * Disbursement will be reconciled in your next payroll {'\n'}*
+            Annual Percentage Rate @ {apr} %
           </Text>
-        </View>
-        <PrimaryButton
-          title={loading ? "Booking" : "Finish"}
-          onPress={() => {
-            handleAgreement();
-          }}
-          disabled={!confirm || !consent || loading}
-        />
-        <View style={checkBox.padding}></View>
-        <Text style={{ marginLeft: "6%", fontSize: 6, marginTop: "25%" }}>
-          * Disbursement will be reconciled in your next payroll {"\n"}* Annual
-          Percentage Rate @ {apr} %
-        </Text>
         </View>
       </ScrollView>
       <Modal
         isVisible={isModalVisible}
         style={{
-          width: Dimensions.get("window").width,
-          height: Dimensions.get("window").height,
+          width: Dimensions.get('window').width,
+          height: Dimensions.get('window').height,
         }}
       >
         <Pressable
           onPress={() => setIsModalVisible(false)}
           style={{
-            position: "absolute",
+            position: 'absolute',
             top: 30,
             right: 50,
             zIndex: 999,
@@ -292,13 +307,13 @@ const Agreement = () => {
         </Pressable>
         <View
           style={{
-            height: Dimensions.get("window").height - 100,
-            width: Dimensions.get("window").width - 40,
-            backgroundColor: "white",
+            height: Dimensions.get('window').height - 100,
+            width: Dimensions.get('window').width - 40,
+            backgroundColor: 'white',
             borderRadius: 5,
           }}
         >
-          <ScrollView style={{ padding: "5%" }}>
+          <ScrollView style={{padding: '5%'}}>
             <RenderHtml
               contentWidth={width}
               source={agreement}
@@ -308,7 +323,7 @@ const Agreement = () => {
                   enableExperimentalPercentWidth: true,
                 },
               }}
-              domVisitors={{ onText: ValueEntry }}
+              domVisitors={{onText: ValueEntry}}
             />
           </ScrollView>
         </View>

@@ -1,15 +1,15 @@
-import axios from "axios";
-import { EMPLOYEE_API_URL } from "./endpoints";
+import axios from 'axios';
+import {EMPLOYEE_API_URL} from './endpoints';
 
 export const putBackendData = (props) => {
   var data = JSON.stringify(props.document);
   var url = `${EMPLOYEE_API_URL}/${props.xpath}`;
 
   var config = {
-    method: "post",
+    method: 'post',
     url: url,
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     data: data,
   };
@@ -18,9 +18,9 @@ export const putBackendData = (props) => {
 };
 
 export const getBackendData = async (props) => {
-  console.log("getBackendData for ", props.xpath);
+  console.log('getBackendData for ', props.xpath);
   var params = props.params;
   var url = `${EMPLOYEE_API_URL}/${props.xpath}`;
-  const res = await axios.get(url, { params: params });
+  const res = await axios.get(url, {params: params});
   return res;
 };

@@ -1,19 +1,18 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigation } from "@react-navigation/core";
-import { View, Image } from "react-native";
-import { Button } from "@react-native-material/core";
+import {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {useNavigation} from '@react-navigation/core';
+import {View, Image} from 'react-native';
+import {Button} from '@react-native-material/core';
 import {
   addVerifyMsg,
   addVerifyStatus,
   addVerifyTimestamp,
-} from "../../store/slices/aadhaarSlice";
-import { bankform, form, styles } from "../../styles";
-import { aadhaarBackendPush } from "../../helpers/BackendPush";
-import { COLORS, FONTS } from "../../constants/Theme";
-import Analytics from "appcenter-analytics";
-import CollapsibleCard from "../../components/CollapsibleCard";
-
+} from '../../store/slices/aadhaarSlice';
+import {bankform, form, styles} from '../../styles';
+import {aadhaarBackendPush} from '../../helpers/BackendPush';
+import {COLORS, FONTS} from '../../constants/Theme';
+import Analytics from 'appcenter-analytics';
+import CollapsibleCard from '../../components/CollapsibleCard';
 
 const AadhaarConfirmApi = (props) => {
   const dispatch = useDispatch();
@@ -43,7 +42,7 @@ const AadhaarConfirmApi = (props) => {
   }, [verifyTimestamp]);
 
   useEffect(() => {
-    console.log("AadhaarConfirmApi aadhaarSlice: ", aadhaarSlice);
+    console.log('AadhaarConfirmApi aadhaarSlice: ', aadhaarSlice);
     if (backendPush) {
       aadhaarBackendPush({
         id: id,
@@ -59,11 +58,11 @@ const AadhaarConfirmApi = (props) => {
 
   const cardData = () => {
     var res = [
-      { subTitle: "Number", value: number },
-      { subTitle: "Name", value: data?.name },
-      { subTitle: "Date of Birth", value: data?.date_of_birth },
-      { subTitle: "Gender", value: data?.gender },
-      { subTitle: "Address", value: data?.address },
+      {subTitle: 'Number', value: number},
+      {subTitle: 'Name', value: data?.name},
+      {subTitle: 'Date of Birth', value: data?.date_of_birth},
+      {subTitle: 'Gender', value: data?.gender},
+      {subTitle: 'Address', value: data?.address},
     ];
     return res;
   };
@@ -78,16 +77,16 @@ const AadhaarConfirmApi = (props) => {
 
       <Image
         source={{
-          uri: `data:image/jpeg;base64,${data["photo_base64"]}`,
+          uri: `data:image/jpeg;base64,${data['photo_base64']}`,
         }}
         style={form.aadharimg}
       />
 
       <View
         style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
           marginTop: 20,
         }}
       >
@@ -97,26 +96,26 @@ const AadhaarConfirmApi = (props) => {
           uppercase={false}
           style={form.noButton}
           color={COLORS.warning}
-          titleStyle={{ ...FONTS.h3, color: COLORS.warning }}
-          pressableContainerStyle={{ width: "100%" }}
-          contentContainerStyle={{ width: "100%", height: "100%" }}
+          titleStyle={{...FONTS.h3, color: COLORS.warning}}
+          pressableContainerStyle={{width: '100%'}}
+          contentContainerStyle={{width: '100%', height: '100%'}}
           onPress={() => {
-            setVerifyMsg("Rejected by User");
-            setVerifyStatus("ERROR");
-            Analytics.trackEvent("Aadhaar|Confirm|Error", {
+            setVerifyMsg('Rejected by User');
+            setVerifyStatus('ERROR');
+            Analytics.trackEvent('Aadhaar|Confirm|Error', {
               userId: id,
-              error: "Rejected by User",
+              error: 'Rejected by User',
             });
             setBackendPush(true);
             {
-              props?.route?.params?.type == "KYC"
-                ? navigation.navigate("KYC", {
-                    screen: "AADHAAR",
+              props?.route?.params?.type == 'KYC'
+                ? navigation.navigate('KYC', {
+                    screen: 'AADHAAR',
                     params: {
-                      screen: "Aadhaar Form",
+                      screen: 'Aadhaar Form',
                     },
                   })
-                : navigation.navigate("AadhaarForm");
+                : navigation.navigate('AadhaarForm');
             }
           }}
         />
@@ -126,22 +125,22 @@ const AadhaarConfirmApi = (props) => {
           uppercase={false}
           style={form.yesButton}
           color={COLORS.primary}
-          titleStyle={{ ...FONTS.h3, color: COLORS.primary }}
-          pressableContainerStyle={{ width: "100%" }}
-          contentContainerStyle={{ width: "100%", height: "100%" }}
+          titleStyle={{...FONTS.h3, color: COLORS.primary}}
+          pressableContainerStyle={{width: '100%'}}
+          contentContainerStyle={{width: '100%', height: '100%'}}
           onPress={() => {
-            setVerifyMsg("Confirmed by User");
-            Analytics.trackEvent("Aadhaar|Confirm|Success", {
+            setVerifyMsg('Confirmed by User');
+            Analytics.trackEvent('Aadhaar|Confirm|Success', {
               userId: id,
             });
-            setVerifyStatus("SUCCESS");
+            setVerifyStatus('SUCCESS');
             setBackendPush(true);
             {
-              props?.route?.params?.type == "KYC"
-                ? navigation.navigate("KYC", {
-                    screen: "AADHAAR",
+              props?.route?.params?.type == 'KYC'
+                ? navigation.navigate('KYC', {
+                    screen: 'AADHAAR',
                   })
-                : navigation.navigate("PanForm");
+                : navigation.navigate('PanForm');
             }
           }}
         />

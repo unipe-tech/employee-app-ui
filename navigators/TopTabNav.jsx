@@ -1,26 +1,26 @@
-import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { COLORS, FONTS } from "../constants/Theme";
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import {COLORS, FONTS} from '../constants/Theme';
 
 const TopTabNav = (props) => {
   const Tab = createMaterialTopTabNavigator();
-  const hide = { display: "none", backgroundColor: "white" };
-  const show = { backgroundColor: "white" };
+  const hide = {display: 'none', backgroundColor: 'white'};
+  const show = {backgroundColor: 'white'};
 
   return (
     <Tab.Navigator
       screenOptions={{
         tabBarLabelStyle: {
           ...FONTS.body4,
-          textTransform: "capitalize",
+          textTransform: 'capitalize',
         },
-        tabBarItemStyle: { width: 100 },
+        tabBarItemStyle: {width: 100},
         tabBarStyle: props.hide ? hide : show,
-        tabBarPressColor: "purple",
+        tabBarPressColor: 'purple',
         animationEnabled: true,
         tabBarScrollEnabled: true,
         swipeEnabled: !props.hide,
         lazy: true,
-        tabBarIndicatorStyle: { backgroundColor: COLORS.primary },
+        tabBarIndicatorStyle: {backgroundColor: COLORS.primary},
       }}
     >
       {props.tabs.map((tab, index) => {

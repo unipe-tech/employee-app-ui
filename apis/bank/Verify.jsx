@@ -1,8 +1,8 @@
-import { OG_API_KEY } from "@env";
-import { useNavigation } from "@react-navigation/core";
-import { useEffect, useState } from "react";
-import { Alert } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+import {OG_API_KEY} from '@env';
+import {useNavigation} from '@react-navigation/core';
+import {useEffect, useState} from 'react';
+import {Alert} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 import {
   addBankName,
   addAccountHolderName,
@@ -11,16 +11,16 @@ import {
   addVerifyMsg,
   addVerifyStatus,
   addVerifyTimestamp,
-} from "../../store/slices/bankSlice";
-import { KYC_BANK_VERIFY_API_URL } from "../../services/employees/endpoints";
-import { bankBackendPush } from "../../helpers/BackendPush";
-import ApiView from "../ApiView";
-import Analytics from "appcenter-analytics";
+} from '../../store/slices/bankSlice';
+import {KYC_BANK_VERIFY_API_URL} from '../../services/employees/endpoints';
+import {bankBackendPush} from '../../helpers/BackendPush';
+import ApiView from '../ApiView';
+import Analytics from 'appcenter-analytics';
 
 const BankVerifyApi = (props) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  console.log("Mock api URl", KYC_BANK_VERIFY_API_URL);
+  console.log('Mock api URl', KYC_BANK_VERIFY_API_URL);
 
   const [loading, setLoading] = useState(false);
   const [backendPush, setBackendPush] = useState(false);
@@ -33,12 +33,12 @@ const BankVerifyApi = (props) => {
   const [branchName, setBranchName] = useState(bankSlice?.data?.bankBranch);
   const [branchCity, setBranchCity] = useState(bankSlice?.data?.branchCity);
   const [accountHolderName, setAccountHolderName] = useState(
-    bankSlice?.data?.accountHolderName
+    bankSlice?.data?.accountHolderName,
   );
   const [verifyMsg, setVerifyMsg] = useState(bankSlice?.verifyMsg);
   const [verifyStatus, setVerifyStatus] = useState(bankSlice?.verifyStatus);
   const [verifyTimestamp, setVerifyTimestamp] = useState(
-    bankSlice?.verifyTimestamp
+    bankSlice?.verifyTimestamp,
   );
 
   useEffect(() => {
@@ -70,7 +70,7 @@ const BankVerifyApi = (props) => {
   }, [verifyTimestamp]);
 
   useEffect(() => {
-    console.log("BankVerifyApi bankSlice : ", bankSlice);
+    console.log('BankVerifyApi bankSlice : ', bankSlice);
     if (backendPush) {
       bankBackendPush({
         id: id,
@@ -87,11 +87,11 @@ const BankVerifyApi = (props) => {
   const goForFetch = () => {
     setLoading(true);
     const options = {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "X-Auth-Type": "API-Key",
-        "X-API-Key": OG_API_KEY,
-        "Content-Type": "application/json",
+        'X-Auth-Type': 'API-Key',
+        'X-API-Key': OG_API_KEY,
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(props.data),
     };
@@ -101,105 +101,105 @@ const BankVerifyApi = (props) => {
       .then((responseJson) => {
         console.log(responseJson);
         try {
-          if (responseJson["status"] == "200") {
-            switch (responseJson["data"]["code"]) {
-              case "1000":
+          if (responseJson['status'] == '200') {
+            switch (responseJson['data']['code']) {
+              case '1000':
                 setBankName(
-                  responseJson["data"]["bank_account_data"]["bank_name"]
+                  responseJson['data']['bank_account_data']['bank_name'],
                 );
                 setBranchName(
-                  responseJson["data"]["bank_account_data"]["branch"]
+                  responseJson['data']['bank_account_data']['branch'],
                 );
                 setBranchCity(
-                  responseJson["data"]["bank_account_data"]["city"]
+                  responseJson['data']['bank_account_data']['city'],
                 );
                 setAccountHolderName(
-                  responseJson["data"]["bank_account_data"]["name"]
+                  responseJson['data']['bank_account_data']['name'],
                 );
-                setVerifyMsg("To be confirmed by User");
-                setVerifyStatus("PENDING");
-                setVerifyTimestamp(responseJson["timestamp"]);
-                Analytics.trackEvent("Bank|Verify|Success", {
-                  Category: "Onboarding",
+                setVerifyMsg('To be confirmed by User');
+                setVerifyStatus('PENDING');
+                setVerifyTimestamp(responseJson['timestamp']);
+                Analytics.trackEvent('Bank|Verify|Success', {
+                  Category: 'Onboarding',
                   userId: id,
                 });
                 setBackendPush(true);
                 {
-                  props.type == "KYC"
-                    ? navigation.navigate("KYC", {
-                        screen: "BANK",
+                  props.type == 'KYC'
+                    ? navigation.navigate('KYC', {
+                        screen: 'BANK',
                         params: {
-                          screen: "Confirm",
+                          screen: 'Confirm',
                         },
                       })
-                    : navigation.navigate("BankConfirm");
+                    : navigation.navigate('BankConfirm');
                 }
                 break;
               default:
-                setVerifyMsg(responseJson["data"]["message"]);
-                Analytics.trackEvent("Bank|Verify|Error", {
-                  Category: "Onboarding",
+                setVerifyMsg(responseJson['data']['message']);
+                Analytics.trackEvent('Bank|Verify|Error', {
+                  Category: 'Onboarding',
                   userId: id,
-                  error: responseJson["data"]["message"],
+                  error: responseJson['data']['message'],
                 });
-                setVerifyStatus("ERROR");
+                setVerifyStatus('ERROR');
                 setBackendPush(true);
-                Alert.alert("Error", responseJson["data"]["message"]);
+                Alert.alert('Error', responseJson['data']['message']);
                 break;
             }
           } else {
-            setVerifyStatus("ERROR");
-            if (responseJson["error"]) {
-              setVerifyMsg(responseJson["error"]);
-              Analytics.trackEvent("Bank|Verify|Error", {
-                Category: "Onboarding",
+            setVerifyStatus('ERROR');
+            if (responseJson['error']) {
+              setVerifyMsg(responseJson['error']);
+              Analytics.trackEvent('Bank|Verify|Error', {
+                Category: 'Onboarding',
                 userId: id,
-                error: responseJson["error"]["metadata"]["fields"]
-                  .map((item, value) => item["message"])
-                  .join("\n"),
+                error: responseJson['error']['metadata']['fields']
+                  .map((item, value) => item['message'])
+                  .join('\n'),
               });
-              setVerifyStatus("ERROR");
+              setVerifyStatus('ERROR');
               setBackendPush(true);
               Alert.alert(
-                "Error",
-                responseJson["error"]["metadata"]["fields"]
-                  .map((item, value) => item["message"])
-                  .join("\n")
+                'Error',
+                responseJson['error']['metadata']['fields']
+                  .map((item, value) => item['message'])
+                  .join('\n'),
               );
             } else {
-              setVerifyMsg(responseJson["messsage"]);
-              Analytics.trackEvent("Bank|Verify|Error", {
+              setVerifyMsg(responseJson['messsage']);
+              Analytics.trackEvent('Bank|Verify|Error', {
                 userId: id,
-                error: responseJson["messsage"],
+                error: responseJson['messsage'],
               });
-              setVerifyStatus("ERROR");
+              setVerifyStatus('ERROR');
               setBackendPush(true);
-              Alert.alert("Error", responseJson["message"]);
+              Alert.alert('Error', responseJson['message']);
             }
           }
         } catch (error) {
-          console.log("Error: ", error);
-          Analytics.trackEvent("Bank|Verify|Error", {
+          console.log('Error: ', error);
+          Analytics.trackEvent('Bank|Verify|Error', {
             userId: id,
             error: error,
           });
           setVerifyMsg(error);
-          setVerifyStatus("ERROR");
+          setVerifyStatus('ERROR');
           setBackendPush(true);
-          Alert.alert("Error", error);
+          Alert.alert('Error', error);
         }
         setBackendPush(true);
       })
       .catch((error) => {
-        console.log("Error: ", error);
-        Analytics.trackEvent("Bank|Verify|Error", {
+        console.log('Error: ', error);
+        Analytics.trackEvent('Bank|Verify|Error', {
           userId: id,
           error: error,
         });
         setVerifyMsg(error);
-        setVerifyStatus("ERROR");
+        setVerifyStatus('ERROR');
         setBackendPush(true);
-        Alert.alert("Error", error);
+        Alert.alert('Error', error);
       });
   };
   return (

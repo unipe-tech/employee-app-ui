@@ -1,12 +1,12 @@
-import { useNavigation } from "@react-navigation/core";
-import { Alert, Text, View } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-import PrimaryButton from "../../../../components/PrimaryButton";
-import TopTabNav from "../../../../navigators/TopTabNav";
-import { form, license, styles } from "../../../../styles";
-import DetailItem from "../../../07_drawer/DetailItem";
-import Confirm from "./Confirm";
-import Form from "./Form";
+import {useNavigation} from '@react-navigation/core';
+import {Alert, Text, View} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
+import PrimaryButton from '../../../../components/PrimaryButton';
+import TopTabNav from '../../../../navigators/TopTabNav';
+import {form, license, styles} from '../../../../styles';
+import DetailItem from '../../../07_drawer/DetailItem';
+import Confirm from './Confirm';
+import Form from './Form';
 
 const License = () => {
   const dispatch = useDispatch();
@@ -18,10 +18,10 @@ const License = () => {
   const verifyStatus = licenseSlice?.verifyStatus;
 
   const dataDetails = [
-    { label: "Number", value: number },
-    { label: "Name", value: data?.name },
-    { label: "DOB", value: data?.date_of_birth },
-    { label: "Blood Group", value: data?.blood_group || "NA" },
+    {label: 'Number', value: number},
+    {label: 'Name', value: data?.name},
+    {label: 'DOB', value: data?.date_of_birth},
+    {label: 'Blood Group', value: data?.blood_group || 'NA'},
   ];
 
   const isDateValid = (expiry_date) => {
@@ -30,28 +30,28 @@ const License = () => {
 
   const tabs = [
     {
-      name: "Form",
+      name: 'Form',
       component: Form,
-      initialParams: { type: "KYC" },
+      initialParams: {type: 'KYC'},
       disable: true,
     },
     {
-      name: "Confirm",
+      name: 'Confirm',
       component: Confirm,
-      initialParams: { type: "KYC" },
+      initialParams: {type: 'KYC'},
       disable: true,
     },
   ];
 
   return (
     <View style={styles.container}>
-      {verifyStatus == "SUCCESS" ? (
+      {verifyStatus == 'SUCCESS' ? (
         <>
           {dataDetails.map((item, index) => (
             <DetailItem
               key={index}
               label={item.label}
-              value={item.value || "Not Provided"}
+              value={item.value || 'Not Provided'}
               divider={item?.divider ?? true}
             />
           ))}
@@ -62,7 +62,7 @@ const License = () => {
                 value={data?.validity?.non_transport?.expiry_date}
                 divider={false}
               />
-              <View style={{ flexDirection: "row" }}>
+              <View style={{flexDirection: 'row'}}>
                 <Text style={license.authority}>Non-Transport</Text>
                 {isDateValid(data?.validity?.non_transport?.expiry_date) ? (
                   <Text style={license.valid}>Valid</Text>
@@ -80,7 +80,7 @@ const License = () => {
                 value={data?.validity?.transport?.expiry_date}
                 divider={true}
               />
-              <View style={{ flexDirection: "row" }}>
+              <View style={{flexDirection: 'row'}}>
                 <Text style={license.authority}>Transport</Text>
                 {isDateValid(data?.validity?.transport?.expiry_date) ? (
                   <Text style={license.valid}>Valid</Text>
@@ -92,14 +92,14 @@ const License = () => {
           ) : null}
 
           <View
-            style={{ flex: 1, justifyContent: "flex-end", paddingBottom: 20 }}
+            style={{flex: 1, justifyContent: 'flex-end', paddingBottom: 20}}
           >
             <PrimaryButton
-              containerStyle={{ marginTop: 20 }}
+              containerStyle={{marginTop: 20}}
               title="Update"
               onPress={() =>
                 Alert.alert(
-                  "The License Details are not editable, please ask your employer to update"
+                  'The License Details are not editable, please ask your employer to update',
                 )
               }
             />

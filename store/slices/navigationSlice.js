@@ -1,11 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
+import {createSlice} from '@reduxjs/toolkit';
 
 const initialState = {
-  currentScreen: "Login",
+  currentScreen: 'Login',
 };
 
 const navigationSlice = createSlice({
-  name: "navigation",
+  name: 'navigation',
   initialState: initialState,
   reducers: {
     addCurrentScreen(state, action) {
@@ -17,5 +17,5 @@ const navigationSlice = createSlice({
   },
 });
 
-export const { addCurrentScreen, resetNavigation } = navigationSlice.actions;
+export const {addCurrentScreen, resetNavigation} = navigationSlice.actions;
 export default navigationSlice.reducer;

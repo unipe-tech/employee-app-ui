@@ -1,8 +1,8 @@
-import { View, Text } from "react-native";
-import StepIndicator from "react-native-step-indicator";
-import React from "react";
-import { MaterialIcons } from "@expo/vector-icons";
-import { COLORS, SIZES, FONTS } from "../../constants/Theme";
+import {View, Text} from 'react-native';
+import StepIndicator from 'react-native-step-indicator';
+import React from 'react';
+import {MaterialIcons} from '@expo/vector-icons';
+import {COLORS, SIZES, FONTS} from '../../constants/Theme';
 
 const StepsIndicator = ({
   styles,
@@ -35,37 +35,37 @@ const StepsIndicator = ({
     labelColor: COLORS.gray,
     labelSize: SIZES.body5,
     currentStepLabelColor: COLORS.primary,
-    labelAlign: "flex-start",
+    labelAlign: 'flex-start',
   };
-  const getStepIndicatorIconConfig = ({ position, stepStatus }) => {
+  const getStepIndicatorIconConfig = ({position, stepStatus}) => {
     const iconConfig = {
-      name: "feed",
-      color: stepStatus === "finished" ? "#ffffff" : "#4E46F1",
+      name: 'feed',
+      color: stepStatus === 'finished' ? '#ffffff' : '#4E46F1',
       size: 15,
     };
     switch (position) {
       case 0: {
-        iconConfig.name = "smartphone";
+        iconConfig.name = 'smartphone';
         break;
       }
       case 1: {
-        iconConfig.name = "perm-identity";
+        iconConfig.name = 'perm-identity';
         break;
       }
       case 2: {
-        iconConfig.name = "mood";
+        iconConfig.name = 'mood';
         break;
       }
       case 3: {
-        iconConfig.name = "payment";
+        iconConfig.name = 'payment';
         break;
       }
       case 4: {
-        iconConfig.name = "info-outline";
+        iconConfig.name = 'info-outline';
         break;
       }
       case 5: {
-        iconConfig.name = "camera-front";
+        iconConfig.name = 'camera-front';
         break;
       }
       default: {
@@ -79,9 +79,9 @@ const StepsIndicator = ({
   );
   return (
     <StepIndicator
-      customStyles={{ ...stepIndicatorStyles, ...styles }}
+      customStyles={{...stepIndicatorStyles, ...styles}}
       stepCount={stepCount}
-      direction={direction ? direction : "horizontal"}
+      direction={direction ? direction : 'horizontal'}
       renderStepIndicator={renderStepIndicator}
       currentPosition={currentPosition}
       labels={labels}

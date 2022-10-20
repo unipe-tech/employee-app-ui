@@ -1,31 +1,33 @@
-import { STAGE } from "@env";
-import { MaterialIcons } from "@expo/vector-icons";
-import CheckBox from "@react-native-community/checkbox";
-import { useNavigation } from "@react-navigation/core";
-import Analytics from "appcenter-analytics";
-import { useEffect, useState } from "react";
+import {STAGE} from '@env';
+import {MaterialIcons} from '@expo/vector-icons';
+import CheckBox from '@react-native-community/checkbox';
+import {useNavigation} from '@react-navigation/core';
+import Analytics from 'appcenter-analytics';
+import {useEffect, useState} from 'react';
 import {
-  Alert, Dimensions,
-  Pressable, SafeAreaView,
+  Alert,
+  Dimensions,
+  Pressable,
+  SafeAreaView,
   Text,
   TextInput,
-  View
-} from "react-native";
-import { getUniqueId } from "react-native-device-info";
-import Modal from "react-native-modal";
-import { NetworkInfo } from "react-native-network-info";
-import StepIndicator from "react-native-step-indicator";
-import { AntDesign } from "react-native-vector-icons";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { WebView } from "react-native-webview";
-import { useDispatch, useSelector } from "react-redux";
-import Header from "../../../../components/atoms/Header";
-import PrimaryButton from "../../../../components/PrimaryButton";
-import { COLORS } from "../../../../constants/Theme";
-import { ewaOfferPush } from "../../../../helpers/BackendPush";
-import { addLoanAmount } from "../../../../store/slices/ewaLiveSlice";
-import { checkBox, styles, welcome } from "../../../../styles";
-import TnC from "../../../../templates/docs/EWATnC.js";
+  View,
+} from 'react-native';
+import {getUniqueId} from 'react-native-device-info';
+import Modal from 'react-native-modal';
+import {NetworkInfo} from 'react-native-network-info';
+import StepIndicator from 'react-native-step-indicator';
+import {AntDesign} from 'react-native-vector-icons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {WebView} from 'react-native-webview';
+import {useDispatch, useSelector} from 'react-redux';
+import Header from '../../../../components/atoms/Header';
+import PrimaryButton from '../../../../components/PrimaryButton';
+import {COLORS} from '../../../../constants/Theme';
+import {ewaOfferPush} from '../../../../helpers/BackendPush';
+import {addLoanAmount} from '../../../../store/slices/ewaLiveSlice';
+import {checkBox, styles, welcome} from '../../../../styles';
+import TnC from '../../../../templates/docs/EWATnC.js';
 
 const Offer = () => {
   const dispatch = useDispatch();
@@ -65,14 +67,14 @@ const Offer = () => {
 
   useEffect(() => {
     if (parseInt(amount) <= eligibleAmount) {
-      if (STAGE !== "prod" || (STAGE === "prod" && parseInt(amount) > 999)) {
+      if (STAGE !== 'prod' || (STAGE === 'prod' && parseInt(amount) > 999)) {
         setValidAmount(true);
         dispatch(addLoanAmount(parseInt(amount)));
       } else {
-        setValidAmount("false");
+        setValidAmount('false');
       }
     } else {
-      setValidAmount("false");
+      setValidAmount('false');
     }
   }, [amount]);
 
@@ -81,17 +83,17 @@ const Offer = () => {
       ewaOfferPush({
         offerId: offerId,
         unipeEmployeeId: unipeEmployeeId,
-        status: "INPROGRESS",
+        status: 'INPROGRESS',
         timestamp: Date.now(),
         ipAddress: ipAddress,
         deviceId: deviceId,
       })
         .then((response) => {
-          console.log("ewaOfferPush response.data: ", response.data);
+          console.log('ewaOfferPush response.data: ', response.data);
         })
         .catch((error) => {
-          console.log("ewaOfferPush error: ", error);
-          Alert.alert("An Error occured", error);
+          console.log('ewaOfferPush error: ', error);
+          Alert.alert('An Error occured', error);
         });
     }
   }, [fetched]);
@@ -102,37 +104,37 @@ const Offer = () => {
       ewaOfferPush({
         offerId: offerId,
         unipeEmployeeId: unipeEmployeeId,
-        status: "CONFIRMED",
+        status: 'CONFIRMED',
         timestamp: Date.now(),
         ipAddress: ipAddress,
         deviceId: deviceId,
         loanAmount: parseInt(amount),
       })
         .then((response) => {
-          console.log("ewaOfferPush response.data: ", response.data);
-          Analytics.trackEvent("Ewa|OfferPush|Success", {
+          console.log('ewaOfferPush response.data: ', response.data);
+          Analytics.trackEvent('Ewa|OfferPush|Success', {
             userId: unipeEmployeeId,
           });
           setLoading(false);
-          navigation.navigate("EWA_KYC");
+          navigation.navigate('EWA_KYC');
         })
         .catch((error) => {
-          console.log("ewaOfferPush error: ", error);
-          Analytics.trackEvent("Ewa|OfferPush|Error", {
+          console.log('ewaOfferPush error: ', error);
+          Analytics.trackEvent('Ewa|OfferPush|Error', {
             userId: unipeEmployeeId,
-            error: error
+            error: error,
           });
-          Alert.alert("An Error occured", error);
+          Alert.alert('An Error occured', error);
           setLoading(false);
         });
     }
   }
 
-  const getStepIndicatorIconConfig = ({ position, stepStatus }) => {
+  const getStepIndicatorIconConfig = ({position, stepStatus}) => {
     const iconConfig = {
-      color: "white",
+      color: 'white',
       size: 18,
-      name: "check",
+      name: 'check',
     };
     return iconConfig;
   };
@@ -141,7 +143,7 @@ const Offer = () => {
     <MaterialIcons {...getStepIndicatorIconConfig(params)} />
   );
 
-  const data = ["KYC", "Agreement", "Money In Account"];
+  const data = ['KYC', 'Agreement', 'Money In Account'];
 
   const stepIndicatorStyles = {
     stepIndicatorSize: 30,
@@ -150,55 +152,55 @@ const Offer = () => {
     currentStepStrokeWidth: 3,
     stepStrokeWidth: 3,
     separatorStrokeFinishedWidth: 2,
-    stepStrokeFinishedColor: "#aaaaaa",
-    stepStrokeUnFinishedColor: "#006400",
-    separatorFinishedColor: "#aaaaaa",
-    separatorUnFinishedColor: "#aaaaaa",
-    stepIndicatorFinishedColor: "#006400",
-    stepIndicatorUnFinishedColor: "#ffffff",
-    stepIndicatorCurrentColor: "#ffffff",
+    stepStrokeFinishedColor: '#aaaaaa',
+    stepStrokeUnFinishedColor: '#006400',
+    separatorFinishedColor: '#aaaaaa',
+    separatorUnFinishedColor: '#aaaaaa',
+    stepIndicatorFinishedColor: '#006400',
+    stepIndicatorUnFinishedColor: '#ffffff',
+    stepIndicatorCurrentColor: '#ffffff',
     stepIndicatorLabelFontSize: 14,
     currentStepIndicatorLabelFontSize: 14,
-    stepIndicatorLabelCurrentColor: "#006400",
-    stepIndicatorLabelFinishedColor: "#006400",
-    stepIndicatorLabelUnFinishedColor: "#aaaaaa",
-    labelColor: "black",
+    stepIndicatorLabelCurrentColor: '#006400',
+    stepIndicatorLabelFinishedColor: '#006400',
+    stepIndicatorLabelUnFinishedColor: '#aaaaaa',
+    labelColor: 'black',
     labelSize: 14,
-    labelAlign: "flex-start",
+    labelAlign: 'flex-start',
   };
 
   return (
-    <SafeAreaView style={[styles.container, { padding: 0 }]}>
+    <SafeAreaView style={[styles.container, {padding: 0}]}>
       <Header
         title="On Demand Salary"
-        onLeftIconPress={() => navigation.navigate("Home")}
+        onLeftIconPress={() => navigation.navigate('Home')}
       />
       <View style={styles.container}>
-        <View style={{ flexDirection: "column" }}>
+        <View style={{flexDirection: 'column'}}>
           <View
             style={{
-              flexDirection: "row",
-              width: "50%",
+              flexDirection: 'row',
+              width: '50%',
               paddingBottom: 10,
-              alignSelf: "center",
+              alignSelf: 'center',
             }}
           >
             <Icon
               name="currency-inr"
               color="green"
               size={32}
-              style={{ marginTop: 8, marginRight: 10 }}
+              style={{marginTop: 8, marginRight: 10}}
             />
 
             <TextInput
               style={{
                 fontSize: 32,
-                color: "green",
+                color: 'green',
                 borderWidth: 1,
-                width: "60%",
+                width: '60%',
               }}
               keyboardType="numeric"
-              textAlign={"center"}
+              textAlign={'center'}
               value={amount}
               autoFocus={true}
               onChangeText={setAmount}
@@ -207,8 +209,8 @@ const Offer = () => {
           <Text
             style={{
               fontSize: 14,
-              alignSelf: "center",
-              color: "#0D2A4E",
+              alignSelf: 'center',
+              color: '#0D2A4E',
               marginTop: 10,
             }}
           >
@@ -219,9 +221,9 @@ const Offer = () => {
         <Text
           style={{
             fontSize: 20,
-            alignSelf: "center",
-            fontWeight: "bold",
-            color: "#0D2A4E",
+            alignSelf: 'center',
+            fontWeight: 'bold',
+            color: '#0D2A4E',
             marginTop: 10,
           }}
         >
@@ -243,12 +245,12 @@ const Offer = () => {
         value={consent}
         setValue={setConsent}
       /> */}
-        <View style={{ flexDirection: "row" }}>
+        <View style={{flexDirection: 'row'}}>
           <CheckBox
             value={consent}
             onValueChange={setConsent}
             style={checkBox.checkBox}
-            tintColors={{ true: COLORS.primary }}
+            tintColors={{true: COLORS.primary}}
           />
           <Text style={checkBox.checkBoxText}>
             I agree to the
@@ -256,14 +258,14 @@ const Offer = () => {
               onPress={() => setIsTermsOfUseModalVisible(true)}
               style={styles.termsText}
             >
-              {" "}
+              {' '}
               Terms and Conditions
             </Text>
             .
           </Text>
         </View>
         <PrimaryButton
-          title={loading ? "Processing" : "Continue"}
+          title={loading ? 'Processing' : 'Continue'}
           disabled={loading || !consent || !validAmount}
           onPress={() => {
             handleAmount();
@@ -274,14 +276,14 @@ const Offer = () => {
       <Modal
         isVisible={isTermsOfUseModalVisible}
         style={{
-          width: Dimensions.get("window").width,
-          height: Dimensions.get("window").height,
+          width: Dimensions.get('window').width,
+          height: Dimensions.get('window').height,
         }}
       >
         <Pressable
           onPress={() => setIsTermsOfUseModalVisible(false)}
           style={{
-            position: "absolute",
+            position: 'absolute',
             top: 30,
             right: 50,
             zIndex: 999,
@@ -291,17 +293,17 @@ const Offer = () => {
         </Pressable>
         <View
           style={{
-            height: Dimensions.get("window").height - 100,
-            width: Dimensions.get("window").width - 40,
-            backgroundColor: "white",
+            height: Dimensions.get('window').height - 100,
+            width: Dimensions.get('window').width - 40,
+            backgroundColor: 'white',
             borderRadius: 5,
           }}
         >
           <WebView
-            style={{ flex: 1 }}
-            containerStyle={{ padding: 10 }}
-            originWhitelist={["*"]}
-            source={{ html: TnC }}
+            style={{flex: 1}}
+            containerStyle={{padding: 10}}
+            originWhitelist={['*']}
+            source={{html: TnC}}
           />
         </View>
       </Modal>

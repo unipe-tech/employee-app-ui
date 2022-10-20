@@ -1,15 +1,15 @@
-import { createDrawerNavigator } from "@react-navigation/drawer";
-import { Ionicons, Octicons } from "react-native-vector-icons";
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import {Ionicons, Octicons} from 'react-native-vector-icons';
 
-import Home from "../screens/06_home/Home";
+import Home from '../screens/06_home/Home';
 
-import Profile from "../screens/07_drawer/Profile";
-import KYCScreen from "../screens/07_drawer/KYCScreen";
-import { AppBar, Icon, IconButton } from "@react-native-material/core";
-import SVGImg from "../assets/UnipeLogo.svg";
-import { nav } from "../styles";
-import { COLORS } from "../constants/Theme";
-import CustomDrawer from "./CustomDrawer";
+import Profile from '../screens/07_drawer/Profile';
+import KYCScreen from '../screens/07_drawer/KYCScreen';
+import {AppBar, Icon, IconButton} from '@react-native-material/core';
+import SVGImg from '../assets/UnipeLogo.svg';
+import {nav} from '../styles';
+import {COLORS} from '../constants/Theme';
+import CustomDrawer from './CustomDrawer';
 
 const Drawer = createDrawerNavigator();
 
@@ -20,17 +20,14 @@ const DrawerNavigator = () => {
       defaultStatus="closed"
       initialRouteName="DrawerHome"
       screenOptions={{
-        activeTintColor: "#e91e63",
-        itemStyle: { marginVertical: 5 },
+        activeTintColor: '#e91e63',
+        itemStyle: {marginVertical: 5},
         headerShown: true,
         drawerActiveBackgroundColor: COLORS.primary,
-        drawerActiveTintColor: "white",
-        header: ({ navigation }) => (
+        drawerActiveTintColor: 'white',
+        header: ({navigation}) => (
           <AppBar
-            title={
-              <SVGImg
-              />
-            }
+            title={<SVGImg />}
             centerTitle={true}
             contentContainerStyle={nav.navbar}
             color="#ffffff"
@@ -38,7 +35,7 @@ const DrawerNavigator = () => {
               <IconButton
                 icon={<Icon name="menu" size={30} />}
                 onPress={() => {
-                  console.log("Menu");
+                  console.log('Menu');
                   navigation.toggleDrawer();
                 }}
               />
@@ -50,8 +47,8 @@ const DrawerNavigator = () => {
     >
       <Drawer.Screen
         options={{
-          drawerLabel: "Home",
-          drawerIcon: ({ color }) => (
+          drawerLabel: 'Home',
+          drawerIcon: ({color}) => (
             <Ionicons name="home" color={color} size={20} />
           ),
         }}
@@ -60,8 +57,8 @@ const DrawerNavigator = () => {
       />
       <Drawer.Screen
         options={{
-          drawerLabel: "Profile",
-          drawerIcon: ({ color }) => (
+          drawerLabel: 'Profile',
+          drawerIcon: ({color}) => (
             <Ionicons name="person-outline" color={color} size={20} />
           ),
         }}
@@ -70,8 +67,8 @@ const DrawerNavigator = () => {
       />
       <Drawer.Screen
         options={{
-          drawerLabel: "KYC",
-          drawerIcon: ({ color }) => (
+          drawerLabel: 'KYC',
+          drawerIcon: ({color}) => (
             <Octicons name="verified" color={color} size={20} />
           ),
         }}
@@ -80,8 +77,8 @@ const DrawerNavigator = () => {
       />
       <Drawer.Screen
         options={{
-          drawerLabel: "Support",
-          drawerIcon: ({ color }) => (
+          drawerLabel: 'Support',
+          drawerIcon: ({color}) => (
             <Ionicons name="chatbox-outline" color={color} size={20} />
           ),
         }}
@@ -90,8 +87,8 @@ const DrawerNavigator = () => {
       />
       <Drawer.Screen
         options={{
-          drawerLabel: "Settings",
-          drawerIcon: ({ color }) => (
+          drawerLabel: 'Settings',
+          drawerIcon: ({color}) => (
             <Ionicons name="settings" color={color} size={20} />
           ),
         }}
@@ -100,8 +97,8 @@ const DrawerNavigator = () => {
       />
       <Drawer.Screen
         options={{
-          drawerLabel: "Privacy Policy",
-          drawerIcon: ({ color }) => (
+          drawerLabel: 'Privacy Policy',
+          drawerIcon: ({color}) => (
             <Ionicons name="lock-closed-outline" color={color} size={20} />
           ),
         }}
@@ -110,8 +107,8 @@ const DrawerNavigator = () => {
       />
       <Drawer.Screen
         options={{
-          drawerLabel: "Terms & Conditions",
-          drawerIcon: ({ color }) => (
+          drawerLabel: 'Terms & Conditions',
+          drawerIcon: ({color}) => (
             <Ionicons
               name="ios-shield-checkmark-outline"
               color={color}

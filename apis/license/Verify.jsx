@@ -1,18 +1,17 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Alert } from "react-native";
-import { useNavigation } from "@react-navigation/core";
+import {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {Alert} from 'react-native';
+import {useNavigation} from '@react-navigation/core';
 import {
   addData,
   addVerifyMsg,
   addVerifyStatus,
   addVerifyTimestamp,
-} from "../../store/slices/licenseSlice";
-import { licenseBackendPush } from "../../helpers/BackendPush";
-import ApiView from "../ApiView";
-import { OG_API_TEST_KEY } from "@env";
-import Analytics from "appcenter-analytics";
-
+} from '../../store/slices/licenseSlice';
+import {licenseBackendPush} from '../../helpers/BackendPush';
+import ApiView from '../ApiView';
+import {OG_API_TEST_KEY} from '@env';
+import Analytics from 'appcenter-analytics';
 
 const Verify = (props) => {
   const dispatch = useDispatch();
@@ -27,7 +26,7 @@ const Verify = (props) => {
   const [verifyMsg, setVerifyMsg] = useState(licenseSlice?.verifyMsg);
   const [verifyStatus, setVerifyStatus] = useState(licenseSlice?.verifyStatus);
   const [verifyTimestamp, setVerifyTimestamp] = useState(
-    licenseSlice?.verifyTimestamp
+    licenseSlice?.verifyTimestamp,
   );
 
   useEffect(() => {
@@ -47,7 +46,7 @@ const Verify = (props) => {
   }, [verifyTimestamp]);
 
   useEffect(() => {
-    console.log("licenseSlice : ", licenseSlice);
+    console.log('licenseSlice : ', licenseSlice);
     if (backendPush) {
       licenseBackendPush({
         id: id,
@@ -65,11 +64,11 @@ const Verify = (props) => {
   const goForFetch = () => {
     setLoading(true);
     const options = {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "X-Auth-Type": "API-Key",
-        "X-API-Key": OG_API_TEST_KEY,
-        "Content-Type": "application/json",
+        'X-Auth-Type': 'API-Key',
+        'X-API-Key': OG_API_TEST_KEY,
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(props.data),
     };
@@ -78,75 +77,75 @@ const Verify = (props) => {
       .then((response) => response.json())
       .then((responseJson) => {
         try {
-          if (responseJson["status"] == "200") {
-            switch (responseJson["data"]["code"]) {
-              case "1000":
-                setData(responseJson["data"]["driving_license_data"]);
-                Analytics.trackEvent("Licence|Verify|Success", {
+          if (responseJson['status'] == '200') {
+            switch (responseJson['data']['code']) {
+              case '1000':
+                setData(responseJson['data']['driving_license_data']);
+                Analytics.trackEvent('Licence|Verify|Success', {
                   userId: id,
                 });
-                setVerifyMsg("To be confirmed by User");
-                setVerifyStatus("PENDING");
-                setVerifyTimestamp(responseJson["timestamp"]);
+                setVerifyMsg('To be confirmed by User');
+                setVerifyStatus('PENDING');
+                setVerifyTimestamp(responseJson['timestamp']);
                 setBackendPush(true);
-                navigation.navigate("Documents", {
-                  screen: "Driving License",
+                navigation.navigate('Documents', {
+                  screen: 'Driving License',
                   params: {
-                    screen: "Confirm",
+                    screen: 'Confirm',
                   },
                 });
                 break;
 
-              case "1001":
-                setVerifyMsg(responseJson["data"]["message"]);
-                Analytics.trackEvent("Licence|Verify|Error", {
+              case '1001':
+                setVerifyMsg(responseJson['data']['message']);
+                Analytics.trackEvent('Licence|Verify|Error', {
                   userId: id,
-                  error: responseJson["data"]["message"],
+                  error: responseJson['data']['message'],
                 });
-                setVerifyStatus("ERROR");
+                setVerifyStatus('ERROR');
                 setBackendPush(true);
-                Alert.alert("Error", responseJson["data"]["message"]);
+                Alert.alert('Error', responseJson['data']['message']);
                 break;
             }
-          } else if (responseJson["error"]) {
-            setVerifyMsg(responseJson["error"]["message"]);
-            Analytics.trackEvent("Licence|Verify|Error", {
+          } else if (responseJson['error']) {
+            setVerifyMsg(responseJson['error']['message']);
+            Analytics.trackEvent('Licence|Verify|Error', {
               userId: id,
-              error: responseJson["error"]["message"],
+              error: responseJson['error']['message'],
             });
-            setVerifyStatus("ERROR");
+            setVerifyStatus('ERROR');
             setBackendPush(true);
-            Alert.alert("Error", responseJson["error"]["message"]);
+            Alert.alert('Error', responseJson['error']['message']);
           } else {
-            Alert.alert("Error", responseJson["message"]);
-            Analytics.trackEvent("Licence|Verify|Error", {
+            Alert.alert('Error', responseJson['message']);
+            Analytics.trackEvent('Licence|Verify|Error', {
               userId: id,
-              error: responseJson["message"],
+              error: responseJson['message'],
             });
-            setVerifyMsg(responseJson["message"]);
-            setVerifyStatus("ERROR");
+            setVerifyMsg(responseJson['message']);
+            setVerifyStatus('ERROR');
           }
         } catch (error) {
-          console.log("Error: ", error);
-          Analytics.trackEvent("Licence|Verify|Error", {
+          console.log('Error: ', error);
+          Analytics.trackEvent('Licence|Verify|Error', {
             userId: id,
             error: error,
           });
           setVerifyMsg(error);
-          setVerifyStatus("ERROR");
+          setVerifyStatus('ERROR');
           setBackendPush(true);
-          Alert.alert("Error", error);
+          Alert.alert('Error', error);
         }
       })
       .catch((error) => {
-        Alert.alert("Error", error);
-        Analytics.trackEvent("Licence|Verify|Error", {
+        Alert.alert('Error', error);
+        Analytics.trackEvent('Licence|Verify|Error', {
           userId: id,
           error: error,
         });
-        console.log("Error: ", error);
+        console.log('Error: ', error);
         setVerifyMsg(error);
-        setVerifyStatus("ERROR");
+        setVerifyStatus('ERROR');
       });
   };
 

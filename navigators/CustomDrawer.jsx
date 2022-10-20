@@ -1,26 +1,26 @@
 import {
   DrawerContentScrollView,
   DrawerItemList,
-} from "@react-navigation/drawer";
+} from '@react-navigation/drawer';
 
-import { Image, Text, View } from "react-native";
-import { useSelector } from "react-redux";
-import { COLORS, FONTS } from "../constants/Theme";
-import Logout from "../components/Logout";
+import {Image, Text, View} from 'react-native';
+import {useSelector} from 'react-redux';
+import {COLORS, FONTS} from '../constants/Theme';
+import Logout from '../components/Logout';
 import SVGImg from '../assets/UnipeLogo.svg';
 export default CustomDrawer = (props) => {
   const image = useSelector((state) => state.profile.photo);
   const name = useSelector(
-    (state) => state.aadhaar.data?.name || state.pan.data?.name || "User"
+    (state) => state.aadhaar.data?.name || state.pan.data?.name || 'User',
   );
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{flex: 1}}>
       <DrawerContentScrollView
         {...props}
-        contentContainerStyle={{ backgroundColor: COLORS.primary }}
+        contentContainerStyle={{backgroundColor: COLORS.primary}}
       >
-        <View style={{ padding: 20 }}>
+        <View style={{padding: 20}}>
           <Image
             source={{
               uri: `data:image/jpeg;base64,${image}`,
@@ -28,7 +28,7 @@ export default CustomDrawer = (props) => {
             style={{
               width: 80,
               height: 80,
-              resizeMode: "contain",
+              resizeMode: 'contain',
               borderRadius: 50,
             }}
           />
@@ -39,12 +39,10 @@ export default CustomDrawer = (props) => {
               ...FONTS.h3,
             }}
           >
-            {name ? name : "User"}
+            {name ? name : 'User'}
           </Text>
         </View>
-        <View
-          style={{ flex: 1, backgroundColor: COLORS.white, paddingTop: 10 }}
-        >
+        <View style={{flex: 1, backgroundColor: COLORS.white, paddingTop: 10}}>
           <DrawerItemList {...props} />
         </View>
       </DrawerContentScrollView>

@@ -1,13 +1,13 @@
-import { Button } from "@react-native-material/core";
-import React from "react";
+import {Button} from '@react-native-material/core';
+import React from 'react';
 import {
   Text,
   StyleSheet,
   TouchableOpacity,
   ActivityIndicator,
   View,
-} from "react-native";
-import { COLORS, FONTS, SIZES } from "../../constants/Theme";
+} from 'react-native';
+import {COLORS, FONTS, SIZES} from '../../constants/Theme';
 
 const TextButton = ({
   containerStyle,
@@ -21,14 +21,14 @@ const TextButton = ({
     <Button
       uppercase={false}
       title={label}
-      titleStyle={[styles.btnText, { ...labelStyle }]}
+      titleStyle={[styles.btnText, {...labelStyle}]}
       type="solid"
-      style={[styles.button, { ...containerStyle }]}
+      style={[styles.button, {...containerStyle}]}
       disabled={disabled}
       onPress={onPress}
       color={disabled ? COLORS.lightGray : COLORS.primary}
-      pressableContainerStyle={{ width: "100%" }}
-      contentContainerStyle={{ width: "100%", height: "100%" }}
+      pressableContainerStyle={{width: '100%'}}
+      contentContainerStyle={{width: '100%', height: '100%'}}
     />
   ) : (
     <TouchableOpacity style={[styles.button, styles.loadingButton]} disabled>
@@ -39,11 +39,11 @@ const TextButton = ({
 
 const styles = StyleSheet.create({
   button: {
-    alignSelf: "center",
-    alignItems: "center",
-    justifyContent: "center",
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
     marginTop: 30,
-    width: "100%",
+    width: '100%',
     height: 50,
   },
   loadingButton: {

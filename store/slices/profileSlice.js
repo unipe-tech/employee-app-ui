@@ -1,16 +1,16 @@
-import { createSlice } from "@reduxjs/toolkit";
+import {createSlice} from '@reduxjs/toolkit';
 
 const initialState = {
-  maritalStatus: "",
-  qualification: "Graduate",
-  altMobile: "",
-  email: "",
-  photo: "",
-  motherName: "",
+  maritalStatus: '',
+  qualification: 'Graduate',
+  altMobile: '',
+  email: '',
+  photo: '',
+  motherName: '',
 };
 
 const profileSlice = createSlice({
-  name: "profile",
+  name: 'profile',
   initialState: initialState,
   reducers: {
     addAltMobile(state, action) {

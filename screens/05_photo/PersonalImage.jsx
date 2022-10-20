@@ -1,19 +1,19 @@
-import { Icon, IconButton } from "@react-native-material/core";
-import { useNavigation } from "@react-navigation/core";
-import Analytics from "appcenter-analytics";
-import { useCallback, useEffect, useState } from "react";
-import { Image, SafeAreaView, ScrollView, Text, View } from "react-native";
-import * as ImagePicker from "react-native-image-picker";
-import { useDispatch, useSelector } from "react-redux";
-import Header from "../../components/atoms/Header";
-import PrimaryButton from "../../components/PrimaryButton";
-import RNIPPhotoCapture from "../../components/RNIPPhotoCapture";
-import { COLORS } from "../../constants/Theme";
-import { profileBackendPush } from "../../helpers/BackendPush";
-import ProgressBarTop from "../../navigators/ProgressBarTop";
-import { addCurrentScreen } from "../../store/slices/navigationSlice";
-import { addPhoto } from "../../store/slices/profileSlice";
-import { form, selfie, styles } from "../../styles";
+import {Icon, IconButton} from '@react-native-material/core';
+import {useNavigation} from '@react-navigation/core';
+import Analytics from 'appcenter-analytics';
+import {useCallback, useEffect, useState} from 'react';
+import {Image, SafeAreaView, ScrollView, Text, View} from 'react-native';
+import * as ImagePicker from 'react-native-image-picker';
+import {useDispatch, useSelector} from 'react-redux';
+import Header from '../../components/atoms/Header';
+import PrimaryButton from '../../components/PrimaryButton';
+import RNIPPhotoCapture from '../../components/RNIPPhotoCapture';
+import {COLORS} from '../../constants/Theme';
+import {profileBackendPush} from '../../helpers/BackendPush';
+import ProgressBarTop from '../../navigators/ProgressBarTop';
+import {addCurrentScreen} from '../../store/slices/navigationSlice';
+import {addPhoto} from '../../store/slices/profileSlice';
+import {form, selfie, styles} from '../../styles';
 
 const PersonalImage = () => {
   const dispatch = useDispatch();
@@ -24,10 +24,10 @@ const PersonalImage = () => {
   const id = useSelector((state) => state.auth.id);
   const profileSlice = useSelector((state) => state.profile);
   const [image, setImage] = useState(
-    useSelector((state) => state.profile.photo)
+    useSelector((state) => state.profile.photo),
   );
   useEffect(() => {
-    dispatch(addCurrentScreen("PersonalImage"));
+    dispatch(addCurrentScreen('PersonalImage'));
   }, []);
 
   useEffect(() => {
@@ -45,24 +45,24 @@ const PersonalImage = () => {
   const onImageLibraryPress = useCallback(() => {
     const options = {
       selectionLimit: 1,
-      mediaType: "photo",
+      mediaType: 'photo',
       includeBase64: true,
     };
     ImagePicker.launchImageLibrary(options, (response) => {
       if (response.didCancel) {
-        console.log("User cancelled image picker");
-        Analytics.trackEvent("PersonalImage|Pick|Error", {
+        console.log('User cancelled image picker');
+        Analytics.trackEvent('PersonalImage|Pick|Error', {
           userId: id,
-          error:"User cancelled image picker",
+          error: 'User cancelled image picker',
         });
       } else if (response.error) {
-        console.log("ImagePicker Error: ", response.error);
-        Analytics.trackEvent("PersonalImage|Pick|Error", {
+        console.log('ImagePicker Error: ', response.error);
+        Analytics.trackEvent('PersonalImage|Pick|Error', {
           userId: id,
-          error:response.error,
+          error: response.error,
         });
       } else {
-        Analytics.trackEvent("PersonalImage|Pick|Success", {
+        Analytics.trackEvent('PersonalImage|Pick|Success', {
           userId: id,
         });
         dispatch(addPhoto(response?.assets[0]?.base64));
@@ -71,10 +71,10 @@ const PersonalImage = () => {
   }, []);
 
   return (
-    <SafeAreaView style={[styles.container, { padding: 0 }]}>
+    <SafeAreaView style={[styles.container, {padding: 0}]}>
       <Header
         title="Photo"
-        onLeftIconPress={() => navigation.navigate("PersonalDetailsForm")}
+        onLeftIconPress={() => navigation.navigate('PersonalDetailsForm')}
       />
       <ProgressBarTop step={1} />
       <View style={styles.container}>
@@ -85,8 +85,8 @@ const PersonalImage = () => {
           {image ? (
             <View style={selfie.selfieContainer}>
               <Image
-                source={{ uri: `data:image/jpeg;base64,${image}` }}
-                style={[selfie.selfie, { width: "100%" }]}
+                source={{uri: `data:image/jpeg;base64,${image}`}}
+                style={[selfie.selfie, {width: '100%'}]}
                 resizeMode="cover"
               />
             </View>
@@ -100,7 +100,7 @@ const PersonalImage = () => {
               />
             </View>
           )}
-          <View style={{ flexDirection: "row", alignSelf: "center" }}>
+          <View style={{flexDirection: 'row', alignSelf: 'center'}}>
             {/* <TouchableOpacity>
               <Icon name="image-search" size={30} color="black" />
               <Text>Gallery</Text>
@@ -127,7 +127,7 @@ const PersonalImage = () => {
                 motherName: profileSlice?.motherName,
                 photo: profileSlice?.photo,
               });
-              navigation.navigate("AadhaarForm");
+              navigation.navigate('AadhaarForm');
             }}
           />
         </ScrollView>

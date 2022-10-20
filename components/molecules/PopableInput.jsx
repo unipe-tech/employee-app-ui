@@ -1,10 +1,10 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import React from "react";
-import FormInput from "../atoms/FormInput";
-import { Icon, IconButton } from "@react-native-material/core";
-import { COLORS, FONTS } from "../../constants/Theme";
-import { useState } from "react";
-import { Popable } from "react-native-popable";
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import React from 'react';
+import FormInput from '../atoms/FormInput';
+import {Icon, IconButton} from '@react-native-material/core';
+import {COLORS, FONTS} from '../../constants/Theme';
+import {useState} from 'react';
+import {Popable} from 'react-native-popable';
 
 const PopableInput = ({
   containerStyle,
@@ -16,7 +16,7 @@ const PopableInput = ({
 }) => {
   return (
     <FormInput
-      containerStyle={{ ...styles.container, ...containerStyle }}
+      containerStyle={{...styles.container, ...containerStyle}}
       placeholder={placeholder}
       value={value}
       autoCapitalize={autoCapitalize}
@@ -37,11 +37,11 @@ const styles = StyleSheet.create({
   header: {
     ...FONTS.h3,
     marginBottom: 10,
-    alignSelf: "center",
+    alignSelf: 'center',
   },
   listItem: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     paddingVertical: 15,
   },
   listText: {

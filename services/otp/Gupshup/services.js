@@ -1,10 +1,10 @@
-import { GUPSHUP_PASSWORD, GUPSHUP_USERID, STAGE } from "@env";
+import {GUPSHUP_PASSWORD, GUPSHUP_USERID, STAGE} from '@env';
 
 const sendSmsVerification = async (phoneNumber) => {
-  if (STAGE === "dev" && phoneNumber === "9999999999") {
+  if (STAGE === 'dev' && phoneNumber === '9999999999') {
     return {
       response: {
-        status: "success",
+        status: 'success',
       },
     };
   } else {
@@ -12,28 +12,28 @@ const sendSmsVerification = async (phoneNumber) => {
       let params = {
         userid: GUPSHUP_USERID,
         password: GUPSHUP_PASSWORD,
-        method: "TWO_FACTOR_AUTH",
-        v: "1.1",
+        method: 'TWO_FACTOR_AUTH',
+        v: '1.1',
         phone_no: phoneNumber,
-        msg: "Hello+from+Unipe%21+%3A%29%0D%0AYour+One+Time+Password+for+Mobile+Verification+is+%25code%25+and+valid+only+for+40Minutes%0D%0AKeep+it+confidential+%26+do+not+share.%0D%0A%0D%0AWagepe",
-        format: "JSON",
-        otpCodeLength: "6",
-        otpCodeType: "NUMERIC",
+        msg: 'Hello+from+Unipe%21+%3A%29%0D%0AYour+One+Time+Password+for+Mobile+Verification+is+%25code%25+and+valid+only+for+40Minutes%0D%0AKeep+it+confidential+%26+do+not+share.%0D%0A%0D%0AWagepe',
+        format: 'JSON',
+        otpCodeLength: '6',
+        otpCodeType: 'NUMERIC',
       };
 
       let query = Object.keys(params)
-        .map((k) => k + "=" + params[k])
-        .join("&");
+        .map((k) => k + '=' + params[k])
+        .join('&');
       const response = await fetch(
-        `https://enterprise.smsgupshup.com/GatewayAPI/rest?` + query,
+        'https://enterprise.smsgupshup.com/GatewayAPI/rest?' + query,
         {
-          method: "POST",
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
-        }
+        },
       );
-      console.log("sendSmsVerification response: ", response);
+      console.log('sendSmsVerification response: ', response);
 
       const json = await response.json();
       return json;
@@ -44,10 +44,10 @@ const sendSmsVerification = async (phoneNumber) => {
 };
 
 const checkVerification = async (phoneNumber, code) => {
-  if (STAGE === "dev" && phoneNumber === "9999999999") {
+  if (STAGE === 'dev' && phoneNumber === '9999999999') {
     return {
       response: {
-        status: "success",
+        status: 'success',
       },
     };
   } else {
@@ -55,27 +55,27 @@ const checkVerification = async (phoneNumber, code) => {
       let params = {
         userid: GUPSHUP_USERID,
         password: GUPSHUP_PASSWORD,
-        method: "TWO_FACTOR_AUTH",
-        v: "1.1",
+        method: 'TWO_FACTOR_AUTH',
+        v: '1.1',
         phone_no: phoneNumber,
-        format: "JSON",
+        format: 'JSON',
         otp_code: code,
       };
 
       let query = Object.keys(params)
-        .map((k) => k + "=" + params[k])
-        .join("&");
+        .map((k) => k + '=' + params[k])
+        .join('&');
 
       const response = await fetch(
-        `https://enterprise.smsgupshup.com/GatewayAPI/rest?` + query,
+        'https://enterprise.smsgupshup.com/GatewayAPI/rest?' + query,
         {
-          method: "POST",
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
-        }
+        },
       );
-      console.log("checkVerification response: ", response);
+      console.log('checkVerification response: ', response);
 
       const json = await response.json();
       return json;

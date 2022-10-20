@@ -1,16 +1,16 @@
-import { useEffect, useState } from "react";
-import { SafeAreaView, Text, View, ScrollView } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-import { checkBox, styles } from "../../../../styles";
-import PrimaryButton from "../../../../components/PrimaryButton";
-import KycCheckCard from "../../../../components/KycCheckCard";
-import { useIsFocused, useNavigation } from "@react-navigation/core";
-import Offers from "../../../../components/DataCard";
-import { getBackendData } from "../../../../services/employees/employeeServices";
-import { resetEwaLive } from "../../../../store/slices/ewaLiveSlice";
-import { resetEwaHistorical } from "../../../../store/slices/ewaHistoricalSlice";
-import { FONTS } from "../../../../constants/Theme";
-import { STAGE } from "@env";
+import {useEffect, useState} from 'react';
+import {SafeAreaView, Text, View, ScrollView} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
+import {checkBox, styles} from '../../../../styles';
+import PrimaryButton from '../../../../components/PrimaryButton';
+import KycCheckCard from '../../../../components/KycCheckCard';
+import {useIsFocused, useNavigation} from '@react-navigation/core';
+import Offers from '../../../../components/DataCard';
+import {getBackendData} from '../../../../services/employees/employeeServices';
+import {resetEwaLive} from '../../../../store/slices/ewaLiveSlice';
+import {resetEwaHistorical} from '../../../../store/slices/ewaHistoricalSlice';
+import {FONTS} from '../../../../constants/Theme';
+import {STAGE} from '@env';
 
 const EWA = () => {
   const dispatch = useDispatch();
@@ -23,12 +23,12 @@ const EWA = () => {
   const id = useSelector((state) => state.auth.id);
   const aadhaarName = useSelector((state) => state.aadhaar.data.name);
   const aadhaarVerifyStatus = useSelector(
-    (state) => state.aadhaar.verifyStatus
+    (state) => state.aadhaar.verifyStatus,
   );
   const panVerifyStatus = useSelector((state) => state.pan.verifyStatus);
   const bankVerifyStatus = useSelector((state) => state.bank.verifyStatus);
   const mandateVerifyStatus = useSelector(
-    (state) => state.mandate.verifyStatus
+    (state) => state.mandate.verifyStatus,
   );
   // const panMisMatch = useSelector((state) => state.pan.misMatch);
   // const bankMisMatch = useSelector((state) => state.bank.misMatch);
@@ -39,8 +39,8 @@ const EWA = () => {
   useEffect(() => {
     if (fetched) {
       if (
-        STAGE !== "prod" ||
-        (STAGE === "prod" && parseInt(ewaLiveSlice?.eligibleAmount) >= 1000)
+        STAGE !== 'prod' ||
+        (STAGE === 'prod' && parseInt(ewaLiveSlice?.eligibleAmount) >= 1000)
       ) {
         setEligible(true);
       } else {
@@ -52,14 +52,14 @@ const EWA = () => {
   }, [ewaLiveSlice, fetched]);
 
   useEffect(() => {
-    console.log("ewaLiveSlice: ", ewaLiveSlice);
-    console.log("ewaHistoricalSlice: ", ewaHistoricalSlice);
-    console.log("ewaOffersFetch unipeEmployeeId:", id);
+    console.log('ewaLiveSlice: ', ewaLiveSlice);
+    console.log('ewaHistoricalSlice: ', ewaHistoricalSlice);
+    console.log('ewaOffersFetch unipeEmployeeId:', id);
     if (isFocused && id) {
-      getBackendData({ params: { unipeEmployeeId: id }, xpath: "ewa/offers" })
+      getBackendData({params: {unipeEmployeeId: id}, xpath: 'ewa/offers'})
         .then((response) => {
           if (response.data.status === 200) {
-            console.log("ewaOffersFetch response.data: ", response.data);
+            console.log('ewaOffersFetch response.data: ', response.data);
             dispatch(resetEwaLive(response.data.body.live));
             dispatch(resetEwaHistorical(response.data.body.past));
             setFetched(true);
@@ -71,78 +71,82 @@ const EWA = () => {
         .catch((error) => {
           dispatch(resetEwaLive());
           dispatch(resetEwaHistorical());
-          console.log("ewaOffersFetch error: ", error);
+          console.log('ewaOffersFetch error: ', error);
         });
     }
   }, [isFocused, id]);
 
   return (
-    <SafeAreaView style={[styles.container, { padding: 0 }]}>
-
-      { 
-        aadhaarVerifyStatus === "SUCCESS" &&
-        panVerifyStatus === "SUCCESS" &&
-        bankVerifyStatus === "SUCCESS" &&
-        mandateVerifyStatus === "SUCCESS" 
+    <SafeAreaView style={[styles.container, {padding: 0}]}>
+      {aadhaarVerifyStatus === 'SUCCESS' &&
+      panVerifyStatus === 'SUCCESS' &&
+      bankVerifyStatus === 'SUCCESS' &&
+      mandateVerifyStatus === 'SUCCESS' ? (
         // panMisMatch < 20 &&
-        // bankMisMatch < 20 
-        ? (
-          <>
-            <View style={{alignSelf: "center"}}>
-              <Text
-                style={{
-                  fontSize: 20,
-                  marginTop: "5%",
-                  marginBottom: "5%",
-                  color: "#597E8D",
-                  letterSpacing: 0.2,
-                }}
-              >
-                {aadhaarName} get on demand salary
-              </Text>
-              <Text
-                style={{
-                  alignSelf: "center",
-                  color: "green",
-                  ...FONTS.h1,
-                }}
-              >
-                ₹ {ewaLiveSlice?.eligibleAmount}
-              </Text>
-            </View>
-            <View style={{marginHorizontal:"10%"}}>
-              <PrimaryButton
-                title={!eligible ? "No Active Offer" : "Get Money Now"}
-                disabled={!eligible}
-                onPress={() => {
-                  navigation.navigate("EWA_OFFER");
-                }}
-              />
-            </View>
-
-            <View style={{padding: "1%"}}>
-              <Text style={{ ...FONTS.h2, paddingLeft: "1.5%", color: "#597E8D", marginTop: "5%", fontWeight: 'bold' }}>
-                Your past draws
-              </Text>
-              <Offers data={ewaHistoricalSlice} />
-            </View>
-          </>
-        ) : (
-          <View style={[styles.container, { padding: 0 }]}>
+        // bankMisMatch < 20
+        <>
+          <View style={{alignSelf: 'center'}}>
             <Text
               style={{
-                color: "red",
-                fontWeight: "bold",
-                alignSelf: "center",
-                marginTop: "5%",
+                fontSize: 20,
+                marginTop: '5%',
+                marginBottom: '5%',
+                color: '#597E8D',
+                letterSpacing: 0.2,
               }}
             >
-              You are not eligible for Advanced Salary.
+              {aadhaarName} get on demand salary
             </Text>
-            <KycCheckCard />
+            <Text
+              style={{
+                alignSelf: 'center',
+                color: 'green',
+                ...FONTS.h1,
+              }}
+            >
+              ₹ {ewaLiveSlice?.eligibleAmount}
+            </Text>
           </View>
-        )
-      }
+          <View style={{marginHorizontal: '10%'}}>
+            <PrimaryButton
+              title={!eligible ? 'No Active Offer' : 'Get Money Now'}
+              disabled={!eligible}
+              onPress={() => {
+                navigation.navigate('EWA_OFFER');
+              }}
+            />
+          </View>
+
+          <View style={{padding: '1%'}}>
+            <Text
+              style={{
+                ...FONTS.h2,
+                paddingLeft: '1.5%',
+                color: '#597E8D',
+                marginTop: '5%',
+                fontWeight: 'bold',
+              }}
+            >
+              Your past draws
+            </Text>
+            <Offers data={ewaHistoricalSlice} />
+          </View>
+        </>
+      ) : (
+        <View style={[styles.container, {padding: 0}]}>
+          <Text
+            style={{
+              color: 'red',
+              fontWeight: 'bold',
+              alignSelf: 'center',
+              marginTop: '5%',
+            }}
+          >
+            You are not eligible for Advanced Salary.
+          </Text>
+          <KycCheckCard />
+        </View>
+      )}
     </SafeAreaView>
   );
 };

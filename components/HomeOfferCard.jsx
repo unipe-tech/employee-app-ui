@@ -1,11 +1,11 @@
-import { useIsFocused, useNavigation } from "@react-navigation/core";
-import React, { useEffect, useState } from "react";
-import { SafeAreaView, Text, TouchableOpacity } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-import { COLORS, FONTS } from "../constants/Theme";
-import { getBackendData } from "../services/employees/employeeServices";
-import { resetEwaHistorical } from "../store/slices/ewaHistoricalSlice";
-import { resetEwaLive } from "../store/slices/ewaLiveSlice";
+import {useIsFocused, useNavigation} from '@react-navigation/core';
+import React, {useEffect, useState} from 'react';
+import {SafeAreaView, Text, TouchableOpacity} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
+import {COLORS, FONTS} from '../constants/Theme';
+import {getBackendData} from '../services/employees/employeeServices';
+import {resetEwaHistorical} from '../store/slices/ewaHistoricalSlice';
+import {resetEwaLive} from '../store/slices/ewaLiveSlice';
 
 const HomeOfferCard = () => {
   const dispatch = useDispatch();
@@ -15,18 +15,18 @@ const HomeOfferCard = () => {
   const ewaLiveSlice = useSelector((state) => state.ewaLive);
 
   useEffect(() => {
-    console.log("ewaOffersFetch unipeEmployeeId:", id);
+    console.log('ewaOffersFetch unipeEmployeeId:', id);
     if (isFocused && id) {
-      getBackendData({ params: { unipeEmployeeId: id }, xpath: "ewa/offers" })
+      getBackendData({params: {unipeEmployeeId: id}, xpath: 'ewa/offers'})
         .then((response) => {
           if (response.data.status === 200) {
-            console.log("ewaOffersFetch response.data: ", response.data);
+            console.log('ewaOffersFetch response.data: ', response.data);
             dispatch(resetEwaLive(response.data.body.live));
             dispatch(resetEwaHistorical(response.data.body.past));
           }
         })
         .catch((error) => {
-          console.log("ewaOffersFetch error: ", error);
+          console.log('ewaOffersFetch error: ', error);
         });
     }
   }, [isFocused, id]);
@@ -36,44 +36,44 @@ const HomeOfferCard = () => {
       <TouchableOpacity
         activeOpacity={0.8}
         style={{
-          backgroundColor: "rgba(0,200,0,0.1)",
+          backgroundColor: 'rgba(0,200,0,0.1)',
           borderWidth: 1,
-          borderColor: "green",
-          height: "auto",
-          width: "80%",
+          borderColor: 'green',
+          height: 'auto',
+          width: '80%',
           padding: 10,
           borderRadius: 10,
-          marginTop: "10%",
-          alignSelf: "center",
+          marginTop: '10%',
+          alignSelf: 'center',
         }}
-        onPress={() => navigation.navigate("Money")}
+        onPress={() => navigation.navigate('Money')}
       >
         <Text
           style={{
             color: COLORS.black,
             ...FONTS.h3,
-            marginTop: "2%",
-            alignSelf: "center",
+            marginTop: '2%',
+            alignSelf: 'center',
           }}
         >
           Get your Salary now!
         </Text>
         <Text
           style={{
-            color: "green",
+            color: 'green',
             ...FONTS.h1,
-            marginTop: "4%",
-            alignSelf: "center",
+            marginTop: '4%',
+            alignSelf: 'center',
           }}
         >
           upto ₹ {ewaLiveSlice.eligibleAmount}
         </Text>
         <Text
           style={{
-            color: "purple",
+            color: 'purple',
             ...FONTS.h3,
-            marginTop: "2%",
-            alignSelf: "center",
+            marginTop: '2%',
+            alignSelf: 'center',
           }}
         >
           Before {ewaLiveSlice.dueDate}

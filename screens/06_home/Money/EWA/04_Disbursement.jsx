@@ -1,39 +1,39 @@
-import Analytics from "appcenter-analytics";
-import { useEffect, useState } from "react";
-import { Image, SafeAreaView, View } from "react-native";
-import { useSelector } from "react-redux";
-import Header from "../../../../components/atoms/Header";
-import CollapsibleCard from "../../../../components/CollapsibleCard";
-import { getBackendData } from "../../../../services/employees/employeeServices";
-import { ewa, styles } from "../../../../styles";
+import Analytics from 'appcenter-analytics';
+import {useEffect, useState} from 'react';
+import {Image, SafeAreaView, View} from 'react-native';
+import {useSelector} from 'react-redux';
+import Header from '../../../../components/atoms/Header';
+import CollapsibleCard from '../../../../components/CollapsibleCard';
+import {getBackendData} from '../../../../services/employees/employeeServices';
+import {ewa, styles} from '../../../../styles';
 
-const Disbursement = ({ route, navigation }) => {
-  const { offer } = route.params;
+const Disbursement = ({route, navigation}) => {
+  const {offer} = route.params;
 
   const bankSlice = useSelector((state) => state.bank);
   const unipeEmployeeId = useSelector((state) => state.auth.id);
   const [loanAmount, setLoanAmount] = useState(offer?.loanAmount);
   const [netAmount, setNetAmount] = useState(offer?.netAmount);
   const [bankAccountNumber, setBankAccountNumber] = useState(
-    bankSlice?.data?.accountNumber
+    bankSlice?.data?.accountNumber,
   );
   const [dueDate, setDueDate] = useState(offer?.dueDate);
-  const [loanAccountNumber, setLoanAccountNumber] = useState("");
-  const [status, setStatus] = useState("");
+  const [loanAccountNumber, setLoanAccountNumber] = useState('');
+  const [status, setStatus] = useState('');
 
-  const [processingFees, setProcessingFees] = useState("");
+  const [processingFees, setProcessingFees] = useState('');
 
   useEffect(() => {
     getBackendData({
-      params: { offerId: offer.offerId },
-      xpath: "ewa/disbursement",
+      params: {offerId: offer.offerId},
+      xpath: 'ewa/disbursement',
     })
       .then((response) => {
         if (response.data.status === 200) {
-          Analytics.trackEvent("Ewa|Disbursement|Success", {
+          Analytics.trackEvent('Ewa|Disbursement|Success', {
             userId: unipeEmployeeId,
           });
-          console.log("ewaDisbursementFetch response.data: ", response.data);
+          console.log('ewaDisbursementFetch response.data: ', response.data);
           setLoanAmount(response.data.body.loanAmount);
           setNetAmount(response.data.body.netAmount);
           setBankAccountNumber(response.data.body.bankAccountNumber);
@@ -43,8 +43,8 @@ const Disbursement = ({ route, navigation }) => {
         }
       })
       .catch((error) => {
-        console.log("ewaDisbursementFetch error: ", error);
-        Analytics.trackEvent("Ewa|Disbursement|Error", {
+        console.log('ewaDisbursementFetch error: ', error);
+        Analytics.trackEvent('Ewa|Disbursement|Error', {
           userId: unipeEmployeeId,
           error: error,
         });
@@ -52,9 +52,9 @@ const Disbursement = ({ route, navigation }) => {
   }, []);
 
   useEffect(() => {
-    console.log("disbursement offer: ", offer);
+    console.log('disbursement offer: ', offer);
     setProcessingFees(
-      Math.round(((((offer?.loanAmount * offer?.fees) / 100 + 1) / 10) * 10) - 1)
+      Math.round((((offer?.loanAmount * offer?.fees) / 100 + 1) / 10) * 10 - 1),
     );
     setNetAmount(offer?.netAmount);
     setDueDate(offer?.dueDate);
@@ -65,23 +65,23 @@ const Disbursement = ({ route, navigation }) => {
   }, [processingFees]);
 
   const data = [
-    { subTitle: "Loan Amount ", value: "₹" + loanAmount },
-    { subTitle: "Net Transfer Amount ", value: "₹" + netAmount },
-    { subTitle: "Bank Account Number", value: bankAccountNumber },
-    { subTitle: "Due Date", value: dueDate },
-    { subTitle: "Loan Account Number", value: loanAccountNumber },
-    { subTitle: "Transfer Satus", value: status },
+    {subTitle: 'Loan Amount ', value: '₹' + loanAmount},
+    {subTitle: 'Net Transfer Amount ', value: '₹' + netAmount},
+    {subTitle: 'Bank Account Number', value: bankAccountNumber},
+    {subTitle: 'Due Date', value: dueDate},
+    {subTitle: 'Loan Account Number', value: loanAccountNumber},
+    {subTitle: 'Transfer Satus', value: status},
   ];
 
   return (
-    <SafeAreaView style={[styles.container, { padding: 0 }]}>
+    <SafeAreaView style={[styles.container, {padding: 0}]}>
       <Header
         title="Money Transfer"
-        onLeftIconPress={() => navigation.navigate("Home")}
+        onLeftIconPress={() => navigation.navigate('Home')}
       />
       <Image
         style={ewa.successImg}
-        source={require("../../../../assets/animatedsuccess.gif")}
+        source={require('../../../../assets/animatedsuccess.gif')}
       />
       <View style={styles.container}>
         <CollapsibleCard

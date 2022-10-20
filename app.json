@@ -3,9 +3,7 @@
     "name": "employee-app",
     "slug": "employee-app",
     "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ]
+    "assetBundlePatterns": ["**/*"]
   },
   "name": "employee-app"
 }

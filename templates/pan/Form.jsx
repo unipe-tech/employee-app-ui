@@ -1,17 +1,17 @@
-import CheckBox from "@react-native-community/checkbox";
-import { Icon } from "@react-native-material/core";
-import { useEffect, useState } from "react";
-import { Linking, Text, View } from "react-native";
-import { useSelector, useDispatch } from "react-redux";
+import CheckBox from '@react-native-community/checkbox';
+import {Icon} from '@react-native-material/core';
+import {useEffect, useState} from 'react';
+import {Linking, Text, View} from 'react-native';
+import {useSelector, useDispatch} from 'react-redux';
 
-import { KeyboardAvoidingWrapper } from "../../KeyboardAvoidingWrapper";
-import { bankform, checkBox, form, styles } from "../../styles";
+import {KeyboardAvoidingWrapper} from '../../KeyboardAvoidingWrapper';
+import {bankform, checkBox, form, styles} from '../../styles';
 
-import PanVerifyApi from "../../apis/pan/Verify";
-import { addNumber } from "../../store/slices/panSlice";
-import InfoCard from "../../components/atoms/InfoCard";
-import FormInput from "../../components/atoms/FormInput";
-import Checkbox from "../../components/atoms/Checkbox";
+import PanVerifyApi from '../../apis/pan/Verify';
+import {addNumber} from '../../store/slices/panSlice';
+import InfoCard from '../../components/atoms/InfoCard';
+import FormInput from '../../components/atoms/FormInput';
+import Checkbox from '../../components/atoms/Checkbox';
 
 const PanFormTemplate = (props) => {
   const dispatch = useDispatch();
@@ -37,8 +37,8 @@ const PanFormTemplate = (props) => {
       <KeyboardAvoidingWrapper>
         <View>
           <FormInput
-            placeholder={"Enter PAN Number"}
-            containerStyle={{ marginVertical: 10 }}
+            placeholder={'Enter PAN Number'}
+            containerStyle={{marginVertical: 10}}
             autoCapitalize="characters"
             value={number}
             onChange={setNumber}
@@ -53,7 +53,7 @@ const PanFormTemplate = (props) => {
               style={styles.termsText}
               onPress={() =>
                 Linking.openURL(
-                  "https://docs.google.com/document/d/19nf3qwzXcun0yTN6WH6iA5hpGKlgsg4erbHuDql0EZQ/edit"
+                  'https://docs.google.com/document/d/19nf3qwzXcun0yTN6WH6iA5hpGKlgsg4erbHuDql0EZQ/edit',
                 )
               }
             >
@@ -62,22 +62,22 @@ const PanFormTemplate = (props) => {
           </View>
 
           <InfoCard
-            info={"PAN is required to verify name and date of birth."}
+            info={'PAN is required to verify name and date of birth.'}
           />
 
           <Checkbox
             text={
-              "I agree with the KYC registration Terms and Conditions to verifiy my identity."
+              'I agree with the KYC registration Terms and Conditions to verifiy my identity.'
             }
             value={consent}
             setValue={setConsent}
           />
 
           <PanVerifyApi
-            data={{ pan_number: number, consent: "Y" }}
+            data={{pan_number: number, consent: 'Y'}}
             style={form.nextButton}
             disabled={!validNumber || !consent}
-            type={props?.route?.params?.type || ""}
+            type={props?.route?.params?.type || ''}
           />
         </View>
       </KeyboardAvoidingWrapper>

@@ -1,9 +1,9 @@
-import { createSlice } from "@reduxjs/toolkit";
+import {createSlice} from '@reduxjs/toolkit';
 
 const initialState = [];
 
 const ewaHistoricalSlice = createSlice({
-  name: "ewaHistorical",
+  name: 'ewaHistorical',
   initialState: initialState,
   reducers: {
     resetEwaHistorical(state, action) {
@@ -16,6 +16,6 @@ const ewaHistoricalSlice = createSlice({
   },
 });
 
-export const { resetEwaHistorical } = ewaHistoricalSlice.actions;
+export const {resetEwaHistorical} = ewaHistoricalSlice.actions;
 
 export default ewaHistoricalSlice.reducer;

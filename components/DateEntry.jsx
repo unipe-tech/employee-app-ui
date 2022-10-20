@@ -1,10 +1,10 @@
-import React, { useState, useRef, useEffect } from "react";
-import { Text, TextInput, View } from "react-native";
-import { form } from "../styles";
+import React, {useState, useRef, useEffect} from 'react';
+import {Text, TextInput, View} from 'react-native';
+import {form} from '../styles';
 export default DateEntry = (props) => {
-  const [year, setYear] = useState("");
-  const [month, setMonth] = useState("");
-  const [day, setDay] = useState("");
+  const [year, setYear] = useState('');
+  const [month, setMonth] = useState('');
+  const [day, setDay] = useState('');
   const months = useRef();
   const years = useRef();
 
@@ -27,7 +27,7 @@ export default DateEntry = (props) => {
   return (
     <>
       <Text style={form.formLabel}>{props.title}</Text>
-      <View style={{ flexDirection: "row" }}>
+      <View style={{flexDirection: 'row'}}>
         <TextInput
           style={form.year}
           maxLength={2}
@@ -48,8 +48,8 @@ export default DateEntry = (props) => {
           ref={months}
           placeholder="MM"
         />
-        <View style={{ width: 30, alignSelf: "center" }}>
-          <Text style={{ alignSelf: "center", fontSize: 30 }}>-</Text>
+        <View style={{width: 30, alignSelf: 'center'}}>
+          <Text style={{alignSelf: 'center', fontSize: 30}}>-</Text>
         </View>
         <TextInput
           style={form.monthday}

@@ -1,16 +1,15 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigation } from "@react-navigation/core";
-import { View } from "react-native";
-import { Button } from "@react-native-material/core";
-import { addVerifyMsg, addVerifyStatus } from "../../store/slices/panSlice";
-import { panBackendPush } from "../../helpers/BackendPush";
-import { bankform, form, styles } from "../../styles";
-import { COLORS, FONTS } from "../../constants/Theme";
-import CollapsibleCard from "../../components/CollapsibleCard";
-import FuzzyCheck from "../../components/FuzzyCheck";
-import Analytics from "appcenter-analytics";
-
+import {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {useNavigation} from '@react-navigation/core';
+import {View} from 'react-native';
+import {Button} from '@react-native-material/core';
+import {addVerifyMsg, addVerifyStatus} from '../../store/slices/panSlice';
+import {panBackendPush} from '../../helpers/BackendPush';
+import {bankform, form, styles} from '../../styles';
+import {COLORS, FONTS} from '../../constants/Theme';
+import CollapsibleCard from '../../components/CollapsibleCard';
+import FuzzyCheck from '../../components/FuzzyCheck';
+import Analytics from 'appcenter-analytics';
 
 const PanConfirmApi = (props) => {
   const dispatch = useDispatch();
@@ -52,13 +51,13 @@ const PanConfirmApi = (props) => {
 
   const cardData = () => {
     var res = [
-      { subTitle: "Number", value: number },
-      { subTitle: "Name", value: data?.name },
-      { subTitle: "Date of Birth", value: data?.date_of_birth },
-      { subTitle: "Gender", value: data?.gender },
+      {subTitle: 'Number', value: number},
+      {subTitle: 'Name', value: data?.name},
+      {subTitle: 'Date of Birth', value: data?.date_of_birth},
+      {subTitle: 'Gender', value: data?.gender},
     ];
-    if (data["email"]) {
-      res.push({ subTitle: "Email", value: data?.email });
+    if (data['email']) {
+      res.push({subTitle: 'Email', value: data?.email});
     }
     return res;
   };
@@ -73,36 +72,36 @@ const PanConfirmApi = (props) => {
 
       <View
         style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
           marginTop: 20,
         }}
       >
-        <FuzzyCheck name={data["name"]} step="PAN" />
+        <FuzzyCheck name={data['name']} step="PAN" />
         <Button
           title="No"
           type="solid"
           uppercase={false}
           style={form.noButton}
           color={COLORS.warning}
-          titleStyle={{ ...FONTS.h3, color: COLORS.warning }}
-          pressableContainerStyle={{ width: "100%" }}
-          contentContainerStyle={{ width: "100%", height: "100%" }}
+          titleStyle={{...FONTS.h3, color: COLORS.warning}}
+          pressableContainerStyle={{width: '100%'}}
+          contentContainerStyle={{width: '100%', height: '100%'}}
           onPress={() => {
-            setVerifyMsg("Rejected by User");
-            setVerifyStatus("ERROR");
-            Analytics.trackEvent("Pan|Confirm|Error", {
+            setVerifyMsg('Rejected by User');
+            setVerifyStatus('ERROR');
+            Analytics.trackEvent('Pan|Confirm|Error', {
               userId: id,
-              error: "Rejected by User",
+              error: 'Rejected by User',
             });
             setBackendPush(true);
             {
-              props?.route?.params?.type == "KYC"
-                ? navigation.navigate("KYC", {
-                    screen: "PAN",
+              props?.route?.params?.type == 'KYC'
+                ? navigation.navigate('KYC', {
+                    screen: 'PAN',
                   })
-                : navigation.navigate("PanForm");
+                : navigation.navigate('PanForm');
             }
           }}
         />
@@ -112,25 +111,25 @@ const PanConfirmApi = (props) => {
           uppercase={false}
           style={form.yesButton}
           color={COLORS.primary}
-          titleStyle={{ ...FONTS.h3, color: COLORS.primary }}
-          pressableContainerStyle={{ width: "100%" }}
-          contentContainerStyle={{ width: "100%", height: "100%" }}
+          titleStyle={{...FONTS.h3, color: COLORS.primary}}
+          pressableContainerStyle={{width: '100%'}}
+          contentContainerStyle={{width: '100%', height: '100%'}}
           onPress={() => {
-            setVerifyMsg("Confirmed by User");
-            Analytics.trackEvent("Pan|Confirm|Success", {
+            setVerifyMsg('Confirmed by User');
+            Analytics.trackEvent('Pan|Confirm|Success', {
               userId: id,
             });
-            setVerifyStatus("SUCCESS");
+            setVerifyStatus('SUCCESS');
             setBackendPush(true);
             {
-              props?.route?.params?.type == "KYC"
-                ? navigation.navigate("KYC", {
-                    screen: "PAN",
+              props?.route?.params?.type == 'KYC'
+                ? navigation.navigate('KYC', {
+                    screen: 'PAN',
                     params: {
-                      screen: "PAN Data",
+                      screen: 'PAN Data',
                     },
                   })
-                : navigation.navigate("BankForm");
+                : navigation.navigate('BankForm');
             }
           }}
         />

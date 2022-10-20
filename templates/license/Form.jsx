@@ -1,14 +1,14 @@
-import { useNavigation } from "@react-navigation/core";
-import { useEffect, useState } from "react";
-import { Text, View } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-import { KeyboardAvoidingWrapper } from "../../KeyboardAvoidingWrapper";
-import { bankform, form } from "../../styles";
-import Verify from "../../apis/license/Verify";
-import DateEntry from "../../components/DateEntry";
-import { addNumber } from "../../store/slices/licenseSlice";
-import FormInput from "../../components/atoms/FormInput";
-import InfoCard from "../../components/atoms/InfoCard";
+import {useNavigation} from '@react-navigation/core';
+import {useEffect, useState} from 'react';
+import {Text, View} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
+import {KeyboardAvoidingWrapper} from '../../KeyboardAvoidingWrapper';
+import {bankform, form} from '../../styles';
+import Verify from '../../apis/license/Verify';
+import DateEntry from '../../components/DateEntry';
+import {addNumber} from '../../store/slices/licenseSlice';
+import FormInput from '../../components/atoms/FormInput';
+import InfoCard from '../../components/atoms/InfoCard';
 
 const LicenseFormTemplate = () => {
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ const LicenseFormTemplate = () => {
   const [validNumber, setValidNumber] = useState(true);
 
   const licenseSlice = useSelector((state) => state.license);
-  const [dob, setDob] = useState("");
+  const [dob, setDob] = useState('');
   const [number, setNumber] = useState(licenseSlice?.number);
 
   useEffect(() => {
@@ -34,8 +34,8 @@ const LicenseFormTemplate = () => {
     <KeyboardAvoidingWrapper>
       <View>
         <FormInput
-          placeholder={"Enter License Number"}
-          containerStyle={{ marginVertical: 10 }}
+          placeholder={'Enter License Number'}
+          containerStyle={{marginVertical: 10}}
           value={number}
           onChange={setNumber}
           autoCapitalize="characters"
@@ -50,16 +50,16 @@ const LicenseFormTemplate = () => {
         />
         <InfoCard
           info={
-            "License is needed to verify your eligibility to operate heavy machinery."
+            'License is needed to verify your eligibility to operate heavy machinery.'
           }
         />
 
         <Verify
-          url={"https://api.gridlines.io/dl-api/fetch"}
+          url={'https://api.gridlines.io/dl-api/fetch'}
           data={{
             driving_license_number: number,
             date_of_birth: dob,
-            consent: "Y",
+            consent: 'Y',
           }}
           style={form.nextButton}
           disabled={!validNumber}

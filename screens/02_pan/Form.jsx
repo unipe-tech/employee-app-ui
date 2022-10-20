@@ -1,39 +1,39 @@
-import { useNavigation } from "@react-navigation/core";
-import { useEffect } from "react";
-import { Alert, SafeAreaView } from "react-native";
-import { useDispatch } from "react-redux";
-import ProgressBarTop from "../../navigators/ProgressBarTop";
-import { styles } from "../../styles";
+import {useNavigation} from '@react-navigation/core';
+import {useEffect} from 'react';
+import {Alert, SafeAreaView} from 'react-native';
+import {useDispatch} from 'react-redux';
+import ProgressBarTop from '../../navigators/ProgressBarTop';
+import {styles} from '../../styles';
 
-import { addCurrentScreen } from "../../store/slices/navigationSlice";
-import PanFormTemplate from "../../templates/pan/Form";
-import Header from "../../components/atoms/Header";
+import {addCurrentScreen} from '../../store/slices/navigationSlice';
+import PanFormTemplate from '../../templates/pan/Form';
+import Header from '../../components/atoms/Header';
 
 export default PanForm = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
   useEffect(() => {
-    dispatch(addCurrentScreen("PanForm"));
+    dispatch(addCurrentScreen('PanForm'));
   }, []);
 
   const SkipPAN = () => {
     Alert.alert(
-      "PAN KYC Required",
+      'PAN KYC Required',
       `If you want to receive advance salary, PAN KYC is required.`,
       [
-        { text: "No", onPress: () => null, style: "cancel" },
-        { text: "Yes", onPress: () => navigation.navigate("BankForm") },
-      ]
+        {text: 'No', onPress: () => null, style: 'cancel'},
+        {text: 'Yes', onPress: () => navigation.navigate('BankForm')},
+      ],
     );
   };
 
   return (
     <>
-      <SafeAreaView style={[styles.container, { padding: 0 }]}>
+      <SafeAreaView style={[styles.container, {padding: 0}]}>
         <Header
           title="PAN Verification"
-          onLeftIconPress={() => navigation.navigate("AadhaarConfirm")}
+          onLeftIconPress={() => navigation.navigate('AadhaarConfirm')}
           onRightIconPress={() => SkipPAN()}
         />
 

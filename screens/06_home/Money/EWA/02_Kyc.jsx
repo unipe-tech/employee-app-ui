@@ -1,15 +1,14 @@
-import { useNavigation } from "@react-navigation/core";
-import Analytics from "appcenter-analytics";
-import { useEffect, useState } from "react";
-import { Image, SafeAreaView, Text, View } from "react-native";
-import { getUniqueId } from "react-native-device-info";
-import { NetworkInfo } from "react-native-network-info";
-import { useSelector } from "react-redux";
-import Header from "../../../../components/atoms/Header";
-import PrimaryButton from "../../../../components/PrimaryButton";
-import { ewaKycPush } from "../../../../helpers/BackendPush";
-import { form, styles } from "../../../../styles";
-
+import {useNavigation} from '@react-navigation/core';
+import Analytics from 'appcenter-analytics';
+import {useEffect, useState} from 'react';
+import {Image, SafeAreaView, Text, View} from 'react-native';
+import {getUniqueId} from 'react-native-device-info';
+import {NetworkInfo} from 'react-native-network-info';
+import {useSelector} from 'react-redux';
+import Header from '../../../../components/atoms/Header';
+import PrimaryButton from '../../../../components/PrimaryButton';
+import {ewaKycPush} from '../../../../helpers/BackendPush';
+import {form, styles} from '../../../../styles';
 
 const KYC = () => {
   const navigation = useNavigation();
@@ -45,17 +44,17 @@ const KYC = () => {
       ewaKycPush({
         offerId: ewaLiveSlice?.offerId,
         unipeEmployeeId: unipeEmployeeId,
-        status: "INPROGRESS",
+        status: 'INPROGRESS',
         timestamp: Date.now(),
         ipAddress: ipAddress,
         deviceId: deviceId,
       })
         .then((response) => {
-          console.log("ewaKycPush response.data: ", response.data);
+          console.log('ewaKycPush response.data: ', response.data);
         })
         .catch((error) => {
-          console.log("ewaKycPush error: ", error);
-          Alert.alert("An Error occured", error);
+          console.log('ewaKycPush error: ', error);
+          Alert.alert('An Error occured', error);
         });
     }
   }, [fetched]);
@@ -65,23 +64,23 @@ const KYC = () => {
     ewaKycPush({
       offerId: ewaLiveSlice?.offerId,
       unipeEmployeeId: unipeEmployeeId,
-      status: "CONFIRMED",
+      status: 'CONFIRMED',
       timestamp: Date.now(),
       ipAddress: ipAddress,
       deviceId: deviceId,
     })
       .then((response) => {
-        console.log("ewaKycPush response.data: ", response.data);
-        Analytics.trackEvent("Ewa|Kyc|Success", {
+        console.log('ewaKycPush response.data: ', response.data);
+        Analytics.trackEvent('Ewa|Kyc|Success', {
           userId: unipeEmployeeId,
         });
         setLoading(false);
-        navigation.navigate("EWA_AGREEMENT");
+        navigation.navigate('EWA_AGREEMENT');
       })
       .catch((error) => {
-        console.log("ewaKycPush error: ", error);
-        Alert.alert("An Error occured", error);
-        Analytics.trackEvent("Ewa|Kyc|Error", {
+        console.log('ewaKycPush error: ', error);
+        Alert.alert('An Error occured', error);
+        Analytics.trackEvent('Ewa|Kyc|Error', {
           userId: unipeEmployeeId,
           error: error,
         });
@@ -90,18 +89,18 @@ const KYC = () => {
   }
 
   return (
-    <SafeAreaView style={[styles.container, { padding: 0 }]}>
+    <SafeAreaView style={[styles.container, {padding: 0}]}>
       <Header
         title="KYC"
-        onLeftIconPress={() => navigation.navigate("EWA_OFFER")}
+        onLeftIconPress={() => navigation.navigate('EWA_OFFER')}
       />
       <View style={styles.container}>
         <Text style={form.OtpAwaitMsg}>
-          Are these your AADHAAR details ?{"\n"}
+          Are these your AADHAAR details ?{'\n'}
         </Text>
         <Image
           source={{
-            uri: `data:image/jpeg;base64,${data["photo_base64"]}`,
+            uri: `data:image/jpeg;base64,${data['photo_base64']}`,
           }}
           style={form.aadharimg}
         />
@@ -111,7 +110,7 @@ const KYC = () => {
         <Text style={form.userData}>Gender: {data.gender}</Text>
         <Text style={form.userData}>Address: {data.address}</Text>
         <PrimaryButton
-          title={loading ? "Verifying" : "Continue"}
+          title={loading ? 'Verifying' : 'Continue'}
           disabled={loading}
           onPress={() => {
             handleKyc();

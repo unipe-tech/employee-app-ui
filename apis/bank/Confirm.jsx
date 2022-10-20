@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Text, View } from "react-native";
-import { Button } from "@react-native-material/core";
-import { useNavigation } from "@react-navigation/core";
-import { addVerifyMsg, addVerifyStatus } from "../../store/slices/bankSlice";
-import { bankBackendPush } from "../../helpers/BackendPush";
-import { bankform, form, styles } from "../../styles";
-import { COLORS, FONTS } from "../../constants/Theme";
-import CollapsibleCard from "../../components/CollapsibleCard";
-import FuzzyCheck from "../../components/FuzzyCheck";
-import Analytics from "appcenter-analytics";
+import {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {Text, View} from 'react-native';
+import {Button} from '@react-native-material/core';
+import {useNavigation} from '@react-navigation/core';
+import {addVerifyMsg, addVerifyStatus} from '../../store/slices/bankSlice';
+import {bankBackendPush} from '../../helpers/BackendPush';
+import {bankform, form, styles} from '../../styles';
+import {COLORS, FONTS} from '../../constants/Theme';
+import CollapsibleCard from '../../components/CollapsibleCard';
+import FuzzyCheck from '../../components/FuzzyCheck';
+import Analytics from 'appcenter-analytics';
 
 const BankConfirmApi = (props) => {
   const dispatch = useDispatch();
@@ -34,7 +34,7 @@ const BankConfirmApi = (props) => {
   }, [verifyStatus]);
 
   useEffect(() => {
-    console.log("BankConfirmApi bankSlice : ", bankSlice);
+    console.log('BankConfirmApi bankSlice : ', bankSlice);
     if (backendPush) {
       bankBackendPush({
         id: id,
@@ -49,13 +49,13 @@ const BankConfirmApi = (props) => {
 
   const cardData = () => {
     var res = [
-      { subTitle: "Bank Name", value: data?.bankName },
-      { subTitle: "Branch Name", value: data?.branchName },
-      { subTitle: "Branch City", value: data?.branchCity },
-      { subTitle: "AccountHolderName", value: data?.accountHolderName },
-      { subTitle: "AccountNumber", value: data?.accountNumber },
-      { subTitle: "IFSC", value: data?.ifsc },
-      { subTitle: "UPI", value: data?.upi },
+      {subTitle: 'Bank Name', value: data?.bankName},
+      {subTitle: 'Branch Name', value: data?.branchName},
+      {subTitle: 'Branch City', value: data?.branchCity},
+      {subTitle: 'AccountHolderName', value: data?.accountHolderName},
+      {subTitle: 'AccountNumber', value: data?.accountNumber},
+      {subTitle: 'IFSC', value: data?.ifsc},
+      {subTitle: 'UPI', value: data?.upi},
     ];
     return res;
   };
@@ -70,9 +70,9 @@ const BankConfirmApi = (props) => {
 
       <View
         style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
           marginTop: 20,
         }}
       >
@@ -82,26 +82,26 @@ const BankConfirmApi = (props) => {
           uppercase={false}
           style={form.noButton}
           color={COLORS.warning}
-          titleStyle={{ ...FONTS.h3, color: COLORS.warning }}
-          pressableContainerStyle={{ width: "100%" }}
-          contentContainerStyle={{ width: "100%", height: "100%" }}
+          titleStyle={{...FONTS.h3, color: COLORS.warning}}
+          pressableContainerStyle={{width: '100%'}}
+          contentContainerStyle={{width: '100%', height: '100%'}}
           onPress={() => {
-            setVerifyMsg("Rejected by User");
-            setVerifyStatus("ERROR");
+            setVerifyMsg('Rejected by User');
+            setVerifyStatus('ERROR');
             setBackendPush(true);
-            Analytics.trackEvent("Bank|Confirm|Error", {
+            Analytics.trackEvent('Bank|Confirm|Error', {
               userId: id,
-              error: "Rejected by User",
+              error: 'Rejected by User',
             });
             {
-              props?.route?.params?.type == "KYC"
-                ? navigation.navigate("KYC", {
-                    screen: "BANK",
+              props?.route?.params?.type == 'KYC'
+                ? navigation.navigate('KYC', {
+                    screen: 'BANK',
                     params: {
-                      screen: "Bank Data",
+                      screen: 'Bank Data',
                     },
                   })
-                : navigation.navigate("BankForm");
+                : navigation.navigate('BankForm');
             }
           }}
         />
@@ -112,22 +112,22 @@ const BankConfirmApi = (props) => {
           uppercase={false}
           style={form.yesButton}
           color={COLORS.primary}
-          titleStyle={{ ...FONTS.h3, color: COLORS.primary }}
-          pressableContainerStyle={{ width: "100%" }}
-          contentContainerStyle={{ width: "100%", height: "100%" }}
+          titleStyle={{...FONTS.h3, color: COLORS.primary}}
+          pressableContainerStyle={{width: '100%'}}
+          contentContainerStyle={{width: '100%', height: '100%'}}
           onPress={() => {
-            setVerifyMsg("Confirmed by User");
-            setVerifyStatus("SUCCESS");
+            setVerifyMsg('Confirmed by User');
+            setVerifyStatus('SUCCESS');
             setBackendPush(true);
-            Analytics.trackEvent("Bank|Confirm|Success", {
+            Analytics.trackEvent('Bank|Confirm|Success', {
               userId: id,
             });
             {
-              props?.route?.params?.type == "KYC"
-                ? navigation.navigate("KYC", {
-                    screen: "BANK",
+              props?.route?.params?.type == 'KYC'
+                ? navigation.navigate('KYC', {
+                    screen: 'BANK',
                   })
-                : navigation.navigate("Mandate");
+                : navigation.navigate('Mandate');
             }
           }}
         />

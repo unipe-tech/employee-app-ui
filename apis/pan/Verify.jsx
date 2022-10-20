@@ -1,18 +1,18 @@
-import { OG_API_KEY } from "@env";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Alert } from "react-native";
-import { useNavigation } from "@react-navigation/core";
+import {OG_API_KEY} from '@env';
+import {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {Alert} from 'react-native';
+import {useNavigation} from '@react-navigation/core';
 import {
   addData,
   addVerifyMsg,
   addVerifyStatus,
   addVerifyTimestamp,
-} from "../../store/slices/panSlice";
-import { KYC_PAN_VERIFY_API_URL } from "../../services/employees/endpoints";
-import { panBackendPush } from "../../helpers/BackendPush";
-import ApiView from "../ApiView";
-import Analytics from "appcenter-analytics";
+} from '../../store/slices/panSlice';
+import {KYC_PAN_VERIFY_API_URL} from '../../services/employees/endpoints';
+import {panBackendPush} from '../../helpers/BackendPush';
+import ApiView from '../ApiView';
+import Analytics from 'appcenter-analytics';
 
 const PanVerifyApi = (props) => {
   const dispatch = useDispatch();
@@ -27,7 +27,7 @@ const PanVerifyApi = (props) => {
   const [verifyMsg, setVerifyMsg] = useState(panSlice?.verifyMsg);
   const [verifyStatus, setVerifyStatus] = useState(panSlice?.verifyStatus);
   const [verifyTimestamp, setVerifyTimestamp] = useState(
-    panSlice?.verifyTimestamp
+    panSlice?.verifyTimestamp,
   );
 
   useEffect(() => {
@@ -47,7 +47,7 @@ const PanVerifyApi = (props) => {
   }, [verifyTimestamp]);
 
   useEffect(() => {
-    console.log("PanVerifyApi panSlice: ", panSlice);
+    console.log('PanVerifyApi panSlice: ', panSlice);
     if (backendPush) {
       panBackendPush({
         id: id,
@@ -65,11 +65,11 @@ const PanVerifyApi = (props) => {
   const goForFetch = () => {
     setLoading(true);
     const options = {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "X-Auth-Type": "API-Key",
-        "X-API-Key": OG_API_KEY,
-        "Content-Type": "application/json",
+        'X-Auth-Type': 'API-Key',
+        'X-API-Key': OG_API_KEY,
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(props.data),
     };
@@ -78,84 +78,85 @@ const PanVerifyApi = (props) => {
       .then((response) => response.json())
       .then((responseJson) => {
         try {
-          if (responseJson["status"] == "200") {
-            switch (responseJson["data"]["code"]) {
-              case "1000":
-                const names = ["first", "middle", "last"];
-                responseJson["data"]["pan_data"]["name"] = names
-                  .filter(k => responseJson["data"]["pan_data"][`${k}_name`])
-                  .map((k) => responseJson["data"]["pan_data"][`${k}_name`]).join(" ");
-                console.log("PAN fetched data: ", responseJson);
-                setData(responseJson["data"]["pan_data"]);
-                setVerifyMsg("To be confirmed by User");
-                setVerifyStatus("PENDING");
-                setVerifyTimestamp(responseJson["timestamp"]);
-                Analytics.trackEvent("Pan|Verify|Success", {
+          if (responseJson['status'] == '200') {
+            switch (responseJson['data']['code']) {
+              case '1000':
+                const names = ['first', 'middle', 'last'];
+                responseJson['data']['pan_data']['name'] = names
+                  .filter((k) => responseJson['data']['pan_data'][`${k}_name`])
+                  .map((k) => responseJson['data']['pan_data'][`${k}_name`])
+                  .join(' ');
+                console.log('PAN fetched data: ', responseJson);
+                setData(responseJson['data']['pan_data']);
+                setVerifyMsg('To be confirmed by User');
+                setVerifyStatus('PENDING');
+                setVerifyTimestamp(responseJson['timestamp']);
+                Analytics.trackEvent('Pan|Verify|Success', {
                   userId: id,
                 });
                 setBackendPush(true);
                 {
-                  props.type == "KYC"
-                    ? navigation.navigate("KYC", {
-                        screen: "PAN",
+                  props.type == 'KYC'
+                    ? navigation.navigate('KYC', {
+                        screen: 'PAN',
                         params: {
-                          screen: "Confirm",
+                          screen: 'Confirm',
                         },
                       })
-                    : navigation.navigate("PanConfirm");
+                    : navigation.navigate('PanConfirm');
                 }
                 break;
               default:
-                setVerifyMsg(responseJson["data"]["message"]);
-                Analytics.trackEvent("Pan|Verify|Error", {
+                setVerifyMsg(responseJson['data']['message']);
+                Analytics.trackEvent('Pan|Verify|Error', {
                   userId: id,
-                  error: responseJson["data"]["message"],
+                  error: responseJson['data']['message'],
                 });
-                setVerifyStatus("ERROR");
+                setVerifyStatus('ERROR');
                 setBackendPush(true);
-                Alert.alert("Error", responseJson["data"]["message"]);
+                Alert.alert('Error', responseJson['data']['message']);
             }
           } else if (responseJson?.error?.message) {
-            setVerifyMsg(responseJson["error"]["message"]);
-            Analytics.trackEvent("Pan|Verify|Error", {
+            setVerifyMsg(responseJson['error']['message']);
+            Analytics.trackEvent('Pan|Verify|Error', {
               userId: id,
-              error: responseJson["error"]["message"],
+              error: responseJson['error']['message'],
             });
-            setVerifyStatus("ERROR");
+            setVerifyStatus('ERROR');
             setBackendPush(true);
-            Alert.alert("Error", responseJson["error"]["message"]);
+            Alert.alert('Error', responseJson['error']['message']);
           } else {
-            setVerifyMsg(responseJson["message"]);
-            Analytics.trackEvent("Pan|Verify|Error", {
+            setVerifyMsg(responseJson['message']);
+            Analytics.trackEvent('Pan|Verify|Error', {
               userId: id,
-              error: responseJson["message"],
+              error: responseJson['message'],
             });
-            setVerifyStatus("ERROR");
+            setVerifyStatus('ERROR');
             setBackendPush(true);
-            Alert.alert("Error", responseJson["message"]);
+            Alert.alert('Error', responseJson['message']);
           }
         } catch (error) {
-          console.log("Error: ", error);
+          console.log('Error: ', error);
           setVerifyMsg(error);
-          Analytics.trackEvent("Pan|Verify|Error", {
+          Analytics.trackEvent('Pan|Verify|Error', {
             userId: id,
             error: error,
           });
-          setVerifyStatus("ERROR");
+          setVerifyStatus('ERROR');
           setBackendPush(true);
-          Alert.alert("Error", error);
+          Alert.alert('Error', error);
         }
       })
       .catch((error) => {
-        console.log("Error: ", error);
+        console.log('Error: ', error);
         setVerifyMsg(error);
-        Analytics.trackEvent("Pan|Verify|Error", {
+        Analytics.trackEvent('Pan|Verify|Error', {
           userId: id,
           error: error,
         });
-        setVerifyStatus("ERROR");
+        setVerifyStatus('ERROR');
         setBackendPush(true);
-        Alert.alert("Error", error);
+        Alert.alert('Error', error);
       });
   };
 

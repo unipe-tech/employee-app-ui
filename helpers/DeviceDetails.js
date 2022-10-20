@@ -1,5 +1,5 @@
-import { getUniqueId } from "react-native-device-info";
-import { NetworkInfo } from "react-native-network-info";
+import {getUniqueId} from 'react-native-device-info';
+import {NetworkInfo} from 'react-native-network-info';
 
 const DeviceId = () => {
   let deviceId = 0;

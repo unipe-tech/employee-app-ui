@@ -1,14 +1,14 @@
-import { useNavigation } from "@react-navigation/core";
-import React, { useEffect, useState } from "react";
-import { ScrollView, Text, View } from "react-native";
-import { getUniqueId } from "react-native-device-info";
-import { NetworkInfo } from "react-native-network-info";
-import Icon1 from "react-native-vector-icons/MaterialCommunityIcons";
-import { useDispatch, useSelector } from "react-redux";
-import CollapsibleCard from "../../components/CollapsibleCard";
-import PrimaryButton from "../../components/PrimaryButton";
-import { mandatePush } from "../../helpers/BackendPush";
-import { KeyboardAvoidingWrapper } from "../../KeyboardAvoidingWrapper";
+import {useNavigation} from '@react-navigation/core';
+import React, {useEffect, useState} from 'react';
+import {ScrollView, Text, View} from 'react-native';
+import {getUniqueId} from 'react-native-device-info';
+import {NetworkInfo} from 'react-native-network-info';
+import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
+import {useDispatch, useSelector} from 'react-redux';
+import CollapsibleCard from '../../components/CollapsibleCard';
+import PrimaryButton from '../../components/PrimaryButton';
+import {mandatePush} from '../../helpers/BackendPush';
+import {KeyboardAvoidingWrapper} from '../../KeyboardAvoidingWrapper';
 import {
   addType,
   addVerifyMsg,
@@ -16,43 +16,42 @@ import {
   addOrderId,
   addCustomerId,
   addVerifyTimestamp,
-} from "../../store/slices/mandateSlice";
-import { bankform } from "../../styles";
-import { showToast } from "../../components/Toast";
-import RazorpayCheckout from "react-native-razorpay";
+} from '../../store/slices/mandateSlice';
+import {bankform} from '../../styles';
+import {showToast} from '../../components/Toast';
+import RazorpayCheckout from 'react-native-razorpay';
 import {
   createCustomer,
   createNetBankingOrder,
   createUpiOrder,
   createDebitOrder,
   getToken,
-} from "../../services/mandate/Razorpay/services";
-import { RZP_TEST_KEY_ID } from "@env";
-import FormInput from "../../components/atoms/FormInput";
-import { COLORS } from "../../constants/Theme";
-import Analytics from "appcenter-analytics";
+} from '../../services/mandate/Razorpay/services';
+import {RZP_TEST_KEY_ID} from '@env';
+import FormInput from '../../components/atoms/FormInput';
+import {COLORS} from '../../constants/Theme';
+import Analytics from 'appcenter-analytics';
 
 const Form = (props) => {
-
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
   const [deviceId, setDeviceId] = useState(0);
   const [ipAddress, setIpAdress] = useState(0);
-  
+
   const employeeId = useSelector((state) => state.auth.id);
   const mandateSlice = useSelector((state) => state.mandate);
   const bankVerifyStatus = useSelector((state) => state.bank.verifyStatus);
   const [timestamp, setTimestamp] = useState(mandateSlice?.verifyTimestamp);
 
   const [name, setName] = useState(
-    useSelector((state) => state.bank.data.accountHolderName)
+    useSelector((state) => state.bank.data.accountHolderName),
   );
   const [number, setNumber] = useState(
-    useSelector((state) => state.bank.data.accountNumber)
+    useSelector((state) => state.bank.data.accountNumber),
   );
   const [ifsc, setIfsc] = useState(
-    useSelector((state) => state.bank.data.ifsc)
+    useSelector((state) => state.bank.data.ifsc),
   );
   const [verifyStatus, setVerifyStatus] = useState(mandateSlice?.verifyStatus);
   const [verifyMsg, setVerifyMsg] = useState(mandateSlice?.verifyMsg);
@@ -62,7 +61,7 @@ const Form = (props) => {
   const [orderId, setOrderId] = useState(mandateSlice?.orderId);
   const [customerId, setCustomerId] = useState(mandateSlice?.customerId);
   const email = useSelector(
-    (state) => state.pan.data.email || state.profile.email
+    (state) => state.pan.data.email || state.profile.email,
   );
   const phoneNumber = useSelector((state) => state.auth.phoneNumber);
 
@@ -102,7 +101,7 @@ const Form = (props) => {
   useEffect(() => {
     setTimestamp(Date.now());
     if (backendPush) {
-      console.log("Mandate Slice", mandateSlice);
+      console.log('Mandate Slice', mandateSlice);
       mandatePush({
         unipeEmployeeId: employeeId,
         ipAddress: ipAddress,
@@ -124,14 +123,14 @@ const Form = (props) => {
         phoneNumber: phoneNumber,
       })
         .then((res) => {
-          console.log("createCustomer", res.data);
+          console.log('createCustomer', res.data);
           setCustomerId(res.data.id);
-          Analytics.trackEvent("Mandate|CreateCustomer|Success", {
+          Analytics.trackEvent('Mandate|CreateCustomer|Success', {
             userId: employeeId,
           });
         })
         .catch(function (error) {
-          Analytics.trackEvent("Mandate|CreateCustomer|Error", {
+          Analytics.trackEvent('Mandate|CreateCustomer|Error', {
             userId: employeeId,
             error: error,
           });
@@ -143,26 +142,26 @@ const Form = (props) => {
   useEffect(() => {
     if (orderId) {
       var options = {
-        description: "Unipe Mandate Verification",
-        name: "Unipe",
+        description: 'Unipe Mandate Verification',
+        name: 'Unipe',
         key: RZP_TEST_KEY_ID,
         order_id: orderId,
         customer_id: customerId,
-        recurring: "1",
+        recurring: '1',
         prefill: {
           name: name,
           email: email,
           contact: phoneNumber,
         },
-        theme: { color: COLORS.primary },
+        theme: {color: COLORS.primary},
       };
 
       RazorpayCheckout.open(options)
         .then((data) => {
-          getToken({ paymentId: data.razorpay_payment_id })
+          getToken({paymentId: data.razorpay_payment_id})
             .then((token) => {
               // TODO: check response status code
-              console.log("getToken", token.data);
+              console.log('getToken', token.data);
               setData({
                 type: type,
                 extTokenId: token.data.token_id,
@@ -171,18 +170,18 @@ const Form = (props) => {
                 extPaymentSignature: data.razorpay_signature,
                 extCustomerId: customerId,
               });
-              setVerifyMsg("");
-              setVerifyStatus("SUCCESS");
+              setVerifyMsg('');
+              setVerifyStatus('SUCCESS');
               setBackendPush(true);
-              Analytics.trackEvent("Mandate|GetToken|Success", {
+              Analytics.trackEvent('Mandate|GetToken|Success', {
                 userId: employeeId,
               });
-              showToast("Mandate Verified Successfully");
-              props?.type == "Onboarding" ? navigation.navigate("Home") : null;
+              showToast('Mandate Verified Successfully');
+              props?.type == 'Onboarding' ? navigation.navigate('Home') : null;
             })
             .catch((error) => {
               console.log(error);
-              Analytics.trackEvent("Mandate|GetToken|Error", {
+              Analytics.trackEvent('Mandate|GetToken|Error', {
                 userId: employeeId,
                 error: error.description,
               });
@@ -192,13 +191,13 @@ const Form = (props) => {
           console.log(error);
           alert(`Error: ${error.code} | ${error.description}`);
           setVerifyMsg(error.description);
-          Analytics.trackEvent("Mandate|Register|Error", {
+          Analytics.trackEvent('Mandate|Register|Error', {
             userId: employeeId,
             error: error.description,
           });
-          setVerifyStatus("ERROR");
+          setVerifyStatus('ERROR');
           setBackendPush(true);
-          setOrderId("");
+          setOrderId('');
         });
     }
   }, [orderId]);
@@ -221,15 +220,15 @@ const Form = (props) => {
         title="Proceed"
         onPress={() => {
           setType(type);
-          setVerifyStatus("PENDING");
-          setVerifyMsg("To be confirmed by user");
+          setVerifyStatus('PENDING');
+          setVerifyMsg('To be confirmed by user');
           setTimestamp(Date.now());
           Analytics.trackEvent(`Mandate|${type}|Pending`, {
             userId: employeeId,
           });
           setBackendPush(true);
           let func = 0;
-          type === "NETBANKING"
+          type === 'NETBANKING'
             ? (func = createNetBankingOrder)
             : (func = createDebitOrder);
           func({
@@ -257,10 +256,10 @@ const Form = (props) => {
     );
   };
   const NetBankbutton = () => {
-    return BankingButton("NETBANKING");
+    return BankingButton('NETBANKING');
   };
   const Debitbutton = () => {
-    return BankingButton("DEBITCARD");
+    return BankingButton('DEBITCARD');
   };
 
   const Upibutton = () => {
@@ -268,17 +267,18 @@ const Form = (props) => {
       <PrimaryButton
         title="Proceed"
         onPress={() => {
-          setType("UPI");
-          setVerifyStatus("PENDING");
-          setVerifyMsg("To be confirmed by user");
+          setType('UPI');
+          setVerifyStatus('PENDING');
+          setVerifyMsg('To be confirmed by user');
           Analytics.trackEvent(`Mandate|${type}|Pending`, {
             userId: employeeId,
           });
           setTimestamp(Date.now());
-          setBackendPush(true);s
-          createUpiOrder({ customerId: customerId })
+          setBackendPush(true);
+          s;
+          createUpiOrder({customerId: customerId})
             .then((res) => {
-              console.log("UPI", res.data);
+              console.log('UPI', res.data);
               setOrderId(res.data.id);
               Analytics.trackEvent(`Mandate|${type}|Success`, {
                 userId: employeeId,
@@ -298,17 +298,17 @@ const Form = (props) => {
 
   return (
     <KeyboardAvoidingWrapper>
-      {bankVerifyStatus === "PENDING" ? (
-        <View style={{ alignSelf: "center", marginTop: "20%" }}>
-          <Text style={{ fontSize: 20, alignSelf: "center" }}>
+      {bankVerifyStatus === 'PENDING' ? (
+        <View style={{alignSelf: 'center', marginTop: '20%'}}>
+          <Text style={{fontSize: 20, alignSelf: 'center'}}>
             Verifying Bank Details is a requirement to register Mandate
           </Text>
         </View>
       ) : (
         <ScrollView>
           <FormInput
-            placeholder={"Account Holder Name"}
-            containerStyle={{ marginVertical: 10 }}
+            placeholder={'Account Holder Name'}
+            containerStyle={{marginVertical: 10}}
             autoCapitalize="words"
             value={name}
             onChange={setName}
@@ -316,8 +316,8 @@ const Form = (props) => {
             required
           />
           <FormInput
-            placeholder={"Bank Account Number"}
-            containerStyle={{ marginVertical: 10 }}
+            placeholder={'Bank Account Number'}
+            containerStyle={{marginVertical: 10}}
             autoCapitalize="words"
             value={number}
             onChange={setNumber}
@@ -325,8 +325,8 @@ const Form = (props) => {
             required
           />
           <FormInput
-            placeholder={"IFSC"}
-            containerStyle={{ marginVertical: 10 }}
+            placeholder={'IFSC'}
+            containerStyle={{marginVertical: 10}}
             autoCapitalize="words"
             value={ifsc}
             onChange={setIfsc}

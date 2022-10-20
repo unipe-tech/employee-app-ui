@@ -1,10 +1,6 @@
-import {
-  ActivityIndicator,
-  StyleSheet,
-  TouchableOpacity
-} from "react-native";
-import { Button } from "@react-native-material/core";
-import { COLORS, FONTS } from "../constants/Theme";
+import {ActivityIndicator, StyleSheet, TouchableOpacity} from 'react-native';
+import {Button} from '@react-native-material/core';
+import {COLORS, FONTS} from '../constants/Theme';
 
 /**
  *
@@ -32,14 +28,14 @@ const PrimaryButton = ({
     <Button
       uppercase={false}
       title={title}
-      titleStyle={[styles.btnText, { ...titleStyle }]}
+      titleStyle={[styles.btnText, {...titleStyle}]}
       type="solid"
-      style={[styles.button, { ...containerStyle }]}
+      style={[styles.button, {...containerStyle}]}
       disabled={disabled}
       onPress={onPress}
       color={disabled ? COLORS.gray : COLORS.primary}
-      pressableContainerStyle={{ width: "100%" }}
-      contentContainerStyle={{ width: "100%", height: "100%" }}
+      pressableContainerStyle={{width: '100%'}}
+      contentContainerStyle={{width: '100%', height: '100%'}}
     />
   ) : (
     <TouchableOpacity style={[styles.button, styles.loadingButton]} disabled>
@@ -50,11 +46,11 @@ const PrimaryButton = ({
 
 const styles = StyleSheet.create({
   button: {
-    alignSelf: "center",
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: "5%",
-    width: "100%",
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: '5%',
+    width: '100%',
     height: 50,
   },
   loadingButton: {
