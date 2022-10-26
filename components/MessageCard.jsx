@@ -3,18 +3,19 @@ import { useNavigation } from "@react-navigation/core";
 
 import { card } from "../styles";
 
-const MessageCard = (props) => {
+const MessageCard = ({title, message}) => {
 
   const navigation = useNavigation();
   
   return (
     <View style={card.alertCard}>
         <Text style={card.infoText}>
-          {props.title}
+          {title}
           {"\n \n"}
         </Text>
-        {props.message.map((item, index) =>
+        {message.map((item, index) =>
           item != null ? (
+            // eslint-disable-next-line react/no-array-index-key
             <TouchableOpacity key={index} style={{borderRadius:10,width:"100%",borderWidth:0.5,marginTop:10}}>
               <Text
                 style={card.alertText}

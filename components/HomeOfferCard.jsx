@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { SafeAreaView, Text, TouchableOpacity } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { useIsFocused, useNavigation } from "@react-navigation/core";
@@ -13,7 +13,7 @@ const HomeOfferCard = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const isFocused = useIsFocused();
-  const [id, setId] = useState(useSelector((state) => state.auth.id));
+  const [id] = useState(useSelector((state) => state.auth.id));
   const ewaLiveSlice = useSelector((state) => state.ewaLive);
 
   useEffect(() => {
@@ -31,7 +31,7 @@ const HomeOfferCard = () => {
           console.log("ewaOffersFetch error: ", error);
         });
     }
-  }, [isFocused, id]);
+  }, [isFocused, id, dispatch]);
 
   return (
     <SafeAreaView>

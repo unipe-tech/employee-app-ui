@@ -28,10 +28,10 @@ import {
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { resetTimer } from "../../store/slices/timerSlice";
 import { styles } from "../../styles";
-import privacyPolicy from "../../templates/docs/PrivacyPolicy.js";
-import termsOfUse from "../../templates/docs/TermsOfUse.js";
+import privacyPolicy from "../../templates/docs/PrivacyPolicy";
+import termsOfUse from "../../templates/docs/TermsOfUse";
 
-export default LoginScreen = () => {
+const LoginScreen = () => {
   SplashScreen.hide();
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -48,23 +48,23 @@ export default LoginScreen = () => {
   const [isTermsOfUseModalVisible, setIsTermsOfUseModalVisible] =
     useState(false);
 
-  let phone_number = "";
+  let phoneNum = "";
 
   useEffect(() => {
     dispatch(addCurrentScreen("Login"));
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(addId(id));
-  }, [id]);
+  }, [dispatch, id]);
 
   useEffect(() => {
     dispatch(addOnboarded(onboarded));
-  }, [onboarded]);
+  }, [dispatch, onboarded]);
 
   useEffect(() => {
     dispatch(addPhoneNumber(phoneNumber));
-  }, [phoneNumber]);
+  }, [dispatch, phoneNumber]);
 
   useEffect(() => {
     const phoneno = /^[0-9]{10}$/gm;
@@ -79,8 +79,8 @@ export default LoginScreen = () => {
 
   const onPhoneNumberPressed = async () => {
     try {
-      phone_number = await SmsRetriever.requestPhoneNumber();
-      setPhoneNumber(phone_number.replace("+91", ""));
+      phoneNum = await SmsRetriever.requestPhoneNumber();
+      setPhoneNumber(phoneNum.replace("+91", ""));
     } catch (error) {
       console.log(JSON.stringify(error));
     }
@@ -88,6 +88,7 @@ export default LoginScreen = () => {
 
   useEffect(() => {
     onPhoneNumberPressed();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const signIn = () => {
@@ -293,3 +294,5 @@ export default LoginScreen = () => {
     </SafeAreaView>
   );
 };
+
+export default LoginScreen;

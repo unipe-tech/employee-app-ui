@@ -21,6 +21,26 @@ import { COLORS, FONTS } from "../constants/Theme";
  * @param otherProps -> used for defining other props to the Button
  */
 
+ const styles = StyleSheet.create({
+  button: {
+    alignSelf: "center",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 30,
+    // width: "100%",
+    height: 50,
+  },
+  loadingButton: {
+    backgroundColor: COLORS.primary,
+    padding: 10,
+    borderRadius: 5,
+  },
+  btnText: {
+    color: COLORS.white,
+    ...FONTS.h3,
+  },
+});
+
 const PrimaryButton = ({
   containerStyle,
   disabled,
@@ -47,24 +67,6 @@ const PrimaryButton = ({
     </TouchableOpacity>
   );
 
-const styles = StyleSheet.create({
-  button: {
-    alignSelf: "center",
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 30,
-    // width: "100%",
-    height: 50,
-  },
-  loadingButton: {
-    backgroundColor: COLORS.primary,
-    padding: 10,
-    borderRadius: 5,
-  },
-  btnText: {
-    color: COLORS.white,
-    ...FONTS.h3,
-  },
-});
+
 
 export default PrimaryButton;

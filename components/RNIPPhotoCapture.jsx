@@ -6,7 +6,7 @@ import Analytics from "appcenter-analytics";
 import { addPhoto } from "../store/slices/profileSlice";
 import { selfie } from "../styles";
 
-export default RNIPPhotoCapture = () => {
+const RNIPPhotoCapture = () => {
   const dispatch = useDispatch();
   const id = useSelector((state) => state.auth.id);
   const openCamera = () => {
@@ -49,3 +49,5 @@ export default RNIPPhotoCapture = () => {
     />
   );
 };
+
+export default RNIPPhotoCapture

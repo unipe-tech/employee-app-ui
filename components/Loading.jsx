@@ -1,6 +1,14 @@
-import React from "react";
 import { ActivityIndicator, StyleSheet,View } from "react-native";
 import Modal from "react-native-modal";
+
+const styles = StyleSheet.create(() => ({
+  cont: {
+    backgroundColor: "white",
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+}));
 
 const LoadingComponent = ({ loaderColor }) => (
     <View style={styles.cont}>
@@ -38,11 +46,4 @@ const Loading = ({
 
 export default Loading;
 
-const styles = StyleSheet.create(() => ({
-  cont: {
-    backgroundColor: "white",
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-}));
+

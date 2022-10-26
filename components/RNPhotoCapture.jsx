@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 // import { RNCamera } from "react-native-camera";
 import { useDispatch } from "react-redux";
@@ -16,16 +16,16 @@ const PendingView = () => (
   </View>
 );
 
-export default function RNPhotoCapture(props) {
+ const RNPhotoCapture = (props) => {
   const navigation = useNavigation();
   const [id, setId] = useState(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(addSelfie(id));
-  }, [id]);
+  }, [dispatch, id]);
 
-  takePicture = async function (camera) {
+  const takePicture = async (camera) => {
     const options = { quality: 0.5, base64: true };
     const data = await camera.takePictureAsync(options);
     const base64image = await RNFS.readFile(data.uri, "base64");
@@ -52,7 +52,7 @@ export default function RNPhotoCapture(props) {
           buttonNegative: "Cancel",
         }}
       >
-        {({ camera, status, recordAudioPermissionStatus }) => {
+        {({ camera, status }) => {
           if (status !== "READY") return <PendingView />;
           return (
             <View style={Camera.buttons}>
@@ -75,3 +75,5 @@ export default function RNPhotoCapture(props) {
     </View>
   );
 }
+
+export default RNPhotoCapture
