@@ -1,6 +1,7 @@
 import React from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
 import { COLORS } from "../constants/Theme";
 
 export default BottomTabNav = (props) => {
@@ -33,15 +34,13 @@ export default BottomTabNav = (props) => {
         tabBarInactiveTintColor: "#4E4E4F",
       })}
     >
-      {props.tabs.map((tab, index) => {
-        return (
+      {props.tabs.map((tab, index) => (
           <bottomTab.Screen
             key={index}
             name={tab.name}
             component={tab.component}
           />
-        );
-      })}
+        ))}
     </bottomTab.Navigator>
   );
 };

@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+
 import { COLORS, FONTS, SIZES } from "./constants/Theme";
 
 export const styles = StyleSheet.create({
@@ -536,7 +537,7 @@ export const ewa = StyleSheet.create({
   successImg: {
     alignSelf: "center",
     height: "43%",
-    //width: "100%",
+    // width: "100%",
     margin: -15,
     marginBottom: 5,
   },

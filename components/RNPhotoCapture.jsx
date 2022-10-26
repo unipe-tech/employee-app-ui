@@ -1,13 +1,14 @@
-import { Icon } from "@react-native-material/core";
-import { useNavigation } from "@react-navigation/core";
 import React, { useEffect, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 // import { RNCamera } from "react-native-camera";
-const RNFS = require("react-native-fs");
-
 import { useDispatch } from "react-redux";
+import { Icon } from "@react-native-material/core";
+import { useNavigation } from "@react-navigation/core";
+
 import { addSelfie } from "../store/slices/profileSlice";
 import { Camera } from "../styles";
+
+const RNFS = require("react-native-fs");
 
 const PendingView = () => (
   <View style={Camera.wait}>

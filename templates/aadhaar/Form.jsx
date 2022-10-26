@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { SafeAreaView, Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { KeyboardAvoidingWrapper } from "../../KeyboardAvoidingWrapper";
-import { bankform, styles } from "../../styles";
+
 import AadhaarOtpApi from "../../apis/aadhaar/Otp";
-import { addNumber } from "../../store/slices/aadhaarSlice";
-import InfoCard from "../../components/atoms/InfoCard";
-import FormInput from "../../components/atoms/FormInput";
 import Checkbox from "../../components/atoms/Checkbox";
+import FormInput from "../../components/atoms/FormInput";
+import InfoCard from "../../components/atoms/InfoCard";
+import { KeyboardAvoidingWrapper } from "../../KeyboardAvoidingWrapper";
+import { addNumber } from "../../store/slices/aadhaarSlice";
+import { bankform, styles } from "../../styles";
 
 const AadhaarFormTemplate = (props) => {
   const dispatch = useDispatch();
@@ -19,7 +20,7 @@ const AadhaarFormTemplate = (props) => {
   const [number, setNumber] = useState(aadhaarSlice?.number);
 
   useEffect(() => {
-    var aadhaarReg = /^[0-9]{12}$/gm;
+    const aadhaarReg = /^[0-9]{12}$/gm;
     if (aadhaarReg.test(number)) {
       dispatch(addNumber(number));
       setValidNumber(true);
@@ -34,10 +35,10 @@ const AadhaarFormTemplate = (props) => {
         <View style={[styles.container, { padding: 0 }]}>
           {/* <Text style={form.formHeader}>Aadhaar Verification</Text> */}
           <FormInput
-            placeholder={"Enter AADHAAR Number"}
+            placeholder="Enter AADHAAR Number"
             containerStyle={{ marginVertical: 10 }}
             keyboardType="phone-pad"
-            autoFocus={true}
+            autoFocus
             value={number}
             onChange={setNumber}
             maxLength={12}
@@ -49,15 +50,11 @@ const AadhaarFormTemplate = (props) => {
           ) : null}
 
           <InfoCard
-            info={
-              "My Mobile number is linked to my Aadhar card & I can receive the OTP on my Aadhar Linked Mobile Number"
-            }
+            info="My Mobile number is linked to my Aadhar card & I can receive the OTP on my Aadhar Linked Mobile Number"
           />
 
           <Checkbox
-            text={
-              "I agree with the KYC registration Terms and Conditions to verifiy my identity."
-            }
+            text="I agree with the KYC registration Terms and Conditions to verifiy my identity."
             value={consent}
             setValue={setConsent}
           />

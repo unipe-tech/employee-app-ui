@@ -1,23 +1,24 @@
-import { useNavigation } from "@react-navigation/core";
 import { useEffect, useState } from "react";
 import { SafeAreaView, Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/core";
+import Analytics from "appcenter-analytics";
+
+import FormInput from "../../components/atoms/FormInput";
+import Header from "../../components/atoms/Header";
+import DropDownForm from "../../components/molecules/DropDownForm";
+import PrimaryButton from "../../components/PrimaryButton";
+import { KeyboardAvoidingWrapper } from "../../KeyboardAvoidingWrapper";
 import ProgressBarTop from "../../navigators/ProgressBarTop";
+import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import {
   addAltMobile,
-  addQualification,
   addEmail,
-  addMotherName,
   addMaritalStatus,
+  addMotherName,
+  addQualification,
 } from "../../store/slices/profileSlice";
-import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { form, styles } from "../../styles";
-import { KeyboardAvoidingWrapper } from "../../KeyboardAvoidingWrapper";
-import PrimaryButton from "../../components/PrimaryButton";
-import FormInput from "../../components/atoms/FormInput";
-import DropDownForm from "../../components/molecules/DropDownForm";
-import Analytics from "appcenter-analytics";
-import Header from "../../components/atoms/Header";
 
 const PersonalDetailsForm = () => {
   const dispatch = useDispatch();
@@ -79,8 +80,7 @@ const PersonalDetailsForm = () => {
   const maritalStatuses = ["Unmarried", "Married"];
 
   return (
-    <>
-      <SafeAreaView style={[styles.container, { padding: 0 }]}>
+    <SafeAreaView style={[styles.container, { padding: 0 }]}>
         <Header
           title="Setup Profile"
           onLeftIconPress={() => navigation.navigate("Login")}
@@ -91,14 +91,14 @@ const PersonalDetailsForm = () => {
         <KeyboardAvoidingWrapper>
           <View>
             <DropDownForm
-              placeholder={"Select Education*"}
+              placeholder="Select Education*"
               containerStyle={{ marginVertical: 10 }}
               value={qualification}
               setValue={setQualification}
               data={qualifications}
             />
             <DropDownForm
-              placeholder={"Select Maritial Status*"}
+              placeholder="Select Maritial Status*"
               containerStyle={{ marginVertical: 10 }}
               value={maritalStatus}
               setValue={setMaritalStatus}
@@ -111,7 +111,7 @@ const PersonalDetailsForm = () => {
               onChange={setMotherName}
             />
             <FormInput
-              placeholder={"Alternate Phone Number"}
+              placeholder="Alternate Phone Number"
               containerStyle={{ marginVertical: 10 }}
               autoCompleteType="tel"
               keyboardType="phone-pad"
@@ -119,7 +119,7 @@ const PersonalDetailsForm = () => {
               onChange={setAltMobile}
             />
             <FormInput
-              placeholder={"Email Address"}
+              placeholder="Email Address"
               containerStyle={{ marginVertical: 10 }}
               autoCompleteType="email"
               keyboardType="email-address"
@@ -139,7 +139,6 @@ const PersonalDetailsForm = () => {
           </View>
         </KeyboardAvoidingWrapper>
       </SafeAreaView>
-    </>
   );
 };
 

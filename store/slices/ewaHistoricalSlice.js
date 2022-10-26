@@ -4,14 +4,14 @@ const initialState = [];
 
 const ewaHistoricalSlice = createSlice({
   name: "ewaHistorical",
-  initialState: initialState,
+  initialState,
   reducers: {
     resetEwaHistorical(state, action) {
       if (!action.payload || action.payload.length === 0) {
         return initialState;
-      } else {
+      } 
         return [...action.payload];
-      }
+      
     },
   },
 });

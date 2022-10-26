@@ -1,4 +1,5 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+
 import { COLORS, FONTS } from "../constants/Theme";
 
 const TopTabNav = (props) => {
@@ -13,7 +14,7 @@ const TopTabNav = (props) => {
           ...FONTS.body4,
           textTransform: "capitalize",
         },
-        //tabBarItemStyle: { width: 100 },
+        // tabBarItemStyle: { width: 100 },
         tabBarStyle: props.hide ? hide : show,
         tabBarPressColor: COLORS.primary,
         animationEnabled: true,
@@ -23,16 +24,14 @@ const TopTabNav = (props) => {
         tabBarIndicatorStyle: { backgroundColor: COLORS.primary },
       }}
     >
-      {props.tabs.map((tab, index) => {
-        return (
+      {props.tabs.map((tab, index) => (
           <Tab.Screen
             key={index}
             name={tab.name}
             component={tab.component}
             initialParams={tab.initialParams}
           />
-        );
-      })}
+        ))}
     </Tab.Navigator>
   );
 };

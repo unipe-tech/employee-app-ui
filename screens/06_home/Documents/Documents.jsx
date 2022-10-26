@@ -1,6 +1,8 @@
 import React from "react";
+
 import TopTabNav from "../../../navigators/TopTabNav";
 import DocumentsView from "../DocumentsView";
+
 import License from "./License/License";
 
 export default Documents = () => {

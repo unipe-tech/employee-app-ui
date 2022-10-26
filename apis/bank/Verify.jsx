@@ -1,21 +1,22 @@
-import { OG_API_KEY } from "@env";
-import { useNavigation } from "@react-navigation/core";
 import { useEffect, useState } from "react";
 import { Alert } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+import { OG_API_KEY } from "@env";
+import { useNavigation } from "@react-navigation/core";
+import Analytics from "appcenter-analytics";
+
+import PrimaryButton from "../../components/PrimaryButton";
+import { bankBackendPush } from "../../helpers/BackendPush";
+import { KYC_BANK_VERIFY_API_URL } from "../../services/constants";
 import {
-  addBankName,
   addAccountHolderName,
-  addBranchName,
+  addBankName,
   addBranchCity,
+  addBranchName,
   addVerifyMsg,
   addVerifyStatus,
   addVerifyTimestamp,
 } from "../../store/slices/bankSlice";
-import { KYC_BANK_VERIFY_API_URL } from "../../services/constants";
-import { bankBackendPush } from "../../helpers/BackendPush";
-import PrimaryButton from "../../components/PrimaryButton";
-import Analytics from "appcenter-analytics";
 
 const BankVerifyApi = (props) => {
   const dispatch = useDispatch();
@@ -73,11 +74,11 @@ const BankVerifyApi = (props) => {
     console.log("BankVerifyApi bankSlice : ", bankSlice);
     if (backendPush) {
       bankBackendPush({
-        id: id,
-        data: data,
-        verifyStatus: verifyStatus,
-        verifyMsg: verifyMsg,
-        verifyTimestamp: verifyTimestamp,
+        id,
+        data,
+        verifyStatus,
+        verifyMsg,
+        verifyTimestamp,
       });
       setBackendPush(false);
       setLoading(false);
@@ -101,24 +102,24 @@ const BankVerifyApi = (props) => {
       .then((responseJson) => {
         console.log(responseJson);
         try {
-          if (responseJson["status"] == "200") {
-            switch (responseJson["data"]["code"]) {
+          if (responseJson.status == "200") {
+            switch (responseJson.data.code) {
               case "1000":
                 setBankName(
-                  responseJson["data"]["bank_account_data"]["bank_name"]
+                  responseJson.data.bank_account_data.bank_name
                 );
                 setBranchName(
-                  responseJson["data"]["bank_account_data"]["branch"]
+                  responseJson.data.bank_account_data.branch
                 );
                 setBranchCity(
-                  responseJson["data"]["bank_account_data"]["city"]
+                  responseJson.data.bank_account_data.city
                 );
                 setAccountHolderName(
-                  responseJson["data"]["bank_account_data"]["name"]
+                  responseJson.data.bank_account_data.name
                 );
                 setVerifyMsg("To be confirmed by User");
                 setVerifyStatus("PENDING");
-                setVerifyTimestamp(responseJson["timestamp"]);
+                setVerifyTimestamp(responseJson.timestamp);
                 setBackendPush(true);
                 Analytics.trackEvent("Bank|Verify|Success", {
                   Category: "Onboarding",
@@ -136,44 +137,44 @@ const BankVerifyApi = (props) => {
                 }
                 break;
               default:
-                setVerifyMsg(responseJson["data"]["message"]);
+                setVerifyMsg(responseJson.data.message);
                 setVerifyStatus("ERROR");
                 setBackendPush(true);
-                Alert.alert("Error", responseJson["data"]["message"]);
+                Alert.alert("Error", responseJson.data.message);
                 Analytics.trackEvent("Bank|Verify|Error", {
                   Category: "Onboarding",
                   userId: id,
-                  error: responseJson["data"]["message"],
+                  error: responseJson.data.message,
                 });
                 break;
             }
           } else {
             setVerifyStatus("ERROR");
-            if (responseJson["error"]) {
-              setVerifyMsg(responseJson["error"]);
+            if (responseJson.error) {
+              setVerifyMsg(responseJson.error);
               setVerifyStatus("ERROR");
               setBackendPush(true);
               Alert.alert(
                 "Error",
-                responseJson["error"]["metadata"]["fields"]
-                  .map((item) => item["message"])
+                responseJson.error.metadata.fields
+                  .map((item) => item.message)
                   .join("\n")
               );
               Analytics.trackEvent("Bank|Verify|Error", {
                 Category: "Onboarding",
                 userId: id,
-                error: responseJson["error"]["metadata"]["fields"]
-                  .map((item) => item["message"])
+                error: responseJson.error.metadata.fields
+                  .map((item) => item.message)
                   .join("\n"),
               });
             } else {
-              setVerifyMsg(responseJson["messsage"]);
+              setVerifyMsg(responseJson.messsage);
               setVerifyStatus("ERROR");
               setBackendPush(true);
-              Alert.alert("Error", responseJson["message"]);
+              Alert.alert("Error", responseJson.message);
               Analytics.trackEvent("Bank|Verify|Error", {
                 userId: id,
-                error: responseJson["messsage"],
+                error: responseJson.messsage,
               });
             }
           }

@@ -1,11 +1,11 @@
-import { View, Text, StyleSheet } from "react-native";
 import React from "react";
+import { StyleSheet,Text, View } from "react-native";
 import CheckBox from "@react-native-community/checkbox";
-import { checkBox } from "../../styles";
-import { COLORS, FONTS } from "../../constants/Theme";
 
-const Checkbox = ({ value, setValue, text }) => {
-  return (
+import { COLORS, FONTS } from "../../constants/Theme";
+import { checkBox } from "../../styles";
+
+const Checkbox = ({ value, setValue, text }) => (
     <View style={styles.container}>
       <CheckBox
         value={value}
@@ -15,7 +15,6 @@ const Checkbox = ({ value, setValue, text }) => {
       <Text style={styles.title}>{text}</Text>
     </View>
   );
-};
 
 const styles = StyleSheet.create({
   container: {

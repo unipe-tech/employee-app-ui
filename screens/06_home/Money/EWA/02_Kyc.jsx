@@ -1,15 +1,16 @@
-import { useNavigation } from "@react-navigation/core";
-import Analytics from "appcenter-analytics";
 import { useEffect, useState } from "react";
 import { Image, SafeAreaView, Text, View } from "react-native";
 import { getUniqueId } from "react-native-device-info";
 import { NetworkInfo } from "react-native-network-info";
 import { useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/core";
+import Analytics from "appcenter-analytics";
+
 import Header from "../../../../components/atoms/Header";
+import CollapsibleCard from "../../../../components/CollapsibleCard";
 import PrimaryButton from "../../../../components/PrimaryButton";
 import { ewaKycPush } from "../../../../helpers/BackendPush";
 import { form, styles } from "../../../../styles";
-import CollapsibleCard from "../../../../components/CollapsibleCard";
 
 const KYC = () => {
   const navigation = useNavigation();
@@ -44,11 +45,11 @@ const KYC = () => {
     if (fetched) {
       ewaKycPush({
         offerId: ewaLiveSlice?.offerId,
-        unipeEmployeeId: unipeEmployeeId,
+        unipeEmployeeId,
         status: "INPROGRESS",
         timestamp: Date.now(),
-        ipAddress: ipAddress,
-        deviceId: deviceId,
+        ipAddress,
+        deviceId,
       })
         .then((response) => {
           console.log("ewaKycPush response.data: ", response.data);
@@ -64,11 +65,11 @@ const KYC = () => {
     setLoading(true);
     ewaKycPush({
       offerId: ewaLiveSlice?.offerId,
-      unipeEmployeeId: unipeEmployeeId,
+      unipeEmployeeId,
       status: "CONFIRMED",
       timestamp: Date.now(),
-      ipAddress: ipAddress,
-      deviceId: deviceId,
+      ipAddress,
+      deviceId,
     })
       .then((response) => {
         console.log("ewaKycPush response.data: ", response.data);
@@ -84,7 +85,7 @@ const KYC = () => {
         Alert.alert("An Error occured", error);
         Analytics.trackEvent("Ewa|Kyc|Error", {
           userId: unipeEmployeeId,
-          error: error,
+          error,
         });
       });
   }
@@ -115,7 +116,7 @@ const KYC = () => {
         </Text>
         <Image
           source={{
-            uri: `data:image/jpeg;base64,${data["photo_base64"]}`,
+            uri: `data:image/jpeg;base64,${data.photo_base64}`,
           }}
           style={form.aadharimg}
         />

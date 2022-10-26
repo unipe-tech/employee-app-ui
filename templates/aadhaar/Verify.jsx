@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import CountDown from "react-native-countdown-component";
 import { useDispatch, useSelector } from "react-redux";
-import AadhaarVerifyApi from "../../apis/aadhaar/Verify";
 import { useNavigation } from "@react-navigation/core";
-import { setAadhaarTimer } from "../../store/slices/timerSlice";
+
 import AadhaarOtpApi from "../../apis/aadhaar/Otp";
-import { form, styles } from "../../styles";
-import { COLORS, SIZES } from "../../constants/Theme";
+import AadhaarVerifyApi from "../../apis/aadhaar/Verify";
 import FormInput from "../../components/atoms/FormInput";
+import { COLORS, SIZES } from "../../constants/Theme";
+import { setAadhaarTimer } from "../../store/slices/timerSlice";
+import { form, styles } from "../../styles";
 
 const AadhaarVerifyTemplate = (props) => {
   const dispatch = useDispatch();
@@ -42,9 +43,9 @@ const AadhaarVerifyTemplate = (props) => {
           onChange={setOtp}
           maxLength={6}
           keyboardType="numeric"
-          placeholder={"******"}
-          textAlign={"center"}
-          autoFocus={true}
+          placeholder="******"
+          textAlign="center"
+          autoFocus
         />
 
         <CountDown
@@ -77,7 +78,7 @@ const AadhaarVerifyTemplate = (props) => {
           />
         ) : null}
         <AadhaarVerifyApi
-          data={{ otp: otp, include_xml: true, share_code: 5934 }}
+          data={{ otp, include_xml: true, share_code: 5934 }}
           style={form.nextButton}
           disabled={!validOtp}
           type={props?.route?.params?.type || ""}

@@ -6,7 +6,7 @@ const initialState = {
 
 const navigationSlice = createSlice({
   name: "navigation",
-  initialState: initialState,
+  initialState,
   reducers: {
     addCurrentScreen(state, action) {
       state.currentScreen = action.payload;

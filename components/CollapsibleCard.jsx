@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Text, View } from "react-native";
 import Collapsible from "react-native-collapsible";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+
 import { COLORS } from "../constants/Theme";
-import { bankform, ewa } from "../styles";
+import { bankform, ewa } from "../styles"
 
 const CollapsibleCard = ({
   title,
@@ -41,6 +42,7 @@ const CollapsibleCard = ({
         {data?.map((item, index) => (
           <View
             style={{ flexDirection: "row", width: "100%", marginTop: 5 }}
+            // eslint-disable-next-line react/no-array-index-key
             key={index}
           >
             <Text>{item.subTitle}</Text>
@@ -55,7 +57,7 @@ const CollapsibleCard = ({
             {info}
           </Text>
         ) : (
-          <View style={ewa.padding}></View>
+          <View style={ewa.padding} />
         )}
       </Collapsible>
     </View>

@@ -1,11 +1,10 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { StyleSheet,View } from "react-native";
 import Modal from "react-native-modal";
 
 import { COLORS, SIZES } from "../../constants/Theme";
 
-const BottomSheetWrapper = ({ open, setOpen, children }) => {
-  return (
+const BottomSheetWrapper = ({ open, setOpen, children }) => (
     <Modal
       isVisible={open}
       style={styles.modal}
@@ -14,7 +13,6 @@ const BottomSheetWrapper = ({ open, setOpen, children }) => {
       <View style={styles.container}>{children}</View>
     </Modal>
   );
-};
 
 const styles = StyleSheet.create({
   modal: {
@@ -22,7 +20,7 @@ const styles = StyleSheet.create({
     margin: 0,
   },
   container: {
-    //flex: 0.35,
+    // flex: 0.35,
     backgroundColor: COLORS.white,
     justifyContent: "flex-start",
     padding: 15,

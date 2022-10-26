@@ -1,4 +1,4 @@
-//00_login
+// 00_login
 export const LOGIN_TITLE = "Enter Mobile Number for Verification";
 export const LOGIN_SUBTITLE =
   "This number will be used for all communication. You shall receive anSMS with code for verification. By continuing, you agree to our";
@@ -8,6 +8,6 @@ export const OTP_SUBTITLE =
 export const WELCOME_TITLE =
   "Let’s start onboarding process by verifying below documents.";
 
-//Important URLs
+// Important URLs
 export const TERMS_OF_SERVICE = "https://policies.google.com/terms?hl=en-US";
 export const PRIVACY_POLICY = "https://policies.google.com/privacy?hl=en-US";

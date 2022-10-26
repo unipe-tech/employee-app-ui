@@ -1,10 +1,10 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import React from "react";
-import FormInput from "../atoms/FormInput";
-import { Icon, IconButton } from "@react-native-material/core";
-import { COLORS, FONTS } from "../../constants/Theme";
-import { useState } from "react";
+import React, { useState } from "react";
+import { StyleSheet, Text, TouchableOpacity,View } from "react-native";
 import { Popable } from "react-native-popable";
+import { Icon, IconButton } from "@react-native-material/core";
+
+import { COLORS, FONTS } from "../../constants/Theme";
+import FormInput from "../atoms/FormInput";
 
 const PopableInput = ({
   containerStyle,
@@ -13,8 +13,7 @@ const PopableInput = ({
   placeholder,
   autoCapitalize,
   content,
-}) => {
-  return (
+}) => (
     <FormInput
       containerStyle={{ ...styles.container, ...containerStyle }}
       placeholder={placeholder}
@@ -28,7 +27,6 @@ const PopableInput = ({
       }
     />
   );
-};
 
 const styles = StyleSheet.create({
   container: {

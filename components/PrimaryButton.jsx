@@ -4,6 +4,7 @@ import {
   TouchableOpacity
 } from "react-native";
 import { Button } from "@react-native-material/core";
+
 import { COLORS, FONTS } from "../constants/Theme";
 
 /**
@@ -27,8 +28,7 @@ const PrimaryButton = ({
   title,
   titleStyle,
   onPress,
-}) => {
-  return !loading ? (
+}) => !loading ? (
     <Button
       uppercase={false}
       title={title}
@@ -46,7 +46,6 @@ const PrimaryButton = ({
       <ActivityIndicator size="large" color="white" />
     </TouchableOpacity>
   );
-};
 
 const styles = StyleSheet.create({
   button: {
@@ -54,7 +53,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 30,
-    //width: "100%",
+    // width: "100%",
     height: 50,
   },
   loadingButton: {

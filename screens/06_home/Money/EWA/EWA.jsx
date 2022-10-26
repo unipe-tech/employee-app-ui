@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
-import { SafeAreaView, Text, View, ScrollView } from "react-native";
+import { SafeAreaView, ScrollView,Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { styles } from "../../../../styles";
-import PrimaryButton from "../../../../components/PrimaryButton";
-import KycCheckCard from "../../../../components/KycCheckCard";
-import { useIsFocused, useNavigation } from "@react-navigation/core";
-import Offers from "../../../../components/DataCard";
-import { getBackendData } from "../../../../services/employees/employeeServices";
-import { resetEwaLive } from "../../../../store/slices/ewaLiveSlice";
-import { resetEwaHistorical } from "../../../../store/slices/ewaHistoricalSlice";
-import { COLORS, FONTS } from "../../../../constants/Theme";
 import { STAGE } from "@env";
+import { useIsFocused, useNavigation } from "@react-navigation/core";
+
+import Offers from "../../../../components/DataCard";
+import KycCheckCard from "../../../../components/KycCheckCard";
+import PrimaryButton from "../../../../components/PrimaryButton";
+import { COLORS, FONTS } from "../../../../constants/Theme";
+import { getBackendData } from "../../../../services/employees/employeeServices";
+import { resetEwaHistorical } from "../../../../store/slices/ewaHistoricalSlice";
+import { resetEwaLive } from "../../../../store/slices/ewaLiveSlice";
+import { styles } from "../../../../styles";
 
 
 const EWA = () => {

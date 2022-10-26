@@ -1,10 +1,11 @@
-import { Icon, IconButton } from "@react-native-material/core";
-import { useNavigation } from "@react-navigation/core";
-import Analytics from "appcenter-analytics";
 import { useCallback, useEffect, useState } from "react";
 import { Image, SafeAreaView, ScrollView, Text, View } from "react-native";
 import * as ImagePicker from "react-native-image-picker";
 import { useDispatch, useSelector } from "react-redux";
+import { Icon, IconButton } from "@react-native-material/core";
+import { useNavigation } from "@react-navigation/core";
+import Analytics from "appcenter-analytics";
+
 import Header from "../../components/atoms/Header";
 import PrimaryButton from "../../components/PrimaryButton";
 import RNIPPhotoCapture from "../../components/RNIPPhotoCapture";
@@ -119,7 +120,7 @@ const PersonalImage = () => {
             disabled={!next}
             onPress={() => {
               profileBackendPush({
-                id: id,
+                id,
                 maritalStatus: profileSlice?.maritalStatus,
                 qualification: profileSlice?.qualification,
                 altMobile: profileSlice?.altMobile,

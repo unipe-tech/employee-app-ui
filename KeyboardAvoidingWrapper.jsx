@@ -1,15 +1,15 @@
 import React from "react";
 import {
-  KeyboardAvoidingView,
-  TouchableWithoutFeedback,
   Keyboard,
-  ScrollView,
+  KeyboardAvoidingView,
   Platform,
+  ScrollView,
+  TouchableWithoutFeedback,
 } from "react-native";
+
 import { styles } from "./styles";
 
-export const KeyboardAvoidingWrapper = ({ children }) => {
-  return (
+export const KeyboardAvoidingWrapper = ({ children }) => (
     <ScrollView keyboardShouldPersistTaps="handled">
       <KeyboardAvoidingView
         enabled
@@ -25,4 +25,3 @@ export const KeyboardAvoidingWrapper = ({ children }) => {
       </KeyboardAvoidingView>
     </ScrollView>
   );
-};

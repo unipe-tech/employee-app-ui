@@ -1,14 +1,26 @@
-import { useNavigation } from "@react-navigation/core";
 import { useEffect, useState } from "react";
 import { Alert, SafeAreaView, ScrollView, View } from "react-native";
 import { getUniqueId } from "react-native-device-info";
 import { NetworkInfo } from "react-native-network-info";
+import RazorpayCheckout from "react-native-razorpay";
 import Icon1 from "react-native-vector-icons/MaterialCommunityIcons";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/core";
+import Analytics from "appcenter-analytics";
+
+import FormInput from "../../components/atoms/FormInput";
 import CollapsibleCard from "../../components/CollapsibleCard";
 import PrimaryButton from "../../components/PrimaryButton";
+import { showToast } from "../../components/Toast";
+import { COLORS } from "../../constants/Theme";
 import { mandatePush } from "../../helpers/BackendPush";
 import { KeyboardAvoidingWrapper } from "../../KeyboardAvoidingWrapper";
+import { RZP_KEY_ID } from "../../services/constants";
+import {
+  createCustomer,
+  createOrder,
+  getToken,
+} from "../../services/mandate/Razorpay/services";
 import {
   addCustomerId,
   addData,
@@ -18,17 +30,6 @@ import {
   addVerifyTimestamp,
 } from "../../store/slices/mandateSlice";
 import { styles } from "../../styles";
-import { showToast } from "../../components/Toast";
-import RazorpayCheckout from "react-native-razorpay";
-import {
-  createCustomer,
-  createOrder,
-  getToken,
-} from "../../services/mandate/Razorpay/services";
-import { RZP_KEY_ID } from "../../services/constants";
-import FormInput from "../../components/atoms/FormInput";
-import { COLORS } from "../../constants/Theme";
-import Analytics from "appcenter-analytics";
 
 const MandateFormTemplate = (props) => {
   const dispatch = useDispatch();
@@ -99,12 +100,12 @@ const MandateFormTemplate = (props) => {
       console.log("mandateSlice: ", mandateSlice);
       mandatePush({
         unipeEmployeeId: employeeId,
-        ipAddress: ipAddress,
-        deviceId: deviceId,
-        data: data,
-        verifyMsg: verifyMsg,
-        verifyStatus: verifyStatus,
-        verifyTimestamp: verifyTimestamp,
+        ipAddress,
+        deviceId,
+        data,
+        verifyMsg,
+        verifyStatus,
+        verifyTimestamp,
       });
       setBackendPush(false);
     }
@@ -116,7 +117,7 @@ const MandateFormTemplate = (props) => {
       try {
         createCustomer({
           name: accountHolderName,
-          email: email,
+          email,
           contact: phoneNumber,
         })
           .then((res) => {
@@ -148,7 +149,7 @@ const MandateFormTemplate = (props) => {
   useEffect(() => {
     console.log("createMandate orderId: ", orderId, !orderId);
     if (orderId) {
-      var options = {
+      const options = {
         description: "Unipe Mandate Verification",
         name: "Unipe",
         key: RZP_KEY_ID,
@@ -157,7 +158,7 @@ const MandateFormTemplate = (props) => {
         recurring: "1",
         prefill: {
           name: accountHolderName,
-          email: email,
+          email,
           contact: phoneNumber,
         },
         theme: { color: COLORS.primary },
@@ -170,7 +171,7 @@ const MandateFormTemplate = (props) => {
               // TODO: check response status code
               console.log("mandate token.data: ", token.data);
               setData({
-                authType: authType,
+                authType,
                 extTokenId: token.data.token_id,
                 extOrderId: orderId,
                 extPaymentId: data.razorpay_payment_id,
@@ -213,17 +214,11 @@ const MandateFormTemplate = (props) => {
     }
   }, [orderId]);
 
-  const debitIcon = () => {
-    return <Icon1 name="smart-card" size={24} color="#FF6700" />;
-  };
+  const debitIcon = () => <Icon1 name="smart-card" size={24} color="#FF6700" />;
 
-  const netIcon = () => {
-    return <Icon1 name="passport" size={24} color="#FF6700" />;
-  };
+  const netIcon = () => <Icon1 name="passport" size={24} color="#FF6700" />;
 
-  const upiIcon = () => {
-    return <Icon1 name="wallet" size={24} color="#FF6700" />;
-  };
+  const upiIcon = () => <Icon1 name="wallet" size={24} color="#FF6700" />;
 
   const ProceedButton = ({ authType }) => {
     setAuthType(authType);
@@ -231,11 +226,11 @@ const MandateFormTemplate = (props) => {
     setVerifyStatus("PENDING");
     setBackendPush(true);
     createOrder({
-      authType: authType,
-      customerId: customerId,
-      accountHolderName: accountHolderName,
-      accountNumber: accountNumber,
-      ifsc: ifsc,
+      authType,
+      customerId,
+      accountHolderName,
+      accountNumber,
+      ifsc,
     })
       .then((res) => {
         console.log(`Mandate|CreateOrder|${authType} res.data:`, res.data);
@@ -263,25 +258,25 @@ const MandateFormTemplate = (props) => {
       <KeyboardAvoidingWrapper>
         <ScrollView showsVerticalScrollIndicator={false}>
           <FormInput
-            placeholder={"Account Holder Name"}
+            placeholder="Account Holder Name"
             containerStyle={{ marginVertical: 10 }}
             autoCapitalize="words"
             value={accountHolderName}
-            disabled={true}
+            disabled
           />
           <FormInput
-            placeholder={"Bank Account Number"}
+            placeholder="Bank Account Number"
             containerStyle={{ marginVertical: 10 }}
             autoCapitalize="words"
             value={accountNumber}
-            disabled={true}
+            disabled
           />
           <FormInput
-            placeholder={"IFSC"}
+            placeholder="IFSC"
             containerStyle={{ marginVertical: 10 }}
             autoCapitalize="words"
             value={ifsc}
-            disabled={true}
+            disabled
           />
           <PrimaryButton
             title="Debit Card"

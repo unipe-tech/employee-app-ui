@@ -11,7 +11,7 @@ const initialState = {
 
 const profileSlice = createSlice({
   name: "profile",
-  initialState: initialState,
+  initialState,
   reducers: {
     addAltMobile(state, action) {
       state.altMobile = action.payload;

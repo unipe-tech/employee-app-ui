@@ -1,11 +1,13 @@
 import React from "react";
 import { SafeAreaView } from "react-native";
+
 import TopTabNav from "../../../../navigators/TopTabNav";
-import Portal from "./Portal";
-import Relation from "./Relation";
+import { styles } from "../../../../styles";
+
 import EmployeeAddress from "./EmployeeAddress";
 import NomineeAddress from "./NomineeAddress";
-import { styles } from "../../../../styles";
+import Portal from "./Portal";
+import Relation from "./Relation";
 
 export default ESICForm = () => {
   const tabs = [

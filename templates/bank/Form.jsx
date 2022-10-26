@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+
 import BankVerifyApi from "../../apis/bank/Verify";
 import Checkbox from "../../components/atoms/Checkbox";
 import InfoCard from "../../components/atoms/InfoCard";
@@ -49,7 +50,7 @@ const BankFormTemplate = (props) => {
   }, [upi]);
 
   useEffect(() => {
-    var accountNumberReg = /^[A-Z0-9]{6,25}$/gm;
+    const accountNumberReg = /^[A-Z0-9]{6,25}$/gm;
     if (accountNumberReg.test(accountNumber)) {
       setAccNumNext(true);
     } else {
@@ -58,7 +59,7 @@ const BankFormTemplate = (props) => {
   }, [accountNumber]);
 
   useEffect(() => {
-    var ifscReg = /^[A-Z]{4}0[A-Z0-9]{6}$/gm;
+    const ifscReg = /^[A-Z]{4}0[A-Z0-9]{6}$/gm;
     if (ifscReg.test(ifsc)) {
       setIfscNext(true);
     } else {
@@ -67,43 +68,36 @@ const BankFormTemplate = (props) => {
   }, [ifsc]);
 
   return (
-    <>
-      <KeyboardAvoidingWrapper>
+    <KeyboardAvoidingWrapper>
         <View>
           <Text style={bankform.subTitle}>Enter your Bank Details</Text>
 
           <PopableInput
-            placeholder={"Account Holder Name*"}
+            placeholder="Account Holder Name*"
             value={accountHolderName}
             onChange={setAccountHolderName}
             autoCapitalize="characters"
-            content={
-              "Refer to your Bank Passbook or Cheque book for the exact Name mentioned in your bank records"
-            }
+            content="Refer to your Bank Passbook or Cheque book for the exact Name mentioned in your bank records"
           />
 
           <PopableInput
-            placeholder={"Bank Account Number*"}
+            placeholder="Bank Account Number*"
             value={accountNumber}
             onChange={setAccountNumber}
-            autoFocus={true}
+            autoFocus
             autoCapitalize="characters"
-            content={
-              "Refer to your Bank Passbook or Cheque book to get the Bank Account Number."
-            }
+            content="Refer to your Bank Passbook or Cheque book to get the Bank Account Number."
           />
           {accountNumber && !accNumNext ? (
             <Text style={bankform.formatmsg}>Incorrect Format</Text>
           ) : null}
 
           <PopableInput
-            placeholder={"IFSC Code*"}
+            placeholder="IFSC Code*"
             value={ifsc}
             onChange={setIfsc}
             autoCapitalize="characters"
-            content={
-              "You can find the IFSC code on the cheque book or bank passbook that is provided by the bank"
-            }
+            content="You can find the IFSC code on the cheque book or bank passbook that is provided by the bank"
           />
 
           {ifsc && !ifscNext ? (
@@ -111,12 +105,10 @@ const BankFormTemplate = (props) => {
           ) : null}
 
           <PopableInput
-            placeholder={"UPI ID"}
+            placeholder="UPI ID"
             value={upi}
             onChange={setUpi}
-            content={
-              "There are lots of UPI apps available like Phonepe, Amazon Pay, Paytm, Bhim, Mobikwik etc. from where you can fetch your UPI ID."
-            }
+            content="There are lots of UPI apps available like Phonepe, Amazon Pay, Paytm, Bhim, Mobikwik etc. from where you can fetch your UPI ID."
           />
 
           <InfoCard
@@ -126,15 +118,13 @@ const BankFormTemplate = (props) => {
           />
 
           <Checkbox
-            text={
-              "I agree with the KYC registration Terms and Conditions to verifiy my identity."
-            }
+            text="I agree with the KYC registration Terms and Conditions to verifiy my identity."
             value={consent}
             setValue={setConsent}
           />
 
           <BankVerifyApi
-            data={{ account_number: accountNumber, ifsc: ifsc, consent: "Y" }}
+            data={{ account_number: accountNumber, ifsc, consent: "Y" }}
             style={form.nextButton}
             disabled={
               !ifscNext || !accNumNext || !consent || !accountHolderName
@@ -143,7 +133,6 @@ const BankFormTemplate = (props) => {
           />
         </View>
       </KeyboardAvoidingWrapper>
-    </>
   );
 };
 

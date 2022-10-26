@@ -1,10 +1,12 @@
-import { useNavigation } from "@react-navigation/core";
 import { Alert, Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/core";
+
 import PrimaryButton from "../../../../components/PrimaryButton";
 import TopTabNav from "../../../../navigators/TopTabNav";
 import { form, license, styles } from "../../../../styles";
 import DetailItem from "../../../07_drawer/DetailItem";
+
 import Confirm from "./Confirm";
 import Form from "./Form";
 
@@ -17,6 +19,8 @@ const License = () => {
   const licenseSlice = useSelector((state) => state.license);
   const verifyStatus = licenseSlice?.verifyStatus;
 
+  console.log("LICENSE DATA 😅: ", licenseSlice)
+
   const dataDetails = [
     { label: "Number", value: number },
     { label: "Name", value: data?.name },
@@ -24,9 +28,7 @@ const License = () => {
     { label: "Blood Group", value: data?.blood_group || "NA" },
   ];
 
-  const isDateValid = (expiry_date) => {
-    return new Date(expiry_date) > new Date();
-  };
+  const isDateValid = (expiry_date) => new Date(expiry_date) > new Date();
 
   const tabs = [
     {
@@ -78,7 +80,7 @@ const License = () => {
               <DetailItem
                 label="Expiry date"
                 value={data?.validity?.transport?.expiry_date}
-                divider={true}
+                divider
               />
               <View style={{ flexDirection: "row" }}>
                 <Text style={license.authority}>Transport</Text>
@@ -106,7 +108,7 @@ const License = () => {
           </View>
         </>
       ) : (
-        <TopTabNav tabs={tabs} hide={true} />
+        <TopTabNav tabs={tabs} hide />
       )}
     </View>
   );

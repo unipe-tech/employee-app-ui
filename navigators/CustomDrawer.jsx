@@ -1,13 +1,14 @@
+import { Image, Text, View } from "react-native";
+import { useSelector } from "react-redux";
 import {
   DrawerContentScrollView,
   DrawerItemList,
 } from "@react-navigation/drawer";
 
-import { Image, Text, View } from "react-native";
-import { useSelector } from "react-redux";
-import { COLORS, FONTS } from "../constants/Theme";
-import Logout from "../components/Logout";
 import SVGImg from '../assets/UnipeLogo.svg';
+import Logout from "../components/Logout";
+import { COLORS, FONTS } from "../constants/Theme";
+
 export default CustomDrawer = (props) => {
   const image = useSelector((state) => state.profile.photo);
   const name = useSelector(
@@ -39,7 +40,7 @@ export default CustomDrawer = (props) => {
               ...FONTS.h3,
             }}
           >
-            {name ? name : "User"}
+            {name || "User"}
           </Text>
         </View>
         <View
