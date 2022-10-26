@@ -89,6 +89,15 @@
         //         "explicitSpread": "ignore"
         //     }
         // ],
+        "react/jsx-props-no-spreading": [
+            "off",
+            {
+                "html": "ignore",
+                "custom": "ignore",
+                "explicitSpread": "ignore",
+                "exceptions": []
+            }
+        ],
         "no-console": [
             "off",
             {

@@ -1,4 +1,3 @@
-import React from "react";
 import { ScrollView,Text, TouchableOpacity, View } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 import { format } from "date-fns";
@@ -85,9 +84,10 @@ const OfferCard = ({ offer }) => {
   );
 };
 
-const Offers = (props) => (
+const Offers = ({data}) => (
     <ScrollView style={{ height: "63%", marginTop: "1.5%", borderWidth: 2, borderStyle: 'solid', borderColor: '#597E8D'}}>
-        {props.data.map((offer, index) => (
+        {data.map((offer, index) => (
+          // eslint-disable-next-line react/no-array-index-key
           <OfferCard offer={offer} key={index} />
         ))}
     </ScrollView>

@@ -1,9 +1,9 @@
-import React, { useEffect,useRef, useState } from "react";
+import { useEffect,useRef, useState } from "react";
 import { Text, TextInput, View } from "react-native";
 
 import { form } from "../styles";
 
-export default DateEntry = (props) => {
+const DateEntry = ({setval, title}) => {
   const [year, setYear] = useState("");
   const [month, setMonth] = useState("");
   const [day, setDay] = useState("");
@@ -23,12 +23,12 @@ export default DateEntry = (props) => {
   }, [month]);
 
   useEffect(() => {
-    props.setval(`${year}-${month}-${day}`);
-  }, [year, month, day]);
+    setval(`${year}-${month}-${day}`);
+  }, [year, month, day, setval]);
 
   return (
     <>
-      <Text style={form.formLabel}>{props.title}</Text>
+      <Text style={form.formLabel}>{title}</Text>
       <View style={{ flexDirection: "row" }}>
         <TextInput
           style={form.year}
@@ -66,3 +66,5 @@ export default DateEntry = (props) => {
     </>
   );
 };
+
+export default DateEntry;

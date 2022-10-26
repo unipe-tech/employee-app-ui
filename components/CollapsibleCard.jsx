@@ -42,6 +42,7 @@ const CollapsibleCard = ({
         {data?.map((item, index) => (
           <View
             style={{ flexDirection: "row", width: "100%", marginTop: 5 }}
+            // eslint-disable-next-line react/no-array-index-key
             key={index}
           >
             <Text>{item.subTitle}</Text>
