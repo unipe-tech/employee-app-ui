@@ -17,9 +17,8 @@ const AadhaarVerify = () => {
   const [backDisabled, setBackDisabled] = useState(true);
   const countDownTime = useSelector((state) => state.timer.aadhaar);
 
-  useEffect(() => {
-    dispatch(addCurrentScreen("AadhaarVerify"));
-  }, []);
+  
+  
 
   useEffect(() => {
     if (countDownTime < 10) {

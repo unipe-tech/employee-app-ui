@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Alert, SafeAreaView } from "react-native";
+import { Alert, BackHandler, SafeAreaView } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 import ProgressBarTop from "../../navigators/ProgressBarTop";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
@@ -26,6 +26,18 @@ const AadhaarForm = () => {
       ]
     );
   };
+
+  function handleBackButtonClick() {
+    navigation.navigate("PersonalImage")
+    return true;
+  }
+  
+  useEffect(() => {
+    BackHandler.addEventListener("AadhaarFormBackPress", handleBackButtonClick);
+    return () => {
+      BackHandler.removeEventListener("AadhaarFormBackPress", handleBackButtonClick);
+    };
+  }, []);
 
   const backAlert = () => {
     Alert.alert(

@@ -2,7 +2,7 @@ import { Icon, IconButton } from "@react-native-material/core";
 import { useNavigation } from "@react-navigation/core";
 import Analytics from "appcenter-analytics";
 import { useCallback, useEffect, useState } from "react";
-import { Image, SafeAreaView, ScrollView, Text, View } from "react-native";
+import { BackHandler, Image, SafeAreaView, ScrollView, Text, View } from "react-native";
 import * as ImagePicker from "react-native-image-picker";
 import { useDispatch, useSelector } from "react-redux";
 import Header from "../../components/atoms/Header";
@@ -26,6 +26,19 @@ const PersonalImage = () => {
   const [image, setImage] = useState(
     useSelector((state) => state.profile.photo)
   );
+
+  function handleBackButtonClick() {
+    navigation.navigate("PersonalDetailsForm")
+    return true;
+  }
+  
+  useEffect(() => {
+    BackHandler.addEventListener("PersonalImageBackPress", handleBackButtonClick);
+    return () => {
+      BackHandler.removeEventListener("PersonalImageBackPress", handleBackButtonClick);
+    };
+  }, []);
+
   useEffect(() => {
     dispatch(addCurrentScreen("PersonalImage"));
   }, []);

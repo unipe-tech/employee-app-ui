@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/core";
 import { useEffect } from "react";
-import { SafeAreaView } from "react-native";
+import { BackHandler, SafeAreaView } from "react-native";
 import { useDispatch } from "react-redux";
 import ProgressBarTop from "../../navigators/ProgressBarTop";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
@@ -12,6 +12,18 @@ const Mandate = () => {
 
   const dispatch = useDispatch();
   const navigation = useNavigation();
+
+  function handleBackButtonClick() {
+    navigation.navigate("BankForm")
+    return true;
+  }
+  
+  useEffect(() => {
+    BackHandler.addEventListener("MandateBackPress", handleBackButtonClick);
+    return () => {
+      BackHandler.removeEventListener("MandateBackPress", handleBackButtonClick);
+    };
+  }, []);
 
   useEffect(() => {
     dispatch(addCurrentScreen("Mandate"));

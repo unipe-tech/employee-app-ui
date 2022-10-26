@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/core";
 import { useEffect } from "react";
-import { Alert, SafeAreaView } from "react-native";
+import { Alert, BackHandler, SafeAreaView } from "react-native";
 import { useDispatch } from "react-redux";
 import ProgressBarTop from "../../navigators/ProgressBarTop";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
@@ -29,6 +29,18 @@ const BankForm = () => {
       ]
     );
   };
+
+  function handleBackButtonClick() {
+    navigation.navigate("PanForm")
+    return true;
+  }
+  
+  useEffect(() => {
+    BackHandler.addEventListener("BankFormBackPress", handleBackButtonClick);
+    return () => {
+      BackHandler.removeEventListener("BankFormBackPress", handleBackButtonClick);
+    };
+  }, []);
 
   return (
     <>

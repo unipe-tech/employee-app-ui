@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/core";
 import { useEffect } from "react";
-import { Alert, SafeAreaView } from "react-native";
+import { Alert, BackHandler, SafeAreaView } from "react-native";
 import { useDispatch } from "react-redux";
 import ProgressBarTop from "../../navigators/ProgressBarTop";
 import { styles } from "../../styles";
@@ -28,12 +28,24 @@ export default PanForm = () => {
     );
   };
 
+  function handleBackButtonClick() {
+    navigation.navigate("AadhaarForm")
+    return true;
+  }
+  
+  useEffect(() => {
+    BackHandler.addEventListener("PanFormBackPress", handleBackButtonClick);
+    return () => {
+      BackHandler.removeEventListener("PanFormBackPress", handleBackButtonClick);
+    };
+  }, []);
+
   return (
     <>
       <SafeAreaView style={[styles.container, { padding: 0 }]}>
         <Header
           title="PAN Verification"
-          onLeftIconPress={() => navigation.navigate("AadhaarConfirm")}
+          onLeftIconPress={() => navigation.navigate("AadhaarForm")}
           onRightIconPress={() => SkipPAN()}
         />
 

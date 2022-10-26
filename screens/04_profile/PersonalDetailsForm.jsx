@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/core";
 import { useEffect, useState } from "react";
-import { SafeAreaView, Text, View } from "react-native";
+import { BackHandler, SafeAreaView, Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import ProgressBarTop from "../../navigators/ProgressBarTop";
 import {
@@ -35,6 +35,18 @@ const PersonalDetailsForm = () => {
   const [altMobile, setAltMobile] = useState(profileSlice?.altMobile);
   const [email, setEmail] = useState(profileSlice?.email);
   const [motherName, setMotherName] = useState(profileSlice?.motherName);
+
+  function handleBackButtonClick() {
+    navigation.navigate("Welcome")
+    return true;
+  }
+  
+  useEffect(() => {
+    BackHandler.addEventListener("PersonalDetailsBackPress", handleBackButtonClick);
+    return () => {
+      BackHandler.removeEventListener("PersonalDetailsBackPress", handleBackButtonClick);
+    };
+  }, []);
 
   useEffect(() => {
     dispatch(addCurrentScreen("PersonalDetailsForm"));

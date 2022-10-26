@@ -11,6 +11,7 @@ export default DevMenu = () => {
     { title: "Profile", name: "PersonalDetailsForm" },
     { title: "Photo", name: "PersonalImage" },
     { title: "AADHAAR", name: "AadhaarForm" },
+    { title: "Aadhaar Confirm", name: "AadhaarConfirm" },
     { title: "PAN", name: "PanForm" },
     { title: "BANK", name: "BankForm" },
     { title: "Mandate", name: "Mandate" },
