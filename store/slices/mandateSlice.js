@@ -9,7 +9,7 @@ const initialState = {
 
 const mandateSlice = createSlice({
   name: "mandate",
-  initialState: initialState,
+  initialState,
   reducers: {
     addData(state, action) {
       state.data = action.payload;

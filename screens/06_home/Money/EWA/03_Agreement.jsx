@@ -1,6 +1,3 @@
-import { useNavigation } from "@react-navigation/core";
-import CheckBox from "@react-native-community/checkbox";
-import Analytics from "appcenter-analytics";
 import { useEffect, useState } from "react";
 import {
   Alert, Dimensions,
@@ -14,6 +11,11 @@ import { NetworkInfo } from "react-native-network-info";
 import RenderHtml from "react-native-render-html";
 import { AntDesign } from "react-native-vector-icons";
 import { useDispatch, useSelector } from "react-redux";
+import CheckBox from "@react-native-community/checkbox";
+import { useNavigation } from "@react-navigation/core";
+import Analytics from "appcenter-analytics";
+
+import Checkbox from "../../../../components/atoms/Checkbox";
 import Header from "../../../../components/atoms/Header";
 import CollapsibleCard from "../../../../components/CollapsibleCard";
 import PrimaryButton from "../../../../components/PrimaryButton";
@@ -27,7 +29,6 @@ import {
 } from "../../../../store/slices/ewaLiveSlice";
 import { checkBox, ewa, styles } from "../../../../styles";
 import agreement from "../../../../templates/docs/LiquidLoansLoanAgreement";
-import Checkbox from "../../../../components/atoms/Checkbox";
 
 const Agreement = () => {
   const dispatch = useDispatch();
@@ -61,7 +62,7 @@ const Agreement = () => {
   function ValueEntry(text) {
     text.data = text.data.replace(
       /\{todayDate\}/g,
-      today.getDate() + "/" + (today.getMonth() + 1) + "/" + today.getFullYear()
+      `${today.getDate()  }/${  today.getMonth() + 1  }/${  today.getFullYear()}`
     );
     text.data = text.data.replace(/\{panName\}/g, panSlice?.data?.name);
     text.data = text.data.replace(
@@ -125,29 +126,29 @@ const Agreement = () => {
   ];
 
   const APR = () => {
-    var today = new Date();
-    var dueDateComponents = ewaLiveSlice.dueDate.split("/");
-    var dueDate = new Date(
+    const today = new Date();
+    const dueDateComponents = ewaLiveSlice.dueDate.split("/");
+    const dueDate = new Date(
       dueDateComponents[2],
       parseInt(dueDateComponents[1]) - 1,
       dueDateComponents[0]
     );
-    var timeDiff = dueDate.getTime() - today.getTime();
-    var daysDiff = parseInt(timeDiff / (1000 * 3600 * 24));
-    var apr =
+    const timeDiff = dueDate.getTime() - today.getTime();
+    const daysDiff = parseInt(timeDiff / (1000 * 3600 * 24));
+    const apr =
       100 * (processingFees / ewaLiveSlice?.loanAmount) * (365 / daysDiff);
     return apr.toFixed(2);
   };
 
   const data = [
-    { subTitle: "Loan Amount", value: "₹" + ewaLiveSlice?.loanAmount },
+    { subTitle: "Loan Amount", value: `₹${  ewaLiveSlice?.loanAmount}` },
     {
       subTitle: "Processing Fees *",
-      value: "₹" + processingFees,
+      value: `₹${  processingFees}`,
     },
     {
       subTitle: "Net Disbursement Amount *",
-      value: "₹" + netAmount,
+      value: `₹${  netAmount}`,
     },
     { subTitle: "Due Date", value: ewaLiveSlice?.dueDate },
   ];
@@ -158,11 +159,11 @@ const Agreement = () => {
     if (fetched) {
       ewaAgreementPush({
         offerId: ewaLiveSlice?.offerId,
-        unipeEmployeeId: unipeEmployeeId,
+        unipeEmployeeId,
         status: "INPROGRESS",
         timestamp: Date.now(),
-        ipAddress: ipAddress,
-        deviceId: deviceId,
+        ipAddress,
+        deviceId,
       })
         .then((response) => {
           console.log("ewaAgreementPush response.data: ", response.data);
@@ -178,16 +179,16 @@ const Agreement = () => {
     setLoading(true);
     ewaAgreementPush({
       offerId: ewaLiveSlice?.offerId,
-      unipeEmployeeId: unipeEmployeeId,
+      unipeEmployeeId,
       status: "CONFIRMED",
       timestamp: Date.now(),
-      ipAddress: ipAddress,
-      deviceId: deviceId,
+      ipAddress,
+      deviceId,
       bankAccountNumber: bankSlice?.data?.accountNumber,
       dueDate: ewaLiveSlice?.dueDate,
-      processingFees: processingFees,
+      processingFees,
       loanAmount: ewaLiveSlice?.loanAmount,
-      netAmount: netAmount,
+      netAmount,
       loanAccountNumber: ewaLiveSlice?.offerId,
     })
       .then((response) => {
@@ -206,7 +207,7 @@ const Agreement = () => {
         Alert.alert("An Error occured", error);
         Analytics.trackEvent("Ewa|Agreement|Error", {
           userId: unipeEmployeeId,
-          error: error,
+          error,
         });
       });
   }
@@ -234,7 +235,7 @@ const Agreement = () => {
           />
         
           <Checkbox
-            text={"I confirm the above details."}
+            text="I confirm the above details."
             value={confirm}
             setValue={setConfirm}
           />
@@ -263,7 +264,7 @@ const Agreement = () => {
           }}
           disabled={!confirm || !consent || loading}
         />
-        <View style={checkBox.padding}></View>
+        <View style={checkBox.padding} />
           <Text style={{ marginLeft: "6%", fontSize: 6, marginTop: "25%" }}>
             * Disbursement will be reconciled in your next payroll {"\n"}* Annual
             Percentage Rate @ {apr} %
@@ -299,7 +300,7 @@ const Agreement = () => {
             <RenderHtml
               contentWidth={width}
               source={agreement}
-              enableExperimentalMarginCollapsing={true}
+              enableExperimentalMarginCollapsing
               renderersProps={{
                 img: {
                   enableExperimentalPercentWidth: true,

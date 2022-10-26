@@ -1,6 +1,8 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useEffect,useRef, useState } from "react";
 import { Text, TextInput, View } from "react-native";
+
 import { form } from "../styles";
+
 export default DateEntry = (props) => {
   const [year, setYear] = useState("");
   const [month, setMonth] = useState("");

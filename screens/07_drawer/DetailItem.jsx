@@ -1,9 +1,9 @@
-import { View, Text } from "react-native";
 import React from "react";
+import { Text,View } from "react-native";
+
 import { COLORS, FONTS } from "../../constants/Theme";
 
-const DetailItem = ({ label, value, divider }) => {
-  return (
+const DetailItem = ({ label, value, divider }) => (
     <View style={{ paddingTop: 15 }}>
       <Text style={{ ...FONTS.h4 }}>{label}</Text>
       {value == "Not Provided" ? (
@@ -31,6 +31,5 @@ const DetailItem = ({ label, value, divider }) => {
       )}
     </View>
   );
-};
 
 export default DetailItem;

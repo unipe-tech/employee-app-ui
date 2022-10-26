@@ -1,9 +1,8 @@
 import React from "react";
-import { View, ActivityIndicator, StyleSheet } from "react-native";
+import { ActivityIndicator, StyleSheet,View } from "react-native";
 import Modal from "react-native-modal";
 
-function LoadingComponent({ loaderColor }) {
-  return (
+const LoadingComponent = ({ loaderColor }) => (
     <View style={styles.cont}>
       <View
         style={{
@@ -17,14 +16,13 @@ function LoadingComponent({ loaderColor }) {
         <ActivityIndicator size="large" color={loaderColor} />
       </View>
     </View>
-  );
-}
+  )
 
-function Loading({
+const Loading = ({
   isLoading = false,
   withModal = true,
   loaderColor = "blue",
-}) {
+}) => {
   if (withModal) {
     return (
       <Modal style={styles.cont} transparent visible={isLoading}>

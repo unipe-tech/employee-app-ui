@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigation } from "@react-navigation/core";
-import { AppBar, Icon, IconButton } from "@react-native-material/core";
 import { Alert, SafeAreaView } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import { AppBar, Icon, IconButton } from "@react-native-material/core";
+import { useNavigation } from "@react-navigation/core";
+
+import Header from "../../components/atoms/Header";
+import { COLORS } from "../../constants/Theme";
 import ProgressBarTop from "../../navigators/ProgressBarTop";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { styles } from "../../styles";
 import AadhaarVerifyTemplate from "../../templates/aadhaar/Verify";
-import { COLORS } from "../../constants/Theme";
-import Header from "../../components/atoms/Header";
 
 const AadhaarVerify = () => {
   const dispatch = useDispatch();

@@ -1,16 +1,15 @@
-import { View, Text, StyleSheet } from "react-native";
-import { Icon } from "@react-native-material/core";
 import React from "react";
+import { StyleSheet,Text, View } from "react-native";
+import { Icon } from "@react-native-material/core";
+
 import { COLORS, FONTS } from "../../constants/Theme";
 
-const InfoCard = ({ info }) => {
-  return (
+const InfoCard = ({ info }) => (
     <View style={styles.container}>
       <Icon name="info-outline" size={20} color={COLORS.primary} />
       <Text style={styles.text}>{info}</Text>
     </View>
   );
-};
 
 const styles = StyleSheet.create({
   container: {

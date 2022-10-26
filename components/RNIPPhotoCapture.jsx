@@ -1,9 +1,10 @@
-import { Icon, IconButton } from "@react-native-material/core";
 import { launchCamera } from "react-native-image-picker";
 import { useDispatch, useSelector } from "react-redux";
+import { Icon, IconButton } from "@react-native-material/core";
+import Analytics from "appcenter-analytics";
+
 import { addPhoto } from "../store/slices/profileSlice";
 import { selfie } from "../styles";
-import Analytics from "appcenter-analytics";
 
 export default RNIPPhotoCapture = () => {
   const dispatch = useDispatch();

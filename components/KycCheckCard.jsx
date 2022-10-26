@@ -1,7 +1,9 @@
-import { SafeAreaView, Text } from "react-native";
+import { SafeAreaView } from "react-native";
 import { useSelector } from "react-redux";
+
+import  allAreNull  from "../helpers/nullCheck";
+
 import MessageCard from "./MessageCard";
-import { allAreNull } from "../helpers/nullCheck";
 
 const KycCheckCard = () => {
   const bankStatus = useSelector((state) => state.bank.verifyStatus);
@@ -10,15 +12,14 @@ const KycCheckCard = () => {
   const mandateStatus = useSelector((state) => state.mandate.verifyStatus);
 
   const message = [
-    aadhaarStatus != "SUCCESS" ? "AADHAAR" : null,
-    bankStatus != "SUCCESS" ? "BANK" : null,
-    mandateStatus != "SUCCESS" ? "MANDATE" : null,
-    panStatus != "SUCCESS" ? "PAN" : null,
+    aadhaarStatus !== "SUCCESS" ? "AADHAAR" : null,
+    bankStatus !== "SUCCESS" ? "BANK" : null,
+    mandateStatus !== "SUCCESS" ? "MANDATE" : null,
+    panStatus !== "SUCCESS" ? "PAN" : null,
   ];
 
   return (
-    <>
-      <SafeAreaView>
+    <SafeAreaView>
         {!allAreNull(message) ? (
           <MessageCard
             title="Following pending steps need to be completed in order to receive advance salary."
@@ -26,8 +27,7 @@ const KycCheckCard = () => {
           />
         ) : null}
       </SafeAreaView>
-    </>
   );
-};
+}
 
 export default KycCheckCard;

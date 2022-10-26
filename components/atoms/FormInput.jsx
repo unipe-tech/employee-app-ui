@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Text, StyleSheet, TextInput } from "react-native";
+import { StyleSheet, Text, TextInput,View } from "react-native";
+
 import { COLORS, FONTS, SIZES } from "../../constants/Theme";
 
 const FormInput = ({
@@ -24,8 +25,7 @@ const FormInput = ({
   required,
   letterSpacing,
   textAlign,
-}) => {
-  return (
+}) => (
     <View style={{ ...containerStyle }}>
       {label && (
         <View style={styles.inputHeader}>
@@ -47,7 +47,7 @@ const FormInput = ({
             color: COLORS.black,
 
             ...inputStyle,
-            //backgroundColor: COLORS.secondary,
+            // backgroundColor: COLORS.secondary,
           }}
           value={value}
           placeholder={placeholder}
@@ -69,7 +69,6 @@ const FormInput = ({
       </View>
     </View>
   );
-};
 
 const styles = StyleSheet.create({
   inputHeader: {
@@ -80,7 +79,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: "row",
     height: 50,
-    //paddingHorizontal: SIZES.padding,
+    // paddingHorizontal: SIZES.padding,
     alignItems: "center",
     borderRadius: 5,
     width: "100%",

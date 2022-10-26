@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigation } from "@react-navigation/core";
 import { View } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 import { Button } from "@react-native-material/core";
-import { addVerifyMsg, addVerifyStatus } from "../../store/slices/panSlice";
-import { panBackendPush } from "../../helpers/BackendPush";
-import { bankform, form, styles } from "../../styles";
-import { COLORS, FONTS } from "../../constants/Theme";
+import { useNavigation } from "@react-navigation/core";
+import Analytics from "appcenter-analytics";
+
 import CollapsibleCard from "../../components/CollapsibleCard";
 import FuzzyCheck from "../../components/FuzzyCheck";
-import Analytics from "appcenter-analytics";
+import { COLORS, FONTS } from "../../constants/Theme";
+import { panBackendPush } from "../../helpers/BackendPush";
+import { addVerifyMsg, addVerifyStatus } from "../../store/slices/panSlice";
+import { bankform, form, styles } from "../../styles";
 
 
 const PanConfirmApi = (props) => {
@@ -39,25 +40,25 @@ const PanConfirmApi = (props) => {
     console.log(backendPush);
     if (backendPush) {
       panBackendPush({
-        id: id,
-        data: data,
-        number: number,
-        verifyMsg: verifyMsg,
-        verifyStatus: verifyStatus,
-        verifyTimestamp: verifyTimestamp,
+        id,
+        data,
+        number,
+        verifyMsg,
+        verifyStatus,
+        verifyTimestamp,
       });
       setBackendPush(false);
     }
   }, [backendPush]);
 
   const cardData = () => {
-    var res = [
+    const res = [
       { subTitle: "Number", value: number },
       { subTitle: "Name", value: data?.name },
       { subTitle: "Date of Birth", value: data?.date_of_birth },
       { subTitle: "Gender", value: data?.gender },
     ];
-    if (data["email"]) {
+    if (data.email) {
       res.push({ subTitle: "Email", value: data?.email });
     }
     return res;
@@ -79,7 +80,7 @@ const PanConfirmApi = (props) => {
           marginTop: 20,
         }}
       >
-        <FuzzyCheck name={data["name"]} step="PAN" />
+        <FuzzyCheck name={data.name} step="PAN" />
         <Button
           title="No"
           type="solid"
@@ -134,7 +135,7 @@ const PanConfirmApi = (props) => {
             }
           }}
         />
-        <View style={bankform.padding}></View>
+        <View style={bankform.padding} />
       </View>
     </View>
   );

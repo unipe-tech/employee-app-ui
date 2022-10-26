@@ -7,7 +7,7 @@ const initialState = {
 
 const timerSlice = createSlice({
   name: "timer",
-  initialState: initialState,
+  initialState,
   reducers: {
     setLoginTimer: (state, action) => {
       state.login = action.payload;

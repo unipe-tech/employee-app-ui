@@ -11,7 +11,7 @@ const initialState = {
 
 const panSlice = createSlice({
   name: "pan",
-  initialState: initialState,
+  initialState,
   reducers: {
     addData(state, action) {
       state.data = action.payload;

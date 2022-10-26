@@ -1,16 +1,16 @@
+import React, { useState } from "react";
 import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
   ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
-import React from "react";
-import FormInput from "../atoms/FormInput";
 import { Icon, IconButton } from "@react-native-material/core";
+
 import { COLORS, FONTS } from "../../constants/Theme";
 import BottomSheetWrapper from "../atoms/BottomSheetWrapper";
-import { useState } from "react";
+import FormInput from "../atoms/FormInput";
 import PrimaryButton from "../PrimaryButton";
 
 const DropDownForm = ({
@@ -33,7 +33,7 @@ const DropDownForm = ({
           containerStyle={{ ...containerStyle }}
           placeholder={placeholder}
           value={value}
-          disabled={true}
+          disabled
           appendComponent={
             <Icon name="keyboard-arrow-down" size={24} color={COLORS.gray} />
           }

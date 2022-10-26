@@ -1,11 +1,13 @@
 import { SafeAreaView, View } from "react-native";
 import { useSelector } from "react-redux";
-import DetailItem from "./DetailItem";
+
+import AadhaarConfirmApi from "../../apis/aadhaar/Confirm";
 import TopTabNav from "../../navigators/TopTabNav";
+import { styles } from "../../styles";
 import AadhaarFormTemplate from "../../templates/aadhaar/Form";
 import AadhaarVerifyTemplate from "../../templates/aadhaar/Verify";
-import AadhaarConfirmApi from "../../apis/aadhaar/Confirm";
-import { styles } from "../../styles";
+
+import DetailItem from "./DetailItem";
 
 const Aadhaar = () => {
   const number = useSelector((state) => state.aadhaar.number);
@@ -59,7 +61,7 @@ const Aadhaar = () => {
           ))}
         </View>
       ) : (
-        <TopTabNav tabs={tabs} hide={true} />
+        <TopTabNav tabs={tabs} hide />
       )}
     </SafeAreaView>
   );

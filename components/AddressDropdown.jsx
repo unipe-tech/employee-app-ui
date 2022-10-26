@@ -1,61 +1,60 @@
-import { Picker } from "@react-native-picker/picker";
-import React, { useEffect, useState } from "react";
-import { Text } from "react-native";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { addESICAddress } from "../store/slices/esicSlice";
-import { bankform, form } from "../styles";
+import { addESICAddress } from "../store/slices/esicSlice"
+
 import FormInput from "./atoms/FormInput";
 import DropDownForm from "./molecules/DropDownForm";
+
 const customData = require("../assets/state_districts.json");
 
-export default AddressDropdown = (props) => {
+const AddressDropdown = ({type}) => {
   const [districts, setDistricts] = useState(["Please Choose a State"]);
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   const states = Object.keys(customData);
 
   const [geoState, setGeoState] = useState(
-    useSelector((state) => state.esic.address[props.type].state)
+    useSelector((state) => state.esic.address[type].state)
   );
   const [district, setDistrict] = useState(
-    useSelector((state) => state.esic.address[props.type].district)
+    useSelector((state) => state.esic.address[type].district)
   );
   const [street, setStreet] = useState(
-    useSelector((state) => state.esic.address[props.type].street)
+    useSelector((state) => state.esic.address[type].street)
   );
 
   const [pincode, setPincode] = useState(
-    useSelector((state) => state.esic.address[props.type].pincode)
+    useSelector((state) => state.esic.address[type].pincode)
   );
 
   useEffect(() => {
     dispatch(
-      addESICAddress({ type: props.type, subtype: "state", val: geoState })
+      addESICAddress({ type, subtype: "state", val: geoState })
     );
-  }, [geoState]);
+  }, [dispatch, geoState, type]);
 
   useEffect(() => {
     dispatch(
-      addESICAddress({ type: props.type, subtype: "street", val: street })
+      addESICAddress({ type, subtype: "street", val: street })
     );
-  }, [street]);
+  }, [dispatch, street, type]);
 
   useEffect(() => {
     dispatch(
-      addESICAddress({ type: props.type, subtype: "pincode", val: pincode })
+      addESICAddress({ type, subtype: "pincode", val: pincode })
     );
-  }, [pincode]);
+  }, [dispatch, pincode, type]);
 
   useEffect(() => {
     dispatch(
       addESICAddress({
-        type: props.type,
+        type,
         subtype: "district",
         val: district,
       })
     );
-  }, [district]);
+  }, [dispatch, district, type]);
 
   useEffect(() => {
     if (geoState) {
@@ -64,28 +63,33 @@ export default AddressDropdown = (props) => {
     }
   }, [geoState]);
 
-  switch (props.type) {
+  let title;
+
+  switch (type) {
     case "present":
-      var title = "Present";
+       title = "Present";
       break;
     case "permanent":
-      var title = "Permanent";
+       title = "Permanent";
       break;
     case "nominee":
-      var title = "Nominee";
+       title = "Nominee";
+      break;
+    default:
+       title = "";
       break;
   }
 
   return (
     <>
       <FormInput
-        placeholder={title + " Street"}
+        placeholder={`${title  } Street`}
         containerStyle={{ marginVertical: 10 }}
         value={street}
         onChange={setStreet}
       />
       <DropDownForm
-        placeholder={title + " State"}
+        placeholder={`${title  } State`}
         containerStyle={{ marginVertical: 10 }}
         value={geoState}
         setValue={setGeoState}
@@ -93,7 +97,7 @@ export default AddressDropdown = (props) => {
       />
 
       <DropDownForm
-        placeholder={title + " District"}
+        placeholder={`${title  } District`}
         containerStyle={{ marginVertical: 10 }}
         value={district}
         setValue={setDistrict}
@@ -101,7 +105,7 @@ export default AddressDropdown = (props) => {
       />
 
       <FormInput
-        placeholder={title + " Pincode"}
+        placeholder={`${title  } Pincode`}
         containerStyle={{ marginVertical: 10 }}
         value={pincode}
         onChange={setPincode}
@@ -109,3 +113,5 @@ export default AddressDropdown = (props) => {
     </>
   );
 };
+
+export default AddressDropdown

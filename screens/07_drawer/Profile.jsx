@@ -1,15 +1,17 @@
-import { View, Text, Alert } from "react-native";
 import React from "react";
-import DetailItem from "./DetailItem";
-import PrimaryButton from "../../components/PrimaryButton";
-import { useSelector } from "react-redux";
+import { Alert,Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useSelector } from "react-redux";
+
+import PrimaryButton from "../../components/PrimaryButton";
 import { styles } from "../../styles";
+
+import DetailItem from "./DetailItem";
 
 const Profile = () => {
   const aadhaarData = useSelector((state) => state.aadhaar.data);
   const fullName =
-    aadhaarData?.["name"] || useSelector((state) => state.pan?.name);
+    aadhaarData?.name || useSelector((state) => state.pan?.name);
   const profile = useSelector((state) => state.profile);
   const email = profile?.email;
   const mobile = useSelector((state) => state.auth.phoneNumber);

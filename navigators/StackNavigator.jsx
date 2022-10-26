@@ -1,39 +1,39 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { STAGE } from "@env";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
+import RNPhotoCapture from "../components/RNPhotoCapture";
 import LoginScreen from "../screens/00_login/LoginScreen";
 import OTPScreen from "../screens/00_login/OTPScreen";
 import WelcomePage from "../screens/00_login/WelcomePage";
 import AadhaarConfirm from "../screens/01_aadhaar/Confirm";
 import AadhaarForm from "../screens/01_aadhaar/Form";
 import AadhaarVerify from "../screens/01_aadhaar/Verify";
-import PanForm from "../screens/02_pan/Form";
 import PanConfirm from "../screens/02_pan/Confirm";
+import PanForm from "../screens/02_pan/Form";
+import BankConfirm from "../screens/03_bank/Confirm";
 import BankForm from "../screens/03_bank/Form";
+import Mandate from "../screens/03_bank/Mandate";
 import PersonalDetailsForm from "../screens/04_profile/PersonalDetailsForm";
 import PersonalImage from "../screens/05_photo/PersonalImage";
-import DevMenu from "../screens/DevMenu";
-import BackendSync from "../screens/BackendSync";
-import RNPhotoCapture from "../components/RNPhotoCapture";
-import DrawerNavigator from "./DrawerNavigator";
-
-import { STAGE } from "@env";
-import KYCScreen from "../screens/07_drawer/KYCScreen";
-import Profile from "../screens/07_drawer/Profile";
-import BankConfirm from "../screens/03_bank/Confirm";
 import Offer from "../screens/06_home/Money/EWA/01_Offer";
-import EWA from "../screens/06_home/Money/EWA/EWA";
-import Mandate from "../screens/03_bank/Mandate";
+import KYC from "../screens/06_home/Money/EWA/02_Kyc";
 import Agreement from "../screens/06_home/Money/EWA/03_Agreement";
 import Disbursement from "../screens/06_home/Money/EWA/04_Disbursement";
-import KYC from "../screens/06_home/Money/EWA/02_Kyc";
+import EWA from "../screens/06_home/Money/EWA/EWA";
+import KYCScreen from "../screens/07_drawer/KYCScreen";
+import Profile from "../screens/07_drawer/Profile";
+import BackendSync from "../screens/BackendSync";
+import DevMenu from "../screens/DevMenu";
+
+import DrawerNavigator from "./DrawerNavigator";
 
 
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator();
 
-  var initialRoute = useSelector((state) => state.navigation.currentScreen);
+  let initialRoute = useSelector((state) => state.navigation.currentScreen);
 
   console.log("STAGE: ", STAGE);
   console.log("initialRoute: ", initialRoute);

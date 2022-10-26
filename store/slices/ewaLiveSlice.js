@@ -13,7 +13,7 @@ const initialState = {
 
 const ewaLiveSlice = createSlice({
   name: "ewaLive",
-  initialState: initialState,
+  initialState,
   reducers: {
     addOfferId(state, action) {
       state.offerId = action.payload;

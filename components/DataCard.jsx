@@ -1,9 +1,10 @@
 import React from "react";
-import { View, Text, TouchableOpacity, ScrollView } from "react-native";
+import { ScrollView,Text, TouchableOpacity, View } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 import { format } from "date-fns";
+
+import { COLORS } from "../constants/Theme"
 import { datacard } from "../styles";
-import { COLORS } from "../constants/Theme";
 
 const COLOR_MAP = {
   Missed: COLORS.warning,
@@ -11,8 +12,7 @@ const COLOR_MAP = {
   Paid: COLORS.primary,
 };
 
-const StatusCard = ({ offerType }) => {
-  return (
+const StatusCard = ({ offerType }) => (
     <View
       style={{
         borderRadius: 3,
@@ -28,13 +28,12 @@ const StatusCard = ({ offerType }) => {
       </Text>
     </View>
   );
-};
 
 const OfferCard = ({ offer }) => {
   const navigation = useNavigation();
-  var offerType = "Missed";
-  var amount = offer.eligibleAmount;
-  var timestamp = new Date(offer.updatedAt);
+  let offerType = "Missed";
+  let amount = offer.eligibleAmount;
+  let timestamp = new Date(offer.updatedAt);
 
   if (offer.paid) {
     offerType = "Paid";
@@ -46,21 +45,21 @@ const OfferCard = ({ offer }) => {
     timestamp = new Date(offer.availedAt);
   }
 
-  var day = format(timestamp, "dd");
-  var month = format(timestamp, "MMM");
+  const day = format(timestamp, "dd");
+  const month = format(timestamp, "MMM");
 
   return (
     <TouchableOpacity
       onLongPress={() => {
         if (offerType !== "Missed") {
-          navigation.navigate("EWA_DISBURSEMENT", { offer: offer });
+          navigation.navigate("EWA_DISBURSEMENT", { offer });
         }
       }}
     >
       <View style={datacard.card}>
         <View
           style={{
-            //backgroundColor: COLORS.white,
+            // backgroundColor: COLORS.white,
             borderWidth: 1,
             borderColor: COLORS.primary,
             paddingHorizontal: "3%",
@@ -86,14 +85,12 @@ const OfferCard = ({ offer }) => {
   );
 };
 
-const Offers = (props) => {
-  return (
+const Offers = (props) => (
     <ScrollView style={{ height: "63%", marginTop: "1.5%", borderWidth: 2, borderStyle: 'solid', borderColor: '#597E8D'}}>
         {props.data.map((offer, index) => (
           <OfferCard offer={offer} key={index} />
         ))}
     </ScrollView>
   );
-};
 
 export default Offers;

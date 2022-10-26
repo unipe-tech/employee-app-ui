@@ -1,20 +1,19 @@
-import { createDrawerNavigator } from "@react-navigation/drawer";
 import { Ionicons, Octicons } from "react-native-vector-icons";
-
-import Home from "../screens/06_home/Home";
-
-import Profile from "../screens/07_drawer/Profile";
-import KYCScreen from "../screens/07_drawer/KYCScreen";
 import { AppBar, Icon, IconButton } from "@react-native-material/core";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+
 import SVGImg from "../assets/UnipeLogo.svg";
-import { nav } from "../styles";
 import { COLORS } from "../constants/Theme";
+import Home from "../screens/06_home/Home";
+import KYCScreen from "../screens/07_drawer/KYCScreen";
+import Profile from "../screens/07_drawer/Profile";
+import { nav } from "../styles";
+
 import CustomDrawer from "./CustomDrawer";
 
 const Drawer = createDrawerNavigator();
 
-const DrawerNavigator = () => {
-  return (
+const DrawerNavigator = () => (
     <Drawer.Navigator
       drawerContent={(props) => <CustomDrawer {...props} />}
       defaultStatus="closed"
@@ -31,7 +30,7 @@ const DrawerNavigator = () => {
               <SVGImg
               />
             }
-            centerTitle={true}
+            centerTitle
             contentContainerStyle={nav.navbar}
             color="#ffffff"
             leading={
@@ -124,6 +123,5 @@ const DrawerNavigator = () => {
       />
     </Drawer.Navigator>
   );
-};
 
 export default DrawerNavigator;

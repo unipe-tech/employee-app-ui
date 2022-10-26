@@ -1,22 +1,24 @@
-import axios from "axios";
-import { RZP_AUTH } from "../../constants";
 import { STAGE } from "@env";
+import axios from "axios";
+
+import { RZP_AUTH } from "../../constants";
+
 const createCustomer = ({ name, email, contact }) => {
-  var data = JSON.stringify({
-    name: name,
-    email: email,
-    contact: contact,
+  const data = JSON.stringify({
+    name,
+    email,
+    contact,
     fail_existing: "0",
   });
 
-  var config = {
+  const config = {
     method: "post",
     url: "https://api.razorpay.com/v1/customers",
     headers: {
       "Content-Type": "application/json",
       Authorization: RZP_AUTH,
     },
-    data: data,
+    data,
   };
 
   return axios(config);
@@ -64,20 +66,20 @@ const createOrder = ({
   }
   console.log(STAGE);
   console.log(data);
-  var config = {
+  const config = {
     method: "post",
     url: "https://api.razorpay.com/v1/orders",
     headers: {
       "Content-Type": "application/json",
       Authorization: RZP_AUTH,
     },
-    data: data,
+    data,
   };
   return axios(config);
 };
 
 const getToken = ({ paymentId }) => {
-  var config = {
+  const config = {
     method: "get",
     url: `https://api.razorpay.com/v1/payments/${paymentId}`,
     headers: {

@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
+import { Image,View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigation } from "@react-navigation/core";
-import { View, Image } from "react-native";
 import { Button } from "@react-native-material/core";
+import { useNavigation } from "@react-navigation/core";
+import Analytics from "appcenter-analytics";
+
+import CollapsibleCard from "../../components/CollapsibleCard";
+import { COLORS, FONTS } from "../../constants/Theme";
+import { aadhaarBackendPush } from "../../helpers/BackendPush";
 import {
   addVerifyMsg,
   addVerifyStatus,
   addVerifyTimestamp,
 } from "../../store/slices/aadhaarSlice";
 import { bankform, form, styles } from "../../styles";
-import { aadhaarBackendPush } from "../../helpers/BackendPush";
-import { COLORS, FONTS } from "../../constants/Theme";
-import Analytics from "appcenter-analytics";
-import CollapsibleCard from "../../components/CollapsibleCard";
 
 
 const AadhaarConfirmApi = (props) => {
@@ -46,19 +47,19 @@ const AadhaarConfirmApi = (props) => {
     console.log("AadhaarConfirmApi aadhaarSlice: ", aadhaarSlice);
     if (backendPush) {
       aadhaarBackendPush({
-        id: id,
-        data: data,
-        number: number,
-        verifyMsg: verifyMsg,
-        verifyStatus: verifyStatus,
-        verifyTimestamp: verifyTimestamp,
+        id,
+        data,
+        number,
+        verifyMsg,
+        verifyStatus,
+        verifyTimestamp,
       });
       setBackendPush(false);
     }
   }, [backendPush]);
 
   const cardData = () => {
-    var res = [
+    const res = [
       { subTitle: "Number", value: number },
       { subTitle: "Name", value: data?.name },
       { subTitle: "Date of Birth", value: data?.date_of_birth },
@@ -78,7 +79,7 @@ const AadhaarConfirmApi = (props) => {
 
       <Image
         source={{
-          uri: `data:image/jpeg;base64,${data["photo_base64"]}`,
+          uri: `data:image/jpeg;base64,${data.photo_base64}`,
         }}
         style={form.aadharimg}
       />
@@ -145,7 +146,7 @@ const AadhaarConfirmApi = (props) => {
             }
           }}
         />
-        <View style={bankform.padding}></View>
+        <View style={bankform.padding} />
       </View>
     </View>
   );

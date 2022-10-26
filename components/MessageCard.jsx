@@ -1,5 +1,6 @@
-import { useNavigation } from "@react-navigation/core";
 import { Text, TouchableOpacity, View } from "react-native";
+import { useNavigation } from "@react-navigation/core";
+
 import { card } from "../styles";
 
 const MessageCard = (props) => {

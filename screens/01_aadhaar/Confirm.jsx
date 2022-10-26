@@ -1,14 +1,14 @@
 import { useEffect } from "react";
+import { Alert, SafeAreaView, ScrollView } from "react-native";
 import { useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/core";
-import { Alert, SafeAreaView, ScrollView } from "react-native";
-import ProgressBarTop from "../../navigators/ProgressBarTop";
-import { styles } from "../../styles";
 
-import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import AadhaarConfirmApi from "../../apis/aadhaar/Confirm";
-import { COLORS } from "../../constants/Theme";
 import Header from "../../components/atoms/Header";
+import { COLORS } from "../../constants/Theme";
+import ProgressBarTop from "../../navigators/ProgressBarTop";
+import { addCurrentScreen } from "../../store/slices/navigationSlice";
+import { styles } from "../../styles";
 
 const AadhaarConfirm = () => {
   const dispatch = useDispatch();

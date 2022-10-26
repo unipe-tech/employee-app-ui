@@ -1,13 +1,14 @@
-import { Button, Icon } from "@react-native-material/core";
-import { useNavigation } from "@react-navigation/core";
 import { useEffect, useState } from "react";
 import { Image, Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { addVerifyMsg, addVerifyStatus } from "../../store/slices/licenseSlice";
-import { licenseBackendPush } from "../../helpers/BackendPush";
-import { form, license, styles, selfie } from "../../styles";
-import { COLORS, FONTS } from "../../constants/Theme";
+import { Button, Icon } from "@react-native-material/core";
+import { useNavigation } from "@react-navigation/core";
 import Analytics from "appcenter-analytics";
+
+import { COLORS, FONTS } from "../../constants/Theme";
+import { licenseBackendPush } from "../../helpers/BackendPush";
+import { addVerifyMsg, addVerifyStatus } from "../../store/slices/licenseSlice";
+import { form, license, selfie,styles } from "../../styles";
 
 export default Confirm = () => {
   const dispatch = useDispatch();
@@ -37,19 +38,17 @@ export default Confirm = () => {
     console.log("licenseSlice : ", licenseSlice);
     if (backendPush) {
       licenseBackendPush({
-        id: id,
-        data: data,
-        verifyMsg: verifyMsg,
-        verifyStatus: verifyStatus,
-        verifyTimestamp: verifyTimestamp,
+        id,
+        data,
+        verifyMsg,
+        verifyStatus,
+        verifyTimestamp,
       });
     }
     setBackendPush(false);
   }, [backendPush]);
 
-  const isDateValid = (expiry_date) => {
-    return new Date(expiry_date) > new Date();
-  };
+  const isDateValid = (expiry_date) => new Date(expiry_date) > new Date();
 
   return (
     <View style={styles.container}>
@@ -77,8 +76,8 @@ export default Confirm = () => {
       <Text style={form.userData}>Blood Group: {data?.bloodGroup || "NA"}</Text>
       {classes.map((item, index) => (
         <View key={index}>
-          <Text style={form.userData}>Class: {item["category"]}</Text>
-          <Text style={license.authority}>{item["authority"]}</Text>
+          <Text style={form.userData}>Class: {item.category}</Text>
+          <Text style={license.authority}>{item.authority}</Text>
         </View>
       ))}
 

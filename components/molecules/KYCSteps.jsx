@@ -1,8 +1,9 @@
-import { View, Text, StyleSheet } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
 import React from "react";
-import StepsIndicator from "../atoms/StepsIndicator";
+import { StyleSheet,Text, View } from "react-native";
+import { MaterialIcons } from "@expo/vector-icons";
+
 import { SIZES } from "../../constants/Theme";
+import StepsIndicator from "../atoms/StepsIndicator";
 
 const KYCSteps = (props) => {
   const getStepIndicatorIconConfig = ({ position, stepStatus }) => {
@@ -68,7 +69,7 @@ const KYCSteps = (props) => {
 };
 const styles = StyleSheet.create({
   container: {
-    //flex: 1,
+    // flex: 1,
   },
 });
 

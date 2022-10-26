@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Alert } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import { OG_API_TEST_KEY } from "@env";
 import { useNavigation } from "@react-navigation/core";
+import Analytics from "appcenter-analytics";
+
+import PrimaryButton from "../../components/PrimaryButton";
+import { licenseBackendPush } from "../../helpers/BackendPush";
 import {
   addData,
   addVerifyMsg,
   addVerifyStatus,
   addVerifyTimestamp,
 } from "../../store/slices/licenseSlice";
-import { licenseBackendPush } from "../../helpers/BackendPush";
-import { OG_API_TEST_KEY } from "@env";
-import PrimaryButton from "../../components/PrimaryButton";
-import Analytics from "appcenter-analytics";
 
 
 const Verify = (props) => {
@@ -50,12 +51,12 @@ const Verify = (props) => {
     console.log("licenseSlice : ", licenseSlice);
     if (backendPush) {
       licenseBackendPush({
-        id: id,
-        data: data,
+        id,
+        data,
         number: licenseSlice?.number,
-        verifyMsg: verifyMsg,
-        verifyStatus: verifyStatus,
-        verifyTimestamp: verifyTimestamp,
+        verifyMsg,
+        verifyStatus,
+        verifyTimestamp,
       });
       setBackendPush(false);
       setLoading(false);
@@ -78,13 +79,13 @@ const Verify = (props) => {
       .then((response) => response.json())
       .then((responseJson) => {
         try {
-          if (responseJson["status"] == "200") {
-            switch (responseJson["data"]["code"]) {
+          if (responseJson.status == "200") {
+            switch (responseJson.data.code) {
               case "1000":
-                setData(responseJson["data"]["driving_license_data"]);
+                setData(responseJson.data.driving_license_data);
                 setVerifyMsg("To be confirmed by User");
                 setVerifyStatus("PENDING");
-                setVerifyTimestamp(responseJson["timestamp"]);
+                setVerifyTimestamp(responseJson.timestamp);
                 setBackendPush(true);
                 Analytics.trackEvent("Licence|Verify|Success", {
                   userId: id,
@@ -98,32 +99,32 @@ const Verify = (props) => {
                 break;
 
               case "1001":
-                setVerifyMsg(responseJson["data"]["message"]);
+                setVerifyMsg(responseJson.data.message);
                 setVerifyStatus("ERROR");
                 setBackendPush(true);
-                Alert.alert("Error", responseJson["data"]["message"]);
+                Alert.alert("Error", responseJson.data.message);
                 Analytics.trackEvent("Licence|Verify|Error", {
                   userId: id,
-                  error: responseJson["data"]["message"],
+                  error: responseJson.data.message,
                 });
                 break;
             }
-          } else if (responseJson["error"]) {
-            setVerifyMsg(responseJson["error"]["message"]);
+          } else if (responseJson.error) {
+            setVerifyMsg(responseJson.error.message);
             setVerifyStatus("ERROR");
             setBackendPush(true);
-            Alert.alert("Error", responseJson["error"]["message"]);
+            Alert.alert("Error", responseJson.error.message);
             Analytics.trackEvent("Licence|Verify|Error", {
               userId: id,
-              error: responseJson["error"]["message"],
+              error: responseJson.error.message,
             });
           } else {
-            setVerifyMsg(responseJson["message"]);
+            setVerifyMsg(responseJson.message);
             setVerifyStatus("ERROR");
-            Alert.alert("Error", responseJson["message"]);
+            Alert.alert("Error", responseJson.message);
             Analytics.trackEvent("Licence|Verify|Error", {
               userId: id,
-              error: responseJson["message"],
+              error: responseJson.message,
             });
           }
         } catch (error) {

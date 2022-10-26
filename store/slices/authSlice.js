@@ -1,14 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  id: "", //TODO: this should be fetched from AsyncStorage
+  id: "", // TODO: this should be fetched from AsyncStorage
   onboarded: false,
   phoneNumber: "",
 };
 
 const authSlice = createSlice({
   name: "auth",
-  initialState: initialState,
+  initialState,
   reducers: {
     addId(state, action) {
       state.id = action.payload;

@@ -1,18 +1,19 @@
-import { OG_API_KEY } from "@env";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Alert } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import { OG_API_KEY } from "@env";
 import { useNavigation } from "@react-navigation/core";
+import Analytics from "appcenter-analytics";
+
+import PrimaryButton from "../../components/PrimaryButton";
+import { panBackendPush } from "../../helpers/BackendPush";
+import { KYC_PAN_VERIFY_API_URL } from "../../services/constants";
 import {
   addData,
   addVerifyMsg,
   addVerifyStatus,
   addVerifyTimestamp,
 } from "../../store/slices/panSlice";
-import { KYC_PAN_VERIFY_API_URL } from "../../services/constants";
-import { panBackendPush } from "../../helpers/BackendPush";
-import PrimaryButton from "../../components/PrimaryButton";
-import Analytics from "appcenter-analytics";
 
 const PanVerifyApi = (props) => {
   const dispatch = useDispatch();
@@ -50,12 +51,12 @@ const PanVerifyApi = (props) => {
     console.log("PanVerifyApi backendPush panSlice: ", backendPush, panSlice);
     if (backendPush) {
       panBackendPush({
-        id: id,
-        data: data,
+        id,
+        data,
         number: panSlice?.number,
-        verifyMsg: verifyMsg,
-        verifyStatus: verifyStatus,
-        verifyTimestamp: verifyTimestamp,
+        verifyMsg,
+        verifyStatus,
+        verifyTimestamp,
       });
       setBackendPush(false);
     }
@@ -78,18 +79,18 @@ const PanVerifyApi = (props) => {
       .then((response) => response.json())
       .then((responseJson) => {
         try {
-          if (responseJson["status"] == "200") {
-            switch (responseJson["data"]["code"]) {
+          if (responseJson.status == "200") {
+            switch (responseJson.data.code) {
               case "1000":
                 const names = ["first", "middle", "last"];
-                responseJson["data"]["pan_data"]["name"] = names
-                  .filter(k => responseJson["data"]["pan_data"][`${k}_name`])
-                  .map((k) => responseJson["data"]["pan_data"][`${k}_name`]).join(" ");
+                responseJson.data.pan_data.name = names
+                  .filter(k => responseJson.data.pan_data[`${k}_name`])
+                  .map((k) => responseJson.data.pan_data[`${k}_name`]).join(" ");
                 console.log("PAN fetched data: ", responseJson);
-                setData(responseJson["data"]["pan_data"]);
+                setData(responseJson.data.pan_data);
                 setVerifyMsg("To be confirmed by User");
                 setVerifyStatus("PENDING");
-                setVerifyTimestamp(responseJson["timestamp"]);
+                setVerifyTimestamp(responseJson.timestamp);
                 setBackendPush(true);
                 Analytics.trackEvent("Pan|Verify|Success", {
                   userId: id,
@@ -106,33 +107,33 @@ const PanVerifyApi = (props) => {
                 }
                 break;
               default:
-                setVerifyMsg(responseJson["data"]["message"]);
+                setVerifyMsg(responseJson.data.message);
                 Analytics.trackEvent("Pan|Verify|Error", {
                   userId: id,
-                  error: responseJson["data"]["message"],
+                  error: responseJson.data.message,
                 });
                 setVerifyStatus("ERROR");
                 setBackendPush(true);
-                Alert.alert("Error", responseJson["data"]["message"]);
+                Alert.alert("Error", responseJson.data.message);
             }
           } else if (responseJson?.error?.message) {
-            setVerifyMsg(responseJson["error"]["message"]);
+            setVerifyMsg(responseJson.error.message);
             Analytics.trackEvent("Pan|Verify|Error", {
               userId: id,
-              error: responseJson["error"]["message"],
+              error: responseJson.error.message,
             });
             setVerifyStatus("ERROR");
             setBackendPush(true);
-            Alert.alert("Error", responseJson["error"]["message"]);
+            Alert.alert("Error", responseJson.error.message);
           } else {
-            setVerifyMsg(responseJson["message"]);
+            setVerifyMsg(responseJson.message);
             Analytics.trackEvent("Pan|Verify|Error", {
               userId: id,
-              error: responseJson["message"],
+              error: responseJson.message,
             });
             setVerifyStatus("ERROR");
             setBackendPush(true);
-            Alert.alert("Error", responseJson["message"]);
+            Alert.alert("Error", responseJson.message);
           }
         } catch (error) {
           console.log("Try Catch Error: ", error.toString());

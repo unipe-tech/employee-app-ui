@@ -10,7 +10,7 @@ const initialState = {
 
 const licenseSlice = createSlice({
   name: "license",
-  initialState: initialState,
+  initialState,
   reducers: {
     addData(state, action) {
       state.data = action.payload;

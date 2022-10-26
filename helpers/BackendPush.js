@@ -80,13 +80,9 @@ export const portalPush = (payload) => {
     });
 };
 
-export const ewaOfferPush = (payload) => {
-  return putBackendData({ document: payload, xpath: "ewa/offer" });
-};
+export const ewaOfferPush = (payload) => putBackendData({ document: payload, xpath: "ewa/offer" });
 
-export const ewaKycPush = (payload) => {
-  return putBackendData({ document: payload, xpath: "ewa/kyc" });
-};
+export const ewaKycPush = (payload) => putBackendData({ document: payload, xpath: "ewa/kyc" });
 
 export const mandatePush = (payload) => {
   putBackendData({ document: payload, xpath: "mandate" })
@@ -98,6 +94,4 @@ export const mandatePush = (payload) => {
     });
 };
 
-export const ewaAgreementPush = (payload) => {
-  return putBackendData({ document: payload, xpath: "ewa/agreement" });
-};
+export const ewaAgreementPush = (payload) => putBackendData({ document: payload, xpath: "ewa/agreement" });

@@ -15,7 +15,7 @@ const initialState = {
 
 const esicSlice = createSlice({
   name: "esic",
-  initialState: initialState,
+  initialState,
   reducers: {
     addESICPortal(state, action) {
       switch (action.payload.type) {

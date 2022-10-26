@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Text, View } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 import { Button } from "@react-native-material/core";
 import { useNavigation } from "@react-navigation/core";
-import { addVerifyMsg, addVerifyStatus } from "../../store/slices/bankSlice";
-import { bankBackendPush } from "../../helpers/BackendPush";
-import { bankform, form, styles } from "../../styles";
-import { COLORS, FONTS } from "../../constants/Theme";
+import Analytics from "appcenter-analytics";
+
 import CollapsibleCard from "../../components/CollapsibleCard";
 import FuzzyCheck from "../../components/FuzzyCheck";
-import Analytics from "appcenter-analytics";
+import { COLORS, FONTS } from "../../constants/Theme";
+import { bankBackendPush } from "../../helpers/BackendPush";
+import { addVerifyMsg, addVerifyStatus } from "../../store/slices/bankSlice";
+import { bankform, form, styles } from "../../styles";
 
 const BankConfirmApi = (props) => {
   const dispatch = useDispatch();
@@ -37,18 +38,18 @@ const BankConfirmApi = (props) => {
     console.log("BankConfirmApi bankSlice : ", bankSlice);
     if (backendPush) {
       bankBackendPush({
-        id: id,
-        data: data,
-        verifyMsg: verifyMsg,
-        verifyStatus: verifyStatus,
-        verifyTimestamp: verifyTimestamp,
+        id,
+        data,
+        verifyMsg,
+        verifyStatus,
+        verifyTimestamp,
       });
       setBackendPush(false);
     }
   }, [backendPush]);
 
   const cardData = () => {
-    var res = [
+    const res = [
       { subTitle: "Bank Name", value: data?.bankName },
       { subTitle: "Branch Name", value: data?.branchName },
       { subTitle: "Branch City", value: data?.branchCity },
@@ -131,7 +132,7 @@ const BankConfirmApi = (props) => {
             }
           }}
         />
-        <View style={bankform.padding}></View>
+        <View style={bankform.padding} />
       </View>
     </View>
   );

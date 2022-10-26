@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect,useState } from "react";
 import { SafeAreaView, Text, View } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 import { Button } from "@react-native-material/core";
 import { useNavigation } from "@react-navigation/core";
-import { portalPush } from "../../../../helpers/BackendPush";
-import { addESICPortal } from "../../../../store/slices/esicSlice";
-import { bankform, form, styles } from "../../../../styles";
-import { showToast } from "../../../../components/Toast";
-import { KeyboardAvoidingWrapper } from "../../../../KeyboardAvoidingWrapper";
-import { COLORS } from "../../../../constants/Theme";
+
 import FormInput from "../../../../components/atoms/FormInput";
 import PrimaryButton from "../../../../components/PrimaryButton";
+import { showToast } from "../../../../components/Toast";
+import { COLORS } from "../../../../constants/Theme";
+import { portalPush } from "../../../../helpers/BackendPush";
+import { KeyboardAvoidingWrapper } from "../../../../KeyboardAvoidingWrapper";
+import { addESICPortal } from "../../../../store/slices/esicSlice";
+import { bankform, form, styles } from "../../../../styles";
 
 export default Portal = () => {
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ export default Portal = () => {
       <KeyboardAvoidingWrapper>
         <View>
           <FormInput
-            placeholder={"IP Number"}
+            placeholder="IP Number"
             containerStyle={{ marginVertical: 10 }}
             value={ipNumber}
             onChange={setIpNumber}
@@ -37,7 +38,7 @@ export default Portal = () => {
           <PrimaryButton
             title="Continue"
             onPress={() => {
-              portalPush({ id: id, ipNumber: ipNumber });
+              portalPush({ id, ipNumber });
               showToast("ESIC Portal details recorded.");
               navigation.navigate("Benefits", {
                 screen: "ESIC",
@@ -48,7 +49,7 @@ export default Portal = () => {
             }}
           />
 
-          <View style={bankform.padding}></View>
+          <View style={bankform.padding} />
         </View>
       </KeyboardAvoidingWrapper>
     </SafeAreaView>

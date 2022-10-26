@@ -18,7 +18,7 @@ const initialState = {
 
 const bankSlice = createSlice({
   name: "bank",
-  initialState: initialState,
+  initialState,
   reducers: {
     addAccountHolderName(state, action) {
       state.data.accountHolderName = action.payload;

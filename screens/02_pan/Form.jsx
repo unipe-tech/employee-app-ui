@@ -1,13 +1,13 @@
-import { useNavigation } from "@react-navigation/core";
 import { useEffect } from "react";
 import { Alert, SafeAreaView } from "react-native";
 import { useDispatch } from "react-redux";
-import ProgressBarTop from "../../navigators/ProgressBarTop";
-import { styles } from "../../styles";
+import { useNavigation } from "@react-navigation/core";
 
-import { addCurrentScreen } from "../../store/slices/navigationSlice";
-import PanFormTemplate from "../../templates/pan/Form";
 import Header from "../../components/atoms/Header";
+import ProgressBarTop from "../../navigators/ProgressBarTop";
+import { addCurrentScreen } from "../../store/slices/navigationSlice";
+import { styles } from "../../styles";
+import PanFormTemplate from "../../templates/pan/Form";
 
 export default PanForm = () => {
   const dispatch = useDispatch();
@@ -29,8 +29,7 @@ export default PanForm = () => {
   };
 
   return (
-    <>
-      <SafeAreaView style={[styles.container, { padding: 0 }]}>
+    <SafeAreaView style={[styles.container, { padding: 0 }]}>
         <Header
           title="PAN Verification"
           onLeftIconPress={() => navigation.navigate("AadhaarConfirm")}
@@ -40,6 +39,5 @@ export default PanForm = () => {
         <ProgressBarTop step={3} />
         <PanFormTemplate />
       </SafeAreaView>
-    </>
   );
 };

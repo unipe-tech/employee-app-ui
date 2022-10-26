@@ -1,5 +1,3 @@
-import { useNavigation } from "@react-navigation/core";
-import Analytics from "appcenter-analytics";
 import { useEffect, useState } from "react";
 import {
   Alert, Dimensions,
@@ -12,6 +10,9 @@ import SplashScreen from "react-native-splash-screen";
 import { AntDesign } from "react-native-vector-icons";
 import { WebView } from "react-native-webview";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/core";
+import Analytics from "appcenter-analytics";
+
 import SVGImg from "../../assets/UnipeLogo.svg";
 import FormInput from "../../components/atoms/FormInput";
 import PrimaryButton from "../../components/PrimaryButton";
@@ -47,7 +48,7 @@ export default LoginScreen = () => {
   const [isTermsOfUseModalVisible, setIsTermsOfUseModalVisible] =
     useState(false);
 
-  var phone_number = "";
+  let phone_number = "";
 
   useEffect(() => {
     dispatch(addCurrentScreen("Login"));
@@ -66,7 +67,7 @@ export default LoginScreen = () => {
   }, [phoneNumber]);
 
   useEffect(() => {
-    var phoneno = /^[0-9]{10}$/gm;
+    const phoneno = /^[0-9]{10}$/gm;
     if (phoneno.test(phoneNumber) && phoneNumber.length === 10) {
       setNext(true);
       console.log("true");
@@ -92,7 +93,7 @@ export default LoginScreen = () => {
   const signIn = () => {
     setLoading(true);
     dispatch(resetTimer());
-    var fullPhoneNumber = `+91${phoneNumber}`;
+    const fullPhoneNumber = `+91${phoneNumber}`;
     putBackendData({ document: { number: fullPhoneNumber }, xpath: "mobile" })
       .then((res) => {
         console.log("LoginScreen res.data: ", res.data);
@@ -105,7 +106,7 @@ export default LoginScreen = () => {
           sendSmsVerification(phoneNumber)
             .then((result) => {
               console.log("sendSmsVerification result: ", result);
-              if (result["response"]["status"] === "success") {
+              if (result.response.status === "success") {
                 setLoading(false);
                 Analytics.trackEvent("LoginScreen|SendSms|Success", {
                   userId: id,
@@ -115,11 +116,11 @@ export default LoginScreen = () => {
                 setLoading(false);
                 Analytics.trackEvent("LoginScreen|SendSms|Error", {
                   userId: id,
-                  error: result["response"]["details"],
+                  error: result.response.details,
                 });
                 Alert.alert(
-                  result["response"]["status"],
-                  result["response"]["details"]
+                  result.response.status,
+                  result.response.details
                 );
               }
             })
@@ -128,24 +129,24 @@ export default LoginScreen = () => {
               console.log(error);
               Analytics.trackEvent("LoginScreen|SendSms|Error", {
                 userId: id,
-                error: error,
+                error,
               });
               Alert("Error", "Something is Wrong");
             });
         } else {
           setLoading(false);
           Analytics.trackEvent("LoginScreen|SignIn|Error", {
-            phoneNumber: phoneNumber,
-            error: res.data["message"],
+            phoneNumber,
+            error: res.data.message,
           });
-          Alert.alert("Error", res.data["message"]);
+          Alert.alert("Error", res.data.message);
         }
       })
       .catch((error) => {
         setLoading(false);
         Analytics.trackEvent("LoginScreen|SignIn|Error", {
-          phoneNumber: phoneNumber,
-          error: error,
+          phoneNumber,
+          error,
         });
         console.log(error);
       });
@@ -168,7 +169,7 @@ export default LoginScreen = () => {
             keyboardType="phone-pad"
             value={phoneNumber}
             onChange={setPhoneNumber}
-            autoFocus={true}
+            autoFocus
             maxLength={10}
             prependComponent={
               <View

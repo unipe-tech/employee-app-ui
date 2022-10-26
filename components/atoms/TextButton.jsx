@@ -1,12 +1,13 @@
-import { Button } from "@react-native-material/core";
 import React from "react";
 import {
-  Text,
-  StyleSheet,
-  TouchableOpacity,
   ActivityIndicator,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
   View,
 } from "react-native";
+import { Button } from "@react-native-material/core";
+
 import { COLORS, FONTS, SIZES } from "../../constants/Theme";
 
 const TextButton = ({
@@ -16,8 +17,7 @@ const TextButton = ({
   label,
   labelStyle,
   onPress,
-}) => {
-  return !loading ? (
+}) => !loading ? (
     <Button
       uppercase={false}
       title={label}
@@ -35,7 +35,6 @@ const TextButton = ({
       <ActivityIndicator size="large" color="white" />
     </TouchableOpacity>
   );
-};
 
 const styles = StyleSheet.create({
   button: {

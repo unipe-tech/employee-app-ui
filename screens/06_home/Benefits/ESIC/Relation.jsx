@@ -1,9 +1,10 @@
-import { Button } from "@react-native-material/core";
-import { Picker } from "@react-native-picker/picker";
-import { useNavigation } from "@react-navigation/core";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView, Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+import { Button } from "@react-native-material/core";
+import { Picker } from "@react-native-picker/picker";
+import { useNavigation } from "@react-navigation/core";
+
 import FormInput from "../../../../components/atoms/FormInput";
 import DropDownForm from "../../../../components/molecules/DropDownForm";
 import PrimaryButton from "../../../../components/PrimaryButton";
@@ -11,8 +12,8 @@ import { showToast } from "../../../../components/Toast";
 import { COLORS, FONTS } from "../../../../constants/Theme";
 import { relationPush } from "../../../../helpers/BackendPush";
 import {
-  nomineeRelations,
   employeeRelations,
+  nomineeRelations,
 } from "../../../../helpers/RelationData";
 import { KeyboardAvoidingWrapper } from "../../../../KeyboardAvoidingWrapper";
 import { addESICFamilyDetails } from "../../../../store/slices/esicSlice";
@@ -88,21 +89,21 @@ export default Relation = () => {
           />
 
           <DropDownForm
-            placeholder={"Relation with Employee (Father/Husband)*"}
+            placeholder="Relation with Employee (Father/Husband)*"
             containerStyle={{ marginVertical: 10 }}
             value={fatherHusbandRelation}
             setValue={setRelation}
             data={employeeRelations}
           />
           <FormInput
-            placeholder={"Name of Nominee (As per Aadhaar card)*"}
+            placeholder="Name of Nominee (As per Aadhaar card)*"
             containerStyle={{ marginVertical: 10 }}
             value={nomineeName}
             onChange={setNomineeName}
           />
 
           <DropDownForm
-            placeholder={"Nominee Relationship with Employee*"}
+            placeholder="Nominee Relationship with Employee*"
             containerStyle={{ marginVertical: 10 }}
             value={nomineeRelation}
             setValue={setNomineeRelation}
@@ -113,14 +114,14 @@ export default Relation = () => {
             title="Continue"
             onPress={() => {
               relationPush({
-                id: id,
+                id,
                 type: "fh",
                 relation: fatherHusbandRelation,
                 name: fatherHusbandName,
               });
 
               relationPush({
-                id: id,
+                id,
                 type: "nominee",
                 relation: nomineeRelation,
                 name: nomineeName,

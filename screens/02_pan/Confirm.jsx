@@ -1,13 +1,13 @@
 import { useEffect } from "react";
+import { Alert, SafeAreaView, ScrollView } from "react-native";
 import { useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/core";
-import { Alert, SafeAreaView, ScrollView } from "react-native";
-import ProgressBarTop from "../../navigators/ProgressBarTop";
-import { styles } from "../../styles";
 
-import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import PanConfirmApi from "../../apis/pan/Confirm";
 import Header from "../../components/atoms/Header";
+import ProgressBarTop from "../../navigators/ProgressBarTop";
+import { addCurrentScreen } from "../../store/slices/navigationSlice";
+import { styles } from "../../styles";
 
 export default PanConfirm = () => {
   const dispatch = useDispatch();

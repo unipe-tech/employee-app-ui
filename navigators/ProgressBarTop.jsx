@@ -1,10 +1,11 @@
-import StepIndicator from "react-native-step-indicator";
-import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { View } from "react-native";
-import { useNavigation } from "@react-navigation/core";
+import StepIndicator from "react-native-step-indicator";
 import { useSelector } from "react-redux";
-import { progressBar, stepIndicatorStyles } from "../styles";
+import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/core";
+
 import { COLORS } from "../constants/Theme";
+import { progressBar, stepIndicatorStyles } from "../styles";
 
 export default ProgressBarTop = (props) => {
   const navigation = useNavigation();

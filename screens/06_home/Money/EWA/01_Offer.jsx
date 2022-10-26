@@ -1,8 +1,3 @@
-import { STAGE } from "@env";
-import { MaterialIcons } from "@expo/vector-icons";
-import CheckBox from "@react-native-community/checkbox";
-import { useNavigation } from "@react-navigation/core";
-import Analytics from "appcenter-analytics";
 import { useEffect, useState } from "react";
 import {
   Alert, Dimensions,
@@ -15,10 +10,15 @@ import { getUniqueId } from "react-native-device-info";
 import Modal from "react-native-modal";
 import { NetworkInfo } from "react-native-network-info";
 import StepIndicator from "react-native-step-indicator";
-import { AntDesign } from "react-native-vector-icons";
+import { AntDesign , MaterialIcons } from "react-native-vector-icons";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { WebView } from "react-native-webview";
 import { useDispatch, useSelector } from "react-redux";
+import { STAGE } from "@env";
+import CheckBox from "@react-native-community/checkbox";
+import { useNavigation } from "@react-navigation/core";
+import Analytics from "appcenter-analytics";
+
 import Header from "../../../../components/atoms/Header";
 import PrimaryButton from "../../../../components/PrimaryButton";
 import { COLORS } from "../../../../constants/Theme";
@@ -79,12 +79,12 @@ const Offer = () => {
   useEffect(() => {
     if (fetched) {
       ewaOfferPush({
-        offerId: offerId,
-        unipeEmployeeId: unipeEmployeeId,
+        offerId,
+        unipeEmployeeId,
         status: "INPROGRESS",
         timestamp: Date.now(),
-        ipAddress: ipAddress,
-        deviceId: deviceId,
+        ipAddress,
+        deviceId,
       })
         .then((response) => {
           console.log("ewaOfferPush response.data: ", response.data);
@@ -100,12 +100,12 @@ const Offer = () => {
     setLoading(true);
     if (validAmount) {
       ewaOfferPush({
-        offerId: offerId,
-        unipeEmployeeId: unipeEmployeeId,
+        offerId,
+        unipeEmployeeId,
         status: "CONFIRMED",
         timestamp: Date.now(),
-        ipAddress: ipAddress,
-        deviceId: deviceId,
+        ipAddress,
+        deviceId,
         loanAmount: parseInt(amount),
       })
         .then((response) => {
@@ -122,7 +122,7 @@ const Offer = () => {
           Alert.alert("An Error occured", error);
           Analytics.trackEvent("Ewa|OfferPush|Error", {
             userId: unipeEmployeeId,
-            error: error
+            error
           });
         });
     }
@@ -198,9 +198,9 @@ const Offer = () => {
                 width: "60%",
               }}
               keyboardType="numeric"
-              textAlign={"center"}
+              textAlign="center"
               value={amount}
-              autoFocus={true}
+              autoFocus
               onChangeText={setAmount}
             />
           </View>

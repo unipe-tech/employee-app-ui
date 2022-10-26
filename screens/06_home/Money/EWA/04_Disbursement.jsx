@@ -1,11 +1,12 @@
-import Analytics from "appcenter-analytics";
 import { useEffect, useState } from "react";
-import { SafeAreaView, Image, View } from "react-native";
-import CollapsibleCard from "../../../../components/CollapsibleCard";
-import { ewa, styles } from "../../../../styles";
+import { Image, SafeAreaView, View } from "react-native";
 import { useSelector } from "react-redux";
+import Analytics from "appcenter-analytics";
+
 import Header from "../../../../components/atoms/Header";
+import CollapsibleCard from "../../../../components/CollapsibleCard";
 import { getBackendData } from "../../../../services/employees/employeeServices";
+import { ewa, styles } from "../../../../styles";
 
 
 const Disbursement = ({ route, navigation }) => {
@@ -47,7 +48,7 @@ const Disbursement = ({ route, navigation }) => {
         console.log("ewaDisbursementFetch error: ", error);
         Analytics.trackEvent("Ewa|Disbursement|Error", {
           userId: unipeEmployeeId,
-          error: error,
+          error,
         });
       });
   }, []);
@@ -66,8 +67,8 @@ const Disbursement = ({ route, navigation }) => {
   }, [processingFees]);
 
   const data = [
-    { subTitle: "Loan Amount ", value: "₹" + loanAmount },
-    { subTitle: "Net Transfer Amount ", value: "₹" + netAmount },
+    { subTitle: "Loan Amount ", value: `₹${  loanAmount}` },
+    { subTitle: "Net Transfer Amount ", value: `₹${  netAmount}` },
     { subTitle: "Bank Account Number", value: bankAccountNumber },
     { subTitle: "Due Date", value: dueDate },
     { subTitle: "Loan Account Number", value: loanAccountNumber },

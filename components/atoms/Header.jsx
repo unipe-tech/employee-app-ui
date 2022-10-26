@@ -1,10 +1,10 @@
-import { View, Text } from "react-native";
 import React from "react";
+import { Text,View } from "react-native";
 import { AppBar, Icon, IconButton } from "@react-native-material/core";
+
 import { COLORS } from "../../constants/Theme";
 
-const Header = ({ title, onLeftIconPress, onRightIconPress }) => {
-  return (
+const Header = ({ title, onLeftIconPress, onRightIconPress }) => (
     <AppBar
       title={title}
       color={COLORS.primary}
@@ -25,6 +25,5 @@ const Header = ({ title, onLeftIconPress, onRightIconPress }) => {
       }
     />
   );
-};
 
 export default Header;
