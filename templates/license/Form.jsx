@@ -9,6 +9,7 @@ import DateEntry from "../../components/DateEntry";
 import { addNumber } from "../../store/slices/licenseSlice";
 import FormInput from "../../components/atoms/FormInput";
 import InfoCard from "../../components/atoms/InfoCard";
+import { KYC_LICENSE_VERIFY_API_URL } from "../../services/constants";
 
 const LicenseFormTemplate = () => {
   const dispatch = useDispatch();
@@ -56,7 +57,8 @@ const LicenseFormTemplate = () => {
           />
 
           <Verify
-            url={"https://api.gridlines.io/dl-api/fetch"}
+              // url={"https://api.gridlines.io/dl-api/fetch"}
+              url={KYC_LICENSE_VERIFY_API_URL}
             data={{
               driving_license_number: number,
               date_of_birth: dob,

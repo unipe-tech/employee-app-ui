@@ -86,6 +86,7 @@ const Verify = (props) => {
                 setVerifyStatus("PENDING");
                 setVerifyTimestamp(responseJson["timestamp"]);
                 setBackendPush(true);
+                setLoading(false)
                 Analytics.trackEvent("Licence|Verify|Success", {
                   userId: id,
                 });
@@ -101,6 +102,7 @@ const Verify = (props) => {
                 setVerifyMsg(responseJson["data"]["message"]);
                 setVerifyStatus("ERROR");
                 setBackendPush(true);
+                setLoading(false)
                 Alert.alert("Error", responseJson["data"]["message"]);
                 Analytics.trackEvent("Licence|Verify|Error", {
                   userId: id,
@@ -112,6 +114,7 @@ const Verify = (props) => {
             setVerifyMsg(responseJson["error"]["message"]);
             setVerifyStatus("ERROR");
             setBackendPush(true);
+            setLoading(false)
             Alert.alert("Error", responseJson["error"]["message"]);
             Analytics.trackEvent("Licence|Verify|Error", {
               userId: id,
@@ -120,6 +123,7 @@ const Verify = (props) => {
           } else {
             setVerifyMsg(responseJson["message"]);
             setVerifyStatus("ERROR");
+            setLoading(false)
             Alert.alert("Error", responseJson["message"]);
             Analytics.trackEvent("Licence|Verify|Error", {
               userId: id,
@@ -131,6 +135,7 @@ const Verify = (props) => {
           setVerifyMsg(error.toString());
           setVerifyStatus("ERROR");
           setBackendPush(true);
+          setLoading(false)
           Alert.alert("Error", error.toString());
           Analytics.trackEvent("Licence|Verify|Error", {
             userId: id,
