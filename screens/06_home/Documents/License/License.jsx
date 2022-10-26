@@ -17,6 +17,8 @@ const License = () => {
   const licenseSlice = useSelector((state) => state.license);
   const verifyStatus = licenseSlice?.verifyStatus;
 
+  console.log("LICENSE DATA 😅: ", licenseSlice)
+
   const dataDetails = [
     { label: "Number", value: number },
     { label: "Name", value: data?.name },

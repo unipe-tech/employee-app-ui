@@ -2,13 +2,13 @@ import { useNavigation } from "@react-navigation/core";
 import { useEffect } from "react";
 import { Image } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { getBackendData } from "../services/employees/employeeServices";
-import { resetAadhaar } from "../store/slices/aadhaarSlice";
-import { resetBank } from "../store/slices/bankSlice";
-import { resetPan } from "../store/slices/panSlice";
-import { resetProfile } from "../store/slices/profileSlice";
-import { resetLicense } from "../store/slices/licenseSlice";
-import { resetMandate } from "../store/slices/mandateSlice";
+import { getBackendData } from "Services/employees/employeeServices";
+import { resetAadhaar } from "Store/slices/aadhaarSlice";
+import { resetBank } from "Store/slices/bankSlice";
+import { resetPan } from "Store/slices/panSlice";
+import { resetProfile } from "Store/slices/profileSlice";
+import { resetLicense } from "Store/slices/licenseSlice";
+import { resetMandate } from "Store/slices/mandateSlice";
 
 const BackendSync = (props) => {
   const dispatch = useDispatch();
