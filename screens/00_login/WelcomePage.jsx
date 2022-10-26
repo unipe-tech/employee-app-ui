@@ -1,18 +1,20 @@
-import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/core";
-import React, { useEffect } from "react";
+/* eslint-disable react/jsx-props-no-spreading */
+import { useEffect } from "react";
 import { SafeAreaView, View } from "react-native";
 import StepIndicator from "react-native-step-indicator";
+import { MaterialCommunityIcons, MaterialIcons } from "react-native-vector-icons";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/core"
+import Analytics from "appcenter-analytics"
+
+import SVGImg from "../../assets/UnipeLogo.svg";
 import PrimaryButton from "../../components/PrimaryButton";
 import { COLORS } from "../../constants/Theme";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { stepIndicatorStyles, styles, welcome } from "../../styles";
-import SVGImg from "../../assets/UnipeLogo.svg";
-import Analytics from "appcenter-analytics";
 
 
-const WelcomePage = () => {
+function WelcomePage() {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
@@ -20,7 +22,7 @@ const WelcomePage = () => {
 
   useEffect(() => {
     dispatch(addCurrentScreen("Welcome"));
-  }, []);
+  }, [dispatch]);
 
   const getStepIndicatorIconConfig = ({ position, stepStatus }) => {
     const iconConfig = {
@@ -71,8 +73,7 @@ const WelcomePage = () => {
   ];
 
   return (
-    <>
-      <SafeAreaView style={[styles.container, { paddingBottom: 40 }]}>
+    <SafeAreaView style={[styles.container, { paddingBottom: 40 }]}>
         <SVGImg style={styles.logo} />
         <View style={welcome.steps}>
           <StepIndicator
@@ -94,8 +95,7 @@ const WelcomePage = () => {
           }}
         />
       </SafeAreaView>
-    </>
   );
-};
+}
 
 export default WelcomePage;

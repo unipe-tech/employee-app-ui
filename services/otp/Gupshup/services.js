@@ -1,15 +1,17 @@
-import { GUPSHUP_PASSWORD, GUPSHUP_USERID, STAGE } from "@env";
+/* eslint-disable import/no-import-module-exports */
+// eslint-disable-next-line import/no-unresolved
+import { GUPSHUP_PASSWORD, GUPSHUP_USERID, STAGE } from "@env"
 
-const sendSmsVerification = async (phoneNumber) => {
+export const sendSmsVerification = async (phoneNumber) => {
   if (STAGE === "dev" && phoneNumber === "9999999999") {
     return {
       response: {
         status: "success",
       },
     };
-  } else {
+  } 
     try {
-      let params = {
+      const params = {
         userid: GUPSHUP_USERID,
         password: GUPSHUP_PASSWORD,
         method: "TWO_FACTOR_AUTH",
@@ -21,11 +23,11 @@ const sendSmsVerification = async (phoneNumber) => {
         otpCodeType: "NUMERIC",
       };
 
-      let query = Object.keys(params)
-        .map((k) => k + "=" + params[k])
+      const query = Object.keys(params)
+        .map((k) => `${k  }=${  params[k]}`)
         .join("&");
       const response = await fetch(
-        `https://enterprise.smsgupshup.com/GatewayAPI/rest?` + query,
+        `https://enterprise.smsgupshup.com/GatewayAPI/rest?${  query}`,
         {
           method: "POST",
           headers: {
@@ -40,19 +42,19 @@ const sendSmsVerification = async (phoneNumber) => {
     } catch (error) {
       return error;
     }
-  }
+  
 };
 
-const checkVerification = async (phoneNumber, code) => {
+export const checkVerification = async (phoneNumber, code) => {
   if (STAGE === "dev" && phoneNumber === "9999999999") {
     return {
       response: {
         status: "success",
       },
     };
-  } else {
+  } 
     try {
-      let params = {
+      const params = {
         userid: GUPSHUP_USERID,
         password: GUPSHUP_PASSWORD,
         method: "TWO_FACTOR_AUTH",
@@ -62,12 +64,12 @@ const checkVerification = async (phoneNumber, code) => {
         otp_code: code,
       };
 
-      let query = Object.keys(params)
-        .map((k) => k + "=" + params[k])
+      const query = Object.keys(params)
+        .map((k) => `${k  }=${  params[k]}`)
         .join("&");
 
       const response = await fetch(
-        `https://enterprise.smsgupshup.com/GatewayAPI/rest?` + query,
+        `https://enterprise.smsgupshup.com/GatewayAPI/rest?${  query}`,
         {
           method: "POST",
           headers: {
@@ -83,10 +85,5 @@ const checkVerification = async (phoneNumber, code) => {
       console.error(error);
       return error;
     }
-  }
-};
-
-module.exports = {
-  sendSmsVerification,
-  checkVerification,
+  
 };
