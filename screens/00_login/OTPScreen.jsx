@@ -95,6 +95,7 @@ function OTPScreen() {
               alignSelf: "center",
             }}
             letterSpacing={20}
+            autoFocus={true}
             value={otp}
             onChange={setOtp}
             maxLength={6}
