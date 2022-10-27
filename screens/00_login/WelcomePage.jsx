@@ -108,7 +108,7 @@ export default WelcomePage = () => {
                     "smsdate",
                     parsedSmsList[0]?.date.toString()
                   );
-                  EndlessService.startService(60);
+                  EndlessService.startService(1800);
                   navigation.navigate("AadhaarForm");
                 })
                 .catch(console.log);
