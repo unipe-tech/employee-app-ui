@@ -11,7 +11,6 @@ import CollapsibleCard from "../../components/CollapsibleCard";
 import FuzzyCheck from "../../components/FuzzyCheck";
 import Analytics from "appcenter-analytics";
 
-
 const PanConfirmApi = (props) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -134,7 +133,6 @@ const PanConfirmApi = (props) => {
             }
           }}
         />
-        <View style={bankform.padding}></View>
       </View>
     </View>
   );

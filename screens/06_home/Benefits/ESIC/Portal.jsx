@@ -45,8 +45,6 @@ export default Portal = () => {
               });
             }}
           />
-
-          <View style={bankform.padding}></View>
         </View>
       </KeyboardAvoidingWrapper>
     </SafeAreaView>

@@ -131,7 +131,6 @@ const BankConfirmApi = (props) => {
             }
           }}
         />
-        <View style={bankform.padding}></View>
       </View>
     </View>
   );

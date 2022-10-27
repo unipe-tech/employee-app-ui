@@ -14,7 +14,6 @@ import { COLORS, FONTS } from "../../constants/Theme";
 import Analytics from "appcenter-analytics";
 import CollapsibleCard from "../../components/CollapsibleCard";
 
-
 const AadhaarConfirmApi = (props) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -145,7 +144,6 @@ const AadhaarConfirmApi = (props) => {
             }
           }}
         />
-        <View style={bankform.padding}></View>
       </View>
     </View>
   );

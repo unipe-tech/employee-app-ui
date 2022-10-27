@@ -175,52 +175,9 @@ export const checkBox = StyleSheet.create({
 });
 
 export const bankform = StyleSheet.create({
-  formtitle: {
-    marginTop: 20,
-    color: COLORS.gray,
-    ...FONTS.body4,
-  },
   formatmsg: {
     color: COLORS.warning,
     ...FONTS.body4,
-  },
-  formInput: {
-    width: "100%",
-    height: 40,
-    borderBottomWidth: 1,
-  },
-  nextButton: {
-    padding: 10,
-    alignSelf: "center",
-    marginTop: 40,
-    width: 320,
-    height: 60,
-    fontSize: 20,
-  },
-  padding: {
-    marginTop: 30,
-  },
-  infoCard: {
-    backgroundColor: "rgba(78, 70, 241, 0.1)",
-    width: "100%",
-    marginLeft: 30,
-    marginTop: 20,
-    padding: 10,
-    flex: 0,
-    flexDirection: "row",
-    alignItems: "flex-start",
-  },
-  infoText: {
-    width: "93%",
-    color: COLORS.darkGray,
-    paddingLeft: 7,
-  },
-  Maintitle: {
-    marginLeft: 30,
-    marginTop: 10,
-    color: COLORS.black,
-    fontSize: 18,
-    fontFamily: "Roboto",
   },
   subTitle: {
     marginTop: 10,
@@ -231,36 +188,9 @@ export const bankform = StyleSheet.create({
   asterisk: { fontWeight: "bold", color: COLORS.primary },
 });
 
-export const homeCard = StyleSheet.create({
-  card: {
-    marginTop: 20,
-    width: 170,
-    borderWidth: 1,
-    borderRadius: 10,
-    marginRight: 10,
-  },
-  title: {
-    ...FONTS.h3,
-  },
-  subtitle: {
-    ...FONTS.body4,
-  },
-  downloadIcon: {
-    marginTop: 30,
-    color: COLORS.primary,
-  },
-  downloadText: {
-    marginTop: 30,
-    ...FONTS.h4,
-    color: COLORS.primary,
-  },
-});
+export const homeCard = StyleSheet.create({});
 
 export const nav = StyleSheet.create({
-  titleLogo: {
-    width: 160,
-    height: 80,
-  },
   navbar: {
     height: 60,
   },
@@ -337,23 +267,6 @@ export const Camera = StyleSheet.create({
 });
 
 export const welcome = StyleSheet.create({
-  title: {
-    marginTop: 20,
-    color: COLORS.black,
-    ...FONTS.body4,
-  },
-  mainTitle: {
-    marginTop: 20,
-    marginLeft: 30,
-    color: COLORS.black,
-    ...FONTS.h2,
-  },
-  subTitle: {
-    alignSelf: "center",
-    color: COLORS.black,
-    ...FONTS.h3,
-    textAlign: "center",
-  },
   steps: { flex: 1, alignSelf: "center" },
 });
 
