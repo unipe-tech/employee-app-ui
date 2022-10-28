@@ -1,5 +1,4 @@
-import { View } from "react-native";
-import React from "react";
+import { SafeAreaView, View } from "react-native";
 import DetailItem from "./DetailItem";
 import { useSelector } from "react-redux";
 import PanFormTemplate from "../../templates/pan/Form";
@@ -42,24 +41,26 @@ const Pan = () => {
   ];
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.safeContainer}>
       {verifyStatus == "SUCCESS" ? (
-        <>
-          {dataDetails.map((item, index) => (
-            <DetailItem
-              key={index}
-              label={item.label}
-              value={item.value || "Not Provided"}
-              divider
-            />
-          ))}
-        </>
+        <View style={styles.container}>
+          <View style={styles.card}>
+            {dataDetails.map((item, index) => (
+              <DetailItem
+                key={index}
+                label={item.label}
+                value={item.value || "Not Provided"}
+                divider={item.divider}
+              />
+            ))}
+          </View>
+        </View>
       ) : (
         <>
           <TopTabNav tabs={tabs} hide={true} />
         </>
       )}
-    </View>
+    </SafeAreaView>
   );
 };
 

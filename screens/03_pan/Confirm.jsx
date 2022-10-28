@@ -6,43 +6,35 @@ import ProgressBarTop from "../../navigators/ProgressBarTop";
 import { styles } from "../../styles";
 
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
-import AadhaarConfirmApi from "../../apis/aadhaar/Confirm";
-import { COLORS } from "../../constants/Theme";
+import PanConfirmApi from "../../apis/pan/Confirm";
 import Header from "../../components/atoms/Header";
 
-const AadhaarConfirm = () => {
+export default PanConfirm = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
   useEffect(() => {
-    dispatch(addCurrentScreen("AadhaarConfirm"));
+    dispatch(addCurrentScreen("PanConfirm"));
   }, []);
 
   const backAlert = () => {
     Alert.alert(
       "Do you want to go back ?",
-      "If you go back your AADHAAR Verification will have to be redone. Continue if you want to edit your Aadhaar number.",
+      "If you go back your PAN Verification will have to be redone. Continue if you want to edit your PAN number.",
       [
         { text: "No", onPress: () => null, style: "cancel" },
-        { text: "Yes", onPress: () => navigation.navigate("AadhaarVerify") },
+        { text: "Yes", onPress: () => navigation.navigate("PanForm") },
       ]
     );
   };
 
   return (
-    <SafeAreaView style={[styles.container, { padding: 0 }]}>
-      <Header
-        title="Aadhaar Data Confirmation"
-        onLeftIconPress={() => backAlert()}
-      />
-
+    <SafeAreaView style={styles.safeContainer}>
+      <Header title="PAN Confirmation" onLeftIconPress={() => backAlert()} />
       <ProgressBarTop step={2} />
-
       <ScrollView keyboardShouldPersistTaps="handled">
-        <AadhaarConfirmApi />
+        <PanConfirmApi />
       </ScrollView>
     </SafeAreaView>
   );
 };
-
-export default AadhaarConfirm;

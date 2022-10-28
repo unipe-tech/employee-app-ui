@@ -1,14 +1,15 @@
 import { View, ScrollView } from "react-native";
-import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import DevMenuButton from "../components/DevMenuButton";
+import PushNotification from "react-native-push-notification";
+import { useEffect } from "react";
 
 export default DevMenu = () => {
   const navigation = useNavigation();
   const screens = [
     { title: "Welcome", name: "Welcome" },
     { title: "Login", name: "Login" },
-    { title: "Profile", name: "PersonalDetailsForm" },
+    { title: "Profile", name: "PofileForm" },
     { title: "Photo", name: "PersonalImage" },
     { title: "AADHAAR", name: "AadhaarForm" },
     { title: "PAN", name: "PanForm" },
@@ -20,8 +21,28 @@ export default DevMenu = () => {
     { title: "EWA", name: "EWA_OFFER" },
   ];
 
+  const createChannels = () => {
+    PushNotification.createChannel({
+      channelId: "test-channel",
+      channelName: "Test Channel",
+    });
+  };
+
+  useEffect(() => {
+    createChannels();
+  });
+
+  const handleNotification = () => {
+    PushNotification.localNotification({
+      channelId: "test-channel",
+      title: "hello",
+      message: "Hi This is Unipe App",
+      bigText: "You can now avail your EWA worth 30,000 rupees",
+    });
+  };
+
   return (
-    <ScrollView>
+    <ScrollView showsVerticalScrollIndicator={false}>
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         {screens.map((screen, index) => (
           <DevMenuButton
@@ -31,6 +52,11 @@ export default DevMenu = () => {
             onPress={() => navigation.navigate(screen.name)}
           />
         ))}
+        <DevMenuButton
+          style={{ marginTop: 20 }}
+          title={"Notification Test"}
+          onPress={() => handleNotification()}
+        />
       </View>
     </ScrollView>
   );

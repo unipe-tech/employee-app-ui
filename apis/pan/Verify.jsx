@@ -9,9 +9,9 @@ import {
   addVerifyStatus,
   addVerifyTimestamp,
 } from "../../store/slices/panSlice";
-import { KYC_PAN_VERIFY_API_URL } from "../../services/employees/endpoints";
+import { KYC_PAN_VERIFY_API_URL } from "../../services/constants";
 import { panBackendPush } from "../../helpers/BackendPush";
-import ApiView from "../ApiView";
+import PrimaryButton from "../../components/PrimaryButton";
 import Analytics from "appcenter-analytics";
 import { useQuery } from "@tanstack/react-query";
 
@@ -48,7 +48,7 @@ const PanVerifyApi = (props) => {
   }, [verifyTimestamp]);
 
   useEffect(() => {
-    console.log("PanVerifyApi panSlice: ", panSlice);
+    console.log("PanVerifyApi backendPush panSlice: ", backendPush, panSlice);
     if (backendPush) {
       panBackendPush({
         id: id,
@@ -59,8 +59,8 @@ const PanVerifyApi = (props) => {
         verifyTimestamp: verifyTimestamp,
       });
       setBackendPush(false);
-      setLoading(false);
     }
+    setLoading(false);
   }, [backendPush]);
 
   var { status, ...query } = useQuery(["panFetch",props.data], () => {
@@ -85,7 +85,7 @@ const PanVerifyApi = (props) => {
           setVerifyStatus("ERROR");
           Analytics.trackEvent("Pan|Verify|Error", {
             userId: id,
-            error: error,
+            error: error.toString(),
           });
           setBackendPush(true);
           Alert.alert("Error", error);
@@ -154,25 +154,30 @@ const PanVerifyApi = (props) => {
         setBackendPush(true);
         Alert.alert("Error", responseJson["message"]);
       }
-    } catch (error) {
-      console.log("Error casda: ", error);
-      setVerifyMsg(error);
-      Analytics.trackEvent("Pan|Verify|Error", {
-        userId: id,
-        error: error,
-      });
-      setVerifyStatus("ERROR");
-      setBackendPush(true);
-      Alert.alert("Error", error);
+      } catch (error){
+        console.log("Error casda: ", error);
+        setVerifyMsg(error);
+        Analytics.trackEvent("Pan|Verify|Error", {
+          userId: id,
+          error: error,
+        });
+        setVerifyStatus("ERROR");
+        setBackendPush(true);
+        Alert.alert("Error", error);
+      }
+      
     }
-  };
+  
+
 
   return (
-    <ApiView
+    <PrimaryButton
+      title={loading ? "Verifying" : "Continue"}
       disabled={props.disabled}
       loading={loading}
-      goForFetch={goForFetch}
-      style={props.style}
+      onPress={() => {
+        goForFetch();
+      }}
     />
   );
 };

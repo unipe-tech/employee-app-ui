@@ -7,7 +7,6 @@ import { styles } from "../../styles";
 
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import BankConfirmApi from "../../apis/bank/Confirm";
-import { COLORS } from "../../constants/Theme";
 import Header from "../../components/atoms/Header";
 
 const BankConfirm = () => {
@@ -30,12 +29,12 @@ const BankConfirm = () => {
   };
 
   return (
-    <SafeAreaView style={[styles.container, { padding: 0 }]}>
+    <SafeAreaView style={styles.safeContainer}>
       <Header
         onLeftIconPress={() => backAlert()}
         title="Bank Details Confirmation"
       />
-      <ProgressBarTop step={4} />
+      <ProgressBarTop step={3} />
       <ScrollView keyboardShouldPersistTaps="handled">
         <BankConfirmApi />
       </ScrollView>

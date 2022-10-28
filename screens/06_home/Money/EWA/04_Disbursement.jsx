@@ -1,11 +1,11 @@
 import Analytics from "appcenter-analytics";
 import { useEffect, useState } from "react";
-import { Image, SafeAreaView, View } from "react-native";
+import { SafeAreaView, Image, View } from "react-native";
+import CollapsibleCard from "../../../../components/CollapsibleCard";
+import { ewa, styles } from "../../../../styles";
 import { useSelector } from "react-redux";
 import Header from "../../../../components/atoms/Header";
-import CollapsibleCard from "../../../../components/CollapsibleCard";
 import { getBackendData } from "../../../../services/employees/employeeServices";
-import { ewa, styles } from "../../../../styles";
 
 const Disbursement = ({ route, navigation }) => {
   const { offer } = route.params;
@@ -54,7 +54,7 @@ const Disbursement = ({ route, navigation }) => {
   useEffect(() => {
     console.log("disbursement offer: ", offer);
     setProcessingFees(
-      Math.round(((((offer?.loanAmount * offer?.fees) / 100 + 1) / 10) * 10) - 1)
+      Math.round((((offer?.loanAmount * offer?.fees) / 100 + 1) / 10) * 10 - 1)
     );
     setNetAmount(offer?.netAmount);
     setDueDate(offer?.dueDate);
@@ -74,33 +74,33 @@ const Disbursement = ({ route, navigation }) => {
   ];
 
   return (
-    <SafeAreaView style={[styles.container, { padding: 0 }]}>
+    <SafeAreaView style={styles.safeContainer}>
       <Header
         title="Money Transfer"
-        onLeftIconPress={() => navigation.navigate("Home")}
-      />
-      <Image
-        style={ewa.successImg}
-        source={require("../../../../assets/animatedsuccess.gif")}
+        onLeftIconPress={() => navigation.navigate("EWA")}
       />
       <View style={styles.container}>
+        <Image
+          style={ewa.successImg}
+          source={require("../../../../assets/animatedsuccess.gif")}
+        />
         <CollapsibleCard
           data={data}
           title="Loan Details"
           isClosed={false}
           info="Disbursement will be reconciled in your next payroll"
         />
-      </View>
 
-      {/* 
-      // checkout flow
-      <PrimaryButton
-        title="Thank You"
-        uppercase={false}
-        onPress={() => {
-          navigation.navigate("Home");
-        }}
-      /> */}
+        {/* 
+        // checkout flow
+        <PrimaryButton
+          title="Thank You"
+          uppercase={false}
+          onPress={() => {
+            navigation.navigate("Home");
+          }}
+        /> */}
+      </View>
     </SafeAreaView>
   );
 };

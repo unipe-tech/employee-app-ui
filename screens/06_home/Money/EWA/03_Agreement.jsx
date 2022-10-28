@@ -1,12 +1,16 @@
-import CheckBox from "@react-native-community/checkbox";
 import { useNavigation } from "@react-navigation/core";
+import CheckBox from "@react-native-community/checkbox";
 import Analytics from "appcenter-analytics";
 import { useEffect, useState } from "react";
 import {
-  Alert, Dimensions,
-  Pressable, SafeAreaView,
+  Alert,
+  Dimensions,
+  Pressable,
+  SafeAreaView,
   ScrollView,
-  Text, useWindowDimensions, View
+  Text,
+  useWindowDimensions,
+  View,
 } from "react-native";
 import { getUniqueId } from "react-native-device-info";
 import Modal from "react-native-modal";
@@ -23,10 +27,11 @@ import { resetEwaHistorical } from "../../../../store/slices/ewaHistoricalSlice"
 import {
   addNetAmount,
   addProcessingFees,
-  resetEwaLive
+  resetEwaLive,
 } from "../../../../store/slices/ewaLiveSlice";
 import { checkBox, ewa, styles } from "../../../../styles";
 import agreement from "../../../../templates/docs/LiquidLoansLoanAgreement";
+
 
 const Agreement = () => {
   const dispatch = useDispatch();
@@ -36,8 +41,7 @@ const Agreement = () => {
   const [fetched, setFetched] = useState(false);
   const [deviceId, setDeviceId] = useState(0);
   const [ipAddress, setIpAdress] = useState(0);
-
-  const [confirm, setConfirm] = useState(false);
+  
   const [consent, setConsent] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -69,7 +73,10 @@ const Agreement = () => {
     );
     text.data = text.data.replace(/\{email\}/g, profileSlice?.email);
     text.data = text.data.replace(/\{mobile\}/g, authSlice?.phoneNumber);
-    text.data = text.data.replace(/\{loanAccountNumber\}/g, ewaLiveSlice?.offerId);
+    text.data = text.data.replace(
+      /\{loanAccountNumber\}/g,
+      ewaLiveSlice?.offerId
+    );
     text.data = text.data.replace(/\{loanAmount\}/g, ewaLiveSlice?.loanAmount);
     text.data = text.data.replace(/\{processingFees\}/g, processingFees);
     text.data = text.data.replace(
@@ -96,7 +103,11 @@ const Agreement = () => {
 
   useEffect(() => {
     setProcessingFees(
-      Math.round((((((ewaLiveSlice?.loanAmount * ewaLiveSlice?.fees) / 100) + 1) / 10) * 10) - 1)
+      Math.round(
+        (((ewaLiveSlice?.loanAmount * ewaLiveSlice?.fees) / 100 + 1) / 10) *
+          10 -
+          1
+      )
     );
   }, [ewaLiveSlice]);
 
@@ -192,127 +203,120 @@ const Agreement = () => {
       .then((response) => {
         console.log("ewaAgreementPush response.data: ", response.data);
         navigation.navigate("EWA_DISBURSEMENT", { offer: ewaLiveSlice });
-        Analytics.trackEvent("Ewa|Agreement|Success", {
-          userId: unipeEmployeeId,
-        });
         dispatch(resetEwaLive());
         dispatch(resetEwaHistorical([]));
         setLoading(false);
+        Analytics.trackEvent("Ewa|Agreement|Success", {
+          userId: unipeEmployeeId,
+        });
       })
       .catch((error) => {
         console.log("ewaAgreementPush error: ", error);
+        setLoading(false);
+        Alert.alert("An Error occured", error);
         Analytics.trackEvent("Ewa|Agreement|Error", {
           userId: unipeEmployeeId,
           error: error,
         });
-        Alert.alert("An Error occured", error);
-        setLoading(false);
       });
   }
 
   return (
-    <SafeAreaView style={[styles.container, { padding: 0 }]}>
+    <SafeAreaView style={styles.safeContainer}>
       <Header title="Agreement" onLeftIconPress={() => navigation.goBack()} />
-      <ScrollView>
       <View style={styles.container}>
-        <CollapsibleCard
-          data={data}
-          title="Loan Details"
-          isClosed={false}
-          // info="Disbursed amount will be adjusted in your next salary."
-        />
-        <CollapsibleCard
-          title="Personal Details"
-          isClosed={false}
-          data={profileData}
-        />
-        <CollapsibleCard
-          title="Bank Details"
-          isClosed={false}
-          data={bankData}
-        />
-        <View style={{ flexDirection: "row", marginTop: 10 }}>
-          <CheckBox
-            style={ewa.checkBox}
-            tintColors={{ true: COLORS.primary }}
-            value={confirm}
-            onValueChange={setConfirm}
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <CollapsibleCard
+            data={data}
+            title="Loan Details"
+            isClosed={false}
+            // info="Disbursed amount will be adjusted in your next salary."
           />
-          <Text style={ewa.checkBoxText}>I confirm the above details.</Text>
-        </View>
-        <View style={{ flexDirection: "row" }}>
-          <CheckBox
-            style={ewa.checkBox}
-            tintColors={{ true: COLORS.primary }}
-            value={consent}
-            onValueChange={setConsent}
+          <CollapsibleCard
+            title="Personal Details"
+            isClosed={false}
+            data={profileData}
           />
-          <Text style={ewa.checkBoxText}>
-            I agree to the{" "}
-            <Text
-              style={styles.termsText}
-              onPress={() => setIsModalVisible(true)}
-            >
-              Terms and Conditions
+          <CollapsibleCard
+            title="Bank Details"
+            isClosed={false}
+            data={bankData}
+          />
+
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <CheckBox
+              style={ewa.checkBox}
+              tintColors={{ true: COLORS.primary }}
+              value={consent}
+              onValueChange={setConsent}
+            />
+            <Text style={ewa.checkBoxText}>
+              I confirm the above details and agree to {" "}
+              <Text
+                style={styles.termsText}
+                onPress={() => setIsModalVisible(true)}
+              >
+                Terms and Conditions
+              </Text>
+              .
             </Text>
-            .
-          </Text>
-        </View>
+          </View>
         <PrimaryButton
           title={loading ? "Booking" : "Finish"}
+          disabled={!consent}
+          loading={loading}
           onPress={() => {
             handleAgreement();
           }}
-          disabled={!confirm || !consent || loading}
         />
         <View style={checkBox.padding}></View>
-        <Text style={{ marginLeft: "6%", fontSize: 6, marginTop: "25%" }}>
-          * Disbursement will be reconciled in your next payroll {"\n"}* Annual
-          Percentage Rate @ {apr} %
-        </Text>
-        </View>
-      </ScrollView>
-      <Modal
-        isVisible={isModalVisible}
-        style={{
-          width: Dimensions.get("window").width,
-          height: Dimensions.get("window").height,
-        }}
-      >
-        <Pressable
-          onPress={() => setIsModalVisible(false)}
+          <Text style={{ marginLeft: "6%", fontSize: 6, marginTop: "25%" }}>
+            * Disbursement will be reconciled in your next payroll {"\n"}*
+            Annual Percentage Rate @ {apr} %
+          </Text>
+        </ScrollView>
+        <Modal
+          isVisible={isModalVisible}
           style={{
-            position: "absolute",
-            top: 30,
-            right: 50,
-            zIndex: 999,
+            width: Dimensions.get("window").width,
+            height: Dimensions.get("window").height,
           }}
         >
-          <AntDesign name="closesquareo" size={24} color="black" />
-        </Pressable>
-        <View
-          style={{
-            height: Dimensions.get("window").height - 100,
-            width: Dimensions.get("window").width - 40,
-            backgroundColor: "white",
-            borderRadius: 5,
-          }}
-        >
-          <ScrollView style={{ padding: "5%" }}>
-            <RenderHtml
-              contentWidth={width}
-              source={agreement}
-              enableExperimentalMarginCollapsing={true}
-              renderersProps={{
-                img: {
-                  enableExperimentalPercentWidth: true,
-                },
-              }}
-              domVisitors={{ onText: ValueEntry }}
-            />
-          </ScrollView>
-        </View>
-      </Modal>
+          <Pressable
+            onPress={() => setIsModalVisible(false)}
+            style={{
+              position: "absolute",
+              top: 30,
+              right: 50,
+              zIndex: 999,
+            }}
+          >
+            <AntDesign name="closesquareo" size={24} color="black" />
+          </Pressable>
+          <View
+            style={{
+              height: Dimensions.get("window").height - 100,
+              width: Dimensions.get("window").width - 40,
+              backgroundColor: "white",
+              borderRadius: 5,
+            }}
+          >
+            <ScrollView style={{ padding: "5%" }}>
+              <RenderHtml
+                contentWidth={width}
+                source={agreement}
+                enableExperimentalMarginCollapsing={true}
+                renderersProps={{
+                  img: {
+                    enableExperimentalPercentWidth: true,
+                  },
+                }}
+                domVisitors={{ onText: ValueEntry }}
+              />
+            </ScrollView>
+          </View>
+        </Modal>
+      </View>
     </SafeAreaView>
   );
 };
