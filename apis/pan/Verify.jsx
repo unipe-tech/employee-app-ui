@@ -13,7 +13,7 @@ import { KYC_PAN_VERIFY_API_URL } from "../../services/constants";
 import { panBackendPush } from "../../helpers/BackendPush";
 import PrimaryButton from "../../components/PrimaryButton";
 import Analytics from "appcenter-analytics";
-import { UsePOSTVerify } from "../../queries/Verify";
+import { UseAddData,  UsePOSTVerify } from "../../queries/Verify";
 
 const PanVerifyApi = (props) => {
   const dispatch = useDispatch();
@@ -22,6 +22,7 @@ const PanVerifyApi = (props) => {
   const [loading, setLoading] = useState(false);
   const [backendPush, setBackendPush] = useState(false);
 
+  const [responseJson, setResponseJson] = useState({})
   const id = useSelector((state) => state.auth.id);
   const panSlice = useSelector((state) => state.pan);
   const [data, setData] = useState(panSlice?.data);
@@ -94,10 +95,19 @@ const PanVerifyApi = (props) => {
   //   }
   // });
 
-  var { ...query} = UsePOSTVerify({data: props.data, url: KYC_PAN_VERIFY_API_URL})
+  // var { ...query} = UsePOSTVerify({data: props.data, url: KYC_PAN_VERIFY_API_URL})
+  var { mutate, isLoading, isError, isIdle, isSuccess} = UseAddData()
+
+  useEffect(() => {
+    mutate( props.data, KYC_PAN_VERIFY_API_URL).then((response) => {
+      console.log(response)
+      setResponseJson(response)
+    }).catch(console.log)
+  },[])
 
   const goForFetch = () => {
-    var responseJson = query.data;
+    
+    // var responseJson = query.data;
     console.log("PAN ResponseJSON: ", responseJson)
     try {
       if (responseJson["status"] == "200") {

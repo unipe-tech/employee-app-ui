@@ -20,8 +20,9 @@ import messaging from "@react-native-firebase/messaging";
 import {
   notificationListener,
 } from "./services/notifications/notificationService";
+import { queryClient } from "./queries/Verify";
 
-export const queryClient = new QueryClient();
+
 Crashes.setListener({
   shouldProcess: function (report) {
     return true; // return true if the crash report should be processed, otherwise false.
