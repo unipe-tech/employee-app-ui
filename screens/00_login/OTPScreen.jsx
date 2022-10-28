@@ -88,7 +88,6 @@ const OTPScreen = () => {
           <FormInput
             containerStyle={{
               marginTop: 30,
-
               width: SIZES.width * 0.6,
               alignSelf: "center",
             }}

@@ -272,20 +272,20 @@ export const welcome = StyleSheet.create({
 
 export const selfie = StyleSheet.create({
   uploadButton: {
-    marginTop: 20,
+    marginTop: "10%",
     borderWidth: 2,
     borderRadius: 10,
     paddingHorizontal: 30,
   },
   cameraButton: {
-    marginLeft: 60,
-    marginTop: 20,
+    marginLeft: "30%",
+    marginTop: "10%",
     borderWidth: 2,
     borderRadius: 10,
     paddingHorizontal: 30,
   },
   selfieContainer: {
-    marginTop: 20,
+    marginTop: "10%",
     width: "100%",
     height: SIZES.width * 0.6,
     backgroundColor: COLORS.lightgray_01,
@@ -302,7 +302,7 @@ export const selfie = StyleSheet.create({
 
 export const esic = StyleSheet.create({
   CollapseTitle: {
-    marginTop: 20,
+    marginTop: "10%",
     color: COLORS.primary,
     ...FONTS.body4,
   },
@@ -394,7 +394,7 @@ export const datacard = StyleSheet.create({
 export const dev = StyleSheet.create({
   title: {
     alignSelf: "center",
-    marginTop: 20,
+    marginTop: "10%",
     width: "60%",
   },
 });
