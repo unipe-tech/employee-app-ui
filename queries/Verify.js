@@ -1,7 +1,5 @@
 import { useQuery, useMutation, QueryClient } from "@tanstack/react-query";
 import { OG_API_KEY } from "@env";
-import { KYC_PAN_VERIFY_API_URL } from "../services/constants";
-import axios from "axios";
 
 export const queryClient = new QueryClient();
 
@@ -52,9 +50,6 @@ export const useVerifyApi = ({ data, url }) => {
         });
     },
     {
-      // onSuccess: (data, variables) => {
-      //   // queryClient.invalidateQueries("PostPAN");
-      // },
       onSettled: () => {
         queryClient.refetchQueries();
       },
