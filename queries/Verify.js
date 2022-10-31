@@ -30,7 +30,7 @@ export const UsePOSTVerify = ({ data, url }) => {
   return { status, ...query };
 };
 
-export const myPostCall = ({ data, url }) => {
+export const useVerifyApi = ({ data, url }) => {
   const mutation = useMutation(
     ["PostPANOther", { data, url }],
     async () => {
@@ -61,44 +61,4 @@ export const myPostCall = ({ data, url }) => {
     }
   );
   return mutation;
-};
-
-const postCall = async ({ data, url }) => {
-  return await axios(url, {
-    method: "POST",
-    headers: {
-      "X-Auth-Type": "API-Key",
-      "X-API-Key": OG_API_KEY,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  })
-    .then((response) => {
-      console.log("backe response: ", response);
-      return response.json();
-    })
-    .catch((error) => {
-      return error;
-    });
-};
-
-export const UseAddData = () => {
-  return useMutation(async ({ data, url }) => {
-    return await fetch(url, {
-      method: "POST",
-      headers: {
-        "X-Auth-Type": "API-Key",
-        "X-API-Key": OG_API_KEY,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => {
-        console.log("backe response: ", response);
-        return response.json();
-      })
-      .catch((error) => {
-        return error;
-      });
-  });
 };

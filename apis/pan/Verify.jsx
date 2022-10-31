@@ -1,4 +1,3 @@
-import { OG_API_KEY } from "@env";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Alert } from "react-native";
@@ -13,9 +12,7 @@ import { KYC_PAN_VERIFY_API_URL } from "../../services/constants";
 import { panBackendPush } from "../../helpers/BackendPush";
 import PrimaryButton from "../../components/PrimaryButton";
 import Analytics from "appcenter-analytics";
-import { myPostCall, UseAddData, UsePOSTVerify } from "../../queries/Verify";
-import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
+import { useVerifyApi } from "../../queries/Verify";
 
 const PanVerifyApi = (props) => {
   const dispatch = useDispatch();
@@ -66,78 +63,7 @@ const PanVerifyApi = (props) => {
     setLoading(false);
   }, [backendPush]);
 
-  // var { status, ...query } = useQuery(["panFetch",props.data], () => {
-  //   const options = {
-  //     method: "POST",
-  //     headers: {
-  //       "X-Auth-Type": "API-Key",
-  //       "X-API-Key": OG_API_KEY,
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(props.data),
-  //   };
-
-  //   if (props.data.consent === "Y") {
-  //     return fetch(KYC_PAN_VERIFY_API_URL, options)
-  //       .then((response) => {
-  //         return response.json();
-  //       })
-  //       .catch((error) => {
-  //         console.log("Error: ", error);
-  //         setVerifyMsg(error);
-  //         setVerifyStatus("ERROR");
-  //         Analytics.trackEvent("Pan|Verify|Error", {
-  //           userId: id,
-  //           error: error.toString(),
-  //         });
-  //         // setBackendPush(true);
-  //         Alert.alert("Error", error);
-  //         return error;
-  //       });
-  //   }
-  // });
-
-  var { ...query } = UsePOSTVerify({
-    data: props.data,
-    url: KYC_PAN_VERIFY_API_URL,
-  });
-  // var mutation = UseAddData()
-
-  // useEffect(() => {
-  //   const responseJson = mutate( {data: {pan_number: "ABCDE2000F", consent: "Y"}, url: KYC_PAN_VERIFY_API_URL})
-  //   console.log("PANAPI REPNSE: ",responseJson)
-  //   console.log("PAN ResponseJSON: ", responseJson)
-  // // //
-  // },[])
-
-  const postcall = async (item) => {
-    return await fetch(item.url, {
-      method: "POST",
-      headers: {
-        "X-Auth-Type": "API-Key",
-        "X-API-Key": OG_API_KEY,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(item.data),
-    });
-  };
-
-  // const { mutate, data: queryData, error: queryError } = useMutation(postcall);
-  // .then((response) => {
-  //   console.log("backe response: ", response);
-  //   setResponseJson(response);
-  //   return response.json();
-  // })
-  // .catch((error) => {
-  //   return error;
-  // });
-  // });
-
-  // useEffect(() => {
-  //
-  // }, []);
-
-  const mutation = myPostCall({
+  const mutation = useVerifyApi({
     data: props.data,
     url: KYC_PAN_VERIFY_API_URL,
   });
