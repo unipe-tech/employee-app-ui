@@ -10,7 +10,7 @@ import { COLORS, FONTS } from "../../constants/Theme";
 import CollapsibleCard from "../../components/CollapsibleCard";
 import FuzzyCheck from "../../components/FuzzyCheck";
 import Analytics from "appcenter-analytics";
-
+import { showToast } from "../../components/Toast";
 
 const PanConfirmApi = (props) => {
   const dispatch = useDispatch();
@@ -119,6 +119,7 @@ const PanConfirmApi = (props) => {
             setVerifyMsg("Confirmed by User");
             setVerifyStatus("SUCCESS");
             setBackendPush(true);
+            showToast("PAN Details Recorded");
             Analytics.trackEvent("Pan|Confirm|Success", {
               userId: id,
             });

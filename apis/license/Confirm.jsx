@@ -8,6 +8,7 @@ import { licenseBackendPush } from "../../helpers/BackendPush";
 import { form, license, styles, selfie } from "../../styles";
 import { COLORS, FONTS } from "../../constants/Theme";
 import Analytics from "appcenter-analytics";
+import { showToast } from "../../components/Toast";
 
 export default Confirm = () => {
   const dispatch = useDispatch();
@@ -161,6 +162,7 @@ export default Confirm = () => {
             setVerifyMsg("Confirmed by User");
             setVerifyStatus("SUCCESS");
             setBackendPush(true);
+            showToast("License Details Recorded");
             Analytics.trackEvent("Licence|Confirm|Success", {
               userId: id,
             });

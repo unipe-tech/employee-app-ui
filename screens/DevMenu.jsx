@@ -9,8 +9,7 @@ export default DevMenu = () => {
   const screens = [
     { title: "Welcome", name: "Welcome" },
     { title: "Login", name: "Login" },
-    { title: "Profile", name: "PofileForm" },
-    { title: "Photo", name: "PersonalImage" },
+    { title: "Profile", name: "ProfileForm" },
     { title: "AADHAAR", name: "AadhaarForm" },
     { title: "PAN", name: "PanForm" },
     { title: "BANK", name: "BankForm" },

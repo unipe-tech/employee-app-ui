@@ -13,7 +13,7 @@ import { aadhaarBackendPush } from "../../helpers/BackendPush";
 import { COLORS, FONTS } from "../../constants/Theme";
 import Analytics from "appcenter-analytics";
 import CollapsibleCard from "../../components/CollapsibleCard";
-
+import { showToast } from "../../components/Toast";
 
 const AadhaarConfirmApi = (props) => {
   const dispatch = useDispatch();
@@ -132,6 +132,7 @@ const AadhaarConfirmApi = (props) => {
           onPress={() => {
             setVerifyMsg("Confirmed by User");
             setVerifyStatus("SUCCESS");
+            showToast("Aadhaar Details Recorded");
             setBackendPush(true);
             Analytics.trackEvent("Aadhaar|Confirm|Success", {
               userId: id,

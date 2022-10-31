@@ -77,7 +77,7 @@ const AadhaarOtpApi = (props) => {
       },
       body: JSON.stringify(props.data),
     };
-
+    console.log("AadhaarOtpApi options: ", KYC_AADHAAR_GENERATE_OTP_API_URL);
     fetch(KYC_AADHAAR_GENERATE_OTP_API_URL, options)
       .then((response) => response.json())
       .then((responseJson) => {

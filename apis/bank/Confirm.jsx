@@ -10,6 +10,7 @@ import { COLORS, FONTS } from "../../constants/Theme";
 import CollapsibleCard from "../../components/CollapsibleCard";
 import FuzzyCheck from "../../components/FuzzyCheck";
 import Analytics from "appcenter-analytics";
+import { showToast } from "../../components/Toast";
 
 const BankConfirmApi = (props) => {
   const dispatch = useDispatch();
@@ -118,6 +119,7 @@ const BankConfirmApi = (props) => {
           onPress={() => {
             setVerifyMsg("Confirmed by User");
             setVerifyStatus("SUCCESS");
+            showToast("Bank Account Details Recorded");
             setBackendPush(true);
             Analytics.trackEvent("Bank|Confirm|Success", {
               userId: id,
