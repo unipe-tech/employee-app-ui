@@ -12,6 +12,8 @@ import { addNumber } from "../../store/slices/panSlice";
 import InfoCard from "../../components/atoms/InfoCard";
 import FormInput from "../../components/atoms/FormInput";
 import Checkbox from "../../components/atoms/Checkbox";
+import { myPostCall } from "../../queries/Verify";
+import { KYC_PAN_VERIFY_API_URL } from "../../services/constants";
 
 const PanFormTemplate = (props) => {
   const dispatch = useDispatch();
