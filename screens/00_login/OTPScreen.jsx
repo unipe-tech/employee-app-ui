@@ -18,6 +18,8 @@ import { styles } from "../../styles";
 import { COLORS, SIZES } from "../../constants/Theme";
 import FormInput from "../../components/atoms/FormInput";
 import Header from "../../components/atoms/Header";
+import RNOtpVerify from "react-native-otp-verify";
+import { addOtpHash } from "../../store/slices/otpHashSlice";
 
 const OTPScreen = () => {
   const dispatch = useDispatch();
@@ -29,9 +31,27 @@ const OTPScreen = () => {
 
   const countDownTime = useSelector((state) => state.timer.login);
   const onboarded = useSelector((state) => state.auth.onboarded);
+
+  const otpHandler = (message) => {
+    // extract the otp using regex e.g. the below regex extracts 4 digit otp from message
+    console.log(message);
+    const regex = /(\d{6})/g;
+    const otp = regex.exec(message)[1];
+    console.log(otp);
+    setOtp(otp);
+  };
+
+  useEffect(() => {
+    RNOtpVerify.getOtp()
+      .then((p) => RNOtpVerify.addListener(otpHandler))
+      .catch(console.log);
+
+    return () => RNOtpVerify.removeListener();
+  }, []);
+
   const phoneNumber = useSelector((state) => state.auth.phoneNumber);
   const unipeEmployeeId = useSelector((state) => state.auth.unipeEmployeeId);
-  
+
   useEffect(() => {
     dispatch(addCurrentScreen("Otp"));
   }, []);
