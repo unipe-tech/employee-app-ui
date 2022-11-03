@@ -49,6 +49,7 @@ const BankConfirmApi = (props) => {
         token: token,
       });
       setBackendPush(false);
+      verifyStatus === "SUCCESS" ? showToast("Bank Details Recorded") : null;
     }
   }, [backendPush]);
 
@@ -123,7 +124,6 @@ const BankConfirmApi = (props) => {
           onPress={() => {
             setVerifyMsg("Confirmed by User");
             setVerifyStatus("SUCCESS");
-            showToast("Bank Account Details Recorded");
             setBackendPush(true);
             Analytics.trackEvent("Bank|Confirm|Success", {
               unipeEmployeeId: unipeEmployeeId,

@@ -13,6 +13,7 @@ import { KYC_AADHAAR_SUBMIT_OTP_API_URL } from "../../services/constants";
 import { aadhaarBackendPush } from "../../helpers/BackendPush";
 import PrimaryButton from "../../components/PrimaryButton";
 import Analytics from "appcenter-analytics";
+import { showToast } from "../../components/Toast";
 
 const AadhaarVerifyApi = (props) => {
   const dispatch = useDispatch();
@@ -115,6 +116,7 @@ const AadhaarVerifyApi = (props) => {
                 setVerifyStatus("PENDING");
                 setVerifyTimestamp(responseJson["timestamp"]);
                 setBackendPush(true);
+                showToast("Aadhaar verified successfully");
                 Analytics.trackEvent("Aadhaar|Verify|Success", {
                   unipeEmployeeId: unipeEmployeeId,
                 });

@@ -50,6 +50,7 @@ const PanConfirmApi = (props) => {
         token: token,
       });
       setBackendPush(false);
+      verifyStatus === "SUCCESS" ? showToast("Pan Details Recorded") : null;
     }
   }, [backendPush]);
 
@@ -122,7 +123,6 @@ const PanConfirmApi = (props) => {
             setVerifyMsg("Confirmed by User");
             setVerifyStatus("SUCCESS");
             setBackendPush(true);
-            showToast("PAN Details Recorded");
             Analytics.trackEvent("Pan|Confirm|Success", {
               unipeEmployeeId: unipeEmployeeId,
             });

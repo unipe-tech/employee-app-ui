@@ -18,6 +18,7 @@ import { styles } from "../../styles";
 import { COLORS, SIZES } from "../../constants/Theme";
 import FormInput from "../../components/atoms/FormInput";
 import Header from "../../components/atoms/Header";
+import { showToast } from "../../components/Toast";
 
 const OTPScreen = () => {
   const dispatch = useDispatch();
@@ -130,7 +131,7 @@ const OTPScreen = () => {
                       Analytics.trackEvent("OTPScreen|SendSms|Success", {
                         unipeEmployeeId: unipeEmployeeId,
                       });
-                      Alert.alert("OTP resent successfully");
+                      showToast("OTP resent successfully");
                     } else {
                       Analytics.trackEvent("OTPScreen|SendSms|Error", {
                         unipeEmployeeId: unipeEmployeeId,
@@ -180,6 +181,7 @@ const OTPScreen = () => {
                         destination: "Welcome",
                       });
                     }
+                    showToast("Signed In successfully");
                     dispatch(resetTimer());
                   } else {
                     Analytics.trackEvent("OTPScreen|Check|Error", {

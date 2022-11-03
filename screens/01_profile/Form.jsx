@@ -19,6 +19,7 @@ import FormInput from "../../components/atoms/FormInput";
 import DropDownForm from "../../components/molecules/DropDownForm";
 import Analytics from "appcenter-analytics";
 import Header from "../../components/atoms/Header";
+import { showToast } from "../../components/Toast";
 
 const ProfileForm = () => {
   const dispatch = useDispatch();
@@ -83,6 +84,7 @@ const ProfileForm = () => {
         token: token
       });
       setBackendPush(false);
+      showToast("Profile updated successfully");
     }
   }, [backendPush]);
 

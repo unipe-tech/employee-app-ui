@@ -50,6 +50,7 @@ export default Confirm = () => {
       });
     }
     setBackendPush(false);
+    verifyStatus === "SUCCESS" ? showToast("License Details Recorded") : null;
   }, [backendPush]);
 
   const isDateValid = (expiry_date) => {
@@ -166,7 +167,6 @@ export default Confirm = () => {
             setVerifyMsg("Confirmed by User");
             setVerifyStatus("SUCCESS");
             setBackendPush(true);
-            showToast("License Details Recorded");
             Analytics.trackEvent("Licence|Confirm|Success", {
               unipeEmployeeId: unipeEmployeeId,
             });

@@ -57,6 +57,7 @@ const AadhaarConfirmApi = (props) => {
         },
         token: token,
       });
+      verifyStatus === "SUCCESS" ? showToast("Aadhaar Details Recorded") : null;
       setBackendPush(false);
     }
   }, [backendPush]);
@@ -136,7 +137,6 @@ const AadhaarConfirmApi = (props) => {
           onPress={() => {
             setVerifyMsg("Confirmed by User");
             setVerifyStatus("SUCCESS");
-            showToast("Aadhaar Details Recorded");
             setBackendPush(true);
             Analytics.trackEvent("Aadhaar|Confirm|Success", {
               unipeEmployeeId: unipeEmployeeId,
