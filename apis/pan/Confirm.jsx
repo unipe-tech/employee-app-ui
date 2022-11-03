@@ -10,7 +10,7 @@ import { COLORS, FONTS } from "../../constants/Theme";
 import CollapsibleCard from "../../components/CollapsibleCard";
 import FuzzyCheck from "../../components/FuzzyCheck";
 import Analytics from "appcenter-analytics";
-
+import { showToast } from "../../components/Toast";
 
 const PanConfirmApi = (props) => {
   const dispatch = useDispatch();
@@ -50,6 +50,7 @@ const PanConfirmApi = (props) => {
         token: token,
       });
       setBackendPush(false);
+      verifyStatus === "SUCCESS" ? showToast("Pan Details Recorded") : null;
     }
   }, [backendPush]);
 

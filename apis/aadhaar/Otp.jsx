@@ -14,6 +14,7 @@ import { aadhaarBackendPush } from "../../helpers/BackendPush";
 import { resetTimer } from "../../store/slices/timerSlice";
 import PrimaryButton from "../../components/PrimaryButton";
 import Analytics from "appcenter-analytics";
+import { showToast } from "../../components/Toast";
 
 const AadhaarOtpApi = (props) => {
   const dispatch = useDispatch();
@@ -81,7 +82,7 @@ const AadhaarOtpApi = (props) => {
       },
       body: JSON.stringify(props.data),
     };
-
+    console.log("AadhaarOtpApi options: ", KYC_AADHAAR_GENERATE_OTP_API_URL);
     fetch(KYC_AADHAAR_GENERATE_OTP_API_URL, options)
       .then((response) => response.json())
       .then((responseJson) => {
@@ -95,6 +96,7 @@ const AadhaarOtpApi = (props) => {
                 setBackendPush(true);
                 setVerifyTimestamp(responseJson["timestamp"]);
                 dispatch(resetTimer());
+                showToast("OTP sent to Aadhaar linked mobile number");
                 Analytics.trackEvent("Aadhaar|Otp|Success", {
                   unipeEmployeeId: unipeEmployeeId,
                 });

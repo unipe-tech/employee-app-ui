@@ -13,7 +13,7 @@ import { aadhaarBackendPush } from "../../helpers/BackendPush";
 import { COLORS, FONTS } from "../../constants/Theme";
 import Analytics from "appcenter-analytics";
 import CollapsibleCard from "../../components/CollapsibleCard";
-
+import { showToast } from "../../components/Toast";
 
 const AadhaarConfirmApi = (props) => {
   const dispatch = useDispatch();
@@ -57,6 +57,7 @@ const AadhaarConfirmApi = (props) => {
         },
         token: token,
       });
+      verifyStatus === "SUCCESS" ? showToast("Aadhaar Details Recorded") : null;
       setBackendPush(false);
     }
   }, [backendPush]);

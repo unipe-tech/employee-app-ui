@@ -8,6 +8,7 @@ import { licenseBackendPush } from "../../helpers/BackendPush";
 import { form, license, styles, selfie } from "../../styles";
 import { COLORS, FONTS } from "../../constants/Theme";
 import Analytics from "appcenter-analytics";
+import { showToast } from "../../components/Toast";
 
 export default Confirm = () => {
   const dispatch = useDispatch();
@@ -49,6 +50,7 @@ export default Confirm = () => {
       });
     }
     setBackendPush(false);
+    verifyStatus === "SUCCESS" ? showToast("License Details Recorded") : null;
   }, [backendPush]);
 
   const isDateValid = (expiry_date) => {

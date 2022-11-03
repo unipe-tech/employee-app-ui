@@ -10,6 +10,7 @@ import { COLORS, FONTS } from "../../constants/Theme";
 import CollapsibleCard from "../../components/CollapsibleCard";
 import FuzzyCheck from "../../components/FuzzyCheck";
 import Analytics from "appcenter-analytics";
+import { showToast } from "../../components/Toast";
 
 const BankConfirmApi = (props) => {
   const dispatch = useDispatch();
@@ -48,6 +49,7 @@ const BankConfirmApi = (props) => {
         token: token,
       });
       setBackendPush(false);
+      verifyStatus === "SUCCESS" ? showToast("Bank Details Recorded") : null;
     }
   }, [backendPush]);
 

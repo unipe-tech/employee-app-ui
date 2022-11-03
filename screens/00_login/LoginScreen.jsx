@@ -1,12 +1,7 @@
 import Analytics from "appcenter-analytics";
 import { useNavigation } from "@react-navigation/core";
 import { useEffect, useState } from "react";
-import {
-  Alert,
-  SafeAreaView,
-  Text,
-  View,
-} from "react-native";
+import { Alert, SafeAreaView, Text, View } from "react-native";
 import SmsRetriever from "react-native-sms-retriever";
 import SplashScreen from "react-native-splash-screen";
 import { useDispatch, useSelector } from "react-redux";
@@ -29,10 +24,9 @@ import { resetTimer } from "../../store/slices/timerSlice";
 import { styles } from "../../styles";
 import privacyPolicy from "../../templates/docs/PrivacyPolicy.js";
 import termsOfUse from "../../templates/docs/TermsOfUse.js";
-
+import { showToast } from "../../components/Toast";
 
 const LoginScreen = () => {
-
   SplashScreen.hide();
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -44,7 +38,9 @@ const LoginScreen = () => {
   const [onboarded, setOnboarded] = useState(authSlice?.onboarded);
   const [phoneNumber, setPhoneNumber] = useState(authSlice?.phoneNumber);
   const [token, setToken] = useState(authSlice?.token);
-  const [unipeEmployeeId, setUnipeEmployeeId] = useState(authSlice?.unipeEmployeeId);
+  const [unipeEmployeeId, setUnipeEmployeeId] = useState(
+    authSlice?.unipeEmployeeId
+  );
 
   const [isPrivacyModalVisible, setIsPrivacyModalVisible] = useState(false);
   const [isTermsOfUseModalVisible, setIsTermsOfUseModalVisible] =
@@ -98,12 +94,16 @@ const LoginScreen = () => {
     setLoading(true);
     dispatch(resetTimer());
     var fullPhoneNumber = `+91${phoneNumber}`;
-    putBackendData({ data: { number: fullPhoneNumber }, xpath: "mobile", token: token })
+    putBackendData({
+      data: { number: fullPhoneNumber },
+      xpath: "mobile",
+      token: token,
+    })
       .then((res) => {
         console.log("LoginScreen res.data: ", res.data);
         if (res.data.status === 200) {
           setOnboarded(res.data.body.onboarded);
-          setToken(res.data.body.token)
+          setToken(res.data.body.token);
           setUnipeEmployeeId(res.data.body.unipeEmployeeId);
           Analytics.trackEvent(`LoginScreen|SignIn|Success`, {
             unipeEmployeeId: res.data.body.id,
@@ -113,6 +113,7 @@ const LoginScreen = () => {
               console.log("sendSmsVerification result: ", result);
               if (result["response"]["status"] === "success") {
                 setLoading(false);
+                showToast("OTP sent successfully");
                 Analytics.trackEvent("LoginScreen|SendSms|Success", {
                   unipeEmployeeId: unipeEmployeeId,
                 });
