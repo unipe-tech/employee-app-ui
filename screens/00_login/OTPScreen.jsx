@@ -20,6 +20,7 @@ import FormInput from "../../components/atoms/FormInput";
 import Header from "../../components/atoms/Header";
 import RNOtpVerify from "react-native-otp-verify";
 import { addOtpHash } from "../../store/slices/otpHashSlice";
+import { store } from "../../store/store";
 
 const OTPScreen = () => {
   const dispatch = useDispatch();

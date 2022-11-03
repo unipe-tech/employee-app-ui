@@ -2,6 +2,15 @@ import { GUPSHUP_PASSWORD, GUPSHUP_USERID, STAGE } from "@env";
 import { store } from "../../../store/store";
 
 const sendSmsVerification = async (phoneNumber) => {
+  var hash = store.getState().otpHash.otpHash.toString();
+  console.log("hash:", hash.trim());
+  console.log(typeof hash);
+
+  const message =
+    "Hello+from+Unipe%21+%3A%29%0D%0AYour+One+Time+Password+for+Mobile+Verification+is+%25code%25+and+valid+only+for+40+Minutes+" +
+    hash.trim() +
+    "%0D%0AKeep+it+confidential+%26+do+not+share.%0D%0A%0D%0AWagepe";
+
   if (STAGE === "dev" && phoneNumber === "9999999999") {
     return {
       response: {
@@ -16,9 +25,7 @@ const sendSmsVerification = async (phoneNumber) => {
         method: "TWO_FACTOR_AUTH",
         v: "1.1",
         phone_no: phoneNumber,
-        msg: `Hello+from+Unipe%21+%3A%29%0D%0AYour+One+Time+Password+for+Mobile+Verification+is+%25code%25+and+valid+only+for+40+Minutes+%25${
-          store.getState().otpHash.otpHash
-        }%25%0D%0AKeep+it+confidential+%26+do+not+share.%0D%0A%0D%0AWagepe`,
+        msg: message,
         format: "JSON",
         otpCodeLength: "6",
         otpCodeType: "NUMERIC",
