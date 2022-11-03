@@ -16,7 +16,8 @@ export default Confirm = () => {
 
   const [backendPush, setBackendPush] = useState(false);
 
-  const id = useSelector((state) => state.auth.id);
+  const token = useSelector((state) => state.auth.token);
+  const unipeEmployeeId = useSelector((state) => state.auth.unipeEmployeeId);
   const data = useSelector((state) => state.license.data);
   const number = useSelector((state) => state.license.number);
   const verifyTimestamp = useSelector((state) => state.license.verifyTimestamp);
@@ -38,11 +39,14 @@ export default Confirm = () => {
     console.log("licenseSlice : ", licenseSlice);
     if (backendPush) {
       licenseBackendPush({
-        id: id,
-        data: data,
-        verifyMsg: verifyMsg,
-        verifyStatus: verifyStatus,
-        verifyTimestamp: verifyTimestamp,
+        data: {
+          unipeEmployeeId: unipeEmployeeId,
+          data: data,
+          verifyMsg: verifyMsg,
+          verifyStatus: verifyStatus,
+          verifyTimestamp: verifyTimestamp,
+        },
+        token: token,
       });
     }
     setBackendPush(false);
@@ -138,7 +142,7 @@ export default Confirm = () => {
             setVerifyMsg("Rejected by User");
             setVerifyStatus("ERROR");
             Analytics.trackEvent("Licence|Confirm|Error", {
-              userId: id,
+              unipeEmployeeId: unipeEmployeeId,
               error: "Rejected by User",
             });
             navigation.navigate("Documents", {
@@ -164,7 +168,7 @@ export default Confirm = () => {
             setBackendPush(true);
             showToast("License Details Recorded");
             Analytics.trackEvent("Licence|Confirm|Success", {
-              userId: id,
+              unipeEmployeeId: unipeEmployeeId,
             });
             navigation.navigate("Documents", {
               screen: "Driving License",

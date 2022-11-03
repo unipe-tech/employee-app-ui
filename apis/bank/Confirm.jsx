@@ -18,7 +18,8 @@ const BankConfirmApi = (props) => {
 
   const [backendPush, setBackendPush] = useState(false);
 
-  const id = useSelector((state) => state.auth.id);
+  const token = useSelector((state) => state.auth.token);
+  const unipeEmployeeId = useSelector((state) => state.auth.unipeEmployeeId);
   const data = useSelector((state) => state.bank.data);
   const verifyTimestamp = useSelector((state) => state.bank.verifyTimestamp);
 
@@ -38,11 +39,14 @@ const BankConfirmApi = (props) => {
     console.log("BankConfirmApi bankSlice : ", bankSlice);
     if (backendPush) {
       bankBackendPush({
-        id: id,
-        data: data,
-        verifyMsg: verifyMsg,
-        verifyStatus: verifyStatus,
-        verifyTimestamp: verifyTimestamp,
+        data: {
+          unipeEmployeeId: unipeEmployeeId,
+          data: data,
+          verifyMsg: verifyMsg,
+          verifyStatus: verifyStatus,
+          verifyTimestamp: verifyTimestamp,
+        },
+        token: token,
       });
       setBackendPush(false);
     }
@@ -91,7 +95,7 @@ const BankConfirmApi = (props) => {
             setVerifyStatus("ERROR");
             setBackendPush(true);
             Analytics.trackEvent("Bank|Confirm|Error", {
-              userId: id,
+              unipeEmployeeId: unipeEmployeeId,
               error: "Rejected by User",
             });
             {
@@ -122,7 +126,7 @@ const BankConfirmApi = (props) => {
             showToast("Bank Account Details Recorded");
             setBackendPush(true);
             Analytics.trackEvent("Bank|Confirm|Success", {
-              userId: id,
+              unipeEmployeeId: unipeEmployeeId,
             });
             {
               props?.route?.params?.type == "KYC"
