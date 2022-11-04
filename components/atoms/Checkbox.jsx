@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from "react-native";
-import React from "react";
+import React, { memo } from "react";
 import CheckBox from "@react-native-community/checkbox";
 import { checkBox } from "../../styles";
 import { COLORS, FONTS } from "../../constants/Theme";
@@ -31,4 +31,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Checkbox;
+export default memo(Checkbox);

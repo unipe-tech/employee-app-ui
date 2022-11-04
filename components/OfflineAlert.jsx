@@ -1,7 +1,7 @@
 import NetInfo, {
   NetInfoCellularGeneration,
 } from "@react-native-community/netinfo";
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { Alert, Modal, Text, TouchableOpacity, View } from "react-native";
 import { AddListener } from "../helpers/InternetCheck";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
@@ -99,4 +99,4 @@ const OfflineAlert = ({ children }) => {
   );
 };
 
-export default OfflineAlert;
+export default memo(OfflineAlert);

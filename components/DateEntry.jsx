@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Text, TextInput, View } from "react-native";
 import { form } from "../styles";
-export default DateEntry = (props) => {
+const DateEntry = (props) => {
   const [year, setYear] = useState("");
   const [month, setMonth] = useState("");
   const [day, setDay] = useState("");
@@ -64,3 +64,5 @@ export default DateEntry = (props) => {
     </>
   );
 };
+
+export default DateEntry;

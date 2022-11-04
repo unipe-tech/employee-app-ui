@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { addESICAddress } from "../store/slices/esicSlice";
@@ -7,7 +7,7 @@ import DropDownForm from "./molecules/DropDownForm";
 
 const customData = require("../assets/state_districts.json");
 
-export default AddressDropdown = (props) => {
+const AddressDropdown = (props) => {
   const [districts, setDistricts] = useState(["Please Choose a State"]);
 
   const dispatch = useDispatch();
@@ -107,3 +107,5 @@ export default AddressDropdown = (props) => {
     </>
   );
 };
+
+export default memo(AddressDropdown);

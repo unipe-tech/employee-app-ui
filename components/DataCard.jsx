@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 import { datacard } from "../styles";
@@ -44,7 +44,7 @@ const OfferCard = ({ offer }) => {
     amount = offer.loanAmount;
     date = new Date(offer.availedAt.split(" ")[0]);
   }
-  
+
   var dateString = date.toDateString();
   var day = dateString.split(" ")[2];
   var month = dateString.split(" ")[1];
@@ -100,4 +100,4 @@ const Offers = (props) => {
   );
 };
 
-export default Offers;
+export default memo(Offers);

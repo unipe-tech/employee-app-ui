@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import { Text, View } from "react-native";
 import Collapsible from "react-native-collapsible";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
@@ -82,4 +82,4 @@ const CollapsibleCard = ({
   );
 };
 
-export default CollapsibleCard;
+export default memo(CollapsibleCard);

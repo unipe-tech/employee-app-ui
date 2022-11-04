@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { memo } from "react";
 import FormInput from "../atoms/FormInput";
 import { Icon, IconButton } from "@react-native-material/core";
 import { COLORS, FONTS } from "../../constants/Theme";
@@ -51,4 +51,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PopableInput;
+export default memo(PopableInput);

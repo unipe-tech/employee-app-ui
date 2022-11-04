@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet } from "react-native";
 import { Icon } from "@react-native-material/core";
-import React from "react";
+import React, { memo } from "react";
 import { COLORS, FONTS } from "../../constants/Theme";
 
 const InfoCard = ({ info }) => {
@@ -26,4 +26,4 @@ const styles = StyleSheet.create({
   text: { paddingLeft: 10, ...FONTS.body4, color: COLORS.black, flex: 1 },
 });
 
-export default InfoCard;
+export default memo(InfoCard);

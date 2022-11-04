@@ -1,10 +1,7 @@
-import {
-  ActivityIndicator,
-  StyleSheet,
-  TouchableOpacity
-} from "react-native";
+import { ActivityIndicator, StyleSheet, TouchableOpacity } from "react-native";
 import { Button } from "@react-native-material/core";
 import { COLORS, FONTS } from "../constants/Theme";
+import { memo } from "react";
 
 /**
  *
@@ -28,7 +25,7 @@ const PrimaryButton = ({
   titleStyle,
   onPress,
 }) => {
-  return  (
+  return (
     <Button
       uppercase={false}
       title={title}
@@ -41,7 +38,7 @@ const PrimaryButton = ({
       pressableContainerStyle={{ width: "100%" }}
       contentContainerStyle={{ height: "100%" }}
     />
-  )
+  );
 };
 
 const styles = StyleSheet.create({
@@ -64,4 +61,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PrimaryButton;
+export default memo(PrimaryButton);

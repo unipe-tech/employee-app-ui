@@ -1,5 +1,5 @@
 import { Button } from "@react-native-material/core";
-import React from "react";
+import React, { memo } from "react";
 import {
   Text,
   StyleSheet,
@@ -57,4 +57,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TextButton;
+export default memo(TextButton);

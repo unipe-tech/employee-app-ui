@@ -2,6 +2,7 @@ import { SafeAreaView, Text } from "react-native";
 import { useSelector } from "react-redux";
 import MessageCard from "./MessageCard";
 import { allAreNull } from "../helpers/nullCheck";
+import { memo } from "react";
 
 const KycCheckCard = () => {
   const bankStatus = useSelector((state) => state.bank.verifyStatus);
@@ -28,4 +29,4 @@ const KycCheckCard = () => {
   );
 };
 
-export default KycCheckCard;
+export default memo(KycCheckCard);

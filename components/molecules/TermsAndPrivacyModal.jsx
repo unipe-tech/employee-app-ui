@@ -1,5 +1,5 @@
 import { View, Text, Pressable, StyleSheet } from "react-native";
-import React from "react";
+import React, { memo } from "react";
 import { COLORS, SIZES } from "../../constants/Theme";
 import { AntDesign } from "react-native-vector-icons";
 import WebView from "react-native-webview";
@@ -46,4 +46,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TermsAndPrivacyModal;
+export default memo(TermsAndPrivacyModal);

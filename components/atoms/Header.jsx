@@ -1,5 +1,5 @@
 import { View, Text } from "react-native";
-import React from "react";
+import React, { memo } from "react";
 import { AppBar, Icon, IconButton } from "@react-native-material/core";
 import { COLORS } from "../../constants/Theme";
 
@@ -27,4 +27,4 @@ const Header = ({ title, onLeftIconPress, onRightIconPress }) => {
   );
 };
 
-export default Header;
+export default memo(Header);

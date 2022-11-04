@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/core";
-import React from "react";
+import React, { memo } from "react";
 import { Pressable, Text } from "react-native";
 import { AntDesign } from "react-native-vector-icons";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,8 +13,7 @@ import { resetProfile } from "../store/slices/profileSlice";
 import { resetLicense } from "../store/slices/licenseSlice";
 import { resetTimer } from "../store/slices/timerSlice";
 
-export default Logout = () => {
-
+const Logout = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
@@ -32,7 +31,7 @@ export default Logout = () => {
         dispatch(resetBank());
         dispatch(resetLicense());
         dispatch(resetTimer());
-        
+
         navigation.navigate("Login");
       }}
       style={{
@@ -47,3 +46,5 @@ export default Logout = () => {
     </Pressable>
   );
 };
+
+export default memo(Logout);

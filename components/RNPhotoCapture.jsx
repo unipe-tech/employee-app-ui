@@ -1,6 +1,6 @@
 import { Icon } from "@react-native-material/core";
 import { useNavigation } from "@react-navigation/core";
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 // import { RNCamera } from "react-native-camera";
 const RNFS = require("react-native-fs");
@@ -15,7 +15,7 @@ const PendingView = () => (
   </View>
 );
 
-export default function RNPhotoCapture(props) {
+function RNPhotoCapture(props) {
   const navigation = useNavigation();
   const [id, setId] = useState(null);
   const dispatch = useDispatch();
@@ -74,3 +74,5 @@ export default function RNPhotoCapture(props) {
     </View>
   );
 }
+
+export default memo(RNPhotoCapture);
