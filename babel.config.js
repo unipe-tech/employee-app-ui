@@ -1,3 +1,7 @@
+const { STAGE } = process.env;
+
+const inProduction = STAGE === "prod";
+
 module.exports = function (api) {
   api.cache(true);
   return {
@@ -16,5 +20,10 @@ module.exports = function (api) {
       ],
       "react-native-reanimated/plugin",
     ],
+    env: {
+      production: {
+        plugins: ["transform-remove-console", { exclude: ["error", "warn"] }],
+      },
+    },
   };
 };
