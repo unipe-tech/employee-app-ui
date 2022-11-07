@@ -58,7 +58,6 @@ export default AddressDropdown = (props) => {
   useEffect(() => {
     if (geoState) {
       setDistricts(customData[geoState]);
-      console.log(geoState);
     }
   }, [geoState]);
 

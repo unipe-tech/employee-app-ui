@@ -22,7 +22,6 @@ const StackNavigator = () => {
   console.log("currentScreen: ",initialScreen );
 
   STAGE === "dev" ? (initialRoute = "DevMenu") : null;
-  console.log("initialRoute: ", initialRoute);
 
   return (
     <OfflineAlert>

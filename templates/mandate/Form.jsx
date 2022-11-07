@@ -114,7 +114,7 @@ const MandateFormTemplate = (props) => {
   }, [backendPush]);
 
   useEffect(() => {
-    console.log("createCustomer customerId: ", customerId, !customerId);
+    console.log("createCustomer customerId: ", customerId, !customerId); //important do not log
     if (!customerId) {
       try {
         createCustomer({
@@ -149,7 +149,7 @@ const MandateFormTemplate = (props) => {
   }, [customerId]);
 
   useEffect(() => {
-    console.log("createMandate orderId: ", orderId, !orderId);
+    console.log("createMandate orderId: ", orderId, !orderId); //do not log important
     if (orderId) {
       var options = {
         description: "Unipe Mandate Verification",
@@ -171,7 +171,7 @@ const MandateFormTemplate = (props) => {
           getToken({ paymentId: data.razorpay_payment_id })
             .then((token) => {
               // TODO: check response status code
-              console.log("mandate token.data: ", token.data);
+              console.log("mandate token.data: ", token.data); //do not log important
               setData({
                 authType: authType,
                 extTokenId: token.data.token_id,

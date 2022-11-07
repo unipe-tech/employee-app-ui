@@ -34,7 +34,6 @@ const DrawerNavigator = () => {
               <IconButton
                 icon={<Icon name="menu" size={30} />}
                 onPress={() => {
-                  console.log("Menu");
                   navigation.toggleDrawer();
                 }}
               />

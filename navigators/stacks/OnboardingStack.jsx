@@ -23,7 +23,7 @@ const OnboardingStack = () => {
   var initialRoute = useSelector((state) => state.navigation.currentScreen);
   
   STAGE === "dev" ? (initialRoute = "DevMenu") : null;
-  console.log("initialRoute: ", initialRoute);
+  console.log("OnboardingStack initialRoute: ", initialRoute);
 
   return (
     <Stack.Navigator

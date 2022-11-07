@@ -76,10 +76,8 @@ const LoginScreen = () => {
     var phoneno = /^[0-9]{10}$/gm;
     if (phoneno.test(phoneNumber) && phoneNumber.length === 10) {
       setNext(true);
-      console.log("true");
     } else {
       setNext(false);
-      console.log("false");
     }
   }, [phoneNumber]);
 

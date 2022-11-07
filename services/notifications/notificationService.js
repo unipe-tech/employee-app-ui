@@ -26,7 +26,7 @@ export const getFcmToken = async () => {
         lastUpdated: new Date().getTime(),
       };
       if (fcmToken) {
-        console.log(fcmToken, "new generated FCM token");
+        console.log(fcmToken, "new generated FCM token"); //fcm token is sensitive data, do not log it
         axios({
           method: "post",
           url: "https://wq1kbvpl4b.execute-api.ap-south-1.amazonaws.com/dev/employee/fcm",
