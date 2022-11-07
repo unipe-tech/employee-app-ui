@@ -32,7 +32,7 @@ const DropDownForm = ({
         <FormInput
           containerStyle={{ ...containerStyle }}
           placeholder={placeholder}
-          value={value}
+          // value={value}
           disabled={true}
           appendComponent={
             <Icon name="keyboard-arrow-down" size={24} color={COLORS.gray} />

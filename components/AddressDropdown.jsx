@@ -79,7 +79,7 @@ const AddressDropdown = (props) => {
       <FormInput
         placeholder={title + " Street"}
         containerStyle={{ marginVertical: 10 }}
-        value={street}
+        // value={street}
         onChange={setStreet}
       />
       <DropDownForm
@@ -101,7 +101,7 @@ const AddressDropdown = (props) => {
       <FormInput
         placeholder={title + " Pincode"}
         containerStyle={{ marginVertical: 10 }}
-        value={pincode}
+        // value={pincode}
         onChange={setPincode}
       />
     </>

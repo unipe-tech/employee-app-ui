@@ -18,7 +18,7 @@ const PopableInput = ({
     <FormInput
       containerStyle={{ ...styles.container, ...containerStyle }}
       placeholder={placeholder}
-      value={value}
+      // value={value}
       autoCapitalize={autoCapitalize}
       onChange={onChange}
       appendComponent={

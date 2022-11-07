@@ -38,7 +38,7 @@ function Loading({
   return null;
 }
 
-export default memo(Loading);
+export default Loading;
 
 const styles = StyleSheet.create(() => ({
   cont: {

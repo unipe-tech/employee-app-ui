@@ -31,7 +31,7 @@ const OTPScreen = () => {
   const onboarded = useSelector((state) => state.auth.onboarded);
   const phoneNumber = useSelector((state) => state.auth.phoneNumber);
   const unipeEmployeeId = useSelector((state) => state.auth.unipeEmployeeId);
-  
+
   useEffect(() => {
     dispatch(addCurrentScreen("Otp"));
   }, []);
@@ -46,14 +46,11 @@ const OTPScreen = () => {
 
   const backAction = () => {
     if (!back) {
-      Alert.alert(
-        "OTP Timer",
-        "You must wait for 2 minutes to resend OTP."
-      );
+      Alert.alert("OTP Timer", "You must wait for 2 minutes to resend OTP.");
     } else {
       Alert.alert("Hold on!", "Are you sure you want to Logout?", [
         { text: "No", onPress: () => null, style: "cancel" },
-        { text: "Yes", onPress: () => navigation.navigate("Login") }
+        { text: "Yes", onPress: () => navigation.navigate("Login") },
       ]);
     }
     return true;
@@ -61,15 +58,13 @@ const OTPScreen = () => {
 
   useEffect(() => {
     BackHandler.addEventListener("hardwareBackPress", backAction);
-    return () => BackHandler.removeEventListener("hardwareBackPress", backAction);
+    return () =>
+      BackHandler.removeEventListener("hardwareBackPress", backAction);
   }, []);
 
   return (
     <SafeAreaView style={styles.safeContainer}>
-      <Header
-        title="OTP"
-        onLeftIconPress={() => backAction()}
-      />
+      <Header title="OTP" onLeftIconPress={() => backAction()} />
       <KeyboardAvoidingWrapper>
         <View style={styles.container}>
           <SVGImg style={styles.logo} />
@@ -107,7 +102,7 @@ const OTPScreen = () => {
             }}
             letterSpacing={20}
             autoFocus={true}
-            value={otp}
+            // value={otp}
             onChange={setOtp}
             maxLength={6}
             keyboardType="numeric"

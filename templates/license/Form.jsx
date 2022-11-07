@@ -37,7 +37,7 @@ const LicenseFormTemplate = () => {
           <FormInput
             placeholder={"Enter License Number"}
             containerStyle={{ marginVertical: 10 }}
-            value={number}
+            // value={number}
             onChange={setNumber}
             autoCapitalize="characters"
           />

@@ -13,10 +13,10 @@ import PrimaryButton from "../../../../components/PrimaryButton";
 export default Portal = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  
+
   const token = useSelector((state) => state.auth.token);
   const unipeEmployeeId = useSelector((state) => state.auth.unipeEmployeeId);
-  
+
   const [ipNumber, setIpNumber] = useState(
     useSelector((state) => state.esic.portal.ipNumber)
   );
@@ -32,13 +32,16 @@ export default Portal = () => {
           <FormInput
             placeholder={"IP Number"}
             containerStyle={{ marginVertical: 10 }}
-            value={ipNumber}
+            // value={ipNumber}
             onChange={setIpNumber}
           />
           <PrimaryButton
             title="Continue"
             onPress={() => {
-              portalPush({ datat: {unipeEmployeeId: unipeEmployeeId, ipNumber: ipNumber}, token: token });
+              portalPush({
+                datat: { unipeEmployeeId: unipeEmployeeId, ipNumber: ipNumber },
+                token: token,
+              });
               showToast("ESIC Portal details recorded.");
               navigation.navigate("Benefits", {
                 screen: "ESIC",

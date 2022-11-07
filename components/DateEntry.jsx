@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, memo } from "react";
 import { Text, TextInput, View } from "react-native";
 import { form } from "../styles";
 const DateEntry = (props) => {
@@ -65,4 +65,4 @@ const DateEntry = (props) => {
   );
 };
 
-export default DateEntry;
+export default memo(DateEntry);
