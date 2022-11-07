@@ -131,7 +131,7 @@ const Verify = (props) => {
             });
           }
         } catch (error) {
-          console.log("Try Catch Error: ", error.toString());
+          console.log("License Try Catch Error: ", error.toString());
           setVerifyMsg(error.toString());
           setVerifyStatus("ERROR");
           setBackendPush(true);
@@ -143,7 +143,7 @@ const Verify = (props) => {
         }
       })
       .catch((error) => {
-        console.log("Fetch Catch Error: ", error.toString());
+        console.log("License Fetch Catch Error: ", error.toString());
         setVerifyMsg(error.toString());
         setVerifyStatus("ERROR");
         setBackendPush(true);

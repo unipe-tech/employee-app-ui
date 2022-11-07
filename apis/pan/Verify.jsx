@@ -48,7 +48,7 @@ const PanVerifyApi = (props) => {
   }, [verifyTimestamp]);
 
   useEffect(() => {
-    console.log("PanVerifyApi backendPush panSlice: ", backendPush, panSlice);
+    console.log("PanVerifyApi panSlice: ", backendPush, panSlice);
     if (backendPush) {
       panBackendPush({
         data: {
@@ -140,7 +140,7 @@ const PanVerifyApi = (props) => {
             Alert.alert("Error", responseJson["message"]);
           }
         } catch (error) {
-          console.log("Try Catch Error: ", error.toString());
+          console.log("PanVerifyApi Try Catch Error: ", error.toString());
           setVerifyMsg(error.toString());
           Analytics.trackEvent("Pan|Verify|Error", {
             unipeEmployeeId: unipeEmployeeId,
@@ -152,7 +152,7 @@ const PanVerifyApi = (props) => {
         }
       })
       .catch((error) => {
-        console.log("Fetch Catch Error: ", error.toString());
+        console.log("PanVerifyApi Fetch Catch Error: ", error.toString());
         setVerifyMsg(error.toString());
         setVerifyStatus("ERROR");
         setBackendPush(true);

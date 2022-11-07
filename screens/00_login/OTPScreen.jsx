@@ -157,7 +157,7 @@ const OTPScreen = () => {
                     }
                   })
                   .catch((error) => {
-                    console.log(error.toString());
+                    console.log("resendSMS Error",error.toString());
                     Analytics.trackEvent("OTPScreen|SendSms|Error", {
                       unipeEmployeeId: unipeEmployeeId,
                       error: error.toString(),
@@ -207,7 +207,7 @@ const OTPScreen = () => {
                   }
                 })
                 .catch((error) => {
-                  console.log(error.toString());
+                  console.log("OTPVerificaton Error",error.toString());
                   Analytics.trackEvent("OTPScreen|Check|Error", {
                     unipeEmployeeId: unipeEmployeeId,
                     error: error.toString(),

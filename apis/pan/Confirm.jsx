@@ -36,7 +36,6 @@ const PanConfirmApi = (props) => {
   }, [verifyStatus]);
 
   useEffect(() => {
-    console.log(backendPush);
     if (backendPush) {
       panBackendPush({
         data: {

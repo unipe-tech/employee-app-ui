@@ -91,7 +91,7 @@ const AadhaarVerifyApi = (props) => {
     fetch(KYC_AADHAAR_SUBMIT_OTP_API_URL, options)
       .then((response) => response.json())
       .then((responseJson) => {
-        console.log("responseJson: ", responseJson);
+        console.log("AadhaarVerifyApi responseJson: ", responseJson);
         try {
           if (responseJson["status"] == "200") {
             switch (responseJson["data"]["code"]) {
@@ -159,7 +159,7 @@ const AadhaarVerifyApi = (props) => {
             });
           }
         } catch (error) {
-          console.log("Try Catch Error: ", error.toString());
+          console.log("AadhaarVerifyApi Try Catch Error: ", error.toString());
           setVerifyMsg(error.toString());
           setVerifyStatus("ERROR");
           setBackendPush(true);
@@ -171,7 +171,7 @@ const AadhaarVerifyApi = (props) => {
         }
       })
       .catch((error) => {
-        console.log("Fetch Catch Error: ", error.toString());
+        console.log("AadhaarVerifyApi Fetch Catch Error: ", error.toString());
         setVerifyMsg(error.toString());
         setVerifyStatus("ERROR");
         setBackendPush(true);

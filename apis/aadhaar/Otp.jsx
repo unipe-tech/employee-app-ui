@@ -140,7 +140,7 @@ const AadhaarOtpApi = (props) => {
             });
           }
         } catch (error) {
-          console.log("Error: ", error.toString());
+          console.log("AadhaarOtpApi Error: ", error.toString());
           setVerifyMsg(error.toString());
           setVerifyStatus("ERROR");
           setBackendPush(true);
@@ -152,7 +152,7 @@ const AadhaarOtpApi = (props) => {
         }
       })
       .catch((error) => {
-        console.log("Error: ", error.toString());
+        console.log("AadhaarOtpApi Error: ", error.toString());
         setVerifyMsg(error.toString());
         setVerifyStatus("ERROR");
         setBackendPush(true);

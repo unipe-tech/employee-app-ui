@@ -12,7 +12,7 @@ const HomeStack = () => {
   var initialRoute = useSelector((state) => state.navigation.currentScreen);
   
   STAGE === "dev" ? (initialRoute = "DevMenu") : null;
-  console.log("initialRoute: ", initialRoute);
+  console.log("HomeStack initialRoute: ", initialRoute);
   return (
     <Stack.Navigator initialRouteName={initialRoute}>
       <Stack.Screen

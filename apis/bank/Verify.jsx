@@ -20,7 +20,6 @@ import Analytics from "appcenter-analytics";
 const BankVerifyApi = (props) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  console.log("Mock api URl", KYC_BANK_VERIFY_API_URL);
 
   const [loading, setLoading] = useState(false);
   const [backendPush, setBackendPush] = useState(false);
@@ -103,7 +102,7 @@ const BankVerifyApi = (props) => {
     fetch(KYC_BANK_VERIFY_API_URL, options)
       .then((response) => response.json())
       .then((responseJson) => {
-        console.log(responseJson);
+        console.log("BankVerifyApi responseJson:",responseJson);
         try {
           if (responseJson["status"] == "200") {
             switch (responseJson["data"]["code"]) {
@@ -182,7 +181,7 @@ const BankVerifyApi = (props) => {
             }
           }
         } catch (error) {
-          console.log("Try Catch Error: ", error.toString());
+          console.log("BankVerifyApi Try Catch Error: ", error.toString());
           setVerifyMsg(error.toString());
           setVerifyStatus("ERROR");
           setBackendPush(true);
@@ -194,7 +193,7 @@ const BankVerifyApi = (props) => {
         }
       })
       .catch((error) => {
-        console.log("Fetch Catch Error: ", error.toString());
+        console.log("BankVerifyApi Fetch Catch Error: ", error.toString());
         setVerifyMsg(error.toString());
         setVerifyStatus("ERROR");
         setBackendPush(true);

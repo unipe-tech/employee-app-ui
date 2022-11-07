@@ -62,8 +62,7 @@ const createOrder = ({
       },
     });
   }
-  console.log(STAGE);
-  console.log(data);
+  console.log("CreateOrder Payload:",data);
   var config = {
     method: "post",
     url: "https://api.razorpay.com/v1/orders",
