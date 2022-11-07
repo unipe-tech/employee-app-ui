@@ -1,4 +1,5 @@
 module.exports = function (api) {
+  console.log("api env: ", api.env());
   api.cache(true);
   return {
     presets: ["babel-preset-expo"],
@@ -16,5 +17,10 @@ module.exports = function (api) {
       ],
       "react-native-reanimated/plugin",
     ],
+    env: {
+      production: {
+        plugins: ["transform-remove-console", { exclude: ["error", "warn"] }],
+      },
+    },
   };
 };
