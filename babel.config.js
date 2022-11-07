@@ -1,8 +1,5 @@
-const { STAGE } = process.env;
-
-const inProduction = STAGE === "prod";
-
 module.exports = function (api) {
+  console.log("api env: ", api.env());
   api.cache(true);
   return {
     presets: ["babel-preset-expo"],
