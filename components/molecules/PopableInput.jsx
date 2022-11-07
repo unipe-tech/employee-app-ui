@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React, { memo } from "react";
+import EStyleSheet from "react-native-extended-stylesheet";
 import FormInput from "../atoms/FormInput";
 import { Icon, IconButton } from "@react-native-material/core";
 import { COLORS, FONTS } from "../../constants/Theme";
@@ -30,24 +30,24 @@ const PopableInput = ({
   );
 };
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
   container: {
-    marginTop: 15,
+    marginTop: "15rem",
   },
   header: {
     ...FONTS.h3,
-    marginBottom: 10,
+    marginBottom: "10rem",
     alignSelf: "center",
   },
   listItem: {
     flexDirection: "row",
     alignItems: "center",
-    paddingVertical: 15,
+    paddingVertical: "15rem",
   },
   listText: {
     ...FONTS.h3,
     flex: 1,
-    marginLeft: 10,
+    marginLeft: "10rem",
   },
 });
 

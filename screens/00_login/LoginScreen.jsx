@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import SVGImg from "../../assets/UnipeLogo.svg";
 import FormInput from "../../components/atoms/FormInput";
 import TermsAndPrivacyModal from "../../components/molecules/TermsAndPrivacyModal";
-import PrimaryButton from "../../components/PrimaryButton";
+import PrimaryButton from "../../components/atoms/PrimaryButton";
 import { COLORS, FONTS } from "../../constants/Theme";
 import { KeyboardAvoidingWrapper } from "../../KeyboardAvoidingWrapper";
 import { putBackendData } from "../../services/employees/employeeServices";
@@ -19,7 +19,7 @@ import {
   addToken,
   addUnipeEmployeeId,
 } from "../../store/slices/authSlice";
-import { addCurrentScreen } from "../../store/slices/navigationSlice";
+import { addCurrentScreen ,addCurrentStack} from "../../store/slices/navigationSlice";
 import { resetTimer } from "../../store/slices/timerSlice";
 import { styles } from "../../styles";
 import privacyPolicy from "../../templates/docs/PrivacyPolicy.js";
@@ -46,6 +46,7 @@ const LoginScreen = () => {
     useState(false);
 
   useEffect(() => {
+    dispatch(addCurrentStack("OnboardingStack"));
     dispatch(addCurrentScreen("Login"));
   }, []);
 

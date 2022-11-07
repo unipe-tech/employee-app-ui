@@ -1,4 +1,3 @@
-import { Icon } from "@react-native-material/core";
 import { useNavigation } from "@react-navigation/core";
 import { useEffect, useState } from "react";
 import { Alert, BackHandler, SafeAreaView, Text, View } from "react-native";
@@ -11,13 +10,14 @@ import {
 } from "../../services/otp/Gupshup/services";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 import { resetTimer, setLoginTimer } from "../../store/slices/timerSlice";
-import PrimaryButton from "../../components/PrimaryButton";
+import PrimaryButton from "../../components/atoms/PrimaryButton";
 import SVGImg from "../../assets/UnipeLogo.svg";
 import Analytics from "appcenter-analytics";
-import { styles } from "../../styles";
+import { styles, form } from "../../styles";
 import { COLORS, SIZES } from "../../constants/Theme";
 import FormInput from "../../components/atoms/FormInput";
 import Header from "../../components/atoms/Header";
+import { AppBar, Icon, IconButton } from "@react-native-material/core";
 
 const OTPScreen = () => {
   const dispatch = useDispatch();
@@ -94,20 +94,21 @@ const OTPScreen = () => {
             )}
           </Text>
           <FormInput
+            //selection={{ start: 0 }}
             containerStyle={{
               marginTop: 30,
 
               width: SIZES.width * 0.6,
               alignSelf: "center",
             }}
-            letterSpacing={20}
+            letterSpacing={SIZES.width * 0.0699}
             autoFocus={true}
             // value={otp}
             onChange={setOtp}
             maxLength={6}
             keyboardType="numeric"
             placeholder={"******"}
-            textAlign={"center"}
+            //textAlign={"center"}
           />
 
           <CountDown
@@ -181,7 +182,7 @@ const OTPScreen = () => {
                     });
                     if (onboarded) {
                       navigation.navigate("BackendSync", {
-                        destination: "Home",
+                        destination: "HomeStack",
                       });
                     } else {
                       navigation.navigate("BackendSync", {

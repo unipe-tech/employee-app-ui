@@ -1,7 +1,7 @@
-import { ActivityIndicator, StyleSheet, TouchableOpacity } from "react-native";
+import React, { memo } from "react";
+import EStyleSheet from "react-native-extended-stylesheet";
 import { Button } from "@react-native-material/core";
-import { COLORS, FONTS } from "../constants/Theme";
-import { memo } from "react";
+import { COLORS, FONTS, SIZES } from "../../constants/Theme";
 
 /**
  *
@@ -41,14 +41,14 @@ const PrimaryButton = ({
   );
 };
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
   button: {
     alignSelf: "center",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 20,
+    marginTop: "15rem",
     //width: "100%",
-    height: 50,
+    height: SIZES.btnHeight,
   },
   loadingButton: {
     backgroundColor: COLORS.primary,
