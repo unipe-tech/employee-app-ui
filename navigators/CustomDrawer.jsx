@@ -9,7 +9,6 @@ import { useSelector } from "react-redux";
 import { COLORS, FONTS } from "../constants/Theme";
 import { Ionicons, Octicons } from "react-native-vector-icons";
 import Logout from "../components/atoms/Logout";
-import SVGImg from "../assets/UnipeLogo.svg";
 import TermsAndPrivacyModal from "../components/molecules/TermsAndPrivacyModal";
 import termsOfUse from "../templates/docs/TermsOfUse";
 import privacyPolicy from "../templates/docs/PrivacyPolicy";
@@ -19,8 +18,9 @@ export default CustomDrawer = (props) => {
   const [isPrivacyModalVisible, setIsPrivacyModalVisible] = useState(false);
   const [isTermsOfUseModalVisible, setIsTermsOfUseModalVisible] =
     useState(false);
-
-  const image = useSelector((state) => state.profile.photo);
+  const profileSlice = useSelector((state) => state.aadhaar);
+  console.log("datatatata: ", profileSlice);
+  const image = useSelector((state) => state.aadhaar.data.photo_base64);
   const name = useSelector(
     (state) => state.aadhaar.data?.name || state.pan.data?.name || "User"
   );
