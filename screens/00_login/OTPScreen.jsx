@@ -1,36 +1,30 @@
+import { Icon } from "@react-native-material/core";
 import { useNavigation } from "@react-navigation/core";
 import { useEffect, useState } from "react";
 import { Alert, BackHandler, SafeAreaView, Text, View } from "react-native";
 import CountDown from "react-native-countdown-component";
 import { useDispatch, useSelector } from "react-redux";
-import { KeyboardAvoidingWrapper } from "../../KeyboardAvoidingWrapper";
-import {
-  checkVerification,
-  sendSmsVerification,
-} from "../../services/otp/Gupshup/services";
-import { addCurrentScreen } from "../../store/slices/navigationSlice";
-import { resetTimer, setLoginTimer } from "../../store/slices/timerSlice";
-import PrimaryButton from "../../components/atoms/PrimaryButton";
+import Otp from "../../apis/login/Otp";
+import Verify from "../../apis/login/Verify";
 import SVGImg from "../../assets/UnipeLogo.svg";
-import Analytics from "appcenter-analytics";
-import { styles, form } from "../../styles";
-import { COLORS, SIZES } from "../../constants/Theme";
 import FormInput from "../../components/atoms/FormInput";
 import Header from "../../components/atoms/Header";
-import { AppBar, Icon, IconButton } from "@react-native-material/core";
+import { COLORS, SIZES } from "../../constants/Theme";
+import { KeyboardAvoidingWrapper } from "../../KeyboardAvoidingWrapper";
+import { addCurrentScreen } from "../../store/slices/navigationSlice";
+import { setLoginTimer } from "../../store/slices/timerSlice";
+import { styles } from "../../styles";
 
 const OTPScreen = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
   const [otp, setOtp] = useState("");
-  const [next, setNext] = useState(false);
+  const [disabled, setDisabled] = useState(true);
   const [back, setBack] = useState(false);
 
   const countDownTime = useSelector((state) => state.timer.login);
-  const onboarded = useSelector((state) => state.auth.onboarded);
   const phoneNumber = useSelector((state) => state.auth.phoneNumber);
-  const unipeEmployeeId = useSelector((state) => state.auth.unipeEmployeeId);
 
   useEffect(() => {
     dispatch(addCurrentScreen("Otp"));
@@ -38,9 +32,9 @@ const OTPScreen = () => {
 
   useEffect(() => {
     if (otp.length === 6) {
-      setNext(true);
+      setDisabled(false);
     } else {
-      setNext(false);
+      setDisabled(true);
     }
   }, [otp]);
 
@@ -123,93 +117,13 @@ const OTPScreen = () => {
               dispatch(setLoginTimer(time));
             }}
           />
-          {back ? (
-            <Text
-              style={styles.resendText}
-              onPress={() => {
-                sendSmsVerification(phoneNumber)
-                  .then((res) => {
-                    if (res["response"]["status"] === "success") {
-                      setOtp("");
-                      setBack(false);
-                      dispatch(resetTimer());
-                      Analytics.trackEvent("OTPScreen|SendSms|Success", {
-                        unipeEmployeeId: unipeEmployeeId,
-                      });
-                      Alert.alert("OTP resent successfully");
-                    } else {
-                      Analytics.trackEvent("OTPScreen|SendSms|Error", {
-                        unipeEmployeeId: unipeEmployeeId,
-                        error: res["response"]["details"],
-                      });
-                      Alert.alert(
-                        res["response"]["status"],
-                        res["response"]["details"]
-                      );
-                    }
-                  })
-                  .catch((error) => {
-                    console.log(error.toString());
-                    Analytics.trackEvent("OTPScreen|SendSms|Error", {
-                      unipeEmployeeId: unipeEmployeeId,
-                      error: error.toString(),
-                    });
-                    Alert.alert("Error", error.toString());
-                  });
-              }}
-            >
-              Resend
-            </Text>
-          ) : null}
+          {back ? <Otp /> : null}
           <Text style={styles.otpreadtxt}>
             {" "}
             Sit back & relax while we fetch the OTP & log you inside the Unipe
             App
           </Text>
-          <PrimaryButton
-            title="Verify"
-            disabled={!next}
-            onPress={() => {
-              setNext(false);
-              checkVerification(phoneNumber, otp)
-                .then((res) => {
-                  console.log("res: ", res);
-                  if (res["response"]["status"] === "success") {
-                    if (onboarded) {
-                      navigation.navigate("BackendSync", {
-                        destination: "HomeStack",
-                      });
-                    } else {
-                      navigation.navigate("BackendSync", {
-                        destination: "Welcome",
-                      });
-                    }
-                    dispatch(resetTimer());
-                    Analytics.trackEvent("OTPScreen|Check|Success", {
-                      unipeEmployeeId: unipeEmployeeId,
-                      error: res["response"]["details"],
-                    });
-                  } else {
-                    Alert.alert(
-                      res["response"]["status"],
-                      res["response"]["details"]
-                    );
-                    Analytics.trackEvent("OTPScreen|Check|Error", {
-                      unipeEmployeeId: unipeEmployeeId,
-                      error: res["response"]["details"],
-                    });
-                  }
-                })
-                .catch((error) => {
-                  console.log(error.toString());
-                  Alert.alert("Error", error.toString());
-                  Analytics.trackEvent("OTPScreen|Check|Error", {
-                    unipeEmployeeId: unipeEmployeeId,
-                    error: error.toString(),
-                  });
-                });
-            }}
-          />
+          <Verify disabled={disabled} otp={otp}/>
         </View>
       </KeyboardAvoidingWrapper>
     </SafeAreaView>

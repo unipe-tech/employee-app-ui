@@ -1,51 +1,31 @@
-import Analytics from "appcenter-analytics";
 import { useNavigation } from "@react-navigation/core";
 import { useEffect, useState } from "react";
-import {
-  Alert,
-  BackHandler,
-  SafeAreaView,
-  Text,
-  View,
-} from "react-native";
+import { Alert, BackHandler, SafeAreaView, Text, View } from "react-native";
 import SmsRetriever from "react-native-sms-retriever";
 import SplashScreen from "react-native-splash-screen";
 import { useDispatch, useSelector } from "react-redux";
+import Otp from "../../apis/login/Otp";
 import SVGImg from "../../assets/UnipeLogo.svg";
 import FormInput from "../../components/atoms/FormInput";
 import TermsAndPrivacyModal from "../../components/molecules/TermsAndPrivacyModal";
-import PrimaryButton from "../../components/atoms/PrimaryButton";
 import { COLORS, FONTS } from "../../constants/Theme";
 import { KeyboardAvoidingWrapper } from "../../KeyboardAvoidingWrapper";
-import { putBackendData } from "../../services/employees/employeeServices";
-import { sendSmsVerification } from "../../services/otp/Gupshup/services";
+import { addPhoneNumber } from "../../store/slices/authSlice";
 import {
-  addOnboarded,
-  addPhoneNumber,
-  addToken,
-  addUnipeEmployeeId,
-} from "../../store/slices/authSlice";
-import { addCurrentScreen ,addCurrentStack} from "../../store/slices/navigationSlice";
-import { resetTimer } from "../../store/slices/timerSlice";
+  addCurrentScreen,
+  addCurrentStack,
+} from "../../store/slices/navigationSlice";
 import { styles } from "../../styles";
 import privacyPolicy from "../../templates/docs/PrivacyPolicy.js";
 import termsOfUse from "../../templates/docs/TermsOfUse.js";
 
-
 const LoginScreen = () => {
-
   SplashScreen.hide();
   const dispatch = useDispatch();
-  const navigation = useNavigation();
-
-  const [loading, setLoading] = useState(false);
-  const [next, setNext] = useState(false);
+  const [disabled, setDisabled] = useState(true);
 
   const authSlice = useSelector((state) => state.auth);
-  const [onboarded, setOnboarded] = useState(authSlice?.onboarded);
   const [phoneNumber, setPhoneNumber] = useState(authSlice?.phoneNumber);
-  const [token, setToken] = useState(authSlice?.token);
-  const [unipeEmployeeId, setUnipeEmployeeId] = useState(authSlice?.unipeEmployeeId);
 
   const [isPrivacyModalVisible, setIsPrivacyModalVisible] = useState(false);
   const [isTermsOfUseModalVisible, setIsTermsOfUseModalVisible] =
@@ -57,28 +37,16 @@ const LoginScreen = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(addToken(token));
-  }, [token]);
-
-  useEffect(() => {
-    dispatch(addOnboarded(onboarded));
-  }, [onboarded]);
-
-  useEffect(() => {
     dispatch(addPhoneNumber(phoneNumber));
   }, [phoneNumber]);
 
   useEffect(() => {
-    dispatch(addUnipeEmployeeId(unipeEmployeeId));
-  }, [unipeEmployeeId]);
-
-  useEffect(() => {
     var phoneno = /^[0-9]{10}$/gm;
     if (phoneno.test(phoneNumber) && phoneNumber.length === 10) {
-      setNext(true);
+      setDisabled(false);
       console.log("true");
     } else {
-      setNext(false);
+      setDisabled(true);
       console.log("false");
     }
   }, [phoneNumber]);
@@ -99,78 +67,16 @@ const LoginScreen = () => {
   const backAction = () => {
     Alert.alert("Hold on!", "Are you sure you want to go back?", [
       { text: "No", onPress: () => null, style: "cancel" },
-      { text: "Yes", onPress: () => BackHandler.exitApp() }
+      { text: "Yes", onPress: () => BackHandler.exitApp() },
     ]);
     return true;
   };
 
   useEffect(() => {
     BackHandler.addEventListener("hardwareBackPress", backAction);
-    return () => BackHandler.removeEventListener("hardwareBackPress", backAction);
+    return () =>
+      BackHandler.removeEventListener("hardwareBackPress", backAction);
   }, []);
-
-  const signIn = () => {
-    setLoading(true);
-    dispatch(resetTimer());
-    var fullPhoneNumber = `+91${phoneNumber}`;
-    putBackendData({ data: { number: fullPhoneNumber }, xpath: "mobile", token: token })
-      .then((res) => {
-        console.log("LoginScreen res.data: ", res.data);
-        if (res.data.status === 200) {
-          setOnboarded(res.data.body.onboarded);
-          setToken(res.data.body.token)
-          setUnipeEmployeeId(res.data.body.unipeEmployeeId);
-          sendSmsVerification(phoneNumber)
-            .then((result) => {
-              console.log("sendSmsVerification result: ", result);
-              if (result["response"]["status"] === "success") {
-                setLoading(false);
-                Analytics.trackEvent("LoginScreen|SendSms|Success", {
-                  unipeEmployeeId: unipeEmployeeId,
-                });
-                navigation.navigate("Otp");
-              } else {
-                setLoading(false);
-                Alert.alert(
-                  result["response"]["status"],
-                  result["response"]["details"]
-                );
-                Analytics.trackEvent("LoginScreen|SendSms|Error", {
-                  unipeEmployeeId: unipeEmployeeId,
-                  error: result["response"]["details"],
-                });
-              }
-            })
-            .catch((error) => {
-              console.log("sendSmsVerification result: ", error.toString());
-              setLoading(false);
-              Alert("Error", error.toString());
-              Analytics.trackEvent("LoginScreen|SendSms|Error", {
-                unipeEmployeeId: unipeEmployeeId,
-                error: error.toString(),
-              });
-            });
-          Analytics.trackEvent(`LoginScreen|SignIn|Success`, {
-            unipeEmployeeId: res.data.body.id,
-          });
-        } else {
-          setLoading(false);
-          Alert.alert("Error", res.data["message"]);
-          Analytics.trackEvent("LoginScreen|SignIn|Error", {
-            phoneNumber: phoneNumber,
-            error: res.data["message"],
-          });
-        }
-      })
-      .catch((error) => {
-        console.log("LoginScreen res.data: ", error.toString());
-        setLoading(false);
-        Analytics.trackEvent("LoginScreen|SignIn|Error", {
-          phoneNumber: phoneNumber,
-          error: error.toString(),
-        });
-      });
-  };
 
   return (
     <SafeAreaView style={styles.safeContainer}>
@@ -232,12 +138,7 @@ const LoginScreen = () => {
               Privacy Policy
             </Text>
           </Text>
-          <PrimaryButton
-            title="Continue"
-            disabled={!next}
-            loading={loading}
-            onPress={() => signIn()}
-          />
+          <Otp disabled={disabled} type="login" />
         </View>
       </KeyboardAvoidingWrapper>
 
