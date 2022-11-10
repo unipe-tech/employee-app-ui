@@ -14,7 +14,7 @@ import PrimaryButton from "../../components/atoms/PrimaryButton";
 import SVGImg from "../../assets/UnipeLogo.svg";
 import Analytics from "appcenter-analytics";
 import { styles, form } from "../../styles";
-import { COLORS, SIZES } from "../../constants/Theme";
+import { COLORS, FONTS, SIZES } from "../../constants/Theme";
 import FormInput from "../../components/atoms/FormInput";
 import Header from "../../components/atoms/Header";
 import { AppBar, Icon, IconButton } from "@react-native-material/core";
@@ -106,6 +106,7 @@ const OTPScreen = () => {
             maxLength={6}
             keyboardType="numeric"
             placeholder={"******"}
+            inputStyle={{ ...FONTS.h3 }}
           />
 
           <CountDown

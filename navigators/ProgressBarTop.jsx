@@ -6,7 +6,6 @@ import { progressBar, stepIndicatorStyles } from "../styles";
 import { COLORS } from "../constants/Theme";
 
 export default ProgressBarTop = (props) => {
-
   const aadhaarStatus = useSelector((state) => state.aadhaar.verifyStatus);
   const panStatus = useSelector((state) => state.pan.verifyStatus);
   const bankStatus = useSelector((state) => state.bank.verifyStatus);
@@ -21,7 +20,7 @@ export default ProgressBarTop = (props) => {
       case 0: {
         stepStatus == "finished"
           ? (iconConfig.color = COLORS.white)
-          : (iconConfig.color = COLORS.primaryPending);
+          : (iconConfig.color = COLORS.secondary);
         iconConfig.name = "file-document-outline";
         return <MaterialCommunityIcons {...iconConfig} />;
       }
@@ -30,7 +29,7 @@ export default ProgressBarTop = (props) => {
           ? aadhaarStatus == "SUCCESS"
             ? (iconConfig.color = COLORS.white)
             : (iconConfig.color = COLORS.warning)
-          : (iconConfig.color = COLORS.primaryPending);
+          : (iconConfig.color = COLORS.secondary);
         iconConfig.name = "card-account-details-outline";
         return <MaterialCommunityIcons {...iconConfig} />;
       }
@@ -39,7 +38,7 @@ export default ProgressBarTop = (props) => {
           ? panStatus == "SUCCESS"
             ? (iconConfig.color = COLORS.white)
             : (iconConfig.color = COLORS.warning)
-          : (iconConfig.color = COLORS.primaryPending);
+          : (iconConfig.color = COLORS.secondary);
         iconConfig.name = "smart-card-outline";
         return <MaterialCommunityIcons {...iconConfig} />;
       }
@@ -48,7 +47,7 @@ export default ProgressBarTop = (props) => {
           ? bankStatus == "SUCCESS"
             ? (iconConfig.color = COLORS.white)
             : (iconConfig.color = COLORS.warning)
-          : (iconConfig.color = COLORS.primaryPending);
+          : (iconConfig.color = COLORS.secondary);
         iconConfig.name = "bank-outline";
         return <MaterialCommunityIcons {...iconConfig} />;
       }
@@ -57,7 +56,7 @@ export default ProgressBarTop = (props) => {
           ? mandateStatus == "SUCCESS"
             ? (iconConfig.color = COLORS.white)
             : (iconConfig.color = COLORS.warning)
-          : (iconConfig.color = COLORS.primaryPending);
+          : (iconConfig.color = COLORS.secondary);
         iconConfig.name = "bank-check";
         return <MaterialCommunityIcons {...iconConfig} />;
       }
@@ -76,13 +75,7 @@ export default ProgressBarTop = (props) => {
         stepCount={5}
         customStyles={stepIndicatorStyles}
         currentPosition={props.step}
-        labels={[
-          "Profile",
-          "Aadhaar",
-          "PAN",
-          "Bank",
-          "Mandate",
-        ]}
+        labels={["Profile", "Aadhaar", "PAN", "Bank", "Mandate"]}
         renderStepIndicator={renderStepIndicator}
       />
     </View>

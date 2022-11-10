@@ -22,9 +22,9 @@ EStyleSheet.build({
 });
 
 export const COLORS = {
-  primaryPending: "#4E46F1",
   primary: "#2CB77C",
   primaryBackground: "#D5F9EA",
+  secondary: "#3C3F54",
   button: {
     disabled: {
       background: "",

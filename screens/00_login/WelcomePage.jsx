@@ -38,7 +38,7 @@ const WelcomePage = () => {
 
   const getStepIndicatorIconConfig = ({ position, stepStatus }) => {
     const iconConfig = {
-      color: stepStatus === "finished" ? COLORS.white : COLORS.primaryPending,
+      color: stepStatus === "finished" ? COLORS.white : COLORS.secondary,
       size: 15,
     };
     switch (position) {
