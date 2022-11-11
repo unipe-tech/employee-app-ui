@@ -1,11 +1,11 @@
 import { useEffect, useState, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { addESICAddress } from "../store/slices/esicSlice";
-import FormInput from "./atoms/FormInput";
-import DropDownForm from "./molecules/DropDownForm";
+import { addESICAddress } from "../../store/slices/esicSlice";
+import FormInput from "../atoms/FormInput";
+import DropDownForm from "./DropDownForm";
 
-const customData = require("../assets/state_districts.json");
+const customData = require("../../assets/state_districts.json");
 
 const AddressDropdown = ({ type }) => {
   const [districts, setDistricts] = useState(["Please Choose a State"]);

@@ -1,7 +1,6 @@
-import { SafeAreaView, Text } from "react-native";
-import { useSelector } from "react-redux";
-import MessageCard from "./MessageCard";
-import { allAreNull } from "../helpers/nullCheck";
+import { SafeAreaView } from "react-native";
+import MessageCard from "../atoms/MessageCard";
+import { allAreNull } from "../../helpers/nullCheck";
 import { memo } from "react";
 
 const KycCheckCard = ({

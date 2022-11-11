@@ -1,14 +1,14 @@
 import React, { memo } from "react";
 import { AppBar, Icon, IconButton } from "@react-native-material/core";
-import { COLORS } from "../../constants/Theme";
+import { COLORS, FONTS } from "../../constants/Theme";
 
 const Header = ({ title, onLeftIconPress, onRightIconPress }) => {
   return (
     <AppBar
       title={title}
-      contentContainerStyle={{ height: 40 }}
+      contentContainerStyle={{ height: 50 }}
       color={COLORS.primary}
-      titleStyle={{ color: COLORS.white }}
+      titleStyle={{ color: COLORS.white, ...FONTS.h3 }}
       leading={
         <IconButton
           icon={<Icon name="arrow-back" size={20} color="white" />}

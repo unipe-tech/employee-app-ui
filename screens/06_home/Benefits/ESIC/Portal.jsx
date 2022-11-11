@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/core";
 import { portalPush } from "../../../../helpers/BackendPush";
 import { addESICPortal } from "../../../../store/slices/esicSlice";
 import { bankform, styles } from "../../../../styles";
-import { showToast } from "../../../../components/Toast";
+import { showToast } from "../../../../components/atoms/Toast";
 import { KeyboardAvoidingWrapper } from "../../../../KeyboardAvoidingWrapper";
 import FormInput from "../../../../components/atoms/FormInput";
 import PrimaryButton from "../../../../components/atoms/PrimaryButton";
@@ -39,7 +39,7 @@ export default Portal = () => {
             title="Continue"
             onPress={() => {
               portalPush({
-                datat: { unipeEmployeeId: unipeEmployeeId, ipNumber: ipNumber },
+                data: { unipeEmployeeId: unipeEmployeeId, ipNumber: ipNumber },
                 token: token,
               });
               showToast("ESIC Portal details recorded.");

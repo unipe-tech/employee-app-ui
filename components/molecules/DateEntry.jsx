@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, memo } from "react";
 import { Text, TextInput, View } from "react-native";
-import { form } from "../styles";
+import { form } from "../../styles";
 
 const DateEntry = ({ title, setval }) => {
   const [year, setYear] = useState("");
