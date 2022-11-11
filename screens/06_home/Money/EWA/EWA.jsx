@@ -13,7 +13,6 @@ import { COLORS, FONTS } from "../../../../constants/Theme";
 import { STAGE } from "@env";
 
 const EWA = () => {
-
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
   const navigation = useNavigation();
@@ -42,10 +41,11 @@ const EWA = () => {
     navigation.navigate("EWA", { replace: true });
     return true;
   };
-  
+
   useEffect(() => {
     BackHandler.addEventListener("hardwareBackPress", backAction);
-    return () => BackHandler.removeEventListener("hardwareBackPress", backAction);
+    return () =>
+      BackHandler.removeEventListener("hardwareBackPress", backAction);
   }, []);
 
   useEffect(() => {
@@ -68,7 +68,11 @@ const EWA = () => {
     console.log("ewaHistoricalSlice: ", ewaHistoricalSlice);
     console.log("ewaOffersFetch unipeEmployeeId:", unipeEmployeeId);
     if (isFocused && unipeEmployeeId) {
-      getBackendData({ params: { unipeEmployeeId: unipeEmployeeId }, xpath: "ewa/offers", token: token })
+      getBackendData({
+        params: { unipeEmployeeId: unipeEmployeeId },
+        xpath: "ewa/offers",
+        token: token,
+      })
         .then((response) => {
           if (response.data.status === 200) {
             console.log("ewaOffersFetch response.data: ", response.data);
@@ -156,7 +160,12 @@ const EWA = () => {
           >
             You are not eligible for Advanced Salary.
           </Text>
-          <KycCheckCard />
+          <KycCheckCard
+            bankStatus={bankVerifyStatus}
+            panStatus={panVerifyStatus}
+            aadhaarStatus={aadhaarVerifyStatus}
+            mandateStatus={mandateVerifyStatus}
+          />
         </View>
       )}
     </SafeAreaView>

@@ -39,7 +39,7 @@ function Loading({
   return null;
 }
 
-export default Loading;
+export default React.memo(Loading);
 
 const styles = EStyleSheet.create(() => ({
   cont: {

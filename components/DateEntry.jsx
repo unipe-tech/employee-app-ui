@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect, memo } from "react";
 import { Text, TextInput, View } from "react-native";
 import { form } from "../styles";
-const DateEntry = (props) => {
+
+const DateEntry = ({ title, setval }) => {
   const [year, setYear] = useState("");
   const [month, setMonth] = useState("");
   const [day, setDay] = useState("");
@@ -21,12 +22,12 @@ const DateEntry = (props) => {
   }, [month]);
 
   useEffect(() => {
-    props.setval(`${year}-${month}-${day}`);
+    setval(`${year}-${month}-${day}`);
   }, [year, month, day]);
 
   return (
     <>
-      <Text style={form.formLabel}>{props.title}</Text>
+      <Text style={form.formLabel}>{title}</Text>
       <View style={{ flexDirection: "row" }}>
         <TextInput
           style={form.year}

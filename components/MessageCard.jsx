@@ -3,16 +3,16 @@ import { memo } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { card } from "../styles";
 
-const MessageCard = (props) => {
+const MessageCard = ({ title, message }) => {
   const navigation = useNavigation();
 
   return (
     <View style={card.alertCard}>
       <Text style={card.infoText}>
-        {props.title}
+        {title}
         {"\n \n"}
       </Text>
-      {props.message.map((item, index) =>
+      {message.map((item, index) =>
         item != null ? (
           <TouchableOpacity
             key={index}

@@ -87,13 +87,13 @@ const OfferCard = ({ offer }) => {
   );
 };
 
-const Offers = (props) => {
+const Offers = ({ data }) => {
   return (
     <ScrollView
       style={{ height: "63%", marginTop: "1.5%" }}
       showsVerticalScrollIndicator={false}
     >
-      {props.data.map((offer, index) => (
+      {data.map((offer, index) => (
         <OfferCard offer={offer} key={index} />
       ))}
     </ScrollView>

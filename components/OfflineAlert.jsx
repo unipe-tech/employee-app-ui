@@ -1,8 +1,6 @@
-import NetInfo, {
-  NetInfoCellularGeneration,
-} from "@react-native-community/netinfo";
+import NetInfo from "@react-native-community/netinfo";
 import React, { memo, useEffect, useState } from "react";
-import { Alert, Modal, Text, TouchableOpacity, View } from "react-native";
+import { Modal, Text, View } from "react-native";
 import { AddListener } from "../helpers/InternetCheck";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { showToast } from "./Toast";

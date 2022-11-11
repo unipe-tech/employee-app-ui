@@ -1,5 +1,5 @@
 import { useIsFocused, useNavigation } from "@react-navigation/core";
-import React, { memo, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView, Text, TouchableOpacity } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { COLORS, FONTS } from "../constants/Theme";
@@ -81,4 +81,4 @@ const HomeOfferCard = () => {
   );
 };
 
-export default memo(HomeOfferCard);
+export default HomeOfferCard;

@@ -2,7 +2,6 @@ import { useNavigation } from "@react-navigation/core";
 import { AppBar, Icon, IconButton } from "@react-native-material/core";
 import SVGImg from "../../assets/UnipeLogo.svg";
 import { nav, styles } from "../../styles";
-import { memo } from "react";
 
 const TopAppBar = () => {
   const navigation = useNavigation();
@@ -32,4 +31,4 @@ const TopAppBar = () => {
   );
 };
 
-export default memo(TopAppBar);
+export default TopAppBar;

@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/core";
-import React, { memo } from "react";
+import React from "react";
 import { Pressable, Text } from "react-native";
 import { AntDesign } from "react-native-vector-icons";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,8 +17,6 @@ const Logout = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
-  const store = useSelector((state) => state);
-  // console.log(store);
   return (
     <Pressable
       onPress={() => {
@@ -47,4 +45,4 @@ const Logout = () => {
   );
 };
 
-export default memo(Logout);
+export default Logout;

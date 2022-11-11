@@ -6,7 +6,6 @@ import KycCheckCard from "../../components/KycCheckCard";
 import HomeOfferCard from "../../components/HomeOfferCard";
 
 const HomeView = () => {
-
   const bankStatus = useSelector((state) => state.bank.verifyStatus);
   const panStatus = useSelector((state) => state.pan.verifyStatus);
   const aadhaarStatus = useSelector((state) => state.aadhaar.verifyStatus);
@@ -22,7 +21,12 @@ const HomeView = () => {
   return (
     <>
       <SafeAreaView style={[styles.container]}>
-        <KycCheckCard />
+        <KycCheckCard
+          bankStatus={bankStatus}
+          panStatus={panStatus}
+          aadhaarStatus={aadhaarStatus}
+          mandateStatus={mandateStatus}
+        />
         {allAreNull(message) ? <HomeOfferCard /> : null}
       </SafeAreaView>
     </>
