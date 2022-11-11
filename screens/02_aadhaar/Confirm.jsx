@@ -1,12 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/core";
-import {
-  Alert,
-  SafeAreaView,
-  ScrollView,
-  BackHandler,
-} from "react-native";
+import { Alert, SafeAreaView, ScrollView, BackHandler } from "react-native";
 import ProgressBarTop from "../../navigators/ProgressBarTop";
 import { styles } from "../../styles";
 
@@ -36,7 +31,8 @@ const AadhaarConfirm = () => {
 
   useEffect(() => {
     BackHandler.addEventListener("hardwareBackPress", backAction);
-    return () => BackHandler.removeEventListener("hardwareBackPress", backAction);
+    return () =>
+      BackHandler.removeEventListener("hardwareBackPress", backAction);
   }, []);
 
   return (

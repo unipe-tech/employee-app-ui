@@ -82,7 +82,7 @@ export default Relation = () => {
           <FormInput
             placeholder={"Father's / Husband's Name*"}
             containerStyle={{ marginVertical: 10 }}
-            value={fatherHusbandName}
+            // value={fatherHusbandName}
             onChange={setRelationName}
           />
 
@@ -96,7 +96,7 @@ export default Relation = () => {
           <FormInput
             placeholder={"Name of Nominee (As per Aadhaar card)*"}
             containerStyle={{ marginVertical: 10 }}
-            value={nomineeName}
+            // value={nomineeName}
             onChange={setNomineeName}
           />
 

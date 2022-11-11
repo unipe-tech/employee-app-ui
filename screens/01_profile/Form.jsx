@@ -139,7 +139,7 @@ const ProfileForm = () => {
           <FormInput
             placeholder={"Mother's Name*"}
             containerStyle={{ marginVertical: 10 }}
-            value={motherName}
+            // value={motherName}
             onChange={setMotherName}
           />
           <FormInput
@@ -147,7 +147,7 @@ const ProfileForm = () => {
             containerStyle={{ marginVertical: 10 }}
             autoCompleteType="tel"
             keyboardType="phone-pad"
-            value={altMobile}
+            // value={altMobile}
             onChange={setAltMobile}
           />
           <FormInput
@@ -155,7 +155,7 @@ const ProfileForm = () => {
             containerStyle={{ marginVertical: 10 }}
             autoCompleteType="email"
             keyboardType="email-address"
-            value={email}
+            // value={email}
             onChange={setEmail}
           />
           <PrimaryButton

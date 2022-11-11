@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { memo, useEffect } from "react";
 import { Alert } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { setMistmatch as setBankMismatch } from "../../store/slices/bankSlice";
@@ -34,4 +34,4 @@ const FuzzyCheck = (props) => {
   );
 };
 
-export default FuzzyCheck;
+export default memo(FuzzyCheck);

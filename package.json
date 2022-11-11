@@ -74,6 +74,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
+    "babel-plugin-transform-remove-console": "^6.9.4",
     "react-native-svg-transformer": "^1.0.0"
   },
   "resolutions": {

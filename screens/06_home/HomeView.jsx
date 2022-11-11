@@ -21,7 +21,12 @@ const HomeView = () => {
   return (
     <>
       <SafeAreaView style={[styles.container]}>
-        <KycCheckCard />
+        <KycCheckCard
+          bankStatus={bankStatus}
+          panStatus={panStatus}
+          aadhaarStatus={aadhaarStatus}
+          mandateStatus={mandateStatus}
+        />
         {allAreNull(message) ? <HomeOfferCard /> : null}
       </SafeAreaView>
     </>

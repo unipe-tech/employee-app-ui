@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
-import React from "react";
+import React, { memo } from "react";
 import EStyleSheet from "react-native-extended-stylesheet";
 import FormInput from "../atoms/FormInput";
 import { Icon, IconButton } from "@react-native-material/core";
@@ -27,7 +27,7 @@ const DropDownForm = ({
         <FormInput
           containerStyle={{ ...containerStyle }}
           placeholder={placeholder}
-          value={value}
+          // value={value}
           disabled={true}
           appendComponent={
             <Icon name="keyboard-arrow-down" size={24} color={COLORS.gray} />
@@ -95,4 +95,4 @@ const styles = EStyleSheet.create({
   },
 });
 
-export default DropDownForm;
+export default memo(DropDownForm);

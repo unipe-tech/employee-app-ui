@@ -262,21 +262,21 @@ const MandateFormTemplate = (props) => {
               placeholder={"Account Holder Name"}
               containerStyle={{ marginVertical: 10 }}
               autoCapitalize="words"
-              value={accountHolderName}
+              // value={accountHolderName}
               disabled={true}
             />
             <FormInput
               placeholder={"Bank Account Number"}
               containerStyle={{ marginVertical: 10 }}
               autoCapitalize="words"
-              value={accountNumber}
+              // value={accountNumber}
               disabled={true}
             />
             <FormInput
               placeholder={"IFSC"}
               containerStyle={{ marginVertical: 10 }}
               autoCapitalize="words"
-              value={ifsc}
+              // value={ifsc}
               disabled={true}
             />
             <PrimaryButton

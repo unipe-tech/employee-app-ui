@@ -1,5 +1,5 @@
+import React, { memo } from "react";
 import EStyleSheet from "react-native-extended-stylesheet";
-import React from "react";
 import FormInput from "../atoms/FormInput";
 import { Icon, IconButton } from "@react-native-material/core";
 import { COLORS, FONTS } from "../../constants/Theme";
@@ -18,7 +18,7 @@ const PopableInput = ({
     <FormInput
       containerStyle={{ ...styles.container, ...containerStyle }}
       placeholder={placeholder}
-      value={value}
+      // value={value}
       autoCapitalize={autoCapitalize}
       onChange={onChange}
       appendComponent={
@@ -51,4 +51,4 @@ const styles = EStyleSheet.create({
   },
 });
 
-export default PopableInput;
+export default memo(PopableInput);

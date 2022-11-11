@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { View, Text, TextInput } from "react-native";
 import EStyleSheet from "react-native-extended-stylesheet";
 import { COLORS, FONTS, SIZES } from "../../constants/Theme";
@@ -94,4 +94,4 @@ const styles = EStyleSheet.create({
   },
 });
 
-export default FormInput;
+export default memo(FormInput);

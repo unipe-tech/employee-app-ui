@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { addESICAddress } from "../../store/slices/esicSlice";
@@ -7,48 +7,42 @@ import DropDownForm from "./DropDownForm";
 
 const customData = require("../../assets/state_districts.json");
 
-export default AddressDropdown = (props) => {
+const AddressDropdown = ({ type }) => {
   const [districts, setDistricts] = useState(["Please Choose a State"]);
 
   const dispatch = useDispatch();
   const states = Object.keys(customData);
 
   const [geoState, setGeoState] = useState(
-    useSelector((state) => state.esic.address[props.type].state)
+    useSelector((state) => state.esic.address[type].state)
   );
   const [district, setDistrict] = useState(
-    useSelector((state) => state.esic.address[props.type].district)
+    useSelector((state) => state.esic.address[type].district)
   );
   const [street, setStreet] = useState(
-    useSelector((state) => state.esic.address[props.type].street)
+    useSelector((state) => state.esic.address[type].street)
   );
 
   const [pincode, setPincode] = useState(
-    useSelector((state) => state.esic.address[props.type].pincode)
+    useSelector((state) => state.esic.address[type].pincode)
   );
 
   useEffect(() => {
-    dispatch(
-      addESICAddress({ type: props.type, subtype: "state", val: geoState })
-    );
+    dispatch(addESICAddress({ type: type, subtype: "state", val: geoState }));
   }, [geoState]);
 
   useEffect(() => {
-    dispatch(
-      addESICAddress({ type: props.type, subtype: "street", val: street })
-    );
+    dispatch(addESICAddress({ type: type, subtype: "street", val: street }));
   }, [street]);
 
   useEffect(() => {
-    dispatch(
-      addESICAddress({ type: props.type, subtype: "pincode", val: pincode })
-    );
+    dispatch(addESICAddress({ type: type, subtype: "pincode", val: pincode }));
   }, [pincode]);
 
   useEffect(() => {
     dispatch(
       addESICAddress({
-        type: props.type,
+        type: type,
         subtype: "district",
         val: district,
       })
@@ -62,7 +56,7 @@ export default AddressDropdown = (props) => {
     }
   }, [geoState]);
 
-  switch (props.type) {
+  switch (type) {
     case "present":
       var title = "Present";
       break;
@@ -79,7 +73,7 @@ export default AddressDropdown = (props) => {
       <FormInput
         placeholder={title + " Street"}
         containerStyle={{ marginVertical: 10 }}
-        value={street}
+        // value={street}
         onChange={setStreet}
       />
       <DropDownForm
@@ -101,9 +95,11 @@ export default AddressDropdown = (props) => {
       <FormInput
         placeholder={title + " Pincode"}
         containerStyle={{ marginVertical: 10 }}
-        value={pincode}
+        // value={pincode}
         onChange={setPincode}
       />
     </>
   );
 };
+
+export default memo(AddressDropdown);

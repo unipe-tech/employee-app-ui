@@ -4,13 +4,7 @@ import CheckBox from "@react-native-community/checkbox";
 import { useNavigation } from "@react-navigation/core";
 import Analytics from "appcenter-analytics";
 import { useEffect, useState } from "react";
-import {
-  Alert,
-  BackHandler,
-  SafeAreaView,
-  Text,
-  View,
-} from "react-native";
+import { Alert, BackHandler, SafeAreaView, Text, View } from "react-native";
 import { getUniqueId } from "react-native-device-info";
 import { NetworkInfo } from "react-native-network-info";
 import StepIndicator from "react-native-step-indicator";
@@ -72,10 +66,11 @@ const Offer = () => {
     navigation.navigate("EWA");
     return true;
   };
-  
+
   useEffect(() => {
     BackHandler.addEventListener("hardwareBackPress", backAction);
-    return () => BackHandler.removeEventListener("hardwareBackPress", backAction);
+    return () =>
+      BackHandler.removeEventListener("hardwareBackPress", backAction);
   }, []);
 
   useEffect(() => {
@@ -166,17 +161,14 @@ const Offer = () => {
 
   return (
     <SafeAreaView style={styles.safeContainer}>
-      <Header
-        title="On Demand Salary"
-        onLeftIconPress={() => backAction()}
-      />
+      <Header title="On Demand Salary" onLeftIconPress={() => backAction()} />
       <View style={styles.container}>
         <FormInput
           placeholder="Enter amount"
           containerStyle={{ marginVertical: 10, marginHorizontal: 50 }}
           inputStyle={{ ...FONTS.h2, width: 20 }}
           keyboardType="numeric"
-          value={amount}
+          // value={amount}
           onChange={setAmount}
           autoFocus={true}
           maxLength={10}

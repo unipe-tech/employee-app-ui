@@ -1,14 +1,14 @@
 import { SafeAreaView } from "react-native";
-import { useSelector } from "react-redux";
 import MessageCard from "../atoms/MessageCard";
 import { allAreNull } from "../../helpers/nullCheck";
+import { memo } from "react";
 
-const KycCheckCard = () => {
-  const bankStatus = useSelector((state) => state.bank.verifyStatus);
-  const panStatus = useSelector((state) => state.pan.verifyStatus);
-  const aadhaarStatus = useSelector((state) => state.aadhaar.verifyStatus);
-  const mandateStatus = useSelector((state) => state.mandate.verifyStatus);
-
+const KycCheckCard = ({
+  bankStatus,
+  panStatus,
+  aadhaarStatus,
+  mandateStatus,
+}) => {
   const message = [
     aadhaarStatus != "SUCCESS" ? "AADHAAR" : null,
     bankStatus != "SUCCESS" ? "BANK" : null,
@@ -28,4 +28,4 @@ const KycCheckCard = () => {
   );
 };
 
-export default KycCheckCard;
+export default memo(KycCheckCard);

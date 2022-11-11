@@ -3,6 +3,7 @@ import StepIndicator from "react-native-step-indicator";
 import React from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import { COLORS, SIZES, FONTS } from "../../constants/Theme";
+import { memo } from "react";
 
 const StepsIndicator = ({
   styles,
@@ -89,4 +90,4 @@ const StepsIndicator = ({
   );
 };
 
-export default StepsIndicator;
+export default memo(StepsIndicator);

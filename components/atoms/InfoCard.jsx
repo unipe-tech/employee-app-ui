@@ -1,7 +1,7 @@
 import { View, Text } from "react-native";
 import EStyleSheet from "react-native-extended-stylesheet";
 import { Icon } from "@react-native-material/core";
-import React from "react";
+import React, { memo } from "react";
 import { COLORS, FONTS } from "../../constants/Theme";
 
 const InfoCard = ({ info }) => {
@@ -27,4 +27,4 @@ const styles = EStyleSheet.create({
   text: { paddingLeft: "10rem", ...FONTS.body4, color: COLORS.black, flex: 1 },
 });
 
-export default InfoCard;
+export default memo(InfoCard);

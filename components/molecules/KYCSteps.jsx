@@ -1,10 +1,10 @@
 import { View, Text, StyleSheet } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import React from "react";
+import React, { memo } from "react";
 import StepsIndicator from "./StepsIndicator";
 import { SIZES } from "../../constants/Theme";
 
-const KYCSteps = (props) => {
+const KYCSteps = ({ step }) => {
   const getStepIndicatorIconConfig = ({ position, stepStatus }) => {
     const iconConfig = {
       name: "feed",
@@ -57,11 +57,11 @@ const KYCSteps = (props) => {
     <View style={styles.container}>
       <StepsIndicator
         stepCount={6}
-        direction={props.step ? "horizontal" : "vertical"}
+        direction={step ? "horizontal" : "vertical"}
         renderStepIndicator={renderStepIndicator}
-        currentPosition={props.step ? props.step : 0}
+        currentPosition={step ? step : 0}
         labels={data}
-        styles={{ labelSize: props.step ? SIZES.body5 : SIZES.body4 }}
+        styles={{ labelSize: step ? SIZES.body5 : SIZES.body4 }}
       />
     </View>
   );
@@ -72,4 +72,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default KYCSteps;
+export default memo(KYCSteps);

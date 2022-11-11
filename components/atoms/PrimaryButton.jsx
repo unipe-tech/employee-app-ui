@@ -1,3 +1,4 @@
+import React, { memo } from "react";
 import EStyleSheet from "react-native-extended-stylesheet";
 import { Button } from "@react-native-material/core";
 import { COLORS, FONTS, SIZES } from "../../constants/Theme";
@@ -60,4 +61,4 @@ const styles = EStyleSheet.create({
   },
 });
 
-export default PrimaryButton;
+export default memo(PrimaryButton);

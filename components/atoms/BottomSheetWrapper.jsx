@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { View } from "react-native";
 import EStyleSheet from "react-native-extended-stylesheet";
 import Modal from "react-native-modal";
@@ -34,4 +34,4 @@ const styles = EStyleSheet.create({
   },
 });
 
-export default BottomSheetWrapper;
+export default memo(BottomSheetWrapper);

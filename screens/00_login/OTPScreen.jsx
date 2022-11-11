@@ -101,7 +101,7 @@ const OTPScreen = () => {
             }}
             letterSpacing={SIZES.width * 0.0699}
             autoFocus={true}
-            value={otp}
+            // value={otp}
             onChange={setOtp}
             maxLength={6}
             keyboardType="numeric"

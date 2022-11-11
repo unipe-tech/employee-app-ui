@@ -158,7 +158,12 @@ const EWA = () => {
           >
             You are not eligible for Advanced Salary.
           </Text>
-          <KycCheckCard />
+          <KycCheckCard
+            bankStatus={bankVerifyStatus}
+            panStatus={panVerifyStatus}
+            aadhaarStatus={aadhaarVerifyStatus}
+            mandateStatus={mandateVerifyStatus}
+          />
         </View>
       )}
     </SafeAreaView>

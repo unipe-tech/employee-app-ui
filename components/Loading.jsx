@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { View, ActivityIndicator, StyleSheet } from "react-native";
 import Modal from "react-native-modal";
 
@@ -38,7 +38,7 @@ function Loading({
   return null;
 }
 
-export default React.memo(Loading);
+export default memo(Loading);
 
 const styles = StyleSheet.create(() => ({
   cont: {

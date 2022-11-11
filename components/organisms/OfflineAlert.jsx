@@ -1,14 +1,13 @@
-import NetInfo, {
-  NetInfoCellularGeneration,
-} from "@react-native-community/netinfo";
-import React, { useEffect, useState } from "react";
-import { Alert, Modal, Text, TouchableOpacity, View } from "react-native";
+import NetInfo from "@react-native-community/netinfo";
+import React, { useEffect, useState, memo } from "react";
+import { Modal, Text, View } from "react-native";
 import { AddListener } from "../../helpers/InternetCheck";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { showToast } from "../atoms/Toast";
 import EStyleSheet from "react-native-extended-stylesheet";
 import { COLORS, FONTS, SIZES } from "../../constants/Theme";
 import PrimaryButton from "../atoms/PrimaryButton";
+
 const OfflineAlert = ({ children }) => {
   const [isConnected, setIsConnected] = useState(true);
 
@@ -126,4 +125,4 @@ const styles = EStyleSheet.create({
   },
 });
 
-export default OfflineAlert;
+export default memo(OfflineAlert);
