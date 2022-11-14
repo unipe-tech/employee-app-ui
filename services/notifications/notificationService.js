@@ -3,6 +3,9 @@ import messaging from "@react-native-firebase/messaging";
 import axios from "axios";
 import { store } from "../../store/store";
 import { version } from "../../package.json";
+import { addCurrentScreen } from "../../store/slices/navigationSlice";
+import { useNavigation } from "@react-navigation/native";
+import * as RootNavigation from "../../navigators/RootNavigation";
 
 export async function requestUserPermission() {
   const authorizationStatus = await messaging().requestPermission();
@@ -48,9 +51,11 @@ export const getFcmToken = async () => {
 
 export const notificationListener = async () => {
   messaging().onNotificationOpenedApp((remoteMessage) => {
+    RootNavigation.navigate(remoteMessage.data.screenName);
+
     console.log(
       "Notification caused app to open from background state:",
-      remoteMessage.notification
+      remoteMessage
     );
   });
 
@@ -59,16 +64,22 @@ export const notificationListener = async () => {
   });
 
   // Check whether an initial notification is available
-  messaging()
-    .getInitialNotification()
-    .then((remoteMessage) => {
-      if (remoteMessage) {
-        console.log(
-          "Notification caused app to open from quit state:",
-          remoteMessage.notification
-        );
-      }
-    });
+  setTimeout(() => {
+    messaging()
+      .getInitialNotification()
+      .then((remoteMessage) => {
+        if (remoteMessage) {
+          RootNavigation.navigate("BottomTabNav", {
+            screen: remoteMessage.data.screenName,
+          });
+          console.log(
+            "Notification caused app to open from quit state:",
+            // remoteMessage.notification
+            remoteMessage
+          );
+        }
+      });
+  }, 100);
 };
 
 // export function subscribeTokenToTopic(token, topic) {

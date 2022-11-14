@@ -3,6 +3,7 @@ import { useNavigation } from "@react-navigation/native";
 import DevMenuButton from "../components/atoms/DevMenuButton";
 import PushNotification from "react-native-push-notification";
 import { useEffect } from "react";
+import * as RootNavigation from "../navigators/RootNavigation";
 
 export default DevMenu = () => {
   const navigation = useNavigation();
@@ -15,7 +16,7 @@ export default DevMenu = () => {
     { title: "PAN", stack: "OnboardingStack", name: "PanForm" },
     { title: "BANK", stack: "OnboardingStack", name: "BankForm" },
     { title: "Mandate", stack: "OnboardingStack", name: "Mandate" },
-    { title: "Home", stack: "HomeStack", name: "Home" },
+    { title: "Home", stack: "BottomTabNav", name: "Home" },
     { title: "KYC Details", stack: "HomeStack", name: "KYC" },
     { title: "Profile Details", stack: "HomeStack", name: "Profile" },
     { title: "EWA", stack: "EWAStack", name: "EWA_OFFER" },
@@ -44,6 +45,11 @@ export default DevMenu = () => {
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        {/* <DevMenuButton
+          style={{ marginTop: 20 }}
+          title={"Notification Test"}
+          onPress={() => RootNavigation.navigate("HomeStack")}
+        /> */}
         {screens.map((screen, index) => (
           <DevMenuButton
             key={index}
@@ -54,11 +60,6 @@ export default DevMenu = () => {
             }
           />
         ))}
-        <DevMenuButton
-          style={{ marginTop: 20 }}
-          title={"Notification Test"}
-          onPress={() => handleNotification()}
-        />
       </View>
     </ScrollView>
   );

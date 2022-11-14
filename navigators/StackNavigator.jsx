@@ -11,6 +11,8 @@ import HomeStack from "./stacks/HomeStack";
 import EWAStack from "./stacks/EWAStack";
 import DocumentStack from "./stacks/DocumentStack";
 import BenefitsStack from "./stacks/BenefitsStack";
+import BottomTabNav from "./BottomTabNav";
+import TopAppBar from "../components/molecules/TopAppBar";
 
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator();
@@ -41,6 +43,13 @@ const StackNavigator = () => {
           options={{
             headerShown: false,
           }}
+        />
+        <Stack.Screen
+          name="BottomTabNav"
+          component={BottomTabNav}
+          options={({ route }) => ({
+            header: TopAppBar,
+          })}
         />
         <Stack.Screen
           name="HomeStack"

@@ -7,7 +7,10 @@ import BottomTabNav from "../../navigators/BottomTabNav";
 import Benefits from "./Benefits/Benefits";
 import Documents from "./Documents/Documents";
 import HomeView from "./HomeView";
-import { addCurrentScreen,addCurrentStack } from "../../store/slices/navigationSlice";
+import {
+  addCurrentScreen,
+  addCurrentStack,
+} from "../../store/slices/navigationSlice";
 import EWANavigator from "../../navigators/EWANavigator";
 
 const Home = () => {
@@ -33,13 +36,13 @@ const Home = () => {
 
   useEffect(() => {
     BackHandler.addEventListener("hardwareBackPress", backAction);
-    return () => BackHandler.removeEventListener("hardwareBackPress", backAction);
+    return () =>
+      BackHandler.removeEventListener("hardwareBackPress", backAction);
   }, []);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <TopAppBar />
-      <BottomTabNav tabs={tabs} />
+      <BottomTabNav />
     </SafeAreaView>
   );
 };
