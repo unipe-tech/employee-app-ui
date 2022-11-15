@@ -189,7 +189,7 @@ const MandateFormTemplate = (props) => {
                 unipeEmployeeId: unipeEmployeeId,
               });
               props?.type === "Onboarding"
-                ? navigation.replace("BottomTabNav")
+                ? navigation.replace("HomeStack")
                 : null;
             })
             .catch((error) => {

@@ -45,13 +45,6 @@ const StackNavigator = () => {
           }}
         />
         <Stack.Screen
-          name="BottomTabNav"
-          component={BottomTabNav}
-          options={({ route }) => ({
-            header: TopAppBar,
-          })}
-        />
-        <Stack.Screen
           name="HomeStack"
           component={HomeStack}
           options={{

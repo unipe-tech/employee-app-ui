@@ -51,7 +51,10 @@ export const getFcmToken = async () => {
 
 export const notificationListener = async () => {
   messaging().onNotificationOpenedApp((remoteMessage) => {
-    RootNavigation.navigate(remoteMessage.data.screenName);
+    // RootNavigation.navigate(remoteMessage.data.screenName);
+    RootNavigation.navigate("HomeStack", {
+      screen: "Home",
+    });
 
     console.log(
       "Notification caused app to open from background state:",
@@ -69,8 +72,8 @@ export const notificationListener = async () => {
       .getInitialNotification()
       .then((remoteMessage) => {
         if (remoteMessage) {
-          RootNavigation.navigate("BottomTabNav", {
-            screen: remoteMessage.data.screenName,
+          RootNavigation.navigate("HomeStack", {
+            screen: "Home",
           });
           console.log(
             "Notification caused app to open from quit state:",

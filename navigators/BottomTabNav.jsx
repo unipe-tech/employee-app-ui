@@ -4,6 +4,7 @@ import TopAppBar from "../components/molecules/TopAppBar";
 import { COLORS, FONTS } from "../constants/Theme";
 import Benefits from "../screens/06_home/Benefits/Benefits";
 import Documents from "../screens/06_home/Documents/Documents";
+import Home from "../screens/06_home/Home";
 import HomeView from "../screens/06_home/HomeView";
 import DrawerNavigator from "./DrawerNavigator";
 import EWANavigator from "./EWANavigator";
@@ -11,7 +12,7 @@ import EWANavigator from "./EWANavigator";
 export default BottomTabNav = () => {
   const bottomTab = createBottomTabNavigator();
   const tabs = [
-    { name: "Home", component: DrawerNavigator },
+    { name: "Home", component: Home },
     { name: "Documents", component: Documents },
     { name: "Benefits", component: Benefits },
     { name: "Money", component: EWANavigator },

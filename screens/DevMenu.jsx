@@ -16,7 +16,7 @@ export default DevMenu = () => {
     { title: "PAN", stack: "OnboardingStack", name: "PanForm" },
     { title: "BANK", stack: "OnboardingStack", name: "BankForm" },
     { title: "Mandate", stack: "OnboardingStack", name: "Mandate" },
-    { title: "Home", stack: "BottomTabNav", name: "Home" },
+    { title: "Home", stack: "HomeStack", name: "Home" },
     { title: "KYC Details", stack: "HomeStack", name: "KYC" },
     { title: "Profile Details", stack: "HomeStack", name: "Profile" },
     { title: "EWA", stack: "EWAStack", name: "EWA_OFFER" },
