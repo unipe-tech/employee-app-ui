@@ -6,11 +6,12 @@ import { useSelector } from "react-redux";
 import DrawerNavigator from "../DrawerNavigator";
 import KYCScreen from "../../screens/07_drawer/KYCScreen";
 import Profile from "../../screens/07_drawer/Profile";
+import { COLORS, FONTS } from "../../constants/Theme";
 
 const HomeStack = () => {
   const Stack = createNativeStackNavigator();
   var initialRoute = useSelector((state) => state.navigation.currentScreen);
-  
+
   STAGE === "dev" ? (initialRoute = "DevMenu") : null;
   console.log("initialRoute: ", initialRoute);
   return (
@@ -29,6 +30,7 @@ const HomeStack = () => {
         options={{
           headerShown: true,
           headerTitle: "KYC Details",
+          headerTitleStyle: { color: COLORS.black, ...FONTS.h3 },
           headerShadowVisible: false,
         }}
       />
@@ -38,6 +40,7 @@ const HomeStack = () => {
         options={{
           headerShown: true,
           headerTitle: "Profile Details",
+          headerTitleStyle: { color: COLORS.black, ...FONTS.h3 },
         }}
       />
     </Stack.Navigator>
