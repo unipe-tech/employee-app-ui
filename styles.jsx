@@ -19,7 +19,7 @@ export const styles = EStyleSheet.create({
   headline: {
     marginTop: "20rem",
     ...FONTS.h3,
-    color: COLORS.black,
+    color: COLORS.secondary,
     textAlign: "center",
   },
   resendText: {
