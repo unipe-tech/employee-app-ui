@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InfoCard renders UI correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "flex-start",
+      "backgroundColor": "#D5F9EA",
+      "borderRadius": 5,
+      "flex": 0,
+      "flexDirection": "row",
+      "marginTop": 39.473684210526315,
+      "padding": 19.736842105263158,
+      "width": "100%",
+    }
+  }
+>
+  <Text />
+  <Text
+    style={
+      Object {
+        "color": "#000000",
+        "flex": 1,
+        "fontFamily": "Montserrat-Regular",
+        "fontSize": 14,
+        "lineHeight": 18,
+        "paddingLeft": 19.736842105263158,
+      }
+    }
+  />
+</View>
+`;

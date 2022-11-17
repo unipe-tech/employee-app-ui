@@ -1,0 +1,93 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DevMenuButton renders UI correctly 1`] = `
+<View
+  collapsable={false}
+  style={
+    Object {
+      "alignSelf": "center",
+      "backgroundColor": "#6200EE",
+      "borderBottomEndRadius": 4,
+      "borderBottomStartRadius": 4,
+      "borderTopEndRadius": 4,
+      "borderTopStartRadius": 4,
+      "marginTop": 39.473684210526315,
+      "shadowColor": "#000",
+      "shadowOffset": Object {
+        "height": 1,
+        "width": 0,
+      },
+      "shadowOpacity": 0.2,
+      "shadowRadius": 1.41,
+      "width": "60%",
+    }
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "borderBottomEndRadius": 4,
+          "borderBottomStartRadius": 4,
+          "borderTopEndRadius": 4,
+          "borderTopStartRadius": 4,
+          "overflow": "hidden",
+        },
+        undefined,
+      ]
+    }
+  >
+    <View
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onLayout={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "height": 36,
+            "justifyContent": "center",
+            "minWidth": 64,
+            "paddingEnd": 16,
+            "paddingStart": 16,
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "bottom": 0,
+              "left": 0,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+            },
+            Object {
+              "backgroundColor": "transparent",
+            },
+            Object {
+              "transition": "background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
+            },
+          ]
+        }
+      />
+    </View>
+  </View>
+</View>
+`;

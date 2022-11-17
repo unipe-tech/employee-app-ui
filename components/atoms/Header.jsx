@@ -1,4 +1,6 @@
-import { AppBar, Icon, IconButton } from "@react-native-material/core";
+import { AppBar } from "@react-native-material/core";
+import { TouchableOpacity } from "react-native";
+import { MaterialIcons } from "react-native-vector-icons";
 import { COLORS, FONTS } from "../../constants/Theme";
 
 const Header = ({ title, onLeftIconPress, onRightIconPress }) => {
@@ -9,17 +11,25 @@ const Header = ({ title, onLeftIconPress, onRightIconPress }) => {
       color={COLORS.primary}
       titleStyle={{ color: COLORS.white, ...FONTS.h3 }}
       leading={
-        <IconButton
-          icon={<Icon name="arrow-back" size={20} color="white" />}
-          onPress={onLeftIconPress}
-        />
+        <TouchableOpacity>
+          <MaterialIcons
+            name="arrow-back"
+            onPress={onLeftIconPress}
+            size={20}
+            color="white"
+          />
+        </TouchableOpacity>
       }
       trailing={
         onRightIconPress && (
-          <IconButton
-            icon={<Icon name="arrow-forward" size={20} color="white" />}
-            onPress={onRightIconPress}
-          />
+          <TouchableOpacity>
+            <MaterialIcons
+              name="arrow-forward"
+              onPress={onRightIconPress}
+              size={20}
+              color="white"
+            />
+          </TouchableOpacity>
         )
       }
     />

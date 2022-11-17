@@ -1,15 +1,16 @@
 import Header from "../../../components/atoms/Header";
 import { render, fireEvent, waitFor } from "@testing-library/react-native";
-import EStyleSheet from "react-native-extended-stylesheet";
+import { describe, expect, test } from "@jest/globals";
 
-describe("Login Screen", () => {
-  // snapshot test
-  const tree = render(
-    <Header
-      title={"Head"}
-      onLeftIconPress={() => jest.fn()}
-      onRightIconPress={() => jest.fn()}
-    />
-  ).toJSON();
-  expect(tree).toMatchSnapshot();
+describe("Header", () => {
+  test("renders UI correctly", () => {
+    const tree = render(
+      <Header
+        title={"Head"}
+        onLeftIconPress={() => jest.fn()}
+        onRightIconPress={() => jest.fn()}
+      />
+    ).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
 });

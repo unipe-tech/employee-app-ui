@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Checkbox renders UI correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "marginVertical": 19.736842105263158,
+    }
+  }
+>
+  <View
+    accessibilityRole="checkbox"
+    accessibilityState={
+      Object {
+        "checked": false,
+        "disabled": false,
+      }
+    }
+    accessibilityValue={
+      Object {
+        "text": "off",
+      }
+    }
+    accessible={true}
+    pointerEvents="auto"
+  >
+    <RNCCheckbox
+      forwardedRef={null}
+      onValueChange={[Function]}
+      style={
+        Array [
+          Object {
+            "backgroundColor": "transparent",
+            "height": 32,
+            "width": 32,
+          },
+          undefined,
+        ]
+      }
+      tintColors={
+        Object {
+          "true": "#2CB77C",
+        }
+      }
+    />
+  </View>
+  <Text
+    style={
+      Object {
+        "color": "#808080",
+        "flex": 1,
+        "fontFamily": "Montserrat-Bold",
+        "fontSize": 14,
+        "lineHeight": 18,
+        "marginLeft": 9.868421052631579,
+      }
+    }
+  />
+</View>
+`;
