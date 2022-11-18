@@ -4,7 +4,7 @@ import DropDownForm from "../../../components/molecules/DropDownForm";
 
 describe("DropDownForm", () => {
   test("renders UI correctly", () => {
-    const tree = render(<DropDownForm />).toJSON();
+    const tree = render(<DropDownForm data={[]} />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 });

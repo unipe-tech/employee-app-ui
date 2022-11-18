@@ -1,0 +1,119 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DateEntry renders UI correctly 1`] = `
+Array [
+  <Text
+    style={
+      Object {
+        "color": "#808080",
+        "fontFamily": "Montserrat-Regular",
+        "fontSize": 14,
+        "lineHeight": 18,
+        "marginTop": 59.21052631578947,
+      }
+    }
+  />,
+  <View
+    style={
+      Object {
+        "flexDirection": "row",
+      }
+    }
+  >
+    <TextInput
+      keyboardType="numeric"
+      maxLength={2}
+      onChangeText={[Function]}
+      placeholder="DD"
+      style={
+        Object {
+          "borderBottomWidth": 1,
+          "fontFamily": "Montserrat-Regular",
+          "fontSize": 14,
+          "height": 78.94736842105263,
+          "lineHeight": 18,
+          "textAlign": "center",
+          "width": 78.94736842105263,
+        }
+      }
+      value=""
+    />
+    <View
+      style={
+        Object {
+          "alignSelf": "center",
+          "width": 59.21052631578947,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "alignSelf": "center",
+            "fontFamily": "Montserrat-Bold",
+            "fontSize": 30,
+            "lineHeight": 36,
+          }
+        }
+      >
+        -
+      </Text>
+    </View>
+    <TextInput
+      keyboardType="numeric"
+      maxLength={2}
+      onChangeText={[Function]}
+      placeholder="MM"
+      style={
+        Object {
+          "borderBottomWidth": 1,
+          "fontFamily": "Montserrat-Regular",
+          "fontSize": 14,
+          "height": 78.94736842105263,
+          "lineHeight": 18,
+          "textAlign": "center",
+          "width": 78.94736842105263,
+        }
+      }
+      value=""
+    />
+    <View
+      style={
+        Object {
+          "alignSelf": "center",
+          "width": 30,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "alignSelf": "center",
+            "fontSize": 30,
+          }
+        }
+      >
+        -
+      </Text>
+    </View>
+    <TextInput
+      keyboardType="numeric"
+      maxLength={4}
+      onChangeText={[Function]}
+      placeholder="YYYY"
+      style={
+        Object {
+          "borderBottomWidth": 1,
+          "fontFamily": "Montserrat-Regular",
+          "fontSize": 14,
+          "height": 78.94736842105263,
+          "lineHeight": 18,
+          "textAlign": "center",
+          "width": 78.94736842105263,
+        }
+      }
+      value=""
+    />
+  </View>,
+]
+`;

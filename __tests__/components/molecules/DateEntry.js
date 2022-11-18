@@ -4,7 +4,8 @@ import DateEntry from "../../../components/molecules/DateEntry";
 
 describe("DateEntry", () => {
   test("renders UI correctly", () => {
-    const tree = render(<DateEntry />).toJSON();
+    const mockSetVal = jest.fn();
+    const tree = render(<DateEntry setval={mockSetVal} />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 });
