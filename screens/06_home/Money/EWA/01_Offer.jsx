@@ -84,10 +84,10 @@ const Offer = () => {
         setValidAmount(true);
         dispatch(addLoanAmount(parseInt(amount)));
       } else {
-        setValidAmount("false");
+        setValidAmount(false);
       }
     } else {
-      setValidAmount("false");
+      setValidAmount(false);
     }
   }, [amount]);
 
