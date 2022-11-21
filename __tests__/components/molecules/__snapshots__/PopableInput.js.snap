@@ -1,0 +1,151 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PopableInput renders UI correctly 1`] = `
+<View
+  style={
+    Object {
+      "marginTop": 29.605263157894736,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#FFFFFF",
+        "borderColor": "#aaaaaa",
+        "borderRadius": 5,
+        "borderWidth": 1.5,
+        "flexDirection": "row",
+        "height": 50,
+        "paddingHorizontal": 19.736842105263158,
+        "width": "100%",
+      }
+    }
+  >
+    <TextInput
+      autoCompleteType="off"
+      editable={true}
+      keyboardType="default"
+      onChangeText={[Function]}
+      placeholderTextColor="#808080"
+      style={
+        Object {
+          "color": "#000000",
+          "flex": 1,
+          "fontFamily": "Montserrat-Regular",
+          "fontSize": 14,
+          "lineHeight": 18,
+        }
+      }
+    />
+    <View
+      style={
+        Array [
+          Object {
+            "position": "relative",
+            "zIndex": 1,
+          },
+          undefined,
+        ]
+      }
+    >
+      <Modal
+        hardwareAccelerated={true}
+        onRequestClose={[Function]}
+        supportedOrientations={
+          Array [
+            "portrait",
+            "portrait-upside-down",
+            "landscape",
+            "landscape-left",
+            "landscape-right",
+          ]
+        }
+        transparent={true}
+        visible={false}
+      />
+      <View
+        onLayout={[Function]}
+        pointerEvents="none"
+        style={
+          Array [
+            Object {
+              "overflow": "hidden",
+              "width": 100,
+            },
+            Array [
+              false,
+              false,
+              false,
+              Object {
+                "left": 0,
+              },
+              Object {
+                "position": "absolute",
+                "transform": Array [
+                  Object {
+                    "translateX": -0,
+                  },
+                  Object {
+                    "translateY": -0,
+                  },
+                ],
+              },
+              undefined,
+            ],
+          ]
+        }
+      >
+        <View
+          collapsable={false}
+          style={
+            Object {
+              "flexDirection": "row",
+              "opacity": 0,
+              "transform": Array [
+                Object {
+                  "translateX": -5,
+                },
+              ],
+            }
+          }
+        >
+          <View
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "black",
+                  "borderRadius": 4,
+                  "flex": 1,
+                  "overflow": "hidden",
+                  "zIndex": 1,
+                },
+                false,
+                false,
+              ]
+            }
+          />
+        </View>
+      </View>
+      <View
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onLayout={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+      >
+        <Text />
+      </View>
+    </View>
+  </View>
+</View>
+`;

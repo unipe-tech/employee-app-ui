@@ -1,7 +1,7 @@
 import EStyleSheet from "react-native-extended-stylesheet";
 import React from "react";
 import FormInput from "../atoms/FormInput";
-import { Icon, IconButton } from "@react-native-material/core";
+import { MaterialIcons } from "react-native-vector-icons";
 import { COLORS, FONTS } from "../../constants/Theme";
 import { useState } from "react";
 import { Popable } from "react-native-popable";
@@ -23,7 +23,7 @@ const PopableInput = ({
       onChange={onChange}
       appendComponent={
         <Popable content={content} position="left" caret={false}>
-          <Icon name="info-outline" size={20} color="grey" />
+          <MaterialIcons name="info-outline" size={20} color="grey" />
         </Popable>
       }
     />
