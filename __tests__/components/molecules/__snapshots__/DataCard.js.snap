@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DataCard renders UI correctly 1`] = `
+<RCTScrollView
+  showsVerticalScrollIndicator={false}
+  style={
+    Object {
+      "height": "63%",
+      "marginTop": "1.5%",
+    }
+  }
+>
+  <View />
+</RCTScrollView>
+`;

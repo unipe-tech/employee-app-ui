@@ -1,0 +1,266 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddressDropdown renders UI correctly 1`] = `
+Array [
+  <View
+    style={
+      Object {
+        "marginVertical": 10,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#FFFFFF",
+          "borderColor": "#aaaaaa",
+          "borderRadius": 5,
+          "borderWidth": 1.5,
+          "flexDirection": "row",
+          "height": 50,
+          "paddingHorizontal": 19.736842105263158,
+          "width": "100%",
+        }
+      }
+    >
+      <TextInput
+        autoCompleteType="off"
+        editable={true}
+        keyboardType="default"
+        onChangeText={[Function]}
+        placeholder="Present Street"
+        placeholderTextColor="#808080"
+        style={
+          Object {
+            "color": "#000000",
+            "flex": 1,
+            "fontFamily": "Montserrat-Regular",
+            "fontSize": 14,
+            "lineHeight": 18,
+          }
+        }
+        value=""
+      />
+    </View>
+  </View>,
+  <View
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "opacity": 1,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "marginVertical": 10,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "#FFFFFF",
+            "borderColor": "#aaaaaa",
+            "borderRadius": 5,
+            "borderWidth": 1.5,
+            "flexDirection": "row",
+            "height": 50,
+            "paddingHorizontal": 19.736842105263158,
+            "width": "100%",
+          }
+        }
+      >
+        <TextInput
+          autoCompleteType="off"
+          editable={false}
+          keyboardType="default"
+          onChangeText={[Function]}
+          placeholder="Present State"
+          placeholderTextColor="#808080"
+          style={
+            Object {
+              "color": "#000000",
+              "flex": 1,
+              "fontFamily": "Montserrat-Regular",
+              "fontSize": 14,
+              "lineHeight": 18,
+            }
+          }
+          value=""
+        />
+        <Text />
+      </View>
+    </View>
+  </View>,
+  <Modal
+    animationType="none"
+    deviceHeight={null}
+    deviceWidth={null}
+    hardwareAccelerated={false}
+    hideModalContentWhileAnimating={false}
+    onBackdropPress={[Function]}
+    onModalHide={[Function]}
+    onModalWillHide={[Function]}
+    onModalWillShow={[Function]}
+    onRequestClose={[Function]}
+    panResponderThreshold={4}
+    scrollHorizontal={false}
+    scrollOffset={0}
+    scrollOffsetMax={0}
+    scrollTo={null}
+    statusBarTranslucent={false}
+    supportedOrientations={
+      Array [
+        "portrait",
+        "landscape",
+      ]
+    }
+    swipeThreshold={100}
+    transparent={true}
+    visible={false}
+  />,
+  <View
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "opacity": 1,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "marginVertical": 10,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "#FFFFFF",
+            "borderColor": "#aaaaaa",
+            "borderRadius": 5,
+            "borderWidth": 1.5,
+            "flexDirection": "row",
+            "height": 50,
+            "paddingHorizontal": 19.736842105263158,
+            "width": "100%",
+          }
+        }
+      >
+        <TextInput
+          autoCompleteType="off"
+          editable={false}
+          keyboardType="default"
+          onChangeText={[Function]}
+          placeholder="Present District"
+          placeholderTextColor="#808080"
+          style={
+            Object {
+              "color": "#000000",
+              "flex": 1,
+              "fontFamily": "Montserrat-Regular",
+              "fontSize": 14,
+              "lineHeight": 18,
+            }
+          }
+          value=""
+        />
+        <Text />
+      </View>
+    </View>
+  </View>,
+  <Modal
+    animationType="none"
+    deviceHeight={null}
+    deviceWidth={null}
+    hardwareAccelerated={false}
+    hideModalContentWhileAnimating={false}
+    onBackdropPress={[Function]}
+    onModalHide={[Function]}
+    onModalWillHide={[Function]}
+    onModalWillShow={[Function]}
+    onRequestClose={[Function]}
+    panResponderThreshold={4}
+    scrollHorizontal={false}
+    scrollOffset={0}
+    scrollOffsetMax={0}
+    scrollTo={null}
+    statusBarTranslucent={false}
+    supportedOrientations={
+      Array [
+        "portrait",
+        "landscape",
+      ]
+    }
+    swipeThreshold={100}
+    transparent={true}
+    visible={false}
+  />,
+  <View
+    style={
+      Object {
+        "marginVertical": 10,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#FFFFFF",
+          "borderColor": "#aaaaaa",
+          "borderRadius": 5,
+          "borderWidth": 1.5,
+          "flexDirection": "row",
+          "height": 50,
+          "paddingHorizontal": 19.736842105263158,
+          "width": "100%",
+        }
+      }
+    >
+      <TextInput
+        autoCompleteType="off"
+        editable={true}
+        keyboardType="default"
+        onChangeText={[Function]}
+        placeholder="Present Pincode"
+        placeholderTextColor="#808080"
+        style={
+          Object {
+            "color": "#000000",
+            "flex": 1,
+            "fontFamily": "Montserrat-Regular",
+            "fontSize": 14,
+            "lineHeight": 18,
+          }
+        }
+        value=""
+      />
+    </View>
+  </View>,
+]
+`;

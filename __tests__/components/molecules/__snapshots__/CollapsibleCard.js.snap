@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CollapsibleCard renders UI correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignSelf": "center",
+      "backgroundColor": "#f1f1f1",
+      "borderRadius": 10,
+      "marginTop": 19.736842105263158,
+      "padding": 29.605263157894736,
+      "width": "100%",
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "width": "100%",
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "flexDirection": "row",
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#2CB77C",
+            "fontFamily": "Montserrat-Bold",
+            "fontSize": 14,
+            "lineHeight": 18,
+            "paddingRight": 5,
+          }
+        }
+      />
+    </View>
+    <Text />
+  </View>
+  <View
+    collapsable={false}
+    pointerEvents="none"
+    style={
+      Object {
+        "height": 0,
+        "overflow": "hidden",
+      }
+    }
+  >
+    <View
+      collapsable={false}
+      forwardedRef={[Function]}
+      onLayout={[Function]}
+      style={Object {}}
+    >
+      <View
+        style={
+          Object {
+            "marginTop": 9.868421052631579,
+          }
+        }
+      />
+    </View>
+  </View>
+</View>
+`;

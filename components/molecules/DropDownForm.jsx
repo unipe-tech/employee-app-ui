@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import React from "react";
 import EStyleSheet from "react-native-extended-stylesheet";
 import FormInput from "../atoms/FormInput";
-import { Icon, IconButton } from "@react-native-material/core";
+import { MaterialIcons } from "react-native-vector-icons";
 import { COLORS, FONTS } from "../../constants/Theme";
 import BottomSheetWrapper from "../atoms/BottomSheetWrapper";
 import { useState } from "react";
@@ -30,7 +30,11 @@ const DropDownForm = ({
           value={value}
           disabled={true}
           appendComponent={
-            <Icon name="keyboard-arrow-down" size={24} color={COLORS.gray} />
+            <MaterialIcons
+              name="keyboard-arrow-down"
+              size={24}
+              color={COLORS.gray}
+            />
           }
         />
       </TouchableOpacity>
@@ -45,7 +49,7 @@ const DropDownForm = ({
                 activeOpacity={0.7}
                 onPress={() => setValue(item)}
               >
-                <Icon
+                <MaterialIcons
                   name={
                     value == item
                       ? "radio-button-checked"

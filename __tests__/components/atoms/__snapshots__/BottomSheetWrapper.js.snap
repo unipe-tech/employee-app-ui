@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Bottom Sheet Wrapper renders UI correctly 1`] = `
+exports[`BottomSheetWrapper renders UI correctly 1`] = `
 <Modal
   animationType="none"
   deviceHeight={null}

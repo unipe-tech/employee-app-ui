@@ -4,7 +4,7 @@ import DataCard from "../../../components/molecules/DataCard";
 
 describe("DataCard", () => {
   test("renders UI correctly", () => {
-    const tree = render(<DataCard data="Testing Data" />).toJSON();
+    const tree = render(<DataCard data={[]} />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 });

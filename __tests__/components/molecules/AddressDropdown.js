@@ -17,7 +17,7 @@ describe("AddressDropdown", () => {
     const tree = render(
       <Provider store={createdStore}>
         <NavigationContainer>
-          <AddressDropdown />
+          <AddressDropdown type={"present"} />
         </NavigationContainer>
       </Provider>
     ).toJSON();
