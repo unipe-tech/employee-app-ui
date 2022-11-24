@@ -32,7 +32,10 @@ const App = () => {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <NavigationContainer ref={navigationRef}>
-          <SafeAreaProvider style={{ backgroundColor: "white", flex: 1 }}>
+          <SafeAreaProvider
+            // accessibilityLabel="testview"
+            style={{ backgroundColor: "white", flex: 1 }}
+          >
             <IconComponentProvider IconComponent={Icon}>
               <StackNavigator />
             </IconComponentProvider>
