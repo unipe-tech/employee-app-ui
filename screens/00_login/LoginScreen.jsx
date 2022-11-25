@@ -207,7 +207,11 @@ const LoginScreen = () => {
   };
 
   return (
-    <SafeAreaView style={styles.safeContainer}>
+    <SafeAreaView
+      testID="app-root"
+      accessibilityLabel="app-root"
+      style={styles.safeContainer}
+    >
       <KeyboardAvoidingWrapper>
         <View>
           <SVGImg style={styles.logo} />
@@ -216,6 +220,7 @@ const LoginScreen = () => {
           </Text>
 
           <FormInput
+            accessibilityLabel="mobile-number"
             placeholder="Enter mobile number"
             containerStyle={{ marginVertical: 30 }}
             autoCompleteType="tel"
@@ -267,6 +272,7 @@ const LoginScreen = () => {
             </Text>
           </Text>
           <PrimaryButton
+            accessibilityLabel="login"
             title="Continue"
             disabled={!next}
             loading={loading}

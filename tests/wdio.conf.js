@@ -9,13 +9,17 @@ exports.config = {
   capabilities: [
     {
       maxInstances: 5,
-
-      browserName: "chrome",
+      //   browserName: "chrome",
       acceptInsecureCerts: true,
+      app: "../android/app/build/outputs/apk/release/app-release.apk",
+      automationName: "Espresso",
+      platformName: "Android",
+      deviceName: "emulator-5554",
+      appPackage: "com.employeeapp",
     },
   ],
 
-  logLevel: "info",
+  logLevel: "trace",
   bail: 0,
   baseUrl: "http://localhost",
 

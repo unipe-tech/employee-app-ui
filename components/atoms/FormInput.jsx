@@ -26,6 +26,7 @@ const FormInput = ({
   letterSpacing,
   textAlign,
   selection,
+  accessibilityLabel,
 }) => {
   return (
     <View style={{ ...containerStyle }}>
@@ -43,6 +44,7 @@ const FormInput = ({
       <View style={styles.inputContainer}>
         {prependComponent}
         <TextInput
+          accessibilityLabel={accessibilityLabel}
           style={{
             flex: 1,
             ...FONTS.body4,

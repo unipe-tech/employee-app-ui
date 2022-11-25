@@ -1,3 +1,7 @@
+const {
+  default: waitUntil,
+} = require("webdriverio/build/commands/browser/waitUntil");
+
 var expect = require("chai").expect;
 
 describe("Simple App testing", () => {
@@ -6,11 +10,12 @@ describe("Simple App testing", () => {
     $("~app-root").waitForDisplayed(11000, false);
   });
 
-  it("Valid Login Test", async (async) => {
+  it("Valid Login Test", async () => {
+    // $("~mobile-number").waitForDisplayed();
     $("~mobile-number").setValue("9999999999");
 
-    $("~login").click();
-    expect();
+    // $("~login").click();
+    // expect();
 
     // $("~loginstatus").waitForDisplayed(11000);
     // const status = $("~loginstatus").getText();

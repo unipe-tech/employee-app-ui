@@ -10,8 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "@wdio/cli": "^7.27.0",
-    "chai": "^4.3.7",
-    "webdriverio": "^7.27.0"
+    "chai": "^4.3.7"
   },
   "devDependencies": {
     "@wdio/appium-service": "^7.26.0",
@@ -19,6 +18,9 @@
     "@wdio/mocha-framework": "^7.26.0",
     "@wdio/spec-reporter": "^7.26.0",
     "chromedriver": "^107.0.3",
-    "wdio-chromedriver-service": "^8.0.0"
+    "jasmine": "^4.5.0",
+    "jest": "^29.3.1",
+    "wdio-chromedriver-service": "^8.0.0",
+    "webdriverio": "^7.27.0"
   }
 }

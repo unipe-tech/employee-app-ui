@@ -37,7 +37,7 @@ const HomeView = () => {
     if (allAreNull(message)) {
       PushNotification.cancelAllLocalNotifications();
     }
-  }, []);
+  }, [aadhaarStatus, bankStatus, panStatus]);
 
   var [campaignId, setCampaignId] = useState(null);
 
