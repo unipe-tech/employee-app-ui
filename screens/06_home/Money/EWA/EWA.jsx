@@ -11,6 +11,7 @@ import { resetEwaLive } from "../../../../store/slices/ewaLiveSlice";
 import { resetEwaHistorical } from "../../../../store/slices/ewaHistoricalSlice";
 import { COLORS, FONTS } from "../../../../constants/Theme";
 import { STAGE } from "@env";
+import RepaymentCard from "../../../../components/molecules/RepaymentCard";
 
 const EWA = () => {
   const dispatch = useDispatch();
@@ -131,13 +132,12 @@ const EWA = () => {
               }}
             />
           </View>
-
+          <RepaymentCard/>
           <View style={{ padding: "1.5%" }}>
             <Text
               style={{
                 ...FONTS.h3,
                 color: COLORS.gray,
-                marginTop: "5%",
               }}
             >
               Your past draws
