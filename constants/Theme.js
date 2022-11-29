@@ -24,7 +24,7 @@ EStyleSheet.build({
 export const COLORS = {
   primary: "#2CB77C",
   primaryBackground: "#D5F9EA",
-  secondary: "#3C3F54",
+  secondary: "#170D45",
   button: {
     disabled: {
       background: "",
@@ -43,7 +43,7 @@ export const COLORS = {
   warning: "#f56a6a",
   warningBackground: "#feedee",
   darkGray: "#333333",
-  gray: "#808080",
+  gray: "#5E8290",
   lightGray: "#aaaaaa",
   black: "#000000",
   white: "#FFFFFF",
@@ -64,12 +64,12 @@ export const SIZES = {
   h2: 24,
   h3: 18,
   h4: 14,
-  h5: 10,
+  h5: 12,
   body1: 30,
   body2: 24,
   body3: 18,
   body4: 14,
-  body5: 10,
+  body5: 12,
 
   // app dimensions
   width,
@@ -77,35 +77,36 @@ export const SIZES = {
 };
 
 export const FONTS = {
+  title: { fontFamily: "Montserrat-Regular", fontSize: 68, lineHeight: 100 },
   h1: { fontFamily: "Montserrat-Bold", fontSize: SIZES.h1, lineHeight: 36 },
   h2: { fontFamily: "Montserrat-Bold", fontSize: SIZES.h2, lineHeight: 30 },
   h3: { fontFamily: "Montserrat-Bold", fontSize: SIZES.h3, lineHeight: 22 },
   h4: { fontFamily: "Montserrat-Bold", fontSize: SIZES.h4, lineHeight: 18 },
   h5: { fontFamily: "Montserrat-Bold", fontSize: SIZES.h5, lineHeight: 14 },
   body1: {
-    fontFamily: "Montserrat-Regular",
+    fontFamily: "Montserrat-Medium",
     fontSize: SIZES.body1,
     lineHeight: 36,
   },
   body2: {
-    fontFamily: "Montserrat-Regular",
+    fontFamily: "Montserrat-Medium",
     fontSize: SIZES.body2,
     lineHeight: 30,
   },
   body3: {
-    fontFamily: "Montserrat-Regular",
+    fontFamily: "Montserrat-Medium",
     fontSize: SIZES.body3,
     lineHeight: 22,
   },
   body4: {
-    fontFamily: "Montserrat-Regular",
+    fontFamily: "Montserrat-Medium",
     fontSize: SIZES.body4,
     lineHeight: 18,
   },
   body5: {
-    fontFamily: "Montserrat-Regular",
+    fontFamily: "Montserrat-Medium",
     fontSize: SIZES.body5,
-    lineHeight: 14,
+    lineHeight: 16,
   },
 };
 

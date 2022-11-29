@@ -1,19 +1,10 @@
 import Analytics from "appcenter-analytics";
 import { useNavigation } from "@react-navigation/core";
 import { useEffect, useState } from "react";
-import {
-  Alert,
-  BackHandler,
-  SafeAreaView,
-  Text,
-  View,
-} from "react-native";
+import { Alert, BackHandler, SafeAreaView, Text, View } from "react-native";
 import SmsRetriever from "react-native-sms-retriever";
 import SplashScreen from "react-native-splash-screen";
 import { useDispatch, useSelector } from "react-redux";
-import SVGImg from "../../assets/UnipeLogo.svg";
-import FormInput from "../../components/atoms/FormInput";
-import TermsAndPrivacyModal from "../../components/molecules/TermsAndPrivacyModal";
 import PrimaryButton from "../../components/atoms/PrimaryButton";
 import { COLORS, FONTS } from "../../constants/Theme";
 import { KeyboardAvoidingWrapper } from "../../KeyboardAvoidingWrapper";
@@ -25,27 +16,34 @@ import {
   addToken,
   addUnipeEmployeeId,
 } from "../../store/slices/authSlice";
-import { addCurrentScreen ,addCurrentStack} from "../../store/slices/navigationSlice";
+import {
+  addCurrentScreen,
+  addCurrentStack,
+} from "../../store/slices/navigationSlice";
 import { resetTimer } from "../../store/slices/timerSlice";
 import { styles } from "../../styles";
-import privacyPolicy from "../../templates/docs/PrivacyPolicy.js";
-import termsOfUse from "../../templates/docs/TermsOfUse.js";
-
+import LogoHeader from "../../components/atoms/LogoHeader";
+import Icon from "react-native-vector-icons/Ionicons";
+import ShieldTitle from "../../components/atoms/ShieldTitle";
+import LoginInput from "../../components/molecules/LoginInput";
+import AgreementText from "../../components/organisms/AgreementText";
 
 const LoginScreen = () => {
-
   SplashScreen.hide();
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
   const [loading, setLoading] = useState(false);
   const [next, setNext] = useState(false);
+  const [consent, setConsent] = useState(true);
 
   const authSlice = useSelector((state) => state.auth);
   const [onboarded, setOnboarded] = useState(authSlice?.onboarded);
   const [phoneNumber, setPhoneNumber] = useState(authSlice?.phoneNumber);
   const [token, setToken] = useState(authSlice?.token);
-  const [unipeEmployeeId, setUnipeEmployeeId] = useState(authSlice?.unipeEmployeeId);
+  const [unipeEmployeeId, setUnipeEmployeeId] = useState(
+    authSlice?.unipeEmployeeId
+  );
 
   const [isPrivacyModalVisible, setIsPrivacyModalVisible] = useState(false);
   const [isTermsOfUseModalVisible, setIsTermsOfUseModalVisible] =
@@ -99,26 +97,31 @@ const LoginScreen = () => {
   const backAction = () => {
     Alert.alert("Hold on!", "Are you sure you want to go back?", [
       { text: "No", onPress: () => null, style: "cancel" },
-      { text: "Yes", onPress: () => BackHandler.exitApp() }
+      { text: "Yes", onPress: () => BackHandler.exitApp() },
     ]);
     return true;
   };
 
   useEffect(() => {
     BackHandler.addEventListener("hardwareBackPress", backAction);
-    return () => BackHandler.removeEventListener("hardwareBackPress", backAction);
+    return () =>
+      BackHandler.removeEventListener("hardwareBackPress", backAction);
   }, []);
 
   const signIn = () => {
     setLoading(true);
     dispatch(resetTimer());
     var fullPhoneNumber = `+91${phoneNumber}`;
-    putBackendData({ data: { number: fullPhoneNumber }, xpath: "mobile", token: token })
+    putBackendData({
+      data: { number: fullPhoneNumber },
+      xpath: "mobile",
+      token: token,
+    })
       .then((res) => {
         console.log("LoginScreen res.data: ", res.data);
         if (res.data.status === 200) {
           setOnboarded(res.data.body.onboarded);
-          setToken(res.data.body.token)
+          setToken(res.data.body.token);
           setUnipeEmployeeId(res.data.body.unipeEmployeeId);
           sendSmsVerification(phoneNumber)
             .then((result) => {
@@ -174,88 +177,39 @@ const LoginScreen = () => {
 
   return (
     <SafeAreaView style={styles.safeContainer}>
+      <LogoHeader
+        rightIcon={
+          <Icon name="help-circle-outline" size={28} color={COLORS.primary} />
+        }
+      />
       <KeyboardAvoidingWrapper>
         <View>
-          <SVGImg style={styles.logo} />
-          <Text style={styles.headline}>
-            Please enter your mobile number to login:
+          <Text style={styles.headline}>Verify your mobile</Text>
+          <Text style={styles.subHeadline}>
+            Your mobile number must be linked to your Aadhar
           </Text>
 
-          <FormInput
-            placeholder="Enter mobile number"
-            containerStyle={{ marginVertical: 30 }}
-            autoCompleteType="tel"
-            keyboardType="phone-pad"
-            value={phoneNumber}
-            onChange={setPhoneNumber}
-            autoFocus={true}
-            maxLength={10}
-            prependComponent={
-              <View
-                style={{
-                  alignItems: "center",
-                  justifyContent: "center",
-                  borderRightWidth: 1,
-                  borderColor: COLORS.gray,
-                  marginRight: 10,
-                  height: "80%",
-                }}
-              >
-                <Text
-                  style={{
-                    ...FONTS.h3,
-                    color: COLORS.black,
-                    paddingRight: 10,
-                    // fontWeight: "bold",
-                  }}
-                >
-                  + 91
-                </Text>
-              </View>
-            }
+          <LoginInput
+            phoneNumber={phoneNumber}
+            setPhoneNumber={setPhoneNumber}
           />
 
-          <Text style={styles.dataUseText}>
-            This number will be used for all communication. You shall receive an
-            SMS with code for verification. By continuing, you agree to our{" "}
-            <Text
-              onPress={() => setIsTermsOfUseModalVisible(true)}
-              style={styles.termsText}
-            >
-              Terms of Service
-            </Text>{" "}
-            &{" "}
-            <Text
-              onPress={() => setIsPrivacyModalVisible(true)}
-              style={styles.termsText}
-            >
-              Privacy Policy
-            </Text>
-          </Text>
+          <AgreementText
+            isTermsOfUseModalVisible={isTermsOfUseModalVisible}
+            setIsTermsOfUseModalVisible={setIsTermsOfUseModalVisible}
+            isPrivacyModalVisible={isPrivacyModalVisible}
+            setIsPrivacyModalVisible={setIsPrivacyModalVisible}
+          />
+
           <PrimaryButton
-            title="Continue"
+            title="Verify"
             disabled={!next}
             loading={loading}
             onPress={() => signIn()}
           />
+          <ShieldTitle title={"All your details are safe with us"} />
         </View>
       </KeyboardAvoidingWrapper>
-
-      {isTermsOfUseModalVisible && (
-        <TermsAndPrivacyModal
-          isVisible={isTermsOfUseModalVisible}
-          setIsVisible={setIsTermsOfUseModalVisible}
-          data={termsOfUse}
-        />
-      )}
-
-      {isPrivacyModalVisible && (
-        <TermsAndPrivacyModal
-          isVisible={isPrivacyModalVisible}
-          setIsVisible={setIsPrivacyModalVisible}
-          data={privacyPolicy}
-        />
-      )}
     </SafeAreaView>
   );
 };

@@ -15,6 +15,8 @@ export const putBackendData = (props) => {
     data: data,
   };
 
+  console.log({ config });
+
   return axios(config);
 };
 

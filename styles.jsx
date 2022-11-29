@@ -5,7 +5,7 @@ export const styles = EStyleSheet.create({
   container: {
     backgroundColor: "$white",
     flex: 1,
-    padding: "10rem",
+    padding: "15rem",
   },
   safeContainer: {
     backgroundColor: "$white",
@@ -17,9 +17,15 @@ export const styles = EStyleSheet.create({
     height: "auto",
   },
   headline: {
-    marginTop: "20rem",
-    ...FONTS.h3,
+    marginTop: "10rem",
+    ...FONTS.h2,
     color: COLORS.secondary,
+    textAlign: "center",
+  },
+  subHeadline: {
+    //marginTop: "5rem",
+    ...FONTS.body5,
+    color: COLORS.gray,
     textAlign: "center",
   },
   resendText: {
@@ -54,13 +60,13 @@ export const styles = EStyleSheet.create({
     zIndex: 99,
   },
   dataUseText: {
-    marginTop: "20rem",
-    ...FONTS.body4,
+    marginVertical: "15rem",
+    ...FONTS.body5,
     color: COLORS.gray,
     textAlign: "center",
   },
   termsText: {
-    ...FONTS.h4,
+    ...FONTS.body5,
     color: COLORS.primary,
   },
   otpreadtxt: {
