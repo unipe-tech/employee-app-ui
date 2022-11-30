@@ -193,7 +193,7 @@ const OTPScreen = () => {
                 style={{ ...FONTS.h4, color: COLORS.primary }}
                 onPress={onResendOtp}
               >
-                Resend
+                Resend OTP
               </Text>
             ) : (
               <Text style={{ color: COLORS.lightGray }}>

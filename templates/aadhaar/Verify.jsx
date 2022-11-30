@@ -8,10 +8,9 @@ import { setAadhaarTimer } from "../../store/slices/timerSlice";
 import AadhaarOtpApi from "../../apis/aadhaar/Otp";
 import { form, styles } from "../../styles";
 import { COLORS, SIZES } from "../../constants/Theme";
-import FormInput from "../../components/atoms/FormInput";
+import OtpInput from "../../components/molecules/OtpInput";
 
 const AadhaarVerifyTemplate = (props) => {
-  
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const [resend, setResend] = useState(false);
@@ -28,46 +27,29 @@ const AadhaarVerifyTemplate = (props) => {
   return (
     <ScrollView keyboardShouldPersistTaps="handled">
       <View style={styles.container}>
-        <Text style={form.OtpAwaitMsg}>
-          Enter 6 digit OTP sent to your Aadhaar registered mobile number
+        <Text style={styles.headline}>Verify Aadhar</Text>
+        <Text style={styles.subHeadline}>
+          कृपया छ डिजिट का OTP यहाँ भरें। इसी के द्वारा ये स्पष्ट होगा की ऊपर
+          भरा आधार नम्बर आपका है। ये जानकारी आपकी कम्पनी को दी जाएगी।
         </Text>
+        <OtpInput otp={otp} setOtp={setOtp} />
 
-        <FormInput
-          containerStyle={{
-            marginTop: 30,
-            width: SIZES.width * 0.6,
-            alignSelf: "center",
-          }}
-          letterSpacing={20}
-          value={otp}
-          onChange={setOtp}
-          maxLength={6}
-          keyboardType="numeric"
-          placeholder={"******"}
-          textAlign={"center"}
-          autoFocus={true}
-        />
-
-        <CountDown
-          until={countDownTime}
-          size={20}
-          on
-          onFinish={() => {
-            setResend(true);
-            props.function ||
-              navigation.navigate("KYC", {
-                screen: "Aadhaar",
-              });
-          }}
-          style={{ marginTop: 20 }}
-          digitStyle={{ backgroundColor: "#FFF" }}
-          digitTxtStyle={{ color: COLORS.primary }}
-          timeToShow={["M", "S"]}
-          timeLabels={{ m: "MM", s: "SS" }}
-          onChange={(time) => {
-            dispatch(setAadhaarTimer(time));
-          }}
-        />
+        <Text style={styles.subHeadline}>
+          Didn’t receive the secure code?{" "}
+          {back ? (
+            <Text
+              style={{ ...FONTS.h4, color: COLORS.primary }}
+              onPress={onResendOtp}
+            >
+              Resend OTP
+            </Text>
+          ) : (
+            <Text style={{ color: COLORS.lightGray }}>
+              Resend OTP in {Math.trunc(timer / 60)}:
+              {String("0" + (timer % 60)).slice(-2)}
+            </Text>
+          )}
+        </Text>
         {resend ? (
           <AadhaarOtpApi
             data={{ aadhaar_number: number, consent: "Y" }}

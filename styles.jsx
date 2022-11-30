@@ -18,15 +18,19 @@ export const styles = EStyleSheet.create({
   },
   headline: {
     marginTop: "10rem",
+    marginBottom: "5rem",
     ...FONTS.h2,
     color: COLORS.secondary,
     textAlign: "center",
+    alignSelf: "center",
   },
   subHeadline: {
     //marginTop: "5rem",
-    ...FONTS.body5,
+    ...FONTS.body4,
     color: COLORS.gray,
     textAlign: "center",
+    alignSelf: "center",
+    marginBottom: "20rem",
   },
   resendText: {
     color: COLORS.primary,
@@ -126,7 +130,7 @@ export const form = EStyleSheet.create({
     backgroundColor: COLORS.primaryBackground,
     alignItems: "center",
     justifyContent: "center",
-    marginLeft: "10rem",
+    marginLeft: "5rem",
   },
   noButton: {
     flex: 1,
@@ -135,7 +139,7 @@ export const form = EStyleSheet.create({
     backgroundColor: COLORS.warningBackground,
     alignItems: "center",
     justifyContent: "center",
-    marginRight: "10rem",
+    marginRight: "5rem",
   },
   aadharimg: {
     alignSelf: "center",
@@ -194,6 +198,8 @@ export const bankform = EStyleSheet.create({
   formatmsg: {
     color: COLORS.warning,
     ...FONTS.body4,
+    marginBottom: 10,
+    alignSelf: "center",
   },
   padding: {
     marginTop: "30rem",

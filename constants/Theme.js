@@ -48,6 +48,7 @@ export const COLORS = {
   black: "#000000",
   white: "#FFFFFF",
   lightgray_01: "#f1f1f1",
+  cardBackground: "#F2F8F9",
 };
 
 export const SIZES = {
@@ -61,12 +62,12 @@ export const SIZES = {
 
   // font sizes
   h1: 30,
-  h2: 24,
+  h2: 21,
   h3: 18,
   h4: 14,
   h5: 12,
   body1: 30,
-  body2: 24,
+  body2: 21,
   body3: 18,
   body4: 14,
   body5: 12,

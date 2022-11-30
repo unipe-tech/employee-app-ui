@@ -39,41 +39,6 @@ const WelcomePage = () => {
       BackHandler.removeEventListener("hardwareBackPress", backAction);
   }, []);
 
-  const getStepIndicatorIconConfig = ({ position, stepStatus }) => {
-    const iconConfig = {
-      color: stepStatus === "finished" ? COLORS.white : COLORS.secondary,
-      size: 15,
-    };
-    switch (position) {
-      case 0: {
-        iconConfig.name = "file-document-outline";
-        return <MaterialCommunityIcons {...iconConfig} />;
-      }
-      case 1: {
-        iconConfig.name = "card-account-details-outline";
-        return <MaterialCommunityIcons {...iconConfig} />;
-      }
-      case 2: {
-        iconConfig.name = "smart-card-outline";
-        return <MaterialCommunityIcons {...iconConfig} />;
-      }
-      case 3: {
-        iconConfig.name = "bank-outline";
-        return <MaterialCommunityIcons {...iconConfig} />;
-      }
-      case 4: {
-        iconConfig.name = "bank-check";
-        return <MaterialCommunityIcons {...iconConfig} />;
-      }
-      default: {
-        iconConfig.name = "info-outline";
-        return <MaterialIcons {...iconConfig} />;
-      }
-    }
-  };
-
-  const renderStepIndicator = (params) => getStepIndicatorIconConfig(params);
-
   const data = [
     {
       title: "On-demand Salary\n(पाएँ वेतन अपने मनचाहे समय पर)",
