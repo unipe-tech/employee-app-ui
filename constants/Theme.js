@@ -44,11 +44,12 @@ export const COLORS = {
   warningBackground: "#feedee",
   darkGray: "#333333",
   gray: "#5E8290",
-  lightGray: "#aaaaaa",
+  lightGray: "#DDE5E5",
   black: "#000000",
   white: "#FFFFFF",
   lightgray_01: "#f1f1f1",
   cardBackground: "#F2F8F9",
+  moneyCardBg: "#3C3F54",
 };
 
 export const SIZES = {

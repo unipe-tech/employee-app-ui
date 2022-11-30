@@ -1,18 +1,28 @@
 import { useEffect, useState } from "react";
-import { BackHandler, SafeAreaView, Text, View } from "react-native";
+import {
+  BackHandler,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  View,
+} from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { styles } from "../../../../styles";
 import PrimaryButton from "../../../../components/atoms/PrimaryButton";
 import KycCheckCard from "../../../../components/molecules/KycCheckCard";
 import { useIsFocused, useNavigation } from "@react-navigation/core";
-import Offers from "../../../../components/molecules/DataCard";
+import PastDrawsCard from "../../../../components/molecules/PastDrawsCard";
 import { getBackendData } from "../../../../services/employees/employeeServices";
 import { resetEwaLive } from "../../../../store/slices/ewaLiveSlice";
 import { resetEwaHistorical } from "../../../../store/slices/ewaHistoricalSlice";
 import { COLORS, FONTS } from "../../../../constants/Theme";
 import { STAGE } from "@env";
+import LogoHeader from "../../../../components/atoms/LogoHeader";
+import Icon from "react-native-vector-icons/Ionicons";
+import GetMoneyCard from "../../../../components/molecules/GetMoneyCard";
+import PayMoneyCard from "../../../../components/molecules/PayMoneyCard";
 
-const EWA = () => {
+const EWA = (props) => {
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
   const navigation = useNavigation();
@@ -92,75 +102,69 @@ const EWA = () => {
         });
     }
   }, [isFocused, unipeEmployeeId]);
+  console.log({ ewaLiveSlice });
 
   return (
-    <SafeAreaView style={[styles.container]}>
-      {aadhaarVerifyStatus === "SUCCESS" &&
-      panVerifyStatus === "SUCCESS" &&
-      bankVerifyStatus === "SUCCESS" &&
-      mandateVerifyStatus === "SUCCESS" ? (
-        // panMisMatch < 20 &&
-        // bankMisMatch < 20
-        <>
-          <Text
-            style={{
-              ...FONTS.body3,
-              marginTop: "5%",
-              marginBottom: "5%",
-              color: COLORS.gray,
-              alignSelf: "center",
-            }}
-          >
-            {aadhaarName} get on demand salary
-          </Text>
-          <Text
-            style={{
-              alignSelf: "center",
-              color: COLORS.primary,
-              ...FONTS.h2,
-            }}
-          >
-            ₹ {ewaLiveSlice?.eligibleAmount}
-          </Text>
+    <SafeAreaView style={[styles.safeContainer]}>
+      {/* <LogoHeader
+        rightIcon={
+          <Icon name="help-circle-outline" size={28} color={COLORS.primary} />
+        }
+      /> */}
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={[styles.container]}>
+          {aadhaarVerifyStatus === "SUCCESS" &&
+          panVerifyStatus === "SUCCESS" &&
+          bankVerifyStatus === "SUCCESS" &&
+          mandateVerifyStatus === "SUCCESS" ? (
+            // panMisMatch < 20 &&
+            // bankMisMatch < 20
+            <>
+              <GetMoneyCard
+                navigation={navigation}
+                eligible={eligible}
+                amount={"₹" + ewaLiveSlice?.eligibleAmount}
+                progress={
+                  ewaLiveSlice?.loanAmount / ewaLiveSlice?.eligibleAmount
+                }
+              />
 
-          <View style={{ marginHorizontal: "10%" }}>
-            <PrimaryButton
-              title={!eligible ? "No Active Offer" : "Get Money Now"}
-              disabled={!eligible}
-              onPress={() => {
-                navigation.navigate("EWA_OFFER");
-              }}
-            />
-          </View>
+              <PayMoneyCard
+                navigation={navigation}
+                amount={"₹" + ewaLiveSlice?.loanAmount}
+                dueDate={ewaLiveSlice?.dueDate}
+              />
 
-          <View style={{ padding: "1.5%" }}>
-            <Text
-              style={{
-                ...FONTS.h3,
-                color: COLORS.gray,
-                marginTop: "5%",
-              }}
-            >
-              Your past draws
-            </Text>
-            <Offers data={ewaHistoricalSlice} />
-          </View>
-        </>
-      ) : (
-        <View style={[styles.container, { padding: 0 }]}>
-          <Text
-            style={{
-              color: COLORS.warning,
-              ...FONTS.h3,
-              alignSelf: "center",
-              marginTop: "5%",
-            }}
-          >
-            You are not eligible for Advanced Salary.
-          </Text>
-          <KycCheckCard />
+              <View style={{ padding: "1.5%" }}>
+                <Text
+                  style={{
+                    ...FONTS.h4,
+                    color: COLORS.gray,
+                    marginTop: "5%",
+                  }}
+                >
+                  Your past draws
+                </Text>
+                <PastDrawsCard data={ewaHistoricalSlice} />
+              </View>
+            </>
+          ) : (
+            <View style={[styles.container, { padding: 0 }]}>
+              <Text
+                style={{
+                  color: COLORS.warning,
+                  ...FONTS.h3,
+                  alignSelf: "center",
+                  marginTop: "5%",
+                }}
+              >
+                You are not eligible for Advanced Salary.
+              </Text>
+              <KycCheckCard />
+            </View>
+          )}
         </View>
-      )}
+      </ScrollView>
     </SafeAreaView>
   );
 };
