@@ -1,12 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/core";
-import {
-  Alert,
-  SafeAreaView,
-  ScrollView,
-  BackHandler,
-} from "react-native";
+import { Alert, SafeAreaView, ScrollView, BackHandler } from "react-native";
 import OnboardingProgressBar from "../../navigators/OnboardingProgressBar";
 import { styles } from "../../styles";
 
@@ -44,7 +39,7 @@ const AadhaarConfirm = () => {
   return (
     <SafeAreaView style={styles.safeContainer}>
       <LogoHeaderBack leftOnPress={backAction} />
-      <ProgressBarTop step={1} />
+      <OnboardingProgressBar step={1} />
       <ScrollView keyboardShouldPersistTaps="handled">
         <AadhaarConfirmApi />
       </ScrollView>

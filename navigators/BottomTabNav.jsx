@@ -1,6 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { COLORS, FONTS } from "../constants/Theme";
+import Account from "../screens/06_home/Account/Account";
 import Benefits from "../screens/06_home/Benefits/Benefits";
 import Documents from "../screens/06_home/Documents/Documents";
 import HomeView from "../screens/06_home/HomeView";
@@ -13,6 +14,7 @@ export default BottomTabNav = () => {
     { name: "Documents", component: Documents },
     { name: "Benefits", component: Benefits },
     { name: "Money", component: EWANavigator },
+    { name: "Account", component: Account },
   ];
   return (
     <bottomTab.Navigator
@@ -35,6 +37,11 @@ export default BottomTabNav = () => {
               break;
             case "Money":
               iconName = focused ? "currency-inr" : "currency-inr";
+              break;
+            case "Account":
+              iconName = focused
+                ? "account-circle-outline"
+                : "account-circle-outline";
               break;
           }
           return <Icon name={iconName} size={size} color={color} />;

@@ -34,7 +34,7 @@ const AadhaarForm = () => {
   return (
     <SafeAreaView style={styles.safeContainer}>
       <LogoHeaderBack leftOnPress={backAction} />
-      <ProgressBarTop step={1} />
+      <OnboardingProgressBar step={1} />
       <AadhaarFormTemplate />
     </SafeAreaView>
   );

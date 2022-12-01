@@ -119,7 +119,7 @@ const ProfileForm = () => {
     <SafeAreaView style={styles.safeContainer}>
       <LogoHeaderBack leftOnPress={backAction} />
 
-      <ProgressBarTop step={0} />
+      <OnboardingProgressBar step={0} />
       <Text style={styles.headline}>Tell us about you</Text>
       <Text style={styles.subHeadline}>(अपनी जानकारी यहाँ भरें)</Text>
       <KeyboardAvoidingWrapper>

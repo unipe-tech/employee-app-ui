@@ -51,7 +51,7 @@ const AadhaarVerify = () => {
   return (
     <SafeAreaView style={styles.safeContainer}>
       <LogoHeaderBack leftOnPress={backAction} />
-      <ProgressBarTop step={1} />
+      <OnboardingProgressBar step={1} />
       <AadhaarVerifyTemplate function={backAction} />
     </SafeAreaView>
   );
