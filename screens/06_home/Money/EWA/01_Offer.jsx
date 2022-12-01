@@ -42,7 +42,7 @@ const Offer = () => {
   const [consent, setConsent] = useState(true);
   const [loading, setLoading] = useState(false);
 
-  const [validAmount, setValidAmount] = useState(true);
+  const [validAmount, setValidAmount] = useState(false);
 
   const token = useSelector((state) => state.auth.token);
   const unipeEmployeeId = useSelector((state) => state.auth.unipeEmployeeId);
@@ -84,10 +84,10 @@ const Offer = () => {
         setValidAmount(true);
         dispatch(addLoanAmount(parseInt(amount)));
       } else {
-        setValidAmount("false");
+        setValidAmount(false);
       }
     } else {
-      setValidAmount("false");
+      setValidAmount(false);
     }
   }, [amount]);
 
@@ -162,12 +162,12 @@ const Offer = () => {
     <MaterialIcons {...getStepIndicatorIconConfig(params)} />
   );
 
-  const data = ["KYC", "Agreement", "Money In Account"];
+  const data = ["KYC", "Mandate", "Agreement", "Disbursement"];
 
   return (
     <SafeAreaView style={styles.safeContainer}>
       <Header
-        title="On Demand Salary"
+        title="Advance Salary"
         onLeftIconPress={() => backAction()}
       />
       <View style={styles.container}>
@@ -208,7 +208,7 @@ const Offer = () => {
         <View style={welcome.steps}>
           <StepIndicator
             customStyles={stepIndicatorStyles}
-            stepCount={3}
+            stepCount={4}
             // direction="horizontal"
             currentPosition={5}
             renderStepIndicator={renderStepIndicator}

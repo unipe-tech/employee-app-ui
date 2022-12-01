@@ -53,7 +53,7 @@ const Agreement = () => {
   const profileSlice = useSelector((state) => state.profile);
   const authSlice = useSelector((state) => state.auth);
   const ewaLiveSlice = useSelector((state) => state.ewaLive);
-
+  const mandateVerifyStatus= useSelector((state)=>state.mandate.verifyStatus);
   const [netAmount, setNetAmount] = useState();
   const [processingFees, setProcessingFees] = useState(
     useSelector((state) => state.ewaLive.processingFees)
@@ -105,7 +105,12 @@ const Agreement = () => {
   }, [deviceId, ipAddress]);
 
   const backAction = () => {
-    navigation.navigate("EWA_KYC");
+    if (mandateVerifyStatus === "SUCCESS") {
+      navigation.navigate("EWA_KYC");
+    }
+    else {
+      navigation.navigate("EWA_MANDATE");
+    }
     return true;
   };
 
@@ -150,7 +155,7 @@ const Agreement = () => {
 
   const APR = () => {
     var today = new Date();
-    var dueDateComponents = ewaLiveSlice.dueDate.split("-");
+    var dueDateComponents = ewaLiveSlice.dueDate.split("/");
     var dueDate = new Date(
       dueDateComponents[2],
       parseInt(dueDateComponents[1]) - 1,
@@ -216,6 +221,8 @@ const Agreement = () => {
         loanAmount: ewaLiveSlice?.loanAmount,
         netAmount: netAmount,
         loanAccountNumber: ewaLiveSlice?.offerId,
+        employerId: ewaLiveSlice?.employerId,
+        employmentId: ewaLiveSlice?.employmentId,
       },
       token: token,
     })

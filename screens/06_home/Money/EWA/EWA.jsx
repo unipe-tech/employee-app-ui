@@ -21,6 +21,7 @@ import LogoHeader from "../../../../components/atoms/LogoHeader";
 import Icon from "react-native-vector-icons/Ionicons";
 import GetMoneyCard from "../../../../components/molecules/GetMoneyCard";
 import PayMoneyCard from "../../../../components/molecules/PayMoneyCard";
+import { getNumberOfDays } from "../../../../helpers/DateFunctions";
 
 const EWA = (props) => {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ const EWA = (props) => {
 
   const [fetched, setFetched] = useState(false);
   const [eligible, setEligible] = useState(false);
+  const [ewaAccessible,setEwaAccessible] = useState(true);
 
   const token = useSelector((state) => state.auth.token);
   const unipeEmployeeId = useSelector((state) => state.auth.unipeEmployeeId);
@@ -38,9 +40,6 @@ const EWA = (props) => {
   );
   const panVerifyStatus = useSelector((state) => state.pan.verifyStatus);
   const bankVerifyStatus = useSelector((state) => state.bank.verifyStatus);
-  const mandateVerifyStatus = useSelector(
-    (state) => state.mandate.verifyStatus
-  );
   // const panMisMatch = useSelector((state) => state.pan.misMatch);
   // const bankMisMatch = useSelector((state) => state.bank.misMatch);
 
@@ -86,6 +85,12 @@ const EWA = (props) => {
         .then((response) => {
           if (response.data.status === 200) {
             console.log("ewaOffersFetch response.data: ", response.data);
+            if (getNumberOfDays(response.data.body.live.dueDate)<=3){
+              setEwaAccessible(false);
+            }
+            else{
+              setEwaAccessible(true);
+            }
             dispatch(resetEwaLive(response.data.body.live));
             dispatch(resetEwaHistorical(response.data.body.past));
             setFetched(true);

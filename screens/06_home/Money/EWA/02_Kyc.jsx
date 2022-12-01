@@ -2,6 +2,7 @@ import { useNavigation } from "@react-navigation/core";
 import Analytics from "appcenter-analytics";
 import { useEffect, useState } from "react";
 import {
+  Alert,
   BackHandler,
   Image,
   SafeAreaView,
@@ -15,6 +16,7 @@ import { useSelector } from "react-redux";
 import Header from "../../../../components/atoms/Header";
 import PrimaryButton from "../../../../components/atoms/PrimaryButton";
 import { ewaKycPush } from "../../../../helpers/BackendPush";
+import { getBackendData } from "../../../../services/employees/employeeServices";
 import { form, styles, checkBox } from "../../../../styles";
 import CollapsibleCard from "../../../../components/molecules/CollapsibleCard";
 
@@ -25,8 +27,9 @@ const KYC = () => {
   const [deviceId, setDeviceId] = useState(0);
   const [ipAddress, setIpAdress] = useState(0);
 
+  const [creditPass, setCreditPass] = useState("PENDING");
   const [loading, setLoading] = useState(false);
-
+  const mandateVerifyStatus= useSelector((state)=>state.mandate.verifyStatus);
   const token = useSelector((state) => state.auth.token);
   const unipeEmployeeId = useSelector((state) => state.auth.unipeEmployeeId);
   const data = useSelector((state) => state.aadhaar.data);
@@ -58,6 +61,20 @@ const KYC = () => {
     return () =>
       BackHandler.removeEventListener("hardwareBackPress", backAction);
   }, []);
+
+  useEffect(() => {
+    if (unipeEmployeeId) {
+      getBackendData({ params: { unipeEmployeeId: unipeEmployeeId }, xpath: "risk-profile", token: token })
+        .then((response) => {
+          console.log("riskProfileBackendFetch response.data", response.data);
+          if (response.data.status === 200) {
+            setCreditPass(response.data.body.pass);
+          }
+        })
+        .catch((error) => {
+          console.log("riskProfileBackendFetch error: ", error);
+        });
+  }}, [unipeEmployeeId]);
 
   useEffect(() => {
     if (fetched) {
@@ -101,7 +118,12 @@ const KYC = () => {
         Analytics.trackEvent("Ewa|Kyc|Success", {
           unipeEmployeeId: unipeEmployeeId,
         });
-        navigation.navigate("EWA_AGREEMENT");
+        if (mandateVerifyStatus === "SUCCESS") {
+          navigation.navigate("EWA_AGREEMENT");
+        }
+        else {
+          navigation.navigate("EWA_MANDATE");
+        }
       })
       .catch((error) => {
         console.log("ewaKycPush error: ", error.toString());
@@ -145,8 +167,8 @@ const KYC = () => {
         <CollapsibleCard title="KYC Details" isClosed={false} data={kycData} />
 
         <PrimaryButton
-          title={loading ? "Verifying" : "Continue"}
-          disabled={false}
+          title={creditPass === "PENDING" ? "Checking Credit Bureau" : (creditPass === "DECLINED" ? "Credit Declined" : (loading ? "Verifying" : "Continue"))}
+          disabled={creditPass !== "SUCCESS" || loading}
           loading={loading}
           onPress={() => {
             handleKyc();

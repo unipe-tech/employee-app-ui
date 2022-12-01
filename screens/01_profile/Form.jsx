@@ -2,7 +2,7 @@ import { useNavigation } from "@react-navigation/core";
 import { useEffect, useState } from "react";
 import { SafeAreaView, Text, View, BackHandler, Alert } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import ProgressBarTop from "../../navigators/ProgressBarTop";
+import OnboardingProgressBar from "../../navigators/OnboardingProgressBar";
 import {
   addAltMobile,
   addQualification,
