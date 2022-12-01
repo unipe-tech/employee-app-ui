@@ -30,7 +30,7 @@ export const styles = EStyleSheet.create({
     color: COLORS.gray,
     textAlign: "center",
     alignSelf: "center",
-    marginBottom: "20rem",
+    marginBottom: "5rem",
   },
   resendText: {
     color: COLORS.primary,
