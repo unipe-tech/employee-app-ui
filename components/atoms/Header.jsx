@@ -10,6 +10,7 @@ const Header = ({ title, onLeftIconPress, onRightIconPress }) => {
       titleStyle={{ color: COLORS.white, ...FONTS.h3 }}
       leading={
         <IconButton
+          accessibilityLabel="BackIcon"
           icon={<Icon name="arrow-back" size={20} color="white" />}
           onPress={onLeftIconPress}
         />
@@ -17,6 +18,7 @@ const Header = ({ title, onLeftIconPress, onRightIconPress }) => {
       trailing={
         onRightIconPress && (
           <IconButton
+            accessibilityLabel="ForwardIcon"
             icon={<Icon name="arrow-forward" size={20} color="white" />}
             onPress={onRightIconPress}
           />

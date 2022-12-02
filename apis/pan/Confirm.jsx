@@ -68,6 +68,7 @@ const PanConfirmApi = (props) => {
       >
         <FuzzyCheck name={data["name"]} step="PAN" />
         <Button
+          accessibilityLabel="PanNoBtn"
           title="No"
           type="solid"
           uppercase={false}

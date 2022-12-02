@@ -77,4 +77,8 @@ Install Appium Inspector from https://github.com/appium/appium-inspector/release
 For running tests
 jest appium // in root directory
 
+Pre-requisites
+1. set onboarded:false in employements [database]
+2. clean the app storage and cache
+
 ```
