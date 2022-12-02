@@ -1,11 +1,12 @@
 import { SafeAreaView, View } from "react-native";
 import { useSelector } from "react-redux";
-import DetailItem from "./DetailItem";
-import TopTabNav from "../../navigators/TopTabNav";
-import AadhaarFormTemplate from "../../templates/aadhaar/Form";
-import AadhaarVerifyTemplate from "../../templates/aadhaar/Verify";
-import AadhaarConfirmApi from "../../apis/aadhaar/Confirm";
-import { styles } from "../../styles";
+
+import TopTabNav from "../../../../navigators/TopTabNav";
+import AadhaarFormTemplate from "../../../../templates/aadhaar/Form";
+import AadhaarVerifyTemplate from "../../../../templates/aadhaar/Verify";
+import AadhaarConfirmApi from "../../../../apis/aadhaar/Confirm";
+import { styles } from "../../../../styles";
+import DetailItem from "../../../../components/molecules/DetailItem";
 
 const Aadhaar = () => {
   const number = useSelector((state) => state.aadhaar.number);

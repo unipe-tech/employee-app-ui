@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { COLORS, FONTS } from "../../constants/Theme";
 import LogoImage from "../../assets/HeaderLogo.svg";
 
-const LogoHeader = ({
+const TitleHeader = ({
   containerStyle,
   leftIcon,
   leftOnPress,
@@ -29,9 +29,14 @@ const LogoHeader = ({
       <View
         style={{ flex: 1, flexDirection: "row", justifyContent: "flex-start" }}
       >
-        <LogoImage style={styles.logo} />
+        {title ? (
+          <Text style={{ ...FONTS.body3, color: COLORS.secondary }}>
+            {title}
+          </Text>
+        ) : (
+          <LogoImage style={styles.logo} />
+        )}
       </View>
-      <Text style={styles.title}>{title}</Text>
       {rightIcon ? (
         <TouchableOpacity activeOpacity={0.7} onPress={rightOnPress}>
           {rightIcon}
@@ -43,7 +48,7 @@ const LogoHeader = ({
   );
 };
 
-export default LogoHeader;
+export default TitleHeader;
 
 const styles = StyleSheet.create({
   container: {

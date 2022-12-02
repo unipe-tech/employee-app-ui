@@ -1,11 +1,12 @@
 import { SafeAreaView, View } from "react-native";
 import React from "react";
-import DetailItem from "./DetailItem";
+
 import { useSelector } from "react-redux";
-import BankFormTemplate from "../../templates/bank/Form";
-import BankConfirmApi from "../../apis/bank/Confirm";
-import TopTabNav from "../../navigators/TopTabNav";
-import { styles } from "../../styles";
+import BankFormTemplate from "../../../../templates/bank/Form";
+import BankConfirmApi from "../../../../apis/bank/Confirm";
+import TopTabNav from "../../../../navigators/TopTabNav";
+import { styles } from "../../../../styles";
+import DetailItem from "../../../../components/molecules/DetailItem";
 
 const Bank = () => {
   const accountHolderName = useSelector(

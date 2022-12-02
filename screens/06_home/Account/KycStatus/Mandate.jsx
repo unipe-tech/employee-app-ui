@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { SafeAreaView, View } from "react-native";
 import { useSelector } from "react-redux";
-import MandateFormTemplate from "../../templates/mandate/Form";
-import DetailItem from "./DetailItem";
-import { styles } from "../../styles";
-import TopTabNav from "../../navigators/TopTabNav";
+import MandateFormTemplate from "../../../../templates/mandate/Form";
+
+import { styles } from "../../../../styles";
+import TopTabNav from "../../../../navigators/TopTabNav";
+import DetailItem from "../../../../components/molecules/DetailItem";
 
 const Mandate = () => {
-
   const [time, setTime] = useState(false);
 
   const mandateSlice = useSelector((state) => state.mandate);

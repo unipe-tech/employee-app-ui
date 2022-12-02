@@ -10,7 +10,7 @@ const TopTabNav = (props) => {
     <Tab.Navigator
       screenOptions={{
         tabBarLabelStyle: {
-          ...FONTS.h5,
+          ...FONTS.body5,
           textTransform: "uppercase",
         },
         //tabBarItemStyle: { width: 100 },

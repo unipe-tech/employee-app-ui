@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { COLORS, FONTS } from "../constants/Theme";
-import Account from "../screens/06_home/Account/Account";
+import Account from "../screens/06_home/Account";
 import Benefits from "../screens/06_home/Benefits/Benefits";
 import Documents from "../screens/06_home/Documents/Documents";
 import HomeView from "../screens/06_home/HomeView";
@@ -20,7 +20,7 @@ export default BottomTabNav = () => {
     <bottomTab.Navigator
       screenOptions={({ route }) => ({
         headerShown: false,
-        tabBarLabelStyle: { ...FONTS.h5, marginBottom: 5 },
+        tabBarLabelStyle: { ...FONTS.body5, marginBottom: 5 },
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
           switch (route.name) {
@@ -28,20 +28,16 @@ export default BottomTabNav = () => {
               iconName = focused ? "home" : "home-outline";
               break;
             case "Documents":
-              iconName = focused
-                ? "clipboard-account"
-                : "clipboard-account-outline";
+              iconName = focused ? "file-document" : "file-document-outline";
               break;
             case "Benefits":
-              iconName = focused ? "plus-thick" : "plus-outline";
+              iconName = focused ? "crown" : "crown-outline";
               break;
             case "Money":
               iconName = focused ? "currency-inr" : "currency-inr";
               break;
             case "Account":
-              iconName = focused
-                ? "account-circle-outline"
-                : "account-circle-outline";
+              iconName = focused ? "account-circle" : "account-circle-outline";
               break;
           }
           return <Icon name={iconName} size={size} color={color} />;

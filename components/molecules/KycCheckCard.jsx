@@ -9,16 +9,21 @@ const KycCheckCard = () => {
   const aadhaarStatus = useSelector((state) => state.aadhaar.verifyStatus);
 
   const message = [
-    aadhaarStatus != "SUCCESS" ? "AADHAAR" : null,
-    bankStatus != "SUCCESS" ? "BANK" : null,
-    panStatus != "SUCCESS" ? "PAN" : null,
+    aadhaarStatus != "SUCCESS"
+      ? { label: "Add Aadhaar Details", value: "AADHAAR" }
+      : null,
+    bankStatus != "SUCCESS"
+      ? { label: "Add Bank Details", value: "BANK" }
+      : null,
+    panStatus != "SUCCESS" ? { label: "Add PAN Details", value: "PAN" } : null,
   ];
 
   return (
     <SafeAreaView>
       {!allAreNull(message) ? (
         <MessageCard
-          title="Following pending steps need to be completed in order to receive advance salary."
+          title="You are few steps away from getting your"
+          subtitle="Money to your bank account"
           message={message}
         />
       ) : null}

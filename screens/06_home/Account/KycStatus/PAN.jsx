@@ -1,10 +1,11 @@
 import { SafeAreaView, View } from "react-native";
-import DetailItem from "./DetailItem";
+
 import { useSelector } from "react-redux";
-import PanFormTemplate from "../../templates/pan/Form";
-import TopTabNav from "../../navigators/TopTabNav";
-import PanConfirmApi from "../../apis/pan/Confirm";
-import { styles } from "../../styles";
+import PanFormTemplate from "../../../../templates/pan/Form";
+import TopTabNav from "../../../../navigators/TopTabNav";
+import PanConfirmApi from "../../../../apis/pan/Confirm";
+import { styles } from "../../../../styles";
+import DetailItem from "../../../../components/molecules/DetailItem";
 
 const Pan = () => {
   const data = useSelector((state) => state.pan.data);

@@ -10,7 +10,9 @@ import OnboardingStack from "./stacks/OnboardingStack";
 import EWAStack from "./stacks/EWAStack";
 import DocumentStack from "./stacks/DocumentStack";
 import BenefitsStack from "./stacks/BenefitsStack";
-import DrawerNavigator from "./DrawerNavigator";
+import ProfileDetails from "../screens/06_home/Account/ProfileDetails";
+import BottomTabNav from "./BottomTabNav";
+import KycStatus from "../screens/06_home/Account/KycStatus";
 
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator();
@@ -26,7 +28,7 @@ const StackNavigator = () => {
   console.log("initialRoute: ", initialRoute);
   console.log("currentScreen: ", initialScreen);
 
-  STAGE === "dev" ? (initialRoute = "DevMenu") : null;
+  STAGE === "test" ? (initialRoute = "DevMenu") : null;
   console.log("initialRoute: ", initialRoute);
 
   return (
@@ -49,7 +51,21 @@ const StackNavigator = () => {
         />
         <Stack.Screen
           name="HomeStack"
-          component={DrawerNavigator}
+          component={BottomTabNav}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="ProfileStack"
+          component={ProfileDetails}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="KycStack"
+          component={KycStatus}
           options={{
             headerShown: false,
           }}

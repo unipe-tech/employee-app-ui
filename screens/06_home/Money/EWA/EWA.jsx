@@ -30,7 +30,7 @@ const EWA = (props) => {
 
   const [fetched, setFetched] = useState(false);
   const [eligible, setEligible] = useState(false);
-  const [ewaAccessible,setEwaAccessible] = useState(true);
+  const [ewaAccessible, setEwaAccessible] = useState(true);
 
   const token = useSelector((state) => state.auth.token);
   const unipeEmployeeId = useSelector((state) => state.auth.unipeEmployeeId);
@@ -85,10 +85,9 @@ const EWA = (props) => {
         .then((response) => {
           if (response.data.status === 200) {
             console.log("ewaOffersFetch response.data: ", response.data);
-            if (getNumberOfDays(response.data.body.live.dueDate)<=3){
+            if (getNumberOfDays(response.data.body.live.dueDate) <= 3) {
               setEwaAccessible(false);
-            }
-            else{
+            } else {
               setEwaAccessible(true);
             }
             dispatch(resetEwaLive(response.data.body.live));
@@ -111,11 +110,12 @@ const EWA = (props) => {
 
   return (
     <SafeAreaView style={[styles.safeContainer]}>
-      {/* <LogoHeader
+      <LogoHeader
+        title={"Money"}
         rightIcon={
           <Icon name="help-circle-outline" size={28} color={COLORS.primary} />
         }
-      /> */}
+      />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={[styles.container]}>
           {aadhaarVerifyStatus === "SUCCESS" &&
@@ -154,7 +154,7 @@ const EWA = (props) => {
               </View>
             </>
           ) : (
-            <View style={[styles.container, { padding: 0 }]}>
+            <View style={[styles.safeContainer]}>
               <Text
                 style={{
                   color: COLORS.warning,

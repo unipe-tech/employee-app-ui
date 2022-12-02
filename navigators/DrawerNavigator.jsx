@@ -1,7 +1,7 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { Ionicons, Octicons } from "react-native-vector-icons";
 import Placeholder from "../screens/06_home/Placeholder";
-import Profile from "../screens/07_drawer/Profile";
+import Profile from "../screens/07_drawer/ProfileDetails";
 import KYCScreen from "../screens/07_drawer/KYCScreen";
 import { AppBar, Icon, IconButton } from "@react-native-material/core";
 import SVGImg from "../assets/UnipeLogo.svg";
@@ -10,6 +10,7 @@ import { COLORS, FONTS } from "../constants/Theme";
 import CustomDrawer from "./CustomDrawer";
 import BottomTabNav from "./BottomTabNav";
 import TopAppBar from "../components/molecules/TopAppBar";
+import ProfileDetails from "../screens/07_drawer/ProfileDetails";
 
 const Drawer = createDrawerNavigator();
 
@@ -25,24 +26,24 @@ const DrawerNavigator = () => {
         drawerActiveBackgroundColor: COLORS.primary,
         drawerActiveTintColor: "white",
         drawerLabelStyle: { ...FONTS.body4 },
-        header: ({ navigation }) => (
-          <AppBar
-            title={<SVGImg />}
-            centerTitle={true}
-            contentContainerStyle={nav.navbar}
-            color="#ffffff"
-            leading={
-              <IconButton
-                icon={<Icon name="menu" size={30} />}
-                onPress={() => {
-                  console.log("Menu");
-                  navigation.toggleDrawer();
-                }}
-              />
-            }
-            trailing={<IconButton icon={<Icon name="more-vert" size={30} />} />}
-          />
-        ),
+        // header: ({ navigation }) => (
+        //   <AppBar
+        //     title={<SVGImg />}
+        //     centerTitle={true}
+        //     contentContainerStyle={nav.navbar}
+        //     color="#ffffff"
+        //     leading={
+        //       <IconButton
+        //         icon={<Icon name="menu" size={30} />}
+        //         onPress={() => {
+        //           console.log("Menu");
+        //           navigation.toggleDrawer();
+        //         }}
+        //       />
+        //     }
+        //     trailing={<IconButton icon={<Icon name="more-vert" size={30} />} />}
+        //   />
+        // ),
       }}
     >
       <Drawer.Screen
@@ -51,8 +52,7 @@ const DrawerNavigator = () => {
           drawerIcon: ({ color }) => (
             <Ionicons name="home" color={color} size={20} />
           ),
-          // headerShown: false,
-          header: TopAppBar,
+          headerShown: false,
         }}
         name="DrawerHome"
         component={BottomTabNav}
@@ -65,7 +65,7 @@ const DrawerNavigator = () => {
           ),
         }}
         name="Profile"
-        component={Profile}
+        component={ProfileDetails}
       />
       <Drawer.Screen
         options={{

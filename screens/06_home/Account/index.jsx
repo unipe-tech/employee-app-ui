@@ -4,58 +4,95 @@ import {
   SafeAreaView,
   TouchableOpacity,
   Image,
+  Linking,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { styles } from "../../../styles";
 import LogoHeader from "../../../components/atoms/LogoHeader";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { MaterialCommunityIcons, Ionicons } from "react-native-vector-icons";
 import { COLORS, FONTS } from "../../../constants/Theme";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import termsOfUse from "../../../templates/docs/TermsOfUse";
+import privacyPolicy from "../../../templates/docs/PrivacyPolicy";
+import TermsAndPrivacyModal from "../../../components/molecules/TermsAndPrivacyModal";
+import { showToast } from "../../../components/atoms/Toast";
 
-const Account = () => {
+const Account = (props) => {
+  const dispatch = useDispatch();
+  const [isPrivacyModalVisible, setIsPrivacyModalVisible] = useState(false);
+  const [isTermsOfUseModalVisible, setIsTermsOfUseModalVisible] =
+    useState(false);
   const image = useSelector((state) => state.aadhaar.data.photo_base64);
   const name = useSelector(
     (state) => state.aadhaar.data?.name || state.pan.data?.name || "User"
   );
+
+  const onLogout = () => {
+    showToast("Logging out");
+    dispatch({ type: "LOGOUT" });
+    //setModalVisible(true);
+    setTimeout(() => {
+      // setModalVisible(false);
+      props.navigation.navigate("OnboardingStack", { screen: "Login" });
+    }, 5000);
+  };
   const options = [
     {
       title: "Profile",
       subtitle: "See & edit your profile details",
       iconName: "account-circle-outline",
+      route: "ProfileStack",
     },
     {
       title: "KYC",
       subtitle: "All your KYC details in one place",
       iconName: "order-bool-ascending-variant",
-    },
-    {
-      title: "Documents",
-      subtitle: "Coming soon",
-      iconName: "file-document-multiple-outline",
+      route: "KycStack",
     },
     {
       title: "Customer Support",
       subtitle: "Talk to out support team",
       iconName: "whatsapp",
+      action: () => {
+        Linking.openURL(`whatsapp://send?text=&phone=7483447528`);
+      },
     },
     {
-      title: "T&C and Privacy Policy",
+      title: "Terms & Conditions",
       subtitle: "Read our terms of use",
-      iconName: "file-document",
+      iconName: "file-document-outline",
+      action: () => setIsTermsOfUseModalVisible(true),
+    },
+    {
+      title: "Privacy Policy",
+      subtitle: "Read our privacy policy",
+      iconName: "shield-outline",
+      action: () => setIsPrivacyModalVisible(true),
     },
     {
       title: "Logout",
       subtitle: "Logout from Unipe App",
       iconName: "exit-to-app",
+      action: () => onLogout(),
     },
   ];
+
+  const onPressCard = ({ route, action }) => {
+    if (route) props.navigation.navigate(route);
+    else action();
+  };
   return (
     <SafeAreaView style={styles.safeContainer}>
-      {/* <LogoHeader
+      <LogoHeader
+        title={"Account"}
         rightIcon={
-          <Icon name="help-circle-outline" size={28} color={COLORS.primary} />
+          <Ionicons
+            name="help-circle-outline"
+            size={28}
+            color={COLORS.primary}
+          />
         }
-      /> */}
+      />
       <View
         style={{
           flexDirection: "row",
@@ -66,7 +103,11 @@ const Account = () => {
         }}
       >
         {!image ? (
-          <Icon name={"account-box"} size={80} color={COLORS.primary} />
+          <MaterialCommunityIcons
+            name={"account-box"}
+            size={80}
+            color={COLORS.primary}
+          />
         ) : (
           <Image
             source={{
@@ -88,7 +129,9 @@ const Account = () => {
       </View>
       {options.map((item, index) => (
         <TouchableOpacity
+          key={item.title}
           activeOpacity={0.7}
+          onPress={() => onPressCard(item)}
           style={{
             flexDirection: "row",
             alignItems: "center",
@@ -98,7 +141,11 @@ const Account = () => {
             borderColor: COLORS.lightGray,
           }}
         >
-          <Icon name={item.iconName} size={24} color={COLORS.gray} />
+          <MaterialCommunityIcons
+            name={item.iconName}
+            size={24}
+            color={COLORS.gray}
+          />
           <View
             style={{
               flexDirection: "column",
@@ -116,6 +163,20 @@ const Account = () => {
           </View>
         </TouchableOpacity>
       ))}
+      {isTermsOfUseModalVisible && (
+        <TermsAndPrivacyModal
+          isVisible={isTermsOfUseModalVisible}
+          setIsVisible={setIsTermsOfUseModalVisible}
+          data={termsOfUse}
+        />
+      )}
+      {isPrivacyModalVisible && (
+        <TermsAndPrivacyModal
+          isVisible={isPrivacyModalVisible}
+          setIsVisible={setIsPrivacyModalVisible}
+          data={privacyPolicy}
+        />
+      )}
     </SafeAreaView>
   );
 };
