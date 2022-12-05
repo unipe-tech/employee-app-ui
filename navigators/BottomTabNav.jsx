@@ -49,6 +49,7 @@ export default BottomTabNav = () => {
             key={index}
             name={tab.name}
             component={tab.component}
+            options={{ tabBarAccessibilityLabel: tab.name }}
           />
         );
       })}

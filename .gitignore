@@ -46,6 +46,7 @@ buck-out/
 *.keystore
 !debug.keystore
 env/
+success.test.js
 
 # fastlane
 #

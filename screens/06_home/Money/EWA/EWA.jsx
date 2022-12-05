@@ -20,7 +20,7 @@ const EWA = () => {
 
   const [fetched, setFetched] = useState(false);
   const [eligible, setEligible] = useState(false);
-  const [ewaAccessible,setEwaAccessible] = useState(true);
+  const [ewaAccessible, setEwaAccessible] = useState(true);
 
   const token = useSelector((state) => state.auth.token);
   const unipeEmployeeId = useSelector((state) => state.auth.unipeEmployeeId);
@@ -75,10 +75,9 @@ const EWA = () => {
         .then((response) => {
           if (response.data.status === 200) {
             console.log("ewaOffersFetch response.data: ", response.data);
-            if (getNumberOfDays(response.data.body.live.dueDate)<=3){
+            if (getNumberOfDays(response.data.body.live.dueDate) <= 3) {
               setEwaAccessible(false);
-            }
-            else{
+            } else {
               setEwaAccessible(true);
             }
             dispatch(resetEwaLive(response.data.body.live));
@@ -107,6 +106,7 @@ const EWA = () => {
         // bankMisMatch < 20
         <>
           <Text
+            accessibilityLabel="EWAText"
             style={{
               ...FONTS.body3,
               marginTop: "5%",
@@ -129,7 +129,13 @@ const EWA = () => {
 
           <View style={{ marginHorizontal: "10%" }}>
             <PrimaryButton
-              title={!ewaAccessible ? "Offer inactive" : (!eligible ? "No Active Offer" : "Get Money Now")}
+              title={
+                !ewaAccessible
+                  ? "Offer inactive"
+                  : !eligible
+                  ? "No Active Offer"
+                  : "Get Money Now"
+              }
               disabled={!eligible || !ewaAccessible}
               onPress={() => {
                 navigation.navigate("EWA_OFFER");

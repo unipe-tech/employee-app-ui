@@ -46,7 +46,7 @@ const HomeOfferCard = () => {
   }, [isFocused, unipeEmployeeId]);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView accessibilityLabel="HomeOfferCard">
       <TouchableOpacity
         activeOpacity={0.8}
         style={{
