@@ -32,7 +32,11 @@ const AadhaarFormTemplate = (props) => {
     <SafeAreaView style={styles.safeContainer}>
       <KeyboardAvoidingWrapper>
         <View style={[styles.container, { padding: 0 }]}>
-          {/* <Text style={form.formHeader}>Aadhaar Verification</Text> */}
+          <Text style={styles.headline}>Enter your Aadhaar number</Text>
+          <Text style={styles.subHeadline}>
+            कृपया अपना आधार नम्बर यहाँ भरें ॰ इस आधार नम्बर से जुड़े मोबाइल
+            नम्बर पर हम ओ॰टी॰पी॰ भेजेंगे ॰
+          </Text>
           <FormInput
             placeholder={"Enter AADHAAR Number"}
             containerStyle={{ marginVertical: 10 }}
@@ -43,14 +47,14 @@ const AadhaarFormTemplate = (props) => {
             maxLength={12}
             numeric
           />
-          
+
           {number && !validNumber ? (
             <Text style={bankform.formatmsg}>Invalid AADHAAR Number.</Text>
           ) : null}
 
           <InfoCard
             info={
-              "My Mobile number is linked to my Aadhar card & I can receive the OTP on my Aadhar Linked Mobile Number"
+              "My Mobile number is linked to my Aadhaar card & I can receive the OTP on my Aadhaar Linked Mobile Number"
             }
           />
 

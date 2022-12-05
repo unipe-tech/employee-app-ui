@@ -11,7 +11,6 @@ import { COLORS, SIZES } from "../../constants/Theme";
 import FormInput from "../../components/atoms/FormInput";
 
 const AadhaarVerifyTemplate = (props) => {
-  
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const [resend, setResend] = useState(false);
@@ -28,8 +27,10 @@ const AadhaarVerifyTemplate = (props) => {
   return (
     <ScrollView keyboardShouldPersistTaps="handled">
       <View style={styles.container}>
-        <Text style={form.OtpAwaitMsg}>
-          Enter 6 digit OTP sent to your Aadhaar registered mobile number
+        <Text style={styles.headline}>Verify Aadhaar</Text>
+        <Text style={styles.subHeadline}>
+          कृपया छ डिजिट का OTP यहाँ भरें। इसी के द्वारा ये स्पष्ट होगा की ऊपर
+          भरा आधार नम्बर आपका है। ये जानकारी आपकी कम्पनी को दी जाएगी।
         </Text>
 
         <FormInput

@@ -22,11 +22,11 @@ const styles = EStyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    marginVertical: "10rem",
+    marginVertical: "5rem",
   },
   title: {
     marginLeft: "5rem",
-    ...FONTS.h4,
+    ...FONTS.body5,
     color: COLORS.gray,
     flex: 1,
   },

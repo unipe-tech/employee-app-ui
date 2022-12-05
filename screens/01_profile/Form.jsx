@@ -18,7 +18,7 @@ import PrimaryButton from "../../components/atoms/PrimaryButton";
 import FormInput from "../../components/atoms/FormInput";
 import DropDownForm from "../../components/molecules/DropDownForm";
 import Analytics from "appcenter-analytics";
-import Header from "../../components/atoms/Header";
+import LogoHeaderBack from "../../components/molecules/LogoHeaderBack";
 
 const ProfileForm = () => {
   const dispatch = useDispatch();
@@ -116,10 +116,11 @@ const ProfileForm = () => {
 
   return (
     <SafeAreaView style={styles.safeContainer}>
-      <Header title="Setup Profile" onLeftIconPress={() => backAction()} />
+      <LogoHeaderBack leftOnPress={backAction} />
 
       <OnboardingProgressBar step={0} />
-      <Text style={form.formHeader}>Employee basic details</Text>
+      <Text style={styles.headline}>Tell us about you</Text>
+      <Text style={styles.subHeadline}>(अपनी जानकारी यहाँ भरें)</Text>
       <KeyboardAvoidingWrapper>
         <View>
           <DropDownForm
@@ -143,7 +144,7 @@ const ProfileForm = () => {
             onChange={setMotherName}
           />
           <FormInput
-            placeholder={"Alternate Phone Number"}
+            placeholder={"Your alternate mobile no."}
             containerStyle={{ marginVertical: 10 }}
             autoCompleteType="tel"
             keyboardType="phone-pad"
@@ -151,7 +152,7 @@ const ProfileForm = () => {
             onChange={setAltMobile}
           />
           <FormInput
-            placeholder={"Email Address*"}
+            placeholder={"Your email ID"}
             containerStyle={{ marginVertical: 10 }}
             autoCompleteType="email"
             keyboardType="email-address"
