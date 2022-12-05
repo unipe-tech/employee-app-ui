@@ -108,9 +108,7 @@ const OTPScreen = () => {
               destination: "HomeStack",
             });
           } else {
-            navigation.navigate("BackendSync", {
-              destination: "WelcomePage",
-            });
+            navigation.navigate("Welcome");
           }
           dispatch(resetTimer());
           Analytics.trackEvent("OTPScreen|Check|Success", {
@@ -143,19 +141,6 @@ const OTPScreen = () => {
 
   return (
     <SafeAreaView style={styles.safeContainer}>
-      {/* <LogoHeader
-        leftIcon={
-          <Ionicons name="arrow-back" size={28} color={COLORS.primary} />
-        }
-        leftOnPress={backAction}
-        rightIcon={
-          <Ionicons
-            name="help-circle-outline"
-            size={28}
-            color={COLORS.primary}
-          />
-        }
-      /> */}
       <LogoHeaderBack leftOnPress={backAction} />
       <KeyboardAvoidingWrapper>
         <View style={styles.safeContainer}>
