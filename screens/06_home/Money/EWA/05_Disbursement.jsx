@@ -6,6 +6,12 @@ import { ewa, styles } from "../../../../styles";
 import { useSelector } from "react-redux";
 import Header from "../../../../components/atoms/Header";
 import { getBackendData } from "../../../../services/employees/employeeServices";
+import PrimaryButton from "../../../../components/atoms/PrimaryButton";
+import { createPaymentOrder } from "../../../../services/checkout/StandardCheckout";
+import { RZP_KEY_ID } from "../../../../services/constants";
+import { COLORS } from "../../../../constants/Theme";
+import RazorpayCheckout from "react-native-razorpay";
+
 import SVGImgFailure from "../../../../assets/ewa_failure.svg";
 import SVGImgSuccess from "../../../../assets/ewa_success.svg";
 import SVGImgPending from "../../../../assets/ewa_pending.svg";
@@ -16,6 +22,13 @@ const Disbursement = ({ route, navigation }) => {
   const [loanAmount, setLoanAmount] = useState(offer?.loanAmount);
   const [netAmount, setNetAmount] = useState(offer?.netAmount);
 
+  const phoneNumber = useSelector((state) => state.auth?.phoneNumber);
+  const email = useSelector(
+    (state) => state.profile?.email || state.pan?.data?.email
+  );
+  const accountHolderName = useSelector(
+    (state) => state.bank?.data?.accountHolderName
+  );
   const token = useSelector((state) => state.auth.token);
   const unipeEmployeeId = useSelector((state) => state.auth.unipeEmployeeId);
   const bankSlice = useSelector((state) => state.bank);
@@ -25,6 +38,11 @@ const Disbursement = ({ route, navigation }) => {
   const [loanAccountNumber, setLoanAccountNumber] = useState("");
   const [status, setStatus] = useState("");
   const [processingFees, setProcessingFees] = useState("");
+
+  const extCustomerId = useSelector(
+    (state) => state.mandate.data.extCustomerId
+  );
+  const [repaymentOrderId, setRepaymentOrderId] = useState(null);
 
   const backAction = () => {
     navigation.navigate("HomeStack", {
@@ -37,11 +55,11 @@ const Disbursement = ({ route, navigation }) => {
   const StatusImage = (status) => {
     switch (status) {
       case "SUCCESS":
-        return <SVGImgSuccess />;
+        return <SVGImgSuccess style={{ alignSelf: "center" }} />;
       case "FAILURE":
-        return <SVGImgFailure />;
+        return <SVGImgFailure style={{ alignSelf: "center" }} />;
       default:
-        return <SVGImgPending />;
+        return <SVGImgPending style={{ alignSelf: "center" }} />;
     }
   };
 
@@ -65,7 +83,7 @@ const Disbursement = ({ route, navigation }) => {
           setBankAccountNumber(response.data.body.bankAccountNumber);
           setDueDate(response.data.body.dueDate);
           setLoanAccountNumber(response.data.body.loanAccountNumber);
-          setStatus(response.data.body.status);
+          setStatus("SUCCESS");
           Analytics.trackEvent("Ewa|Disbursement|Success", {
             unipeEmployeeId: unipeEmployeeId,
           });
@@ -79,6 +97,39 @@ const Disbursement = ({ route, navigation }) => {
         });
       });
   }, []);
+
+  useEffect(() => {
+    console.log("createMandate orderId: ", repaymentOrderId, !repaymentOrderId);
+    if (repaymentOrderId) {
+      var options = {
+        description: "Unipe Early Loan Repayment",
+        name: "Unipe",
+        key: RZP_KEY_ID,
+        order_id: repaymentOrderId,
+        customer_id: extCustomerId,
+        prefill: {
+          name: accountHolderName,
+          email: email,
+          contact: phoneNumber,
+        },
+        theme: { color: COLORS.primary },
+      };
+      RazorpayCheckout.open(options)
+        .then((data) => {
+          console.log("RazorpayCheckout data: ", data);
+          Analytics.trackEvent("Ewa|Repayment|Success", {
+            unipeEmployeeId: unipeEmployeeId,
+          });
+        })
+        .catch((error) => {
+          console.log("checkout error:", error.description);
+          Analytics.trackEvent("Ewa|Repayment|Error", {
+            unipeEmployeeId: unipeEmployeeId,
+            error: error.toString(),
+          });
+        });
+    }
+  }, [repaymentOrderId]);
 
   useEffect(() => {
     console.log("disbursement offer: ", offer);
@@ -113,6 +164,34 @@ const Disbursement = ({ route, navigation }) => {
           isClosed={false}
           info="Disbursement will be reconciled in your next payroll"
         />
+        {status === "SUCCESS" && (
+          <PrimaryButton
+            loading={false}
+            title="Pay Now"
+            onPress={() => {
+              createPaymentOrder({ amount: loanAmount })
+                .then((response) => {
+                  if (response.status === 200) {
+                    setRepaymentOrderId(response.data.id);
+                    console.log(
+                      "createRepaymentOrder response.data.body: ",
+                      response.data
+                    );
+                    Analytics.trackEvent("Ewa|RepaymentOrder|Success", {
+                      unipeEmployeeId: unipeEmployeeId,
+                    });
+                  }
+                })
+                .catch((error) => {
+                  console.log("createRepaymentOrder error: ", error);
+                  Analytics.trackEvent("Ewa|Repayment|Error", {
+                    unipeEmployeeId: unipeEmployeeId,
+                    error: error.toString(),
+                  });
+                });
+            }}
+          />
+        )}
       </View>
     </SafeAreaView>
   );
