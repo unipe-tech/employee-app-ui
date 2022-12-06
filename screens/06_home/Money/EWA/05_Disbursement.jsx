@@ -83,7 +83,7 @@ const Disbursement = ({ route, navigation }) => {
           setBankAccountNumber(response.data.body.bankAccountNumber);
           setDueDate(response.data.body.dueDate);
           setLoanAccountNumber(response.data.body.loanAccountNumber);
-          setStatus("SUCCESS");
+          setStatus(response.data.body.status);
           Analytics.trackEvent("Ewa|Disbursement|Success", {
             unipeEmployeeId: unipeEmployeeId,
           });
