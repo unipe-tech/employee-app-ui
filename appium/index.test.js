@@ -378,9 +378,9 @@ describe("Bank Test", () => {
     await driver.pause(5000);
     await driver.acceptAlert();
   });
-  test("Valid Account - No Button", async () => {
+  test("Valid Account with Name Mismatch Alert", async () => {
     await driver.$("~AccHolderName").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~AccHolderName").setValue("KARAN XXXX");
+    await driver.$("~AccHolderName").setValue("JOHN DOE");
     await driver.$("~AccNumber").setValue("123456789012");
     await driver.$("~IfscCode").setValue("ABCD0200000");
     await driver.$("~UpiId").setValue("abc@xyz");
