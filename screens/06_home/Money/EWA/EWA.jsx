@@ -129,6 +129,7 @@ const EWA = () => {
 
           <View style={{ marginHorizontal: "10%" }}>
             <PrimaryButton
+              accessibilityLabel={"GetMoneyNowBtn"}
               title={
                 !ewaAccessible
                   ? "Offer inactive"

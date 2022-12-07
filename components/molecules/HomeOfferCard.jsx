@@ -92,6 +92,7 @@ const HomeOfferCard = () => {
           Before {ewaLiveSlice.dueDate}
         </Text>
         <PrimaryButton
+          accessibilityLabel={"WithdrawNowBtn"}
           title={"Withdraw Now"}
           onPress={() => navigation.navigate("Money", { screen: "EWA" })}
           disabled={!ewaAccessible}

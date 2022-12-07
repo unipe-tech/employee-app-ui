@@ -51,6 +51,7 @@ const CollapsibleCard = ({
             key={index}
           >
             <Text
+              accessibilityLabel={`${item.subTitle} Key`}
               style={{
                 ...FONTS.h5,
                 flex: 1,
@@ -59,6 +60,7 @@ const CollapsibleCard = ({
               {item.subTitle}
             </Text>
             <Text
+              accessibilityLabel={`${item.value} Value`}
               style={{
                 ...FONTS.body5,
                 flex: 1.25,

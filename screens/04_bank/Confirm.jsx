@@ -31,9 +31,10 @@ const BankConfirm = () => {
 
   useEffect(() => {
     BackHandler.addEventListener("hardwareBackPress", backAction);
-    return () => BackHandler.removeEventListener("hardwareBackPress", backAction);
+    return () =>
+      BackHandler.removeEventListener("hardwareBackPress", backAction);
   }, []);
-  
+
   return (
     <SafeAreaView style={styles.safeContainer}>
       <Header
