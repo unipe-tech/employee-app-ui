@@ -32,8 +32,7 @@ afterAll(async () => {
 describe("Login Test", () => {
   test("InValid Credentials", async () => {
     await driver.pause(3000);
-    const devMenuLoginBtn = await driver.$("~Login");
-    await devMenuLoginBtn.touchAction({ action: "tap" });
+    await driver.$("~Login").touchAction({ action: "tap" });
 
     await driver.$("~MobileNumber").waitForDisplayed({ timeout: 8000 });
     const loginUsernameInput = await driver.$("~MobileNumber");
