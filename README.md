@@ -95,13 +95,22 @@ Pre-requisites:
 
 ```
 // in root directory
-npm run test:all // -> for running all test cases
-npm run test:login // -> for running login tests
-npm run test:profile // -> for running profile tests
-npm run test:aadhaar // -> for running aadhaar tests
-npm run test:pan // -> for running pan tests
-npm run test:bank // -> for running bank tests
-npm run test:drawer // -> for running drawer tests
-npm run test:bottomTab // -> for running bottom tab tests
-npm run test:ewa // -> for running ewa tests
+npm run test:all
+    - for running all test cases
+npm run test:login
+    - for running login tests
+npm run test:profile
+    - for running profile tests
+npm run test:aadhaar
+    - for running aadhaar tests
+npm run test:pan
+    - for running pan tests
+npm run test:bank
+    - for running bank tests
+npm run test:drawer
+    - for running drawer tests
+npm run test:bottomTab
+    - for running bottom tab tests
+npm run test:ewa
+    - for running ewa tests
 ```
