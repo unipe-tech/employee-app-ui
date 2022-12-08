@@ -94,7 +94,6 @@ Pre-requisites:
 2. clean the app storage and cache
 
 ```
-// in root directory
 npm run test:all
     - for running all test cases
 npm run test:login
