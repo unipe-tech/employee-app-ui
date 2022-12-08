@@ -88,11 +88,6 @@ For running tests:
 
 1. Download Appium Server GUI mandatorily from https://github.com/appium/appium-desktop/releases/tag/v1.22.3-4
 
-Pre-requisites:
-
-1. set onboarded:false in employements [database]
-2. clean the app storage and cache
-
 ```
 npm run test:all
     - for running all test cases
