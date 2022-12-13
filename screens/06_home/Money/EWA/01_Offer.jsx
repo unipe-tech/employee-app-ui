@@ -70,9 +70,8 @@ const Offer = () => {
   };
 
   useEffect(() => {
-    BackHandler.addEventListener("hardwareBackPress", backAction);
-    return () =>
-      BackHandler.removeEventListener("hardwareBackPress", backAction);
+    BackHandler.addEventListener("offerBackPress", backAction);
+    return () => BackHandler.removeEventListener("offerBackPress", backAction);
   }, []);
 
   useEffect(() => {

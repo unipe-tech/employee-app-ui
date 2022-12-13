@@ -31,9 +31,9 @@ const AadhaarConfirm = () => {
   };
 
   useEffect(() => {
-    BackHandler.addEventListener("hardwareBackPress", backAction);
+    BackHandler.addEventListener("aadhaarConfirmBackPress", backAction);
     return () =>
-      BackHandler.removeEventListener("hardwareBackPress", backAction);
+      BackHandler.removeEventListener("aadhaarConfirmBackPress", backAction);
   }, []);
 
   return (

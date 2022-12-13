@@ -30,7 +30,9 @@ const KYC = () => {
   const [creditPass, setCreditPass] = useState("PENDING");
   const [loading, setLoading] = useState(false);
   const campaignId = useSelector((state) => state.auth.campaignId);
-  const mandateVerifyStatus= useSelector((state)=>state.mandate.verifyStatus);
+  const mandateVerifyStatus = useSelector(
+    (state) => state.mandate.verifyStatus
+  );
   const token = useSelector((state) => state.auth.token);
   const unipeEmployeeId = useSelector((state) => state.auth.unipeEmployeeId);
   const data = useSelector((state) => state.aadhaar.data);
@@ -58,14 +60,17 @@ const KYC = () => {
   };
 
   useEffect(() => {
-    BackHandler.addEventListener("hardwareBackPress", backAction);
-    return () =>
-      BackHandler.removeEventListener("hardwareBackPress", backAction);
+    BackHandler.addEventListener("kycBackPress", backAction);
+    return () => BackHandler.removeEventListener("kycBackPress", backAction);
   }, []);
 
   useEffect(() => {
     if (unipeEmployeeId) {
-      getBackendData({ params: { unipeEmployeeId: unipeEmployeeId }, xpath: "risk-profile", token: token })
+      getBackendData({
+        params: { unipeEmployeeId: unipeEmployeeId },
+        xpath: "risk-profile",
+        token: token,
+      })
         .then((response) => {
           console.log("riskProfileBackendFetch response.data", response.data);
           if (response.data.status === 200) {
@@ -75,7 +80,8 @@ const KYC = () => {
         .catch((error) => {
           console.log("riskProfileBackendFetch error: ", error);
         });
-  }}, [unipeEmployeeId]);
+    }
+  }, [unipeEmployeeId]);
 
   useEffect(() => {
     if (fetched) {
@@ -123,8 +129,7 @@ const KYC = () => {
         });
         if (mandateVerifyStatus === "SUCCESS") {
           navigation.navigate("EWA_AGREEMENT");
-        }
-        else {
+        } else {
           navigation.navigate("EWA_MANDATE");
         }
       })
@@ -170,7 +175,15 @@ const KYC = () => {
         <CollapsibleCard title="KYC Details" isClosed={false} data={kycData} />
 
         <PrimaryButton
-          title={creditPass === "PENDING" ? "Checking Credit Bureau" : (creditPass === "DECLINED" ? "Credit Declined" : (loading ? "Verifying" : "Continue"))}
+          title={
+            creditPass === "PENDING"
+              ? "Checking Credit Bureau"
+              : creditPass === "DECLINED"
+              ? "Credit Declined"
+              : loading
+              ? "Verifying"
+              : "Continue"
+          }
           disabled={creditPass !== "SUCCESS" || loading}
           loading={loading}
           onPress={() => {

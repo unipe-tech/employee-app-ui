@@ -109,9 +109,9 @@ const ProfileForm = () => {
   };
 
   useEffect(() => {
-    BackHandler.addEventListener("hardwareBackPress", backAction);
+    BackHandler.addEventListener("profileBackPress", backAction);
     return () =>
-      BackHandler.removeEventListener("hardwareBackPress", backAction);
+      BackHandler.removeEventListener("profileBackPress", backAction);
   }, []);
 
   return (

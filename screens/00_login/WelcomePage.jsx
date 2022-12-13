@@ -29,11 +29,11 @@ const WelcomePage = () => {
   };
 
   useEffect(() => {
-    BackHandler.addEventListener("hardwareBackPress", backAction);
+    BackHandler.addEventListener("welcomeBackPress", backAction);
     return () =>
-      BackHandler.removeEventListener("hardwareBackPress", backAction);
+      BackHandler.removeEventListener("welcomeBackPress", backAction);
   }, []);
-  
+
   return (
     <SafeAreaView accessibilityLabel="WelcomePage" style={styles.safeContainer}>
       <LogoHeader

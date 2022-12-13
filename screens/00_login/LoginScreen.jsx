@@ -140,9 +140,8 @@ const LoginScreen = () => {
   };
 
   useEffect(() => {
-    BackHandler.addEventListener("hardwareBackPress", backAction);
-    return () =>
-      BackHandler.removeEventListener("hardwareBackPress", backAction);
+    BackHandler.addEventListener("loginBackPress", backAction);
+    return () => BackHandler.removeEventListener("loginBackPress", backAction);
   }, []);
 
   const signIn = () => {

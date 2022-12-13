@@ -46,9 +46,9 @@ const Disbursement = ({ route, navigation }) => {
   };
 
   useEffect(() => {
-    BackHandler.addEventListener("hardwareBackPress", backAction);
+    BackHandler.addEventListener("disbursementBackPress", backAction);
     return () =>
-      BackHandler.removeEventListener("hardwareBackPress", backAction);
+      BackHandler.removeEventListener("disbursementBackPress", backAction);
   }, []);
 
   useEffect(() => {

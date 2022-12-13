@@ -30,9 +30,9 @@ export default PanConfirm = () => {
   };
 
   useEffect(() => {
-    BackHandler.addEventListener("hardwareBackPress", backAction);
+    BackHandler.addEventListener("panConfirmBackPress", backAction);
     return () =>
-      BackHandler.removeEventListener("hardwareBackPress", backAction);
+      BackHandler.removeEventListener("panConfirmBackPress", backAction);
   }, []);
 
   return (

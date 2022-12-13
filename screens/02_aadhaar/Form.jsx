@@ -25,9 +25,9 @@ const AadhaarForm = () => {
   };
 
   useEffect(() => {
-    BackHandler.addEventListener("hardwareBackPress", backAction);
+    BackHandler.addEventListener("aadhaarFormBackPress", backAction);
     return () =>
-      BackHandler.removeEventListener("hardwareBackPress", backAction);
+      BackHandler.removeEventListener("aadhaarFormBackPress", backAction);
   }, []);
 
   return (

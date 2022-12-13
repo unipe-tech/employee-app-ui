@@ -120,7 +120,7 @@ const OTPScreen = () => {
         if (res["response"]["status"] === "success") {
           setVerified(true);
           if (onboarded) {
-            navigation.navigate("BackendSync", {
+            navigation.replace("BackendSync", {
               destination: "HomeStack",
             });
           } else {
@@ -151,9 +151,8 @@ const OTPScreen = () => {
   };
 
   useEffect(() => {
-    BackHandler.addEventListener("hardwareBackPress", backAction);
-    return () =>
-      BackHandler.removeEventListener("hardwareBackPress", backAction);
+    BackHandler.addEventListener("otpBackPress", backAction);
+    return () => BackHandler.removeEventListener("otpBackPress", backAction);
   }, []);
 
   return (
