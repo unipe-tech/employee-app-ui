@@ -31,9 +31,9 @@ const BankConfirm = () => {
   };
 
   useEffect(() => {
-    BackHandler.addEventListener("hardwareBackPress", backAction);
+    BackHandler.addEventListener("bankConfirmBackPress", backAction);
     return () =>
-      BackHandler.removeEventListener("hardwareBackPress", backAction);
+      BackHandler.removeEventListener("bankConfirmBackPress", backAction);
   }, []);
 
   return (

@@ -1,10 +1,11 @@
-import { View, Alert } from "react-native";
+import { View, Alert, BackHandler } from "react-native";
 import DetailItem from "./DetailItem";
 import PrimaryButton from "../../components/atoms/PrimaryButton";
 import { useSelector } from "react-redux";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { styles } from "../../styles";
 import Header from "../../components/atoms/Header";
+import { useEffect } from "react";
 
 const Profile = ({ navigation }) => {
   const aadhaarData = useSelector((state) => state.aadhaar.data);
@@ -43,6 +44,13 @@ const Profile = ({ navigation }) => {
     });
     return true;
   };
+
+  useEffect(() => {
+    BackHandler.addEventListener("accountProfileBackPress", backAction);
+    return () =>
+      BackHandler.removeEventListener("accountProfileBackPress", backAction);
+  }, []);
+
   return (
     <SafeAreaView style={styles.safeContainer}>
       <Header title="Profile Details" onLeftIconPress={() => backAction()} />

@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import TopTabNav from "../../navigators/TopTabNav";
 import Mandate from "./Mandate";
 import Aadhaar from "./Aadhaar";
 import Bank from "./Bank";
 import Pan from "./PAN";
 import Header from "../../components/atoms/Header";
-import { SafeAreaView } from "react-native";
+import { SafeAreaView, BackHandler } from "react-native";
 import { styles } from "../../styles";
 
 const KYCScreen = ({ navigation }) => {
@@ -24,6 +24,13 @@ const KYCScreen = ({ navigation }) => {
     });
     return true;
   };
+
+  useEffect(() => {
+    BackHandler.addEventListener("accountKycBackPress", backAction);
+    return () =>
+      BackHandler.removeEventListener("accountKycBackPress", backAction);
+  }, []);
+
   return (
     <SafeAreaView style={styles.safeContainer}>
       <Header title="KYC" onLeftIconPress={() => backAction()} />

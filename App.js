@@ -23,13 +23,14 @@ let codePushOptions = {
   checkFrequency: codePush.CheckFrequency.ON_APP_START,
   mandatoryInstallMode: codePush.InstallMode.IMMEDIATE,
   updateDialog: true, //InstallMode.ON_NEXT_RESUME to have minimum background duration effect
+  // overrideAppVersion: "2022.12.09",
 };
 
 const analyticsStatus = async () => {
   STAGE == "dev"
     ? await Analytics.setEnabled(false)
     : await Analytics.setEnabled(true);
-    console.log("analyticsStatus",STAGE)
+  console.log("analyticsStatus", STAGE);
 };
 
 const App = () => {
