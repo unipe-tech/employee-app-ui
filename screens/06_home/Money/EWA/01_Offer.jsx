@@ -24,6 +24,7 @@ import {
   stepIndicatorStyles,
 } from "../../../../styles";
 import TnC from "../../../../templates/docs/EWATnC.js";
+import MoneySilder from "../../../../components/organisms/MoneySilder";
 
 const Offer = () => {
   const dispatch = useDispatch();
@@ -40,6 +41,7 @@ const Offer = () => {
 
   const token = useSelector((state) => state.auth.token);
   const unipeEmployeeId = useSelector((state) => state.auth.unipeEmployeeId);
+  const campaignId = useSelector((state) => state.auth.campaignId);
   const ewaLiveSlice = useSelector((state) => state.ewaLive);
   const offerId = useSelector((state) => state.ewaLive.offerId);
   const eligibleAmount = useSelector((state) => state.ewaLive.eligibleAmount);
@@ -63,7 +65,7 @@ const Offer = () => {
   }, [deviceId, ipAddress]);
 
   const backAction = () => {
-    navigation.navigate("EWA");
+    navigation.navigate("Money", { screen: "EWA" });
     return true;
   };
 
@@ -96,6 +98,7 @@ const Offer = () => {
           timestamp: Date.now(),
           ipAddress: ipAddress,
           deviceId: deviceId,
+          campaignId: campaignId,
         },
         token: token,
       })
@@ -121,6 +124,7 @@ const Offer = () => {
           ipAddress: ipAddress,
           deviceId: deviceId,
           loanAmount: parseInt(amount),
+          campaignId: campaignId,
         },
         token: token,
       })
@@ -163,6 +167,7 @@ const Offer = () => {
     <SafeAreaView style={styles.safeContainer}>
       <Header title="Advance Salary" onLeftIconPress={() => backAction()} />
       <View style={styles.container}>
+        {/* <MoneySilder /> */}
         <FormInput
           accessibilityLabel={"MoneyInput"}
           placeholder="Enter amount"

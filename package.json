@@ -2,8 +2,8 @@
 	"name": "employee-app",
 	"main": "index.js",
 	"scripts": {
-		"start:dev": "bash ./android/ACFlavours.sh -e dev && gulp set --env=dev && npx react-native run-android --variant=devDebug --appIdSuffix=dev",
-		"start:test": "bash ./android/ACFlavours.sh -e qa && gulp set --env=test && npx react-native run-android --variant=qaDebug --appIdSuffix=qa",
+		"start:dev": "bash ./android/ACFlavours.sh -e dev && gulp set --env=dev && npx react-native run-android --active-arch-only --variant=devDebug --appIdSuffix=dev",
+		"start:test": "bash ./android/ACFlavours.sh -e qa && gulp set --env=test && npx react-native run-android --active-arch-only --variant=qaDebug --appIdSuffix=qa",
 		"build:dev": "bash ./android/ACFlavours.sh -e dev && bash ./android/versioning.sh && gulp set --env=dev && cd android && ./gradlew assembleDevRelease",
 		"build:qa": "bash ./android/ACFlavours.sh -e qa && bash ./android/versioning.sh && gulp set --env=test && cd android && ./gradlew assembleQaRelease",
 		"build:demo": "bash ./android/ACFlavours.sh -e demo && bash ./android/versioning.sh && gulp set --env=test && cd android && ./gradlew assembleQaRelease",
@@ -55,7 +55,6 @@
 		"react-native-code-push": "^7.0.5",
 		"react-native-collapsible": "^1.6.0",
 		"react-native-config": "^1.4.6",
-		"react-native-countdown-component": "^2.7.1",
 		"react-native-device-info": "^10.2.0",
 		"react-native-dotenv": "^3.3.1",
 		"react-native-extended-stylesheet": "^0.12.0",
@@ -77,11 +76,12 @@
 		"react-native-sms-retriever": "^1.1.1",
 		"react-native-splash-screen": "^3.3.0",
 		"react-native-step-indicator": "^1.0.3",
-		"react-native-svg": "^13.2.0",
+		"react-native-svg": "^13.6.0",
 		"react-native-tab-view": "^3.1.1",
 		"react-native-vector-icons": "^9.1.0",
 		"react-native-web": "0.17.7",
 		"react-native-webview": "^11.23.1",
+		"react-native-youtube-iframe": "^2.2.2",
 		"react-redux": "^8.0.2",
 		"redux-persist": "^6.0.0",
 		"wd": "^1.14.0"
@@ -100,7 +100,7 @@
 		"glob": "7.2.0"
 	},
 	"private": true,
-	"version": "2022.11.23",
+	"version": "2022.12.09",
 	"jest": {
 		"verbose": true,
 		"testTimeout": 50000

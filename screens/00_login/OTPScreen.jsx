@@ -82,16 +82,15 @@ const OTPScreen = () => {
         if (res["response"]["status"] === "success") {
           setOtp("");
           setBack(false);
-          Alert.alert("OTP resent successfully", "",
-            [
-              { text: "Ok",
-                onPress: () => { 
-                  inputRef.current.focus();
-                  dispatch(resetTimer());
-                }
+          Alert.alert("OTP resent successfully", "", [
+            {
+              text: "Ok",
+              onPress: () => {
+                inputRef.current.focus();
+                dispatch(resetTimer());
               },
-            ]
-          );
+            },
+          ]);
           Analytics.trackEvent("OTPScreen|SendSms|Success", {
             unipeEmployeeId: unipeEmployeeId,
           });
@@ -125,7 +124,9 @@ const OTPScreen = () => {
               destination: "HomeStack",
             });
           } else {
-            navigation.navigate("Welcome");
+            navigation.navigate("BackendSync", {
+              destination: "Welcome",
+            });
           }
           Analytics.trackEvent("OTPScreen|Check|Success", {
             unipeEmployeeId: unipeEmployeeId,
@@ -181,7 +182,12 @@ const OTPScreen = () => {
               }}
             />
           </Text>
-          <OtpInput otp={otp} setOtp={setOtp} inputRef={inputRef} />
+          <OtpInput
+            otp={otp}
+            setOtp={setOtp}
+            inputRef={inputRef}
+            accessibilityLabel="OtpInput"
+          />
 
           <Text style={styles.subHeadline} accessibilityLabel="OtpText">
             Didn’t receive the secure code?{" "}

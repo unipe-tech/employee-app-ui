@@ -6,12 +6,12 @@ const Header = ({ title, onLeftIconPress, onRightIconPress }) => {
     <AppBar
       title={title}
       contentContainerStyle={{ height: 50 }}
-      color={COLORS.primary}
-      titleStyle={{ color: COLORS.white, ...FONTS.h3 }}
+      color={COLORS.white}
+      titleStyle={{ color: COLORS.black, ...FONTS.body3 }}
       leading={
         <IconButton
           accessibilityLabel="BackIcon"
-          icon={<Icon name="arrow-back" size={20} color="white" />}
+          icon={<Icon name="arrow-back" size={20} color={COLORS.black} />}
           onPress={onLeftIconPress}
         />
       }

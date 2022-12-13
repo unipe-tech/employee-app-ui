@@ -29,6 +29,7 @@ const KYC = () => {
 
   const [creditPass, setCreditPass] = useState("PENDING");
   const [loading, setLoading] = useState(false);
+  const campaignId = useSelector((state) => state.auth.campaignId);
   const mandateVerifyStatus = useSelector(
     (state) => state.mandate.verifyStatus
   );
@@ -93,6 +94,7 @@ const KYC = () => {
           timestamp: Date.now(),
           ipAddress: ipAddress,
           deviceId: deviceId,
+          campaignId: campaignId,
         },
         token: token,
       })
@@ -116,6 +118,7 @@ const KYC = () => {
         timestamp: Date.now(),
         ipAddress: ipAddress,
         deviceId: deviceId,
+        campaignId: campaignId,
       },
       token: token,
     })
