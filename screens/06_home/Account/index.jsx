@@ -130,7 +130,10 @@ const Account = (props) => {
           />
         )}
 
-        <Text style={{ ...FONTS.h4, color: COLORS.black, marginLeft: 15 }}>
+        <Text
+          accessibilityLabel="DrawerName"
+          style={{ ...FONTS.h4, color: COLORS.black, marginLeft: 15 }}
+        >
           {name ? name : "Guest User"}
         </Text>
       </View>
