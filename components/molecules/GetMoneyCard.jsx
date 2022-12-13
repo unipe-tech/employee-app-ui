@@ -4,17 +4,14 @@ import EStyleSheet from "react-native-extended-stylesheet";
 import { COLORS, FONTS } from "../../constants/Theme";
 import PrimaryButton from "../atoms/PrimaryButton";
 
-const GetMoneyCard = ({
-  navigation,
-  eligible,
-  amount,
-  accessible,
-}) => {
+const GetMoneyCard = ({ navigation, eligible, amount, accessible }) => {
   // const navigation = useNavigation();
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Here is your On-Demand Salary</Text>
+    <View accessibilityLabel="HomeOfferCard" style={styles.container}>
+      <Text accessibilityLabel="EWAText" style={styles.text}>
+        Here is your On-Demand Salary
+      </Text>
 
       <Text style={[styles.text, { ...FONTS.h1 }]}>{amount}</Text>
       <View
@@ -28,6 +25,7 @@ const GetMoneyCard = ({
       {/* TODO: add progress bar as background filled view */}
 
       <PrimaryButton
+        accessibilityLabel={"GetMoneyNowBtn"}
         title={
           !accessible
             ? "Offer Inactive"

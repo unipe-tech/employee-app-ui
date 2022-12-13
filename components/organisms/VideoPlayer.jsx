@@ -12,7 +12,7 @@ export default function VideoPlayer() {
   }, []);
 
   return (
-    <View style={{ marginVertical: 15 }}>
+    <View style={{ marginVertical: 15 }} accessibilityLabel="video">
       <YoutubePlayer
         height={300}
         play={playing}

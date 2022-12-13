@@ -29,33 +29,62 @@ afterAll(async () => {
   }
 });
 
+test("Correct Credentials", async () => {
+  await driver.pause(3000);
+  const devMenuLoginBtn = await driver.$("~Login");
+  await devMenuLoginBtn.touchAction({ action: "tap" });
+
+  await driver.$("~MobileNumber").waitForDisplayed({ timeout: 8000 });
+  const loginUsernameInput = await driver.$("~MobileNumber");
+  await loginUsernameInput.setValue("9999999999");
+  await driver.$("~LoginScreen").waitForDisplayed({ timeout: 8000 });
+  await driver.$("~LoginScreen").click();
+
+  await driver.$("~LoginNextBtn").waitForDisplayed({ timeout: 8000 });
+  const loginNextButton = await driver.$("~LoginNextBtn");
+  await loginNextButton.touchAction({ action: "tap" });
+
+  const OtpScreen = await driver.$("~OtpScreen");
+  await OtpScreen.waitForDisplayed({ timeout: 8000 });
+
+  const OtpInput = await driver.$("~OtpInput");
+  await OtpInput.waitForDisplayed({ timeout: 6000 });
+  await OtpInput.clearValue();
+  await OtpInput.setValue("123456");
+  await driver.$("~OtpText").waitForDisplayed({ timeout: 8000 });
+  await driver.$("~OtpText").click();
+
+  await driver.$("~OtpBtn").waitForDisplayed({ timeout: 8000 });
+  const OtpButton = await driver.$("~OtpBtn");
+  await OtpButton.touchAction({ action: "tap" });
+}, 60000);
+
 describe("Drawer Test", () => {
   test("Terms and Privacy Modal", async () => {
-    await driver.$("~Home").touchAction({ action: "tap" });
+    // await driver.$("~Home").touchAction({ action: "tap" });
     await driver.pause(3000);
-    await driver.$("~NavigationDrawer").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~NavigationDrawer").touchAction("tap");
-    await driver.$("~TermsIcon").touchAction("tap");
+    await driver.$("~Account").waitForDisplayed({ timeout: 8000 });
+    await driver.$("~Account").touchAction("tap");
+    await driver.$("~Terms & Conditions").touchAction("tap");
     await driver.$("~TermsViewModal").waitForDisplayed({ timeout: 8000 });
     await driver.$("~CloseButton").touchAction("tap");
   });
 
   test("Terms and Privacy Modal", async () => {
-    await driver.$("~PrivacyIcon").touchAction("tap");
+    await driver.$("~Privacy Policy").touchAction("tap");
     await driver.$("~PrivacyViewModal").waitForDisplayed({ timeout: 8000 });
     await driver.$("~CloseButton").touchAction("tap");
     await driver.pause(2000);
   });
 
   test("Aadhaar KYC", async () => {
-    await driver.$("~NavigationDrawer").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~NavigationDrawer").touchAction("tap");
-    const DrawerText = await driver.$("~DrawerName").getText();
-    expect(DrawerText).toEqual("KARAN XXXX");
-    await driver.$("~KYCIcon").touchAction("tap");
+    // const DrawerText = await driver.$("~DrawerName").getText();
+    // expect(DrawerText).toEqual("KARAN XXXX");
+    // await driver.pause(2000);
+    await driver.$("~KYC").touchAction("tap");
     await driver.$("~Full Name Label").waitForDisplayed({ timeout: 8000 });
     const FullNameLabel = await driver.$("~KARAN XXXX Value").getText();
-    const DOBLabel = await driver.$("~01-01-1990 Value").getText();
+    const DOBLabel = await driver.$("~1990-10-10 Value").getText();
     const AadhaarNumberLabel = await driver.$("~123452001001 Value").getText();
     const AddressLabel = await driver
       .$(
@@ -65,7 +94,7 @@ describe("Drawer Test", () => {
     const VerifyStatusLabel = await driver.$("~SUCCESS Value").getText();
 
     expect(FullNameLabel).toEqual("KARAN XXXX");
-    expect(DOBLabel).toEqual("01-01-1990");
+    expect(DOBLabel).toEqual("1990-10-10");
     expect(AadhaarNumberLabel).toEqual("123452001001");
     expect(AddressLabel).toEqual(
       "3-184/A/1/, XXXXXXXXXX, XXXXXXXXXX, XXXXXXXXXX, Andhra Pradesh, 500001"
@@ -108,9 +137,8 @@ describe("Drawer Test", () => {
 
 describe("Profile Test", () => {
   test("Profile Test", async () => {
-    await driver.$("~NavigationDrawer").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~NavigationDrawer").touchAction("tap");
-    await driver.$("~ProfileIcon").touchAction("tap");
+    await driver.$("~BackIcon").touchAction("tap");
+    await driver.$("~Profile").touchAction("tap");
     const FullNameLabel = await driver.$("~KARAN XXXX Value").getText();
     const EmailIdLabel = await driver.$("~abc@gmail.com Value").getText();
     const MobileNumberLabel = await driver.$("~9999999999 Value").getText();

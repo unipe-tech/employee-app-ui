@@ -20,6 +20,7 @@ const LogoHeaderBack = ({ leftOnPress, rightOnPress, title, skipEnabled }) => {
       rightIcon={
         skipEnabled ? (
           <View
+            accessibilityLabel="ForwardIcon"
             style={{
               flexDirection: "row",
               alignItems: "center",

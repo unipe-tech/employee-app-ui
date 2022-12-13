@@ -29,10 +29,28 @@ afterAll(async () => {
   }
 });
 
+test("Aadhaar Test", async () => {
+  await driver.pause(3000);
+  await driver.$("~AADHAAR").touchAction({ action: "tap" });
+  await driver.$("~AadhaarForm").waitForDisplayed({ timeout: 8000 });
+  await driver.$("~AadhaarInput").clearValue();
+  await driver.$("~AadhaarInput").setValue("123452001001");
+
+  await driver.$("~InfoCard").touchAction({ action: "tap" });
+  await driver.$("~AadhaarOtpBtn").touchAction({ action: "tap" });
+
+  await driver.$("~AadhaarOtpInput").waitForDisplayed({ timeout: 8000 });
+  await driver.$("~AadhaarOtpInput").setValue("201002");
+
+  await driver.$("~AadhaarVerifyBtn").touchAction({ action: "tap" });
+
+  await driver.$("~YesButton").waitForDisplayed({ timeout: 8000 });
+  await driver.$("~YesButton").touchAction({ action: "tap" });
+});
+
 describe("PAN Test", () => {
   test("PAN Back Testing", async () => {
-    await driver.pause(3000);
-    await driver.$("~PAN").touchAction({ action: "tap" });
+    await driver.pause(2000);
     await driver.$("~BackIcon").touchAction("tap");
     await driver.pause(2000);
     await driver.acceptAlert();

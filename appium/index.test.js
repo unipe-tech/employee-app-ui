@@ -407,27 +407,26 @@ describe("Bank Test", () => {
 
 describe("Drawer Test", () => {
   test("Terms and Privacy Modal", async () => {
+    await driver.$("~Home").touchAction({ action: "tap" });
     await driver.pause(3000);
-    await driver.$("~NavigationDrawer").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~NavigationDrawer").touchAction("tap");
-    await driver.$("~TermsIcon").touchAction("tap");
+    await driver.$("~Account").waitForDisplayed({ timeout: 8000 });
+    await driver.$("~Account").touchAction("tap");
+    await driver.$("~Terms & Conditions").touchAction("tap");
     await driver.$("~TermsViewModal").waitForDisplayed({ timeout: 8000 });
     await driver.$("~CloseButton").touchAction("tap");
   });
 
   test("Terms and Privacy Modal", async () => {
-    await driver.$("~PrivacyIcon").touchAction("tap");
+    await driver.$("~Privacy Policy").touchAction("tap");
     await driver.$("~PrivacyViewModal").waitForDisplayed({ timeout: 8000 });
     await driver.$("~CloseButton").touchAction("tap");
     await driver.pause(2000);
   });
 
   test("Aadhaar KYC", async () => {
-    await driver.$("~NavigationDrawer").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~NavigationDrawer").touchAction("tap");
     const DrawerText = await driver.$("~DrawerName").getText();
     expect(DrawerText).toEqual("KARAN XXXX");
-    await driver.$("~KYCIcon").touchAction("tap");
+    await driver.$("~KYC").touchAction("tap");
     await driver.$("~Full Name Label").waitForDisplayed({ timeout: 8000 });
     const FullNameLabel = await driver.$("~KARAN XXXX Value").getText();
     const DOBLabel = await driver.$("~01-01-1990 Value").getText();
@@ -483,8 +482,7 @@ describe("Drawer Test", () => {
 
 describe("Profile Test", () => {
   test("Profile Test", async () => {
-    await driver.$("~NavigationDrawer").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~NavigationDrawer").touchAction("tap");
+    await driver.$("~BackIcon").touchAction("tap");
     await driver.$("~ProfileIcon").touchAction("tap");
     const FullNameLabel = await driver.$("~KARAN XXXX Value").getText();
     const EmailIdLabel = await driver.$("~abc@gmail.com Value").getText();
@@ -546,11 +544,10 @@ describe("Bottom Tab Navigation Testing", () => {
 describe("EWA test", () => {
   test("Offer Page Back Button Testing", async () => {
     await driver.$("~Home").touchAction("tap");
-    await driver.$("~WithdrawNowBtn").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~WithdrawNowBtn").touchAction("tap");
-    await driver.pause(2000);
+    await driver.pause(3000);
     await driver.$("~GetMoneyNowBtn").waitForDisplayed({ timeout: 8000 });
     await driver.$("~GetMoneyNowBtn").touchAction("tap");
+    await driver.pause(2000);
     await driver.$("~BackIcon").touchAction("tap");
     await driver.pause(2000);
     await driver.$("~GetMoneyNowBtn").waitForDisplayed({ timeout: 8000 });
@@ -558,11 +555,11 @@ describe("EWA test", () => {
   });
 
   test("KYC Page back button testing", async () => {
-    await driver.$("~MoneyInput").setValue("1000");
+    await driver.$("~MoneyInput").setValue("20");
     await driver.$("~ContinueBtn").touchAction("tap");
     await driver.pause(2000);
     await driver.$("~BackIcon").touchAction("tap");
-    await driver.$("~MoneyInput").setValue("1000");
+    await driver.$("~MoneyInput").setValue("20");
     await driver.$("~ContinueBtn").touchAction("tap");
     await driver.$("~KYCContinueBtn").waitForDisplayed({ timeout: 8000 });
     await driver.pause(2000);
@@ -579,9 +576,9 @@ describe("EWA test", () => {
   test("Success", async () => {
     await driver.$("~AgreementScreen").waitForDisplayed({ timeout: 8000 });
     await driver.$("~Loan Amount Key").waitForDisplayed({ timeout: 8000 });
-    expect(await driver.$("~₹1000 Value").getText()).toEqual("₹1000");
-    expect(await driver.$("~₹45 Value").getText()).toEqual("₹45");
-    expect(await driver.$("~₹955 Value").getText()).toEqual("₹955");
+    expect(await driver.$("~₹20 Value").getText()).toEqual("₹20");
+    expect(await driver.$("~₹1 Value").getText()).toEqual("₹1");
+    expect(await driver.$("~₹19 Value").getText()).toEqual("₹19");
     expect(await driver.$("~KARAN XXXX Value").getText()).toEqual("KARAN XXXX");
     expect(await driver.$("~ABCDE2000F Value").getText()).toEqual("ABCDE2000F");
     expect(await driver.$("~01-01-1990 Value").getText()).toEqual("01-01-1990");

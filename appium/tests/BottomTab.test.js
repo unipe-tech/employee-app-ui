@@ -29,11 +29,42 @@ afterAll(async () => {
   }
 });
 
+test("Correct Credentials", async () => {
+  await driver.pause(3000);
+  const devMenuLoginBtn = await driver.$("~Login");
+  await devMenuLoginBtn.touchAction({ action: "tap" });
+
+  await driver.$("~MobileNumber").waitForDisplayed({ timeout: 8000 });
+  const loginUsernameInput = await driver.$("~MobileNumber");
+  await loginUsernameInput.setValue("9999999999");
+  await driver.$("~LoginScreen").waitForDisplayed({ timeout: 8000 });
+  await driver.$("~LoginScreen").click();
+
+  await driver.$("~LoginNextBtn").waitForDisplayed({ timeout: 8000 });
+  const loginNextButton = await driver.$("~LoginNextBtn");
+  await loginNextButton.touchAction({ action: "tap" });
+
+  const OtpScreen = await driver.$("~OtpScreen");
+  await OtpScreen.waitForDisplayed({ timeout: 8000 });
+
+  const OtpInput = await driver.$("~OtpInput");
+  await OtpInput.waitForDisplayed({ timeout: 6000 });
+  await OtpInput.clearValue();
+  await OtpInput.setValue("123456");
+  await driver.$("~OtpText").waitForDisplayed({ timeout: 8000 });
+  await driver.$("~OtpText").click();
+
+  await driver.$("~OtpBtn").waitForDisplayed({ timeout: 8000 });
+  const OtpButton = await driver.$("~OtpBtn");
+  await OtpButton.touchAction({ action: "tap" });
+}, 60000);
+
 describe("Bottom Tab Navigation Testing", () => {
   test("Home Offer Card Present", async () => {
-    await driver.$("~Home").touchAction({ action: "tap" });
+    // await driver.$("~Home").touchAction({ action: "tap" });
     await driver.pause(4000);
     await driver.$("~HomeOfferCard").waitForDisplayed({ timeout: 8000 });
+    await driver.$("~video").waitForDisplayed({ timeout: 8000 });
   });
   test("Documents Screen", async () => {
     await driver.$("~Documents").touchAction("tap");
@@ -50,7 +81,7 @@ describe("Bottom Tab Navigation Testing", () => {
     expect(driver.$("~MoreDetails")).toBeTruthy();
   });
   test("Family Details Screen", async () => {
-    await driver.$("~Family Address").touchAction("tap");
+    await driver.$("~Family Details").touchAction("tap");
     expect(driver.$("~MoreDetails")).toBeTruthy();
   });
   test("Your Address Screen", async () => {
@@ -67,6 +98,7 @@ describe("Bottom Tab Navigation Testing", () => {
   });
   test("Money Screen", async () => {
     await driver.$("~Money").touchAction("tap");
+    await driver.pause(2000);
     expect(driver.$("~EWAText")).toBeTruthy();
   });
 });

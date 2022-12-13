@@ -136,6 +136,7 @@ const Account = (props) => {
       </View>
       {options.map((item, index) => (
         <TouchableOpacity
+          accessibilityLabel={item.title}
           key={item.title}
           activeOpacity={0.7}
           onPress={() => onPressCard(item)}
@@ -172,6 +173,7 @@ const Account = (props) => {
       ))}
       {isTermsOfUseModalVisible && (
         <TermsAndPrivacyModal
+          accessibilityLabel={"TermsViewModal"}
           isVisible={isTermsOfUseModalVisible}
           setIsVisible={setIsTermsOfUseModalVisible}
           data={termsOfUse}
@@ -179,6 +181,7 @@ const Account = (props) => {
       )}
       {isPrivacyModalVisible && (
         <TermsAndPrivacyModal
+          accessibilityLabel={"PrivacyViewModal"}
           isVisible={isPrivacyModalVisible}
           setIsVisible={setIsPrivacyModalVisible}
           data={privacyPolicy}
