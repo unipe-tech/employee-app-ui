@@ -95,16 +95,13 @@ const LoginScreen = () => {
   }, [onboarded]);
 
   useEffect(() => {
-    dispatch(addPhoneNumber(phoneNumber));
-  }, [phoneNumber]);
-
-  useEffect(() => {
     dispatch(addUnipeEmployeeId(unipeEmployeeId));
   }, [unipeEmployeeId]);
 
   useEffect(() => {
     var phoneno = /^[0-9]{10}$/gm;
     if (phoneno.test(phoneNumber) && phoneNumber.length === 10) {
+      dispatch(addPhoneNumber(phoneNumber));
       setNext(true);
       console.log("true");
     } else {
