@@ -101,7 +101,7 @@ describe("EWA test", () => {
     expect(await driver.$("~₹19 Value").getText()).toEqual("₹19");
     expect(await driver.$("~KARAN XXXX Value").getText()).toEqual("KARAN XXXX");
     expect(await driver.$("~ABCDE2000F Value").getText()).toEqual("ABCDE2000F");
-    expect(await driver.$("~1990-10-10 Value").getText()).toEqual("1990-10-10");
+    expect(await driver.$("~1995-09-25 Value").getText()).toEqual("1995-09-25");
     expect(await driver.$("~YES BANK Value").getText()).toEqual("YES BANK");
     expect(await driver.$("~SANTACRUZ, MUMBAI Value").getText()).toEqual(
       "SANTACRUZ, MUMBAI"

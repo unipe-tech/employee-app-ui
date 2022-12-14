@@ -84,7 +84,7 @@ describe("Drawer Test", () => {
     await driver.$("~KYC").touchAction("tap");
     await driver.$("~Full Name Label").waitForDisplayed({ timeout: 8000 });
     const FullNameLabel = await driver.$("~KARAN XXXX Value").getText();
-    const DOBLabel = await driver.$("~1990-10-10 Value").getText();
+    const DOBLabel = await driver.$("~1995-09-25 Value").getText();
     const AadhaarNumberLabel = await driver.$("~123452001001 Value").getText();
     const AddressLabel = await driver
       .$(
@@ -94,7 +94,7 @@ describe("Drawer Test", () => {
     const VerifyStatusLabel = await driver.$("~SUCCESS Value").getText();
 
     expect(FullNameLabel).toEqual("KARAN XXXX");
-    expect(DOBLabel).toEqual("1990-10-10");
+    expect(DOBLabel).toEqual("1995-09-25");
     expect(AadhaarNumberLabel).toEqual("123452001001");
     expect(AddressLabel).toEqual(
       "3-184/A/1/, XXXXXXXXXX, XXXXXXXXXX, XXXXXXXXXX, Andhra Pradesh, 500001"

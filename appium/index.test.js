@@ -30,29 +30,29 @@ afterAll(async () => {
 });
 
 describe("Login Test", () => {
-  test("InValid Credentials", async () => {
-    await driver.pause(3000);
-    await driver.$("~Login").touchAction({ action: "tap" });
+  // test("InValid Credentials", async () => {
+  //   await driver.pause(3000);
+  //   await driver.$("~Login").touchAction({ action: "tap" });
 
-    await driver.$("~MobileNumber").waitForDisplayed({ timeout: 8000 });
-    const loginUsernameInput = await driver.$("~MobileNumber");
-    await loginUsernameInput.setValue("9999999998");
-    await driver.$("~LoginScreen").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~LoginScreen").click();
+  //   await driver.$("~MobileNumber").waitForDisplayed({ timeout: 8000 });
+  //   const loginUsernameInput = await driver.$("~MobileNumber");
+  //   await loginUsernameInput.setValue("9999999998");
+  //   await driver.$("~LoginScreen").waitForDisplayed({ timeout: 8000 });
+  //   await driver.$("~LoginScreen").click();
 
-    await driver.$("~LoginNextBtn").waitForDisplayed({ timeout: 8000 });
-    const loginNextButton = await driver.$("~LoginNextBtn");
-    await loginNextButton.touchAction({ action: "tap" });
+  //   await driver.$("~LoginNextBtn").waitForDisplayed({ timeout: 8000 });
+  //   const loginNextButton = await driver.$("~LoginNextBtn");
+  //   await loginNextButton.touchAction({ action: "tap" });
 
-    await driver.pause(7000);
+  //   await driver.pause(7000);
 
-    await driver.acceptAlert();
-  });
+  //   await driver.acceptAlert();
+  // });
 
   test("Correct Credentials", async () => {
-    // await driver.pause(3000);
-    // const devMenuLoginBtn = await driver.$("~Login");
-    // await devMenuLoginBtn.touchAction({ action: "tap" });
+    await driver.pause(3000);
+    const devMenuLoginBtn = await driver.$("~Login");
+    await devMenuLoginBtn.touchAction({ action: "tap" });
 
     await driver.$("~MobileNumber").waitForDisplayed({ timeout: 8000 });
     const loginUsernameInput = await driver.$("~MobileNumber");
@@ -64,11 +64,11 @@ describe("Login Test", () => {
     const loginNextButton = await driver.$("~LoginNextBtn");
     await loginNextButton.touchAction({ action: "tap" });
     await driver.$("~BackIcon").touchAction("tap");
-    await driver.pause(4000);
+    await driver.pause(1500);
     await driver.acceptAlert();
 
-    const OtpScreen = await driver.$("~OtpScreen");
-    await OtpScreen.waitForDisplayed({ timeout: 8000 });
+    // const OtpScreen = await driver.$("~OtpScreen");
+    // await OtpScreen.waitForDisplayed({ timeout: 8000 });
 
     const OtpInput = await driver.$("~OtpInput");
     await OtpInput.waitForDisplayed({ timeout: 6000 });
@@ -82,329 +82,329 @@ describe("Login Test", () => {
     await OtpButton.touchAction({ action: "tap" });
     await driver.pause(3000);
 
-    const WelcomeScreen = await driver.$("~WelcomePage");
-    await WelcomeScreen.waitForDisplayed({ timeout: 8000 });
+    // const WelcomeScreen = await driver.$("~WelcomePage");
+    // await WelcomeScreen.waitForDisplayed({ timeout: 8000 });
 
-    const WelcomeButton = await driver.$("~WelcomeBtn");
-    WelcomeButton.touchAction({ action: "tap" });
+    // const WelcomeButton = await driver.$("~WelcomeBtn");
+    // WelcomeButton.touchAction({ action: "tap" });
   });
 });
 
-describe("Profile Test", () => {
-  test("Demo Creds", async () => {
-    await driver.$("~ProfileForm").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~BackIcon").touchAction("tap");
-    await driver.pause(2000);
-    await driver.acceptAlert();
-    await driver.$("~WelcomeBtn").touchAction("tap");
-  });
-  test("Demo Creds", async () => {
-    await driver.$("~ProfileForm").waitForDisplayed({ timeout: 8000 });
-    const EducationDropdown = await driver.$("~EducationDropdown");
-    const MaritalStatusDropdown = await driver.$("~MaritalStatusDropdown");
-    const MotherNameInput = await driver.$("~MotherNameInput");
-    const AltPhoneNumberInput = await driver.$("~AltPhoneNumberInput");
-    const EmailAddressInput = await driver.$("~EmailAddressInput");
-    await EducationDropdown.touchAction({ action: "tap" });
-    await driver.$("~12th Pass").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~12th Pass").touchAction({ action: "tap" });
-    await driver.$("~DropdownBtn").touchAction("tap");
+// describe("Profile Test", () => {
+//   test("Demo Creds", async () => {
+//     await driver.$("~ProfileForm").waitForDisplayed({ timeout: 8000 });
+//     await driver.$("~BackIcon").touchAction("tap");
+//     await driver.pause(2000);
+//     await driver.acceptAlert();
+//     await driver.$("~WelcomeBtn").touchAction("tap");
+//   });
+//   test("Demo Creds", async () => {
+//     await driver.$("~ProfileForm").waitForDisplayed({ timeout: 8000 });
+//     const EducationDropdown = await driver.$("~EducationDropdown");
+//     const MaritalStatusDropdown = await driver.$("~MaritalStatusDropdown");
+//     const MotherNameInput = await driver.$("~MotherNameInput");
+//     const AltPhoneNumberInput = await driver.$("~AltPhoneNumberInput");
+//     const EmailAddressInput = await driver.$("~EmailAddressInput");
+//     await EducationDropdown.touchAction({ action: "tap" });
+//     await driver.$("~12th Pass").waitForDisplayed({ timeout: 8000 });
+//     await driver.$("~12th Pass").touchAction({ action: "tap" });
+//     await driver.$("~DropdownBtn").touchAction("tap");
 
-    await MaritalStatusDropdown.touchAction({ action: "tap" });
+//     await MaritalStatusDropdown.touchAction({ action: "tap" });
 
-    await driver.$("~Married").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~Married").touchAction({ action: "tap" });
-    await driver.$("~DropdownBtn").touchAction("tap");
+//     await driver.$("~Married").waitForDisplayed({ timeout: 8000 });
+//     await driver.$("~Married").touchAction({ action: "tap" });
+//     await driver.$("~DropdownBtn").touchAction("tap");
 
-    await MotherNameInput.setValue("Wonder Woman");
-    await AltPhoneNumberInput.setValue("9999999998");
-    await EmailAddressInput.setValue("abc@gmail.com");
+//     await MotherNameInput.setValue("Wonder Woman");
+//     await AltPhoneNumberInput.setValue("9999999998");
+//     await EmailAddressInput.setValue("abc@gmail.com");
 
-    await driver.$("~ProfileBtn").touchAction({ action: "tap" });
-  });
-});
+//     await driver.$("~ProfileBtn").touchAction({ action: "tap" });
+//   });
+// });
 
-describe("Aadhaar Test", () => {
-  test("Aadhaar number does not have a mobile number registered with it", async () => {
-    await driver.pause(3000);
-    await driver.$("~AadhaarForm").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~AadhaarInput").clearValue();
-    await driver.$("~AadhaarInput").setValue("123452001008");
-    await driver.$("~InfoCard").touchAction({ action: "tap" });
-    await driver.$("~AadhaarOtpBtn").touchAction({ action: "tap" });
-    await driver.pause(5000);
+// describe("Aadhaar Test", () => {
+//   test("Aadhaar number does not have a mobile number registered with it", async () => {
+//     await driver.pause(3000);
+//     await driver.$("~AadhaarForm").waitForDisplayed({ timeout: 8000 });
+//     await driver.$("~AadhaarInput").clearValue();
+//     await driver.$("~AadhaarInput").setValue("123452001008");
+//     await driver.$("~InfoCard").touchAction({ action: "tap" });
+//     await driver.$("~AadhaarOtpBtn").touchAction({ action: "tap" });
+//     await driver.pause(5000);
 
-    await driver.acceptAlert();
-  });
+//     await driver.acceptAlert();
+//   });
 
-  test("Exceeded Maximum OTP generation Limit. Please try again in some time", async () => {
-    await driver.$("~AadhaarForm").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~AadhaarInput").clearValue();
-    await driver.$("~AadhaarInput").setValue("123452001011");
-    await driver.$("~InfoCard").touchAction({ action: "tap" });
-    await driver.$("~AadhaarOtpBtn").touchAction({ action: "tap" });
-    await driver.pause(5000);
+//   test("Exceeded Maximum OTP generation Limit. Please try again in some time", async () => {
+//     await driver.$("~AadhaarForm").waitForDisplayed({ timeout: 8000 });
+//     await driver.$("~AadhaarInput").clearValue();
+//     await driver.$("~AadhaarInput").setValue("123452001011");
+//     await driver.$("~InfoCard").touchAction({ action: "tap" });
+//     await driver.$("~AadhaarOtpBtn").touchAction({ action: "tap" });
+//     await driver.pause(5000);
 
-    await driver.acceptAlert();
-  });
+//     await driver.acceptAlert();
+//   });
 
-  test("Aadhaar number does not exist", async () => {
-    await driver.$("~AadhaarForm").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~AadhaarInput").clearValue();
-    await driver.$("~AadhaarInput").setValue("123452001012");
-    await driver.$("~InfoCard").touchAction({ action: "tap" });
-    await driver.$("~AadhaarOtpBtn").touchAction({ action: "tap" });
-    await driver.pause(5000);
+//   test("Aadhaar number does not exist", async () => {
+//     await driver.$("~AadhaarForm").waitForDisplayed({ timeout: 8000 });
+//     await driver.$("~AadhaarInput").clearValue();
+//     await driver.$("~AadhaarInput").setValue("123452001012");
+//     await driver.$("~InfoCard").touchAction({ action: "tap" });
+//     await driver.$("~AadhaarOtpBtn").touchAction({ action: "tap" });
+//     await driver.pause(5000);
 
-    await driver.acceptAlert();
-  });
+//     await driver.acceptAlert();
+//   });
 
-  test("Invalid Aadhaar Number", async () => {
-    await driver.$("~AadhaarForm").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~AadhaarInput").clearValue();
-    await driver.$("~AadhaarInput").setValue("123456000001");
-    await driver.$("~InfoCard").touchAction({ action: "tap" });
-    await driver.$("~AadhaarOtpBtn").touchAction({ action: "tap" });
-    await driver.pause(5000);
+//   test("Invalid Aadhaar Number", async () => {
+//     await driver.$("~AadhaarForm").waitForDisplayed({ timeout: 8000 });
+//     await driver.$("~AadhaarInput").clearValue();
+//     await driver.$("~AadhaarInput").setValue("123456000001");
+//     await driver.$("~InfoCard").touchAction({ action: "tap" });
+//     await driver.$("~AadhaarOtpBtn").touchAction({ action: "tap" });
+//     await driver.pause(5000);
 
-    await driver.acceptAlert();
-  });
+//     await driver.acceptAlert();
+//   });
 
-  test("OTP already sent. Please try after 10 minutes", async () => {
-    await driver.$("~AadhaarForm").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~AadhaarInput").clearValue();
-    await driver.$("~AadhaarInput").setValue("123454000002");
-    await driver.$("~InfoCard").touchAction({ action: "tap" });
-    await driver.$("~AadhaarOtpBtn").touchAction({ action: "tap" });
-    await driver.pause(5000);
+//   test("OTP already sent. Please try after 10 minutes", async () => {
+//     await driver.$("~AadhaarForm").waitForDisplayed({ timeout: 8000 });
+//     await driver.$("~AadhaarInput").clearValue();
+//     await driver.$("~AadhaarInput").setValue("123454000002");
+//     await driver.$("~InfoCard").touchAction({ action: "tap" });
+//     await driver.$("~AadhaarOtpBtn").touchAction({ action: "tap" });
+//     await driver.pause(5000);
 
-    await driver.acceptAlert();
-  });
+//     await driver.acceptAlert();
+//   });
 
-  test("Valid Creds Back Button Testing", async () => {
-    await driver.$("~AadhaarForm").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~AadhaarInput").clearValue();
-    await driver.$("~AadhaarInput").setValue("123452001001");
+//   test("Valid Creds Back Button Testing", async () => {
+//     await driver.$("~AadhaarForm").waitForDisplayed({ timeout: 8000 });
+//     await driver.$("~AadhaarInput").clearValue();
+//     await driver.$("~AadhaarInput").setValue("123452001001");
 
-    await driver.$("~InfoCard").touchAction({ action: "tap" });
-    await driver.$("~AadhaarOtpBtn").touchAction({ action: "tap" });
-    await driver.$("~AadhaarOtpInput").waitForDisplayed({ timeout: 8000 });
+//     await driver.$("~InfoCard").touchAction({ action: "tap" });
+//     await driver.$("~AadhaarOtpBtn").touchAction({ action: "tap" });
+//     await driver.$("~AadhaarOtpInput").waitForDisplayed({ timeout: 8000 });
 
-    await driver.$("~BackIcon").touchAction("tap");
-    await driver.pause(4000);
-    await driver.dismissAlert();
+//     await driver.$("~BackIcon").touchAction("tap");
+//     await driver.pause(4000);
+//     await driver.dismissAlert();
 
-    await driver.$("~BackIcon").touchAction("tap");
-    await driver.pause(4000);
-    await driver.acceptAlert();
-  });
-  test("Valid Creds - Verify No Button", async () => {
-    await driver.$("~AadhaarForm").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~AadhaarInput").clearValue();
-    await driver.$("~AadhaarInput").setValue("123452001001");
+//     await driver.$("~BackIcon").touchAction("tap");
+//     await driver.pause(4000);
+//     await driver.acceptAlert();
+//   });
+//   test("Valid Creds - Verify No Button", async () => {
+//     await driver.$("~AadhaarForm").waitForDisplayed({ timeout: 8000 });
+//     await driver.$("~AadhaarInput").clearValue();
+//     await driver.$("~AadhaarInput").setValue("123452001001");
 
-    await driver.$("~InfoCard").touchAction({ action: "tap" });
-    await driver.$("~AadhaarOtpBtn").touchAction({ action: "tap" });
+//     await driver.$("~InfoCard").touchAction({ action: "tap" });
+//     await driver.$("~AadhaarOtpBtn").touchAction({ action: "tap" });
 
-    await driver.$("~AadhaarOtpInput").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~AadhaarOtpInput").setValue("201002");
+//     await driver.$("~AadhaarOtpInput").waitForDisplayed({ timeout: 8000 });
+//     await driver.$("~AadhaarOtpInput").setValue("201002");
 
-    await driver.$("~AadhaarVerifyBtn").touchAction({ action: "tap" });
+//     await driver.$("~AadhaarVerifyBtn").touchAction({ action: "tap" });
 
-    await driver.$("~NoButton").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~NoButton").touchAction({ action: "tap" });
-  });
-  test("Valid Creds - Verify Yes Button", async () => {
-    await driver.$("~AadhaarForm").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~AadhaarInput").clearValue();
-    await driver.$("~AadhaarInput").setValue("123452001001");
+//     await driver.$("~NoButton").waitForDisplayed({ timeout: 8000 });
+//     await driver.$("~NoButton").touchAction({ action: "tap" });
+//   });
+//   test("Valid Creds - Verify Yes Button", async () => {
+//     await driver.$("~AadhaarForm").waitForDisplayed({ timeout: 8000 });
+//     await driver.$("~AadhaarInput").clearValue();
+//     await driver.$("~AadhaarInput").setValue("123452001001");
 
-    await driver.$("~InfoCard").touchAction({ action: "tap" });
-    await driver.$("~AadhaarOtpBtn").touchAction({ action: "tap" });
+//     await driver.$("~InfoCard").touchAction({ action: "tap" });
+//     await driver.$("~AadhaarOtpBtn").touchAction({ action: "tap" });
 
-    await driver.$("~AadhaarOtpInput").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~AadhaarOtpInput").setValue("201002");
+//     await driver.$("~AadhaarOtpInput").waitForDisplayed({ timeout: 8000 });
+//     await driver.$("~AadhaarOtpInput").setValue("201002");
 
-    await driver.$("~AadhaarVerifyBtn").touchAction({ action: "tap" });
+//     await driver.$("~AadhaarVerifyBtn").touchAction({ action: "tap" });
 
-    await driver.$("~YesButton").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~YesButton").touchAction({ action: "tap" });
-  });
-});
+//     await driver.$("~YesButton").waitForDisplayed({ timeout: 8000 });
+//     await driver.$("~YesButton").touchAction({ action: "tap" });
+//   });
+// });
 
-describe("PAN Test", () => {
-  test("PAN Back Testing", async () => {
-    await driver.pause(3000);
-    await driver.$("~BackIcon").touchAction("tap");
-    await driver.pause(2000);
-    await driver.acceptAlert();
-    await driver.$("~YesButton").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~YesButton").touchAction("tap");
-  });
-  test("PAN does not exist", async () => {
-    await driver.pause(3000);
-    await driver.$("~PanInput").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~PanInput").setValue("ABCDE2004F");
-    await driver.$("~InfoCard").touchAction({ action: "tap" });
-    await driver.$("~PanVerifyBtn").touchAction({ action: "tap" });
-    await driver.pause(4000);
-    await driver.acceptAlert();
-  });
+// describe("PAN Test", () => {
+//   test("PAN Back Testing", async () => {
+//     await driver.pause(3000);
+//     await driver.$("~BackIcon").touchAction("tap");
+//     await driver.pause(2000);
+//     await driver.acceptAlert();
+//     await driver.$("~YesButton").waitForDisplayed({ timeout: 8000 });
+//     await driver.$("~YesButton").touchAction("tap");
+//   });
+//   test("PAN does not exist", async () => {
+//     await driver.pause(3000);
+//     await driver.$("~PanInput").waitForDisplayed({ timeout: 8000 });
+//     await driver.$("~PanInput").setValue("ABCDE2004F");
+//     await driver.$("~InfoCard").touchAction({ action: "tap" });
+//     await driver.$("~PanVerifyBtn").touchAction({ action: "tap" });
+//     await driver.pause(4000);
+//     await driver.acceptAlert();
+//   });
 
-  test("Invalid PAN number", async () => {
-    await driver.$("~PanInput").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~PanInput").setValue("ABCDE4000F");
-    await driver.$("~InfoCard").touchAction({ action: "tap" });
-    await driver.$("~PanVerifyBtn").touchAction({ action: "tap" });
-    await driver.pause(4000);
-    await driver.acceptAlert();
-  });
-  test("Forward Icon Testing", async () => {
-    await driver.$("~PanInput").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~ForwardIcon").touchAction("tap");
-    await driver.pause(2000);
-    await driver.acceptAlert();
-    await driver.$("~BackIcon").touchAction("tap");
-    await driver.acceptAlert();
-  });
-  test("Valid Pan - No button", async () => {
-    await driver.$("~PanInput").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~PanInput").setValue("ABCDE2000F");
-    await driver.$("~InfoCard").touchAction({ action: "tap" });
-    await driver.$("~PanVerifyBtn").touchAction({ action: "tap" });
-    await driver.pause(4000);
-    await driver.acceptAlert();
-    await driver.$("~PanNoBtn").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~PanNoBtn").touchAction({ action: "tap" });
-  });
-  test("Valid Pan - Yes button", async () => {
-    await driver.$("~PanInput").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~PanInput").setValue("ABCDE2000F");
-    await driver.$("~InfoCard").touchAction({ action: "tap" });
-    await driver.$("~PanVerifyBtn").touchAction({ action: "tap" });
-    await driver.pause(4000);
-    await driver.acceptAlert();
-    await driver.$("~PanYesBtn").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~PanYesBtn").touchAction({ action: "tap" });
-  });
-});
+//   test("Invalid PAN number", async () => {
+//     await driver.$("~PanInput").waitForDisplayed({ timeout: 8000 });
+//     await driver.$("~PanInput").setValue("ABCDE4000F");
+//     await driver.$("~InfoCard").touchAction({ action: "tap" });
+//     await driver.$("~PanVerifyBtn").touchAction({ action: "tap" });
+//     await driver.pause(4000);
+//     await driver.acceptAlert();
+//   });
+//   test("Forward Icon Testing", async () => {
+//     await driver.$("~PanInput").waitForDisplayed({ timeout: 8000 });
+//     await driver.$("~ForwardIcon").touchAction("tap");
+//     await driver.pause(2000);
+//     await driver.acceptAlert();
+//     await driver.$("~BackIcon").touchAction("tap");
+//     await driver.acceptAlert();
+//   });
+//   test("Valid Pan - No button", async () => {
+//     await driver.$("~PanInput").waitForDisplayed({ timeout: 8000 });
+//     await driver.$("~PanInput").setValue("ABCDE2000F");
+//     await driver.$("~InfoCard").touchAction({ action: "tap" });
+//     await driver.$("~PanVerifyBtn").touchAction({ action: "tap" });
+//     await driver.pause(4000);
+//     await driver.acceptAlert();
+//     await driver.$("~PanNoBtn").waitForDisplayed({ timeout: 8000 });
+//     await driver.$("~PanNoBtn").touchAction({ action: "tap" });
+//   });
+//   test("Valid Pan - Yes button", async () => {
+//     await driver.$("~PanInput").waitForDisplayed({ timeout: 8000 });
+//     await driver.$("~PanInput").setValue("ABCDE2000F");
+//     await driver.$("~InfoCard").touchAction({ action: "tap" });
+//     await driver.$("~PanVerifyBtn").touchAction({ action: "tap" });
+//     await driver.pause(4000);
+//     await driver.acceptAlert();
+//     await driver.$("~PanYesBtn").waitForDisplayed({ timeout: 8000 });
+//     await driver.$("~PanYesBtn").touchAction({ action: "tap" });
+//   });
+// });
 
-describe("Bank Test", () => {
-  test("Bank Back Testing", async () => {
-    await driver.pause(3000);
-    await driver.$("~BackIcon").touchAction("tap");
-    await driver.pause(2000);
-    await driver.acceptAlert();
-    await driver.$("~PanYesBtn").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~PanYesBtn").touchAction("tap");
-  });
-  test("Provided invalid Account Number", async () => {
-    await driver.pause(3000);
-    await driver.$("~AccHolderName").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~AccHolderName").setValue("KARAN XXXX");
-    await driver.$("~AccNumber").setValue("123456789012");
-    await driver.$("~IfscCode").setValue("ABCD0200001");
-    await driver.$("~UpiId").setValue("abc@xyz");
-    await driver.$("~BankFormBtn").touchAction({ action: "tap" });
-    await driver.pause(5000);
-    await driver.acceptAlert();
-  });
-  test("Provided invalid IFSC", async () => {
-    await driver.$("~AccHolderName").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~IfscCode").setValue("ABCD0200002");
-    await driver.$("~BankFormBtn").touchAction({ action: "tap" });
-    await driver.pause(5000);
-    await driver.acceptAlert();
-  });
-  test("Account is blocked", async () => {
-    await driver.$("~AccHolderName").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~IfscCode").setValue("ABCD0200003");
-    await driver.$("~BankFormBtn").touchAction({ action: "tap" });
-    await driver.pause(5000);
-    await driver.acceptAlert();
-  });
-  test("Account is closed", async () => {
-    await driver.$("~AccHolderName").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~IfscCode").setValue("ABCD0200004");
-    await driver.$("~BankFormBtn").touchAction({ action: "tap" });
-    await driver.pause(5000);
-    await driver.acceptAlert();
-  });
-  test("Source bank declined. Cannot validate", async () => {
-    await driver.$("~AccHolderName").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~IfscCode").setValue("ABCD0200006");
-    await driver.$("~BankFormBtn").touchAction({ action: "tap" });
-    await driver.pause(5000);
-    await driver.acceptAlert();
-  });
-  test("IMPS mode failed. Cannot validate", async () => {
-    await driver.$("~AccHolderName").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~IfscCode").setValue("ABCD0200007");
-    await driver.$("~BankFormBtn").touchAction({ action: "tap" });
-    await driver.pause(5000);
-    await driver.acceptAlert();
-  });
-  test("Failed at bank. Cannot validate", async () => {
-    await driver.$("~AccHolderName").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~IfscCode").setValue("ABCD0200008");
-    await driver.$("~BankFormBtn").touchAction({ action: "tap" });
-    await driver.pause(5000);
-    await driver.acceptAlert();
-  });
-  test("Verification attempt failed", async () => {
-    await driver.$("~AccHolderName").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~IfscCode").setValue("ABCD0200009");
-    await driver.$("~BankFormBtn").touchAction({ action: "tap" });
-    await driver.pause(5000);
-    await driver.acceptAlert();
-  });
-  test("Beneficiary bank offline", async () => {
-    await driver.$("~AccHolderName").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~IfscCode").setValue("ABCD0200010");
-    await driver.$("~BankFormBtn").touchAction({ action: "tap" });
-    await driver.pause(5000);
-    await driver.acceptAlert();
-  });
-  test("NPCI Unavailable", async () => {
-    await driver.$("~AccHolderName").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~IfscCode").setValue("ABCD0200011");
-    await driver.$("~BankFormBtn").touchAction({ action: "tap" });
-    await driver.pause(5000);
-    await driver.acceptAlert();
-  });
-  test("Invalid Account. Given account is an NRE account", async () => {
-    await driver.$("~AccHolderName").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~IfscCode").setValue("ABCD0200012");
-    await driver.$("~BankFormBtn").touchAction({ action: "tap" });
-    await driver.pause(5000);
-    await driver.acceptAlert();
-  });
-  test("Valid Account with Name Mismatch Alert", async () => {
-    await driver.$("~AccHolderName").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~AccHolderName").setValue("JOHN DOE");
-    await driver.$("~AccNumber").setValue("123456789012");
-    await driver.$("~IfscCode").setValue("ABCD0200000");
-    await driver.$("~UpiId").setValue("abc@xyz");
-    await driver.$("~BankFormBtn").touchAction({ action: "tap" });
+// describe("Bank Test", () => {
+//   test("Bank Back Testing", async () => {
+//     await driver.pause(3000);
+//     await driver.$("~BackIcon").touchAction("tap");
+//     await driver.pause(2000);
+//     await driver.acceptAlert();
+//     await driver.$("~PanYesBtn").waitForDisplayed({ timeout: 8000 });
+//     await driver.$("~PanYesBtn").touchAction("tap");
+//   });
+//   test("Provided invalid Account Number", async () => {
+//     await driver.pause(3000);
+//     await driver.$("~AccHolderName").waitForDisplayed({ timeout: 8000 });
+//     await driver.$("~AccHolderName").setValue("KARAN XXXX");
+//     await driver.$("~AccNumber").setValue("123456789012");
+//     await driver.$("~IfscCode").setValue("ABCD0200001");
+//     await driver.$("~UpiId").setValue("abc@xyz");
+//     await driver.$("~BankFormBtn").touchAction({ action: "tap" });
+//     await driver.pause(5000);
+//     await driver.acceptAlert();
+//   });
+//   test("Provided invalid IFSC", async () => {
+//     await driver.$("~AccHolderName").waitForDisplayed({ timeout: 8000 });
+//     await driver.$("~IfscCode").setValue("ABCD0200002");
+//     await driver.$("~BankFormBtn").touchAction({ action: "tap" });
+//     await driver.pause(5000);
+//     await driver.acceptAlert();
+//   });
+//   test("Account is blocked", async () => {
+//     await driver.$("~AccHolderName").waitForDisplayed({ timeout: 8000 });
+//     await driver.$("~IfscCode").setValue("ABCD0200003");
+//     await driver.$("~BankFormBtn").touchAction({ action: "tap" });
+//     await driver.pause(5000);
+//     await driver.acceptAlert();
+//   });
+//   test("Account is closed", async () => {
+//     await driver.$("~AccHolderName").waitForDisplayed({ timeout: 8000 });
+//     await driver.$("~IfscCode").setValue("ABCD0200004");
+//     await driver.$("~BankFormBtn").touchAction({ action: "tap" });
+//     await driver.pause(5000);
+//     await driver.acceptAlert();
+//   });
+//   test("Source bank declined. Cannot validate", async () => {
+//     await driver.$("~AccHolderName").waitForDisplayed({ timeout: 8000 });
+//     await driver.$("~IfscCode").setValue("ABCD0200006");
+//     await driver.$("~BankFormBtn").touchAction({ action: "tap" });
+//     await driver.pause(5000);
+//     await driver.acceptAlert();
+//   });
+//   test("IMPS mode failed. Cannot validate", async () => {
+//     await driver.$("~AccHolderName").waitForDisplayed({ timeout: 8000 });
+//     await driver.$("~IfscCode").setValue("ABCD0200007");
+//     await driver.$("~BankFormBtn").touchAction({ action: "tap" });
+//     await driver.pause(5000);
+//     await driver.acceptAlert();
+//   });
+//   test("Failed at bank. Cannot validate", async () => {
+//     await driver.$("~AccHolderName").waitForDisplayed({ timeout: 8000 });
+//     await driver.$("~IfscCode").setValue("ABCD0200008");
+//     await driver.$("~BankFormBtn").touchAction({ action: "tap" });
+//     await driver.pause(5000);
+//     await driver.acceptAlert();
+//   });
+//   test("Verification attempt failed", async () => {
+//     await driver.$("~AccHolderName").waitForDisplayed({ timeout: 8000 });
+//     await driver.$("~IfscCode").setValue("ABCD0200009");
+//     await driver.$("~BankFormBtn").touchAction({ action: "tap" });
+//     await driver.pause(5000);
+//     await driver.acceptAlert();
+//   });
+//   test("Beneficiary bank offline", async () => {
+//     await driver.$("~AccHolderName").waitForDisplayed({ timeout: 8000 });
+//     await driver.$("~IfscCode").setValue("ABCD0200010");
+//     await driver.$("~BankFormBtn").touchAction({ action: "tap" });
+//     await driver.pause(5000);
+//     await driver.acceptAlert();
+//   });
+//   test("NPCI Unavailable", async () => {
+//     await driver.$("~AccHolderName").waitForDisplayed({ timeout: 8000 });
+//     await driver.$("~IfscCode").setValue("ABCD0200011");
+//     await driver.$("~BankFormBtn").touchAction({ action: "tap" });
+//     await driver.pause(5000);
+//     await driver.acceptAlert();
+//   });
+//   test("Invalid Account. Given account is an NRE account", async () => {
+//     await driver.$("~AccHolderName").waitForDisplayed({ timeout: 8000 });
+//     await driver.$("~IfscCode").setValue("ABCD0200012");
+//     await driver.$("~BankFormBtn").touchAction({ action: "tap" });
+//     await driver.pause(5000);
+//     await driver.acceptAlert();
+//   });
+//   test("Valid Account with Name Mismatch Alert", async () => {
+//     await driver.$("~AccHolderName").waitForDisplayed({ timeout: 8000 });
+//     await driver.$("~AccHolderName").setValue("JOHN DOE");
+//     await driver.$("~AccNumber").setValue("123456789012");
+//     await driver.$("~IfscCode").setValue("ABCD0200000");
+//     await driver.$("~UpiId").setValue("abc@xyz");
+//     await driver.$("~BankFormBtn").touchAction({ action: "tap" });
 
-    await driver.pause(5000);
-    await driver.acceptAlert();
-    await driver.$("~BankNoBtn").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~BankNoBtn").touchAction({ action: "tap" });
-  });
-  test("Valid Account with Name Mismatch Alert", async () => {
-    await driver.$("~AccHolderName").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~AccHolderName").setValue("JOHN DOE");
-    await driver.$("~AccNumber").setValue("123456789012");
-    await driver.$("~IfscCode").setValue("ABCD0200000");
-    await driver.$("~UpiId").setValue("abc@xyz");
-    await driver.$("~BankFormBtn").touchAction({ action: "tap" });
-    await driver.pause(5000);
-    await driver.acceptAlert();
-    await driver.$("~BankYesBtn").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~BankYesBtn").touchAction({ action: "tap" });
-  });
-});
+//     await driver.pause(5000);
+//     await driver.acceptAlert();
+//     await driver.$("~BankNoBtn").waitForDisplayed({ timeout: 8000 });
+//     await driver.$("~BankNoBtn").touchAction({ action: "tap" });
+//   });
+//   test("Valid Account with Name Mismatch Alert", async () => {
+//     await driver.$("~AccHolderName").waitForDisplayed({ timeout: 8000 });
+//     await driver.$("~AccHolderName").setValue("JOHN DOE");
+//     await driver.$("~AccNumber").setValue("123456789012");
+//     await driver.$("~IfscCode").setValue("ABCD0200000");
+//     await driver.$("~UpiId").setValue("abc@xyz");
+//     await driver.$("~BankFormBtn").touchAction({ action: "tap" });
+//     await driver.pause(5000);
+//     await driver.acceptAlert();
+//     await driver.$("~BankYesBtn").waitForDisplayed({ timeout: 8000 });
+//     await driver.$("~BankYesBtn").touchAction({ action: "tap" });
+//   });
+// });
 
 describe("Drawer Test", () => {
   test("Terms and Privacy Modal", async () => {
@@ -428,9 +428,10 @@ describe("Drawer Test", () => {
     const DrawerText = await driver.$("~DrawerName").getText();
     expect(DrawerText).toEqual("KARAN XXXX");
     await driver.$("~KYC").touchAction("tap");
+    await driver.pause(2000);
     await driver.$("~Full Name Label").waitForDisplayed({ timeout: 8000 });
     const FullNameLabel = await driver.$("~KARAN XXXX Value").getText();
-    const DOBLabel = await driver.$("~01-01-1990 Value").getText();
+    const DOBLabel = await driver.$("~1995-09-25 Value").getText();
     const AadhaarNumberLabel = await driver.$("~123452001001 Value").getText();
     const AddressLabel = await driver
       .$(
@@ -440,7 +441,7 @@ describe("Drawer Test", () => {
     const VerifyStatusLabel = await driver.$("~SUCCESS Value").getText();
 
     expect(FullNameLabel).toEqual("KARAN XXXX");
-    expect(DOBLabel).toEqual("01-01-1990");
+    expect(DOBLabel).toEqual("1995-09-25");
     expect(AadhaarNumberLabel).toEqual("123452001001");
     expect(AddressLabel).toEqual(
       "3-184/A/1/, XXXXXXXXXX, XXXXXXXXXX, XXXXXXXXXX, Andhra Pradesh, 500001"
@@ -504,7 +505,7 @@ describe("Profile Test", () => {
 describe("Bottom Tab Navigation Testing", () => {
   test("Home Offer Card Present", async () => {
     await driver.$("~BackIcon").touchAction("tap");
-    await driver.$("~Home");
+    await driver.$("~Home").touchAction("tap");
     await driver.pause(4000);
 
     await driver.$("~HomeOfferCard").waitForDisplayed({ timeout: 8000 });
@@ -586,7 +587,7 @@ describe("EWA test", () => {
     expect(await driver.$("~₹19 Value").getText()).toEqual("₹19");
     expect(await driver.$("~KARAN XXXX Value").getText()).toEqual("KARAN XXXX");
     expect(await driver.$("~ABCDE2000F Value").getText()).toEqual("ABCDE2000F");
-    expect(await driver.$("~01-01-1990 Value").getText()).toEqual("01-01-1990");
+    expect(await driver.$("~1995-09-25 Value").getText()).toEqual("1995-09-25");
     expect(await driver.$("~YES BANK Value").getText()).toEqual("YES BANK");
     expect(await driver.$("~SANTACRUZ, MUMBAI Value").getText()).toEqual(
       "SANTACRUZ, MUMBAI"
@@ -597,9 +598,11 @@ describe("EWA test", () => {
     expect(await driver.$("~ABCD0200000 Value").getText()).toEqual(
       "ABCD0200000"
     );
+    await driver.pause(2000);
     await driver.$("~FinishBtn").touchAction("tap");
   });
   test("If DisbursementScreen is Present", async () => {
+    await driver.pause(2000);
     await driver.$("~DisbursementScreen").waitForDisplayed({ timeout: 8000 });
     await driver.pause(2000);
     await driver.$("~BackIcon").touchAction("tap");
