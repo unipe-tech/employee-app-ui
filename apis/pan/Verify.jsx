@@ -1,4 +1,3 @@
-import { OG_API_KEY } from "@env";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Alert } from "react-native";
@@ -13,6 +12,7 @@ import { KYC_PAN_VERIFY_API_URL } from "../../services/constants";
 import { panBackendPush } from "../../helpers/BackendPush";
 import PrimaryButton from "../../components/atoms/PrimaryButton";
 import Analytics from "appcenter-analytics";
+import { usePanVerifyApi } from "../../queries/pan/verify";
 
 const PanVerifyApi = (props) => {
   const dispatch = useDispatch();
@@ -66,20 +66,29 @@ const PanVerifyApi = (props) => {
     setLoading(false);
   };
 
+  const { mutateAsync } = usePanVerifyApi({
+    data: props.data,
+    url: KYC_PAN_VERIFY_API_URL,
+  });
+
   const goForFetch = () => {
     setLoading(true);
-    const options = {
-      method: "POST",
-      headers: {
-        "X-Auth-Type": "API-Key",
-        "X-API-Key": OG_API_KEY,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(props.data),
-    };
+    // const options = {
+    //   method: "POST",
+    //   headers: {
+    //     "X-Auth-Type": "API-Key",
+    //     "X-API-Key": OG_API_KEY,
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(props.data),
+    // };
 
-    fetch(KYC_PAN_VERIFY_API_URL, options)
-      .then((response) => response.json())
+    // fetch(KYC_PAN_VERIFY_API_URL, options)
+    mutateAsync({ data: props.data, url: KYC_PAN_VERIFY_API_URL })
+      .then((response) => {
+        console.log("React query response:", response);
+        response.json();
+      })
       .then((responseJson) => {
         try {
           if (responseJson["status"] == "200") {

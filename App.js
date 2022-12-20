@@ -13,6 +13,9 @@ import Crashes from "appcenter-crashes";
 import { navigationRef } from "./navigators/RootNavigation";
 import Analytics from "appcenter-analytics";
 import { STAGE } from "@env";
+import { QueryClient, QueryClientProvider, useQuery } from "react-query";
+import { queryClient } from "./queries/pan/verify";
+
 Crashes.setListener({
   shouldProcess: function (report) {
     return true; // return true if the crash report should be processed, otherwise false.
@@ -29,7 +32,7 @@ const analyticsStatus = async () => {
   STAGE == "dev"
     ? await Analytics.setEnabled(false)
     : await Analytics.setEnabled(true);
-    console.log("analyticsStatus",STAGE)
+  console.log("analyticsStatus", STAGE);
 };
 
 const App = () => {
@@ -38,13 +41,15 @@ const App = () => {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <NavigationContainer ref={navigationRef}>
-          <SafeAreaProvider style={{ backgroundColor: "white", flex: 1 }}>
-            <IconComponentProvider IconComponent={Icon}>
-              <StackNavigator />
-            </IconComponentProvider>
-          </SafeAreaProvider>
-        </NavigationContainer>
+        <QueryClientProvider contextSharing={true} client={queryClient}>
+          <NavigationContainer ref={navigationRef}>
+            <SafeAreaProvider style={{ backgroundColor: "white", flex: 1 }}>
+              <IconComponentProvider IconComponent={Icon}>
+                <StackNavigator />
+              </IconComponentProvider>
+            </SafeAreaProvider>
+          </NavigationContainer>
+        </QueryClientProvider>
       </PersistGate>
     </Provider>
   );
