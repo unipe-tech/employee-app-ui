@@ -182,9 +182,9 @@ const PanVerifyApi = (props) => {
   return (
     <PrimaryButton
       accessibilityLabel={"PanVerifyBtn"}
-      title={loading ? "Verifying" : "Continue"}
+      title={mutation.isLoading ? "Verifying" : "Continue"}
       disabled={props.disabled}
-      loading={loading}
+      loading={mutation.isLoading}
       onPress={() => {
         goForFetch();
       }}
