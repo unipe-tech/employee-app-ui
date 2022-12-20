@@ -13,6 +13,7 @@ import { KYC_PAN_VERIFY_API_URL } from "../../services/constants";
 import { panBackendPush } from "../../helpers/BackendPush";
 import PrimaryButton from "../../components/atoms/PrimaryButton";
 import Analytics from "appcenter-analytics";
+import { usePanVerifyApi } from "../../queries/pan/verify";
 
 const PanVerifyApi = (props) => {
   const dispatch = useDispatch();
@@ -66,20 +67,19 @@ const PanVerifyApi = (props) => {
     setLoading(false);
   };
 
+  const mutation = usePanVerifyApi({
+    data: props.data,
+    url: KYC_PAN_VERIFY_API_URL,
+  });
+
   const goForFetch = () => {
     setLoading(true);
-    const options = {
-      method: "POST",
-      headers: {
-        "X-Auth-Type": "API-Key",
-        "X-API-Key": OG_API_KEY,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(props.data),
-    };
 
-    fetch(KYC_PAN_VERIFY_API_URL, options)
-      .then((response) => response.json())
+    mutation
+      .mutateAsync({
+        data: props.data,
+        url: KYC_PAN_VERIFY_API_URL,
+      })
       .then((responseJson) => {
         try {
           if (responseJson["status"] == "200") {
