@@ -45,6 +45,7 @@ export const panBackendPush = (payload) => {
 };
 
 export const profileBackendPush = (payload) => {
+  console.log("profileBackendPush", payload);
   putBackendData({ data: payload.data, xpath: "profile", token: payload.token })
     .then((response) => {
       console.log("profileBackendPush response: ", response.data);

@@ -1,5 +1,5 @@
 import { OG_API_KEY } from "@env";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Alert } from "react-native";
 import { useNavigation } from "@react-navigation/core";
@@ -13,6 +13,7 @@ import { KYC_AADHAAR_SUBMIT_OTP_API_URL } from "../../services/constants";
 import { aadhaarBackendPush } from "../../helpers/BackendPush";
 import PrimaryButton from "../../components/atoms/PrimaryButton";
 import Analytics from "appcenter-analytics";
+import { setValue } from "../../helpers/SetRefValue";
 
 const AadhaarVerifyApi = (props) => {
   const dispatch = useDispatch();
@@ -25,43 +26,41 @@ const AadhaarVerifyApi = (props) => {
   const submitOTPtxnId = useSelector((state) => state.aadhaar.submitOTPtxnId);
 
   const aadhaarSlice = useSelector((state) => state.aadhaar);
-  const [data, setData] = useState(aadhaarSlice?.data);
-  const [verifyMsg, setVerifyMsg] = useState(aadhaarSlice?.verifyMsg);
-  const [verifyStatus, setVerifyStatus] = useState(aadhaarSlice?.verifyStatus);
-  const [verifyTimestamp, setVerifyTimestamp] = useState(
-    aadhaarSlice?.verifyTimestamp
-  );
+  const data = useRef(aadhaarSlice?.data);
+  const verifyMsg = useRef(aadhaarSlice?.verifyMsg);
+  const verifyStatus = useRef(aadhaarSlice?.verifyStatus);
+  const verifyTimestamp = useRef(aadhaarSlice?.verifyTimestamp);
 
   useEffect(() => {
-    dispatch(addData(data));
+    dispatch(addData(data.current));
   }, [data]);
 
   useEffect(() => {
-    dispatch(addVerifyMsg(verifyMsg));
+    dispatch(addVerifyMsg(verifyMsg.current));
   }, [verifyMsg]);
 
   useEffect(() => {
-    dispatch(addVerifyStatus(verifyStatus));
+    dispatch(addVerifyStatus(verifyStatus.current));
   }, [verifyStatus]);
 
   useEffect(() => {
-    dispatch(addVerifyTimestamp(verifyTimestamp));
+    dispatch(addVerifyTimestamp(verifyTimestamp.current));
   }, [verifyTimestamp]);
 
-  const backendPush = ({ data, verifyMsg, verifyStatus, verifyTimestamp }) => {
+  const backendPush = (props) => {
     console.log("AadhaarVerifyApi aadhaarSlice: ", aadhaarSlice);
-    setData(data);
-    setVerifyMsg(verifyMsg);
-    setVerifyStatus(verifyStatus);
-    setVerifyTimestamp(verifyTimestamp);
+    setValue({ ref: data, value: props.data });
+    setValue({ ref: verifyMsg, value: props.verifyMsg });
+    setValue({ ref: verifyStatus, value: props.verifyStatus });
+    setValue({ ref: verifyTimestamp, value: props.verifyTimestamp });
     aadhaarBackendPush({
       data: {
         unipeEmployeeId: unipeEmployeeId,
-        data: data,
+        data: props.data,
         number: aadhaarSlice?.number,
-        verifyMsg: verifyMsg,
-        verifyStatus: verifyStatus,
-        verifyTimestamp: verifyTimestamp,
+        verifyMsg: props.verifyMsg,
+        verifyStatus: props.verifyStatus,
+        verifyTimestamp: props.verifyTimestamp,
       },
       token: token,
     });
@@ -136,7 +135,7 @@ const AadhaarVerifyApi = (props) => {
                   data: data,
                   verifyMsg: responseJson["data"]["message"],
                   verifyStatus: "ERROR",
-                  verifyTimestamp: verifyTimestamp,
+                  verifyTimestamp: verifyTimestamp.current,
                 });
                 Alert.alert("Error", responseJson["data"]["message"]);
                 Analytics.trackEvent("Aadhaar|Verify|Error", {
@@ -149,7 +148,7 @@ const AadhaarVerifyApi = (props) => {
               data: data,
               verifyMsg: responseJson["error"]["message"],
               verifyStatus: "ERROR",
-              verifyTimestamp: verifyTimestamp,
+              verifyTimestamp: verifyTimestamp.current,
             });
             Alert.alert("Error", responseJson["error"]["message"]);
             Analytics.trackEvent("Aadhaar|Verify|Error", {
@@ -161,7 +160,7 @@ const AadhaarVerifyApi = (props) => {
               data: data,
               verifyMsg: responseJson["message"],
               verifyStatus: "ERROR",
-              verifyTimestamp: verifyTimestamp,
+              verifyTimestamp: verifyTimestamp.current,
             });
             Alert.alert("Error", responseJson["message"]);
             Analytics.trackEvent("Aadhaar|Verify|Error", {
@@ -174,7 +173,7 @@ const AadhaarVerifyApi = (props) => {
             data: data,
             verifyMsg: error.toString(),
             verifyStatus: "ERROR",
-            verifyTimestamp: verifyTimestamp,
+            verifyTimestamp: verifyTimestamp.current,
           });
           Alert.alert("Error", error.toString());
           Analytics.trackEvent("Aadhaar|Verify|Error", {
@@ -188,7 +187,7 @@ const AadhaarVerifyApi = (props) => {
           data: data,
           verifyMsg: error.toString(),
           verifyStatus: "ERROR",
-          verifyTimestamp: verifyTimestamp,
+          verifyTimestamp: verifyTimestamp.current,
         });
         Alert.alert("Error", error.toString());
         Analytics.trackEvent("Aadhaar|Verify|Error", {

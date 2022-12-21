@@ -1,5 +1,5 @@
 import { OG_API_KEY } from "@env";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Alert, Text } from "react-native";
 import { useNavigation } from "@react-navigation/core";
@@ -15,6 +15,7 @@ import { resetTimer } from "../../store/slices/timerSlice";
 import PrimaryButton from "../../components/atoms/PrimaryButton";
 import Analytics from "appcenter-analytics";
 import { COLORS, FONTS } from "../../constants/Theme";
+import { setValue } from "../../helpers/SetRefValue";
 
 const AadhaarOtpApi = (props) => {
   const dispatch = useDispatch();
@@ -25,44 +26,42 @@ const AadhaarOtpApi = (props) => {
   const token = useSelector((state) => state.auth.token);
   const unipeEmployeeId = useSelector((state) => state.auth.unipeEmployeeId);
   const aadhaarSlice = useSelector((state) => state.aadhaar);
-  const [submitOTPtxnId, setSubmitOTPtxnId] = useState(
-    aadhaarSlice?.submitOTPtxnId
-  );
-  const [verifyMsg, setVerifyMsg] = useState(aadhaarSlice?.verifyMsg);
-  const [verifyStatus, setVerifyStatus] = useState(aadhaarSlice?.verifyStatus);
-  const [verifyTimestamp, setVerifyTimestamp] = useState(
-    aadhaarSlice?.verifyTimestamp
-  );
+
+  const submitOTPtxnId = useRef(aadhaarSlice?.submitOTPtxnId);
+  const verifyMsg = useRef(aadhaarSlice?.verifyMsg);
+  const verifyStatus = useRef(aadhaarSlice?.verifyStatus);
+  const verifyTimestamp = useRef(aadhaarSlice?.verifyTimestamp);
 
   useEffect(() => {
-    dispatch(addSubmitOTPtxnId(submitOTPtxnId));
+    dispatch(addSubmitOTPtxnId(submitOTPtxnId.current));
   }, [submitOTPtxnId]);
 
   useEffect(() => {
-    dispatch(addVerifyMsg(verifyMsg));
+    dispatch(addVerifyMsg(verifyMsg.current));
   }, [verifyMsg]);
 
   useEffect(() => {
-    dispatch(addVerifyStatus(verifyStatus));
+    dispatch(addVerifyStatus(verifyStatus.current));
   }, [verifyStatus]);
 
   useEffect(() => {
-    dispatch(addVerifyTimestamp(verifyTimestamp));
+    dispatch(addVerifyTimestamp(verifyTimestamp.current));
   }, [verifyTimestamp]);
 
-  const backendPush = ({ verifyMsg, verifyStatus, verifyTimestamp }) => {
+  const backendPush = (props) => {
+    console.log("AadhaarOtpApi props: ", props);
     console.log("AadhaarOtpApi aadhaarSlice: ", aadhaarSlice);
-    setVerifyMsg(verifyMsg);
-    setVerifyStatus(verifyStatus);
-    setVerifyTimestamp(verifyTimestamp);
+    setValue({ ref: verifyMsg, value: props.verifyMsg });
+    setValue({ ref: verifyStatus, value: props.verifyStatus });
+    setValue({ ref: verifyTimestamp, value: props.verifyTimestamp });
     aadhaarBackendPush({
       data: {
         unipeEmployeeId: unipeEmployeeId,
         data: aadhaarSlice?.data,
         number: aadhaarSlice?.number,
-        verifyMsg: verifyMsg,
-        verifyStatus: verifyStatus,
-        verifyTimestamp: verifyTimestamp,
+        verifyMsg: props.verifyMsg,
+        verifyStatus: props.verifyStatus,
+        verifyTimestamp: props.verifyTimestamp,
       },
       token: token,
     });
@@ -92,7 +91,10 @@ const AadhaarOtpApi = (props) => {
           if (responseJson["status"] == "200") {
             switch (responseJson["data"]["code"]) {
               case "1001":
-                setSubmitOTPtxnId(responseJson["data"]["transaction_id"]);
+                setValue({
+                  ref: submitOTPtxnId,
+                  value: responseJson["data"]["transaction_id"],
+                });
                 backendPush({
                   verifyMsg: "OTP sent to User",
                   verifyStatus: "PENDING",

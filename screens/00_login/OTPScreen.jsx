@@ -16,12 +16,13 @@ import { COLORS, FONTS } from "../../constants/Theme";
 import { MaterialCommunityIcons } from "react-native-vector-icons";
 import OtpInput from "../../components/molecules/OtpInput";
 import LogoHeaderBack from "../../components/molecules/LogoHeaderBack";
+import { setValue } from "../../helpers/SetRefValue";
 
 const OTPScreen = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
-  const [verified, setVerified] = useState(false);
+  const verified = useRef(false);
   const inputRef = useRef();
 
   const [otp, setOtp] = useState("");
@@ -49,7 +50,7 @@ const OTPScreen = () => {
       }
     }, 1000);
 
-    if (countDownTime < 1 || verified) {
+    if (countDownTime < 1 || verified.current) {
       setBack(true);
       clearInterval(interval);
     }
@@ -118,7 +119,7 @@ const OTPScreen = () => {
       .then((res) => {
         console.log("res: ", res);
         if (res["response"]["status"] === "success") {
-          setVerified(true);
+          setValue({ ref: verified, value: true });
           if (onboarded) {
             navigation.navigate("BackendSync", {
               destination: "HomeStack",
