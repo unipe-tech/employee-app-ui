@@ -15,6 +15,9 @@ import Analytics from "appcenter-analytics";
 import { STAGE } from "@env";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./queries/pan/verify";
+import { createAsyncStoragePersister } from "@tanstack/query-async-storage-persister";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
 
 Crashes.setListener({
   shouldProcess: function (report) {
@@ -35,13 +38,20 @@ const analyticsStatus = async () => {
   console.log("analyticsStatus", STAGE);
 };
 
+const asyncStoragePersister = createAsyncStoragePersister({
+  storage: AsyncStorage,
+});
+
 const App = () => {
   SplashScreen.hide();
   analyticsStatus();
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <QueryClientProvider client={queryClient}>
+        <PersistQueryClientProvider
+          persistOptions={{ persister: asyncStoragePersister }}
+          client={queryClient}
+        >
           <NavigationContainer ref={navigationRef}>
             <SafeAreaProvider style={{ backgroundColor: "white", flex: 1 }}>
               <IconComponentProvider IconComponent={Icon}>
@@ -49,7 +59,7 @@ const App = () => {
               </IconComponentProvider>
             </SafeAreaProvider>
           </NavigationContainer>
-        </QueryClientProvider>
+        </PersistQueryClientProvider>
       </PersistGate>
     </Provider>
   );

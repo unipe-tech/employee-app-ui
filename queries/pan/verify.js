@@ -1,7 +1,13 @@
 import { useMutation, QueryClient } from "@tanstack/react-query";
 import { OG_API_KEY } from "@env";
 
-export const queryClient = new QueryClient();
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      cacheTime: Infinity,
+    },
+  },
+});
 
 export const usePanVerifyApi = ({ data, url }) => {
   const mutation = useMutation(
