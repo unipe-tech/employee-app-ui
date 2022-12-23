@@ -24,7 +24,7 @@ import {
   stepIndicatorStyles,
 } from "../../../../styles";
 import TnC from "../../../../templates/docs/EWATnC.js";
-import MoneySilder from "../../../../components/organisms/MoneySilder";
+import SliderCard from "../../../../components/molecules/SliderCard";
 
 const Offer = () => {
   const dispatch = useDispatch();
@@ -36,12 +36,14 @@ const Offer = () => {
 
   const [consent, setConsent] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [sliderValue, setSliderValue] = useState(0);
 
   const [validAmount, setValidAmount] = useState(false);
 
   const token = useSelector((state) => state.auth.token);
   const unipeEmployeeId = useSelector((state) => state.auth.unipeEmployeeId);
   const ewaLiveSlice = useSelector((state) => state.ewaLive);
+  console.log({ ewaLiveSlice });
   const offerId = useSelector((state) => state.ewaLive.offerId);
   const eligibleAmount = useSelector((state) => state.ewaLive.eligibleAmount);
   const [isTermsOfUseModalVisible, setIsTermsOfUseModalVisible] =
@@ -167,52 +169,53 @@ const Offer = () => {
 
   return (
     <SafeAreaView style={styles.safeContainer}>
-      <Header title="Advance Salary" onLeftIconPress={() => backAction()} />
+      <Header title="On-Demand Salary" onLeftIconPress={() => backAction()} />
       <View style={styles.container}>
-        {/* <MoneySilder /> */}
-        <FormInput
-          placeholder="Enter amount"
-          containerStyle={{ marginVertical: 10, marginHorizontal: 50 }}
-          inputStyle={{ ...FONTS.h2, width: 20 }}
-          keyboardType="numeric"
-          value={amount}
-          onChange={setAmount}
-          autoFocus={true}
-          maxLength={10}
-          prependComponent={
-            <Icon name="currency-inr" color="green" size={25} />
-          }
+        <Text style={styles.headline}>How much do you want?</Text>
+        <Text style={styles.subHeadline}>
+          Here is your access of emergency funds
+        </Text>
+        <SliderCard
+          info={"Zero Interest charges, Nominal Processing Fees"}
+          iconName="brightness-percent"
+          amount={amount}
+          setAmount={setAmount}
+          eligibleAmount={eligibleAmount}
         />
-
-        <Text
+        <View
           style={{
-            alignSelf: "center",
-            ...FONTS.body4,
-            color: COLORS.gray,
+            width: "100%",
+            backgroundColor: COLORS.lightgray_01,
+            padding: 10,
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginTop: 10,
           }}
         >
-          You can choose between 1000 to {eligibleAmount}
-        </Text>
-
-        <Text
+          <Text style={{ ...FONTS.body5, color: COLORS.secondary }}>
+            Days Worked (Aug 2022)
+          </Text>
+          <Text style={{ ...FONTS.h5, color: COLORS.black }}>15</Text>
+        </View>
+        <View
           style={{
-            alignSelf: "center",
-            ...FONTS.h3,
-            color: COLORS.black,
-            marginVertical: 20,
+            width: "100%",
+            backgroundColor: COLORS.lightgray_01,
+            padding: 10,
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            borderTopWidth: 1,
+            borderColor: COLORS.lightGray,
           }}
         >
-          Steps to Cash
-        </Text>
-        <View style={welcome.steps}>
-          <StepIndicator
-            customStyles={stepIndicatorStyles}
-            stepCount={4}
-            // direction="horizontal"
-            currentPosition={5}
-            renderStepIndicator={renderStepIndicator}
-            labels={data}
-          />
+          <Text style={{ ...FONTS.body5, color: COLORS.secondary }}>
+            Available Balance
+          </Text>
+          <Text style={{ ...FONTS.h5, color: COLORS.black }}>
+            {eligibleAmount}
+          </Text>
         </View>
 
         <View style={{ flexDirection: "row", alignItems: "center" }}>
