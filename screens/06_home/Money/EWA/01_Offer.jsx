@@ -1,5 +1,4 @@
 import { STAGE } from "@env";
-import { MaterialIcons } from "@expo/vector-icons";
 import CheckBox from "@react-native-community/checkbox";
 import { useNavigation } from "@react-navigation/core";
 import Analytics from "appcenter-analytics";
@@ -7,22 +6,14 @@ import { useEffect, useState } from "react";
 import { Alert, BackHandler, SafeAreaView, Text, View } from "react-native";
 import { getUniqueId } from "react-native-device-info";
 import { NetworkInfo } from "react-native-network-info";
-import StepIndicator from "react-native-step-indicator";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useDispatch, useSelector } from "react-redux";
-import FormInput from "../../../../components/atoms/FormInput";
 import Header from "../../../../components/atoms/Header";
 import TermsAndPrivacyModal from "../../../../components/molecules/TermsAndPrivacyModal";
 import PrimaryButton from "../../../../components/atoms/PrimaryButton";
 import { COLORS, FONTS } from "../../../../constants/Theme";
 import { ewaOfferPush } from "../../../../helpers/BackendPush";
 import { addLoanAmount } from "../../../../store/slices/ewaLiveSlice";
-import {
-  checkBox,
-  styles,
-  welcome,
-  stepIndicatorStyles,
-} from "../../../../styles";
+import { checkBox, styles } from "../../../../styles";
 import TnC from "../../../../templates/docs/EWATnC.js";
 import SliderCard from "../../../../components/molecules/SliderCard";
 
@@ -152,27 +143,19 @@ const Offer = () => {
     }
   }
 
-  const getStepIndicatorIconConfig = ({ position, stepStatus }) => {
-    const iconConfig = {
-      color: "white",
-      size: 18,
-      name: "check",
-    };
-    return iconConfig;
-  };
-
-  const renderStepIndicator = (params) => (
-    <MaterialIcons {...getStepIndicatorIconConfig(params)} />
-  );
-
-  const data = ["KYC", "Mandate", "Agreement", "Disbursement"];
-
   return (
     <SafeAreaView style={styles.safeContainer}>
       <Header title="On-Demand Salary" onLeftIconPress={() => backAction()} />
       <View style={styles.container}>
-        <Text style={styles.headline}>How much do you want?</Text>
-        <Text style={styles.subHeadline}>
+        <Text style={[styles.headline, { alignSelf: "flex-start" }]}>
+          How much do you want?
+        </Text>
+        <Text
+          style={[
+            styles.subHeadline,
+            { alignSelf: "flex-start", marginBottom: 5 },
+          ]}
+        >
           Here is your access of emergency funds
         </Text>
         <SliderCard
@@ -182,41 +165,6 @@ const Offer = () => {
           setAmount={setAmount}
           eligibleAmount={eligibleAmount}
         />
-        <View
-          style={{
-            width: "100%",
-            backgroundColor: COLORS.lightgray_01,
-            padding: 10,
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginTop: 10,
-          }}
-        >
-          <Text style={{ ...FONTS.body5, color: COLORS.secondary }}>
-            Days Worked (Aug 2022)
-          </Text>
-          <Text style={{ ...FONTS.h5, color: COLORS.black }}>15</Text>
-        </View>
-        <View
-          style={{
-            width: "100%",
-            backgroundColor: COLORS.lightgray_01,
-            padding: 10,
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            borderTopWidth: 1,
-            borderColor: COLORS.lightGray,
-          }}
-        >
-          <Text style={{ ...FONTS.body5, color: COLORS.secondary }}>
-            Available Balance
-          </Text>
-          <Text style={{ ...FONTS.h5, color: COLORS.black }}>
-            {eligibleAmount}
-          </Text>
-        </View>
 
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           <CheckBox

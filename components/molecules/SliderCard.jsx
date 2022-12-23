@@ -17,7 +17,7 @@ const SliderCard = ({ info, iconName, amount, setAmount, eligibleAmount }) => {
             alignSelf: "center",
           }}
         >
-          Withdraw Balance
+          Withdrawal Amount
         </Text>
         <Text
           style={{
@@ -32,7 +32,7 @@ const SliderCard = ({ info, iconName, amount, setAmount, eligibleAmount }) => {
         <Slider
           minimumValue={1000}
           maximumValue={eligibleAmount}
-          step={500}
+          step={100}
           trackStyle={styles.track}
           thumbStyle={styles.thumb}
           minimumTrackTintColor={COLORS.primary}
@@ -143,14 +143,14 @@ const styles = EStyleSheet.create({
   },
   text: { paddingLeft: "10rem", ...FONTS.body5, color: COLORS.gray, flex: 1 },
   track: {
-    height: 18,
+    height: 5,
     borderRadius: 1,
     backgroundColor: COLORS.lightGray,
   },
   thumb: {
-    width: 35,
-    height: 35,
-    borderWidth: 7,
+    width: 25,
+    height: 25,
+    borderWidth: 4,
     backgroundColor: COLORS.primary,
     borderColor: COLORS.white,
     elevation: 5,
