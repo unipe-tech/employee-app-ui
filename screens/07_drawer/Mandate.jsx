@@ -5,6 +5,7 @@ import MandateFormTemplate from "../../templates/mandate/Form";
 import { styles } from "../../styles";
 import TopTabNav from "../../navigators/TopTabNav";
 import DetailsCard from "../../components/molecules/DetailsCard";
+import Loading from "../../components/atoms/Loading";
 
 const Mandate = () => {
   const [updated, setUpdated] = useState(false);
@@ -42,6 +43,8 @@ const Mandate = () => {
       disable: true,
     },
   ];
+
+  if (!updated) return <Loading isLoading={!updated} />;
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
