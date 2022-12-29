@@ -9,6 +9,7 @@ import DateEntry from "../../components/molecules/DateEntry";
 import { addNumber } from "../../store/slices/licenseSlice";
 import FormInput from "../../components/atoms/FormInput";
 import InfoCard from "../../components/atoms/InfoCard";
+import DateInput from "../../components/molecules/DateInput";
 
 const LicenseFormTemplate = () => {
   const dispatch = useDispatch();
@@ -17,7 +18,7 @@ const LicenseFormTemplate = () => {
   const [validNumber, setValidNumber] = useState(true);
 
   const licenseSlice = useSelector((state) => state.license);
-  const [dob, setDob] = useState("");
+  const [dob, setDob] = useState(new Date());
   const [number, setNumber] = useState(licenseSlice?.number);
 
   useEffect(() => {
@@ -41,14 +42,11 @@ const LicenseFormTemplate = () => {
             onChange={setNumber}
             autoCapitalize="characters"
           />
+
           {number && !validNumber ? (
             <Text style={bankform.formatmsg}>Invalid License Number.</Text>
           ) : null}
-          <DateEntry
-            title="Date of birth as recorded in License"
-            val={dob}
-            setval={setDob}
-          />
+          <DateInput dob={dob} setDob={setDob} />
           <InfoCard
             info={
               "License is needed to verify your eligibility to operate heavy machinery."
