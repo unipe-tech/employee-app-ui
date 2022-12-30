@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SafeAreaView, View } from "react-native";
 import { useSelector } from "react-redux";
 import MandateFormTemplate from "../../templates/mandate/Form";
@@ -29,11 +29,10 @@ const Mandate = () => {
     return res;
   };
 
-  if (verifyStatus === "SUCCESS") {
-    setTimeout(() => {
-      setUpdated(true); // why this setTimeOut
-    }, 2000);
-  }
+  useEffect(() => {
+    const timer = setTimeout(() => setUpdated(true), 2000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const tabs = [
     {
@@ -44,16 +43,21 @@ const Mandate = () => {
     },
   ];
 
-  if (!updated) return <Loading isLoading={!updated} />;
-
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
-      {verifyStatus == "SUCCESS" && updated ? (
-        <View style={styles.container}>
-          <DetailsCard data={cardData()} />
-        </View>
+      {updated ? (
+        verifyStatus == "SUCCESS" ? (
+          <View style={styles.container}>
+            <DetailsCard data={cardData()} />
+          </View>
+        ) : (
+          <TopTabNav tabs={tabs} hide={true} />
+        )
       ) : (
-        <TopTabNav tabs={tabs} hide={true} />
+        <>
+          <TopTabNav tabs={tabs} hide={true} />
+          <Loading isLoading={!updated} />
+        </>
       )}
     </SafeAreaView>
   );
