@@ -336,18 +336,57 @@ const MandateFormTemplate = (props) => {
       <KeyboardAvoidingWrapper>
         <ScrollView showsVerticalScrollIndicator={false}>
           <DetailsCard data={cardData()} />
-          <Text
+          {verifyStatus == "INPROGRESS" ? (
+            <Text
+              style={{
+                ...FONTS.body4,
+                color: COLORS.warning,
+                textAlign: "center",
+                marginVertical: 10,
+              }}
+            >
+              Your Mandate registration is currently in progress...{" "}
+            </Text>
+          ) : (
+            <>
+              <Text
+                style={{
+                  ...FONTS.body4,
+                  color: COLORS.gray,
+                  marginVertical: 10,
+                }}
+              >
+                Please choose your preferred mode
+              </Text>
+              {customerId == null || !fetched ? (
+                <Text style={{ ...FONTS.body4, color: COLORS.gray }}>
+                  Initializing ...{" "}
+                </Text>
+              ) : (
+                <MandateOptions
+                  ProceedButton={ProceedButton}
+                  disabled={loading}
+                />
+              )}
+            </>
+          )}
+          {/* <Text
             style={{ ...FONTS.body4, color: COLORS.gray, marginVertical: 10 }}
           >
             Please choose your preferred mode
           </Text>
-          {
-            customerId == null || !fetched ? (
-              <Text style={{ ...FONTS.body4, color: COLORS.gray }}>Initializing ... </Text>
-            ) : (
-              <MandateOptions ProceedButton={ProceedButton} disabled={loading} />
-            )
-          }
+          {customerId == null || !fetched ? (
+            <Text style={{ ...FONTS.body4, color: COLORS.gray }}>
+              Initializing ...{" "}
+            </Text>
+          ) : (
+            <MandateOptions ProceedButton={ProceedButton} disabled={loading} />
+          )}
+          {verifyStatus == "INPROGRESS" && (
+            <Text style={{ ...FONTS.body4, color: COLORS.gray }}>
+              Your Mandate registration is currently in progress...{" "}
+            </Text>
+          )} */}
           <View
             style={{
               padding: 10,
@@ -356,7 +395,7 @@ const MandateFormTemplate = (props) => {
               borderRadius: 5,
               alignItems: "center",
               justifyContent: "center",
-              marginTop: "10%"
+              marginTop: "10%",
             }}
           >
             <Text
