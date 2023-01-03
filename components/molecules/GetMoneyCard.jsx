@@ -18,7 +18,7 @@ const GetMoneyCard = ({ navigation, eligible, amount, accessible }) => {
         style={{
           width: "100%",
           borderWidth: 0.4,
-          borderColor: COLORS.lightGray,
+          borderColor: COLORS.primary,
         }}
       />
 
@@ -35,7 +35,7 @@ const GetMoneyCard = ({ navigation, eligible, amount, accessible }) => {
         }
         disabled={!eligible || !accessible}
         onPress={() => {
-          navigation.navigate("Money", { screen: "EWA_OFFER" });
+          navigation.navigate("EWAStack", { screen: "EWA_OFFER" });
         }}
       />
     </View>
@@ -53,7 +53,7 @@ const styles = EStyleSheet.create({
     borderColor: COLORS.lightgray_01,
     borderRadius: 5,
   },
-  text: { ...FONTS.h3, color: COLORS.secondary, marginVertical: 5 },
+  text: { ...FONTS.body3, color: COLORS.secondary, marginVertical: 5 },
 });
 
 export default GetMoneyCard;
