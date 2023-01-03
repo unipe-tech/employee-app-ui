@@ -6,7 +6,10 @@ const DocumentsView = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={{ alignSelf: "center", marginTop: "20%" }}>
-        <Text style={{ ...FONTS.h3, alignSelf: "center" }}>
+        <Text
+          accessibilityLabel="MoreDetails"
+          style={{ ...FONTS.h3, alignSelf: "center" }}
+        >
           More Details Coming Soon
         </Text>
       </View>

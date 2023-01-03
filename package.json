@@ -10,10 +10,19 @@
 		"build:demo": "bash ./android/ACFlavours.sh -e demo && bash ./android/versioning.sh && gulp set --env=test && cd android && ./gradlew assembleQaRelease",
 		"build:debug": "bash ./android/ACFlavours.sh -e dev && gulp set --env=test && cd android && ./gradlew assembleQaRelease",
 		"build:prod": "bash ./android/ACFlavours.sh -e prod && bash ./android/versioning.sh && gulp set --env=prod && cd android && ./gradlew assembleProdRelease",
+    	"postinstall": "patch-package",
 		"release:demo": "bash ./android/releaseDemo.sh",
 		"release:qa": "bash ./android/releaseQa.sh",
 		"release:prod": "bash ./android/releaseProd.sh",
-		"postinstall": "patch-package"
+		"test:all": "npx jest appium/index.test.js",
+		"test:login": "npx jest appium/tests/Login.test.js",
+		"test:profile": "npx jest appium/tests/Profile.test.js",
+		"test:aadhaar": "npx jest appium/tests/Aadhaar.test.js",
+		"test:pan": "npx jest appium/tests/PAN.test.js",
+		"test:bank": "npx jest appium/tests/Bank.test.js",
+		"test:bottomTab": "npx jest appium/tests/BottomTab.test.js",
+		"test:drawer": "npx jest appium/tests/Drawer.test.js",
+		"test:ewa": "npx jest appium/tests/EWA.test.js"
 	},
 	"dependencies": {
 		"@expo/vector-icons": "^13.0.0",

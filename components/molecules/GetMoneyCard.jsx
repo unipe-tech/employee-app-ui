@@ -8,8 +8,10 @@ const GetMoneyCard = ({ navigation, eligible, amount, accessible }) => {
   // const navigation = useNavigation();
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Here is your On-Demand Salary</Text>
+    <View accessibilityLabel="HomeOfferCard" style={styles.container}>
+      <Text accessibilityLabel="EWAText" style={styles.text}>
+        Here is your On-Demand Salary
+      </Text>
 
       <Text style={[styles.text, { ...FONTS.h1 }]}>{amount}</Text>
       <View
@@ -23,6 +25,7 @@ const GetMoneyCard = ({ navigation, eligible, amount, accessible }) => {
       {/* TODO: add progress bar as background filled view */}
 
       <PrimaryButton
+        accessibilityLabel={"GetMoneyNowBtn"}
         title={
           !accessible
             ? "Offer Inactive"

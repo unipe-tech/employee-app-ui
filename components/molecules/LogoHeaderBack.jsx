@@ -8,13 +8,19 @@ const LogoHeaderBack = ({ leftOnPress, rightOnPress, title, skipEnabled }) => {
   return (
     <LogoHeader
       leftIcon={
-        <Ionicons name="arrow-back-outline" size={28} color={COLORS.primary} />
+        <Ionicons
+          accessibilityLabel="BackIcon"
+          name="arrow-back-outline"
+          size={28}
+          color={COLORS.primary}
+        />
       }
       leftOnPress={leftOnPress}
       title={title}
       rightIcon={
         skipEnabled ? (
           <View
+            accessibilityLabel="ForwardIcon"
             style={{
               flexDirection: "row",
               alignItems: "center",

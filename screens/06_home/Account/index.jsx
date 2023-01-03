@@ -13,11 +13,9 @@ import LogoHeader from "../../../components/atoms/LogoHeader";
 import { MaterialCommunityIcons, Ionicons } from "react-native-vector-icons";
 import { COLORS, FONTS } from "../../../constants/Theme";
 import { useDispatch, useSelector } from "react-redux";
-import termsOfUse from "../../../templates/docs/TermsOfUse";
-import privacyPolicy from "../../../templates/docs/PrivacyPolicy";
-import TermsAndPrivacyModal from "../../../components/molecules/TermsAndPrivacyModal";
 import { showToast } from "../../../components/atoms/Toast";
 import { useNavigation } from "@react-navigation/native";
+import AgreementText from "../../../components/organisms/AgreementText";
 import LogoutModal from "../../../components/organisms/LogoutModal";
 
 const Account = (props) => {
@@ -139,12 +137,16 @@ const Account = (props) => {
             />
           )}
 
-          <Text style={{ ...FONTS.h4, color: COLORS.black, marginLeft: 15 }}>
+          <Text
+            accessibilityLabel="DrawerName"
+            style={{ ...FONTS.h4, color: COLORS.black, marginLeft: 15 }}
+          >
             {name ? name : "Guest User"}
           </Text>
         </View>
         {options.map((item, index) => (
           <TouchableOpacity
+            accessibilityLabel={item.title}
             key={item.title}
             activeOpacity={0.7}
             onPress={() => onPressCard(item)}
@@ -153,7 +155,6 @@ const Account = (props) => {
               alignItems: "center",
               padding: 15,
               borderTopWidth: 0.8,
-
               borderColor: COLORS.lightGray,
             }}
           >
@@ -180,20 +181,12 @@ const Account = (props) => {
           </TouchableOpacity>
         ))}
       </ScrollView>
-      {isTermsOfUseModalVisible && (
-        <TermsAndPrivacyModal
-          isVisible={isTermsOfUseModalVisible}
-          setIsVisible={setIsTermsOfUseModalVisible}
-          data={termsOfUse}
-        />
-      )}
-      {isPrivacyModalVisible && (
-        <TermsAndPrivacyModal
-          isVisible={isPrivacyModalVisible}
-          setIsVisible={setIsPrivacyModalVisible}
-          data={privacyPolicy}
-        />
-      )}
+      <AgreementText
+        isTermsOfUseModalVisible={isTermsOfUseModalVisible}
+        setIsTermsOfUseModalVisible={setIsTermsOfUseModalVisible}
+        isPrivacyModalVisible={isPrivacyModalVisible}
+        setIsPrivacyModalVisible={setIsPrivacyModalVisible}
+      />
       {modalVisible && <LogoutModal modalVisible={modalVisible} />}
     </SafeAreaView>
   );

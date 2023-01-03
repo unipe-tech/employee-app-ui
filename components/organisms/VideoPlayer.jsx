@@ -1,8 +1,6 @@
-import React, { useState, useCallback, useRef } from "react";
+import { useState, useCallback } from "react";
 import {
-  Button,
   View,
-  Alert,
   Text,
   TouchableOpacity,
   ImageBackground,
@@ -67,7 +65,7 @@ export default function VideoPlayer({ thumbnail, title, videoId }) {
             />
           </TouchableOpacity>
 
-          <View style={styles.modalView}>
+          <View accessibilityLabel="video" style={styles.modalView}>
             <YoutubePlayer
               height={300}
               play={playing}

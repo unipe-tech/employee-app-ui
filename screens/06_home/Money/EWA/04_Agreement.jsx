@@ -213,7 +213,7 @@ const Agreement = () => {
   }
 
   return (
-    <SafeAreaView style={styles.safeContainer}>
+    <SafeAreaView accessibilityLabel="AgreementScreen" style={styles.safeContainer}>
       <Header
         title="Agreement"
         onLeftIconPress={() => backAction()}
@@ -265,6 +265,7 @@ const Agreement = () => {
             </Text>
           </View>
           <PrimaryButton
+            accessibilityLabel={"FinishBtn"}
             title={loading ? "Booking" : "Finish"}
             disabled={!consent || loading}
             onPress={() => {

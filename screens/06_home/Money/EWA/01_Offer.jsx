@@ -187,7 +187,7 @@ const Offer = () => {
         progress={20}
       />
       <View style={styles.container}>
-        <Text style={[styles.headline, { alignSelf: "flex-start" }]}>
+        <Text accessibilityLabel="EWAText" style={[styles.headline, { alignSelf: "flex-start" }]}>
           How much do you want?
         </Text>
         <Text
@@ -200,6 +200,7 @@ const Offer = () => {
         </Text>
         
         <SliderCard
+          accessibilityLabel={"MoneyInput"}
           info={"Zero Interest charges, Nominal Processing Fees"}
           iconName="brightness-percent"
           amount={loanAmount}
@@ -228,6 +229,7 @@ const Offer = () => {
           </Text>
         </View>
         <PrimaryButton
+          accessibilityLabel={"ContinueBtn"}
           title={loading ? "Processing" : "Continue"}
           disabled={loading || !consent || !validAmount || updating}
           loading={loading}

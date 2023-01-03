@@ -149,6 +149,7 @@ const KYC = () => {
         <View style={{ flex: 1 }} />
 
         <PrimaryButton
+          accessibilityLabel={"KYCContinueBtn"}
           title={loading ? "Verifying" : "Proceed"}
           disabled={loading}
           onPress={() => {

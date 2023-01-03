@@ -138,7 +138,7 @@ const Disbursement = ({ route, navigation }) => {
   ];
 
   return (
-    <SafeAreaView style={styles.safeContainer}>
+    <SafeAreaView accessibilityLabel="DisbursementScreen" style={styles.safeContainer}>
       <Header
         title="Money Transfer"
         onLeftIconPress={() => backAction()}

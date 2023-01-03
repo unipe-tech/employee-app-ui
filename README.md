@@ -74,18 +74,44 @@ sudo npm i -g appium
 sudo npm i -g jest
 ```
 
-Install Appium server GUI from https://github.com/appium/appium-desktop/releases/tag/v1.22.3-4
-Install Appium Inspector from https://github.com/appium/appium-inspector/releases
+For Test Developers:
 
-Pre-requisites
+1. Install Appium Inspector from https://github.com/appium/appium-inspector/releases
+
+Pre-requisites:
 
 1. set onboarded:false in employements [database]
 2. clean the app storage and cache
 
-For running tests
+For running tests:
+
+1. Download Appium Server GUI mandatorily from https://github.com/appium/appium-desktop/releases/tag/v1.22.3-4
+
+2. Start the Appium Server
 
 ```
-// in root directory
 npx appium
-npx jest appium
+```
+
+3. Run Test Flows
+
+```
+npm run test:all
+    - for running all test cases
+npm run test:login
+    - for running login tests
+npm run test:profile
+    - for running profile tests
+npm run test:aadhaar
+    - for running aadhaar tests
+npm run test:pan
+    - for running pan tests
+npm run test:bank
+    - for running bank tests
+npm run test:drawer
+    - for running drawer tests
+npm run test:bottomTab
+    - for running bottom tab tests
+npm run test:ewa
+    - for running ewa tests
 ```

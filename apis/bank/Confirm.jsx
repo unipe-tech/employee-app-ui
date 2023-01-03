@@ -68,6 +68,7 @@ const BankConfirmApi = (props) => {
         }}
       >
         <Button
+          accessibilityLabel="BankNoBtn"
           title="Not Me"
           type="solid"
           uppercase={false}
