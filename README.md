@@ -87,6 +87,14 @@ For running tests:
 
 1. Download Appium Server GUI mandatorily from https://github.com/appium/appium-desktop/releases/tag/v1.22.3-4
 
+2. Start the Appium Server
+
+```
+npx appium
+```
+
+3. Run Test Flows
+
 ```
 npm run test:all
     - for running all test cases
