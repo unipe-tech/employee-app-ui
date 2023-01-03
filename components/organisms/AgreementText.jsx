@@ -34,6 +34,7 @@ const AgreementText = ({
           isVisible={isTermsOfUseModalVisible}
           setIsVisible={setIsTermsOfUseModalVisible}
           data={termsOfUse}
+          accessibilityLabel="TermsViewModal"
         />
       )}
 
@@ -42,6 +43,7 @@ const AgreementText = ({
           isVisible={isPrivacyModalVisible}
           setIsVisible={setIsPrivacyModalVisible}
           data={privacyPolicy}
+          accessibilityLabel="PrivacyViewModal"
         />
       )}
     </>

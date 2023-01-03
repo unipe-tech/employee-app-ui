@@ -15,7 +15,8 @@ import { COLORS, FONTS } from "../../../constants/Theme";
 import { useDispatch, useSelector } from "react-redux";
 import { showToast } from "../../../components/atoms/Toast";
 import { useNavigation } from "@react-navigation/native";
-
+import AgreementText from "../../../components/organisms/AgreementText";
+import LogoutModal from "../../../components/organisms/LogoutModal";
 
 const Account = (props) => {
   const dispatch = useDispatch();
@@ -136,7 +137,10 @@ const Account = (props) => {
             />
           )}
 
-          <Text accessibilityLabel="DrawerName" style={{ ...FONTS.h4, color: COLORS.black, marginLeft: 15 }}>
+          <Text
+            accessibilityLabel="DrawerName"
+            style={{ ...FONTS.h4, color: COLORS.black, marginLeft: 15 }}
+          >
             {name ? name : "Guest User"}
           </Text>
         </View>
@@ -177,6 +181,13 @@ const Account = (props) => {
           </TouchableOpacity>
         ))}
       </ScrollView>
+      <AgreementText
+        isTermsOfUseModalVisible={isTermsOfUseModalVisible}
+        setIsTermsOfUseModalVisible={setIsTermsOfUseModalVisible}
+        isPrivacyModalVisible={isPrivacyModalVisible}
+        setIsPrivacyModalVisible={setIsPrivacyModalVisible}
+      />
+      {modalVisible && <LogoutModal modalVisible={modalVisible} />}
     </SafeAreaView>
   );
 };
