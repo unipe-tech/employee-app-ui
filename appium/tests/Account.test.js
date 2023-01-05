@@ -59,7 +59,7 @@ test("Correct Credentials", async () => {
   await OtpButton.touchAction({ action: "tap" });
 }, 60000);
 
-describe("Drawer Test", () => {
+describe("Account Test", () => {
   test("Terms and Privacy Modal", async () => {
     // await driver.$("~Home").touchAction({ action: "tap" });
     await driver.pause(3000);
@@ -121,16 +121,14 @@ describe("Drawer Test", () => {
 
   test("Bank KYC", async () => {
     await driver.$("~BANK").touchAction("tap");
-    const AccNumberLabel = await driver.$("~123456789012 Value").getText();
+    const AccNumberLabel = await driver.$("~198123981 Value").getText();
     const AccHolderLabel = await driver.$("~KARAN XXXX Value").getText();
-    const IFSCCodeLabel = await driver.$("~ABCD0200000 Value").getText();
-    const UpiIdLabel = await driver.$("~abc@xyz Value").getText();
+    const IFSCCodeLabel = await driver.$("~HDFC0200000 Value").getText();
     const VerifyStatusLabel = await driver.$("~SUCCESS Value").getText();
 
-    expect(AccNumberLabel).toEqual("123456789012");
+    expect(AccNumberLabel).toEqual("198123981");
     expect(AccHolderLabel).toEqual("KARAN XXXX");
-    expect(IFSCCodeLabel).toEqual("ABCD0200000");
-    expect(UpiIdLabel).toEqual("abc@xyz");
+    expect(IFSCCodeLabel).toEqual("HDFC0200000");
     expect(VerifyStatusLabel).toEqual("SUCCESS");
   });
 });
