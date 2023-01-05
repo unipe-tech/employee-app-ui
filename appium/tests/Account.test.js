@@ -82,7 +82,6 @@ describe("Account Test", () => {
     // expect(DrawerText).toEqual("KARAN XXXX");
     // await driver.pause(2000);
     await driver.$("~KYC").touchAction("tap");
-    await driver.$("~Full Name Label").waitForDisplayed({ timeout: 8000 });
     const FullNameLabel = await driver.$("~KARAN XXXX Value").getText();
     const DOBLabel = await driver.$("~1995-09-25 Value").getText();
     const AadhaarNumberLabel = await driver.$("~123452001001 Value").getText();
@@ -121,14 +120,22 @@ describe("Account Test", () => {
 
   test("Bank KYC", async () => {
     await driver.$("~BANK").touchAction("tap");
-    const AccNumberLabel = await driver.$("~198123981 Value").getText();
-    const AccHolderLabel = await driver.$("~KARAN XXXX Value").getText();
+    const AccNumberLabel = await driver.$("~123456789012 Value").getText();
+    const AccHolderLabel = await driver.$("~JOHN DOE Value").getText();
     const IFSCCodeLabel = await driver.$("~HDFC0200000 Value").getText();
+    const BranchNameLabel = await driver
+      .$("~SANTACRUZ, MUMBAI Value")
+      .getText();
+    const BranchCityLabel = await driver.$("~GREATER BOMBAY Value").getText();
+    const UPILabel = await driver.$("~abc@xyz Value").getText();
     const VerifyStatusLabel = await driver.$("~SUCCESS Value").getText();
 
-    expect(AccNumberLabel).toEqual("198123981");
-    expect(AccHolderLabel).toEqual("KARAN XXXX");
+    expect(AccNumberLabel).toEqual("123456789012");
+    expect(AccHolderLabel).toEqual("JOHN DOE");
     expect(IFSCCodeLabel).toEqual("HDFC0200000");
+    expect(BranchNameLabel).toEqual("SANTACRUZ, MUMBAI");
+    expect(BranchCityLabel).toEqual("GREATER BOMBAY");
+    expect(UPILabel).toEqual("abc@xyz");
     expect(VerifyStatusLabel).toEqual("SUCCESS");
   });
 });

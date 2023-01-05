@@ -55,6 +55,7 @@ const DisbursementCard = ({ title, data, info, iconName, variant }) => {
             {item.subTitle}
           </Text>
           <Text
+            accessibilityLabel={`${item.value} Value`}
             style={[
               styles.value,
               { color: variant == "dark" ? COLORS.white : COLORS.secondary },

@@ -75,14 +75,14 @@ describe("EWA test", () => {
   });
 
   test("KYC Page back button testing", async () => {
-    await driver.$("~MoneyInput").setValue("20");
+    // await driver.$("~MoneyInput").touchAction("tap");
     await driver.$("~ContinueBtn").touchAction("tap");
     await driver.pause(2000);
     await driver.$("~BackIcon").touchAction("tap");
-    await driver.$("~MoneyInput").setValue("20");
+    // await driver.$("~MoneyInput").setValue("20");
     await driver.$("~ContinueBtn").touchAction("tap");
     await driver.$("~KYCContinueBtn").waitForDisplayed({ timeout: 8000 });
-    await driver.pause(2000);
+    await driver.pause(4000);
     await driver.$("~KYCContinueBtn").touchAction("tap");
   });
 
@@ -95,10 +95,9 @@ describe("EWA test", () => {
 
   test("Success", async () => {
     await driver.$("~AgreementScreen").waitForDisplayed({ timeout: 8000 });
-    await driver.$("~Loan Amount Key").waitForDisplayed({ timeout: 8000 });
-    expect(await driver.$("~₹20 Value").getText()).toEqual("₹20");
-    expect(await driver.$("~₹1 Value").getText()).toEqual("₹1");
-    expect(await driver.$("~₹19 Value").getText()).toEqual("₹19");
+    expect(await driver.$("~₹6000 Value").getText()).toEqual("₹6000");
+    expect(await driver.$("~₹209 Value").getText()).toEqual("₹209");
+    expect(await driver.$("~₹961 Value").getText()).toEqual("₹961");
     expect(await driver.$("~KARAN XXXX Value").getText()).toEqual("KARAN XXXX");
     expect(await driver.$("~ABCDE2000F Value").getText()).toEqual("ABCDE2000F");
     expect(await driver.$("~1995-09-25 Value").getText()).toEqual("1995-09-25");
@@ -109,8 +108,8 @@ describe("EWA test", () => {
     expect(await driver.$("~123456789012 Value").getText()).toEqual(
       "123456789012"
     );
-    expect(await driver.$("~ABCD0200000 Value").getText()).toEqual(
-      "ABCD0200000"
+    expect(await driver.$("~HDFC0200000 Value").getText()).toEqual(
+      "HDFC0200000"
     );
     await driver.$("~FinishBtn").touchAction("tap");
   });

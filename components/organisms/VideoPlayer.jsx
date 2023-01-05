@@ -25,6 +25,7 @@ export default function VideoPlayer({ thumbnail, title, videoId }) {
   return (
     <>
       <ImageBackground
+        accessibilityLabel="video"
         style={styles.thumbnailContainer}
         borderRadius={5}
         source={thumbnail}
@@ -65,7 +66,7 @@ export default function VideoPlayer({ thumbnail, title, videoId }) {
             />
           </TouchableOpacity>
 
-          <View accessibilityLabel="video" style={styles.modalView}>
+          <View style={styles.modalView}>
             <YoutubePlayer
               height={300}
               play={playing}

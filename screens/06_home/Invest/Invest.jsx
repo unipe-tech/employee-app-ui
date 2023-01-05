@@ -33,7 +33,10 @@ const Invest = (props) => {
       />
       <View style={styles.container}>
         <InvestSVG style={{ marginLeft: "-10%" }} />
-        <Text style={{ ...FONTS.body4, color: COLORS.black, marginTop: 10 }}>
+        <Text
+          accessibilityLabel="investLabel"
+          style={{ ...FONTS.body4, color: COLORS.black, marginTop: 10 }}
+        >
           Welcome to Unipe Invest.
         </Text>
         <Text style={{ ...FONTS.body2, color: COLORS.black }}>

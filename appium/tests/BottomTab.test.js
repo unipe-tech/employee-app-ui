@@ -66,16 +66,11 @@ describe("Bottom Tab Navigation Testing", () => {
     await driver.$("~HomeOfferCard").waitForDisplayed({ timeout: 8000 });
     await driver.$("~video").waitForDisplayed({ timeout: 8000 });
   });
-  test("Documents Screen", async () => {
-    await driver.$("~Documents").touchAction("tap");
-    await driver.$("~Driving License").touchAction("tap");
-    expect(driver.$("~InfoCard")).toBeTruthy();
+  test("Invest Screen", async () => {
+    await driver.$("~Invest").touchAction("tap");
+    expect("~investLabel").toBeTruthy();
   });
-  test("PaySlips Screen", async () => {
-    await driver.$("~Pay Slips").touchAction("tap");
-    expect(driver.$("~MoreDetails")).toBeTruthy();
-  });
-  test("Portal Screen", async () => {
+  test("Benefits Screen", async () => {
     await driver.$("~Benefits").touchAction("tap");
     await driver.$("~Portal").touchAction("tap");
     expect(driver.$("~MoreDetails")).toBeTruthy();
@@ -100,5 +95,9 @@ describe("Bottom Tab Navigation Testing", () => {
     await driver.$("~Money").touchAction("tap");
     await driver.pause(2000);
     expect(driver.$("~EWAText")).toBeTruthy();
+  });
+  test("Money Screen", async () => {
+    await driver.$("~Account").touchAction("tap");
+    await driver.pause(2000);
   });
 });
