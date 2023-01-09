@@ -1,7 +1,8 @@
 import { useNavigation } from "@react-navigation/core";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { COLORS, FONTS } from "../../constants/Theme";
+import { StyleSheet, Text, View } from "react-native";
+import Animated, { Layout, ZoomIn, ZoomOut } from "react-native-reanimated";
 import { Ionicons } from "react-native-vector-icons";
+import { COLORS, FONTS } from "../../constants/Theme";
 
 const KycCheckCard = (props) => {
   const navigation = useNavigation();
@@ -12,9 +13,12 @@ const KycCheckCard = (props) => {
       <Text style={styles.subtitle}>{props.subtitle}</Text>
       {props.message.map((item, index) =>
         item != null ? (
-          <TouchableOpacity
+          <Animated.View
             key={index}
-            onPress={() =>
+            entering={ZoomIn.delay(50 * index)}
+            exiting={ZoomOut}
+            layout={Layout}
+            onTouchEnd={() =>
               navigation.navigate("AccountStack", {
                 screen: "KYC",
                 params: { screen: item.value },
@@ -28,7 +32,7 @@ const KycCheckCard = (props) => {
               size={24}
             />
             <Text style={styles.cardText}>{item.label}</Text>
-          </TouchableOpacity>
+          </Animated.View>
         ) : null
       )}
     </View>

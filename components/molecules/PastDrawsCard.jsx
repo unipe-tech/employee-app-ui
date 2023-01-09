@@ -2,6 +2,7 @@ import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 import { datacard } from "../../styles";
 import { COLORS, FONTS } from "../../constants/Theme";
+import Animated, { Layout, ZoomIn } from "react-native-reanimated";
 
 const COLOR_MAP = {
   Due: "orange",
@@ -30,7 +31,7 @@ const StatusCard = ({ offerType }) => {
   );
 };
 
-const OfferCard = ({ offer }) => {
+const OfferCard = ({ offer, index }) => {
   const navigation = useNavigation();
   var offerType = "Missed";
   var amount = offer.eligibleAmount;
@@ -55,9 +56,11 @@ const OfferCard = ({ offer }) => {
   var month = dateString.split(" ")[1];
 
   return (
-    <TouchableOpacity
+    <Animated.View
+      layout={Layout}
+      entering={ZoomIn.delay(50 * index)}
       activeOpacity={0.8}
-      onLongPress={() => {
+      onTouchEnd={() => {
         if (offerType !== "Missed") {
           navigation.navigate("EWAStack", {
             screen: "EWA_DISBURSEMENT",
@@ -85,7 +88,6 @@ const OfferCard = ({ offer }) => {
           style={{
             flexDirection: "column",
             marginLeft: "5%",
-
             flex: 1,
           }}
         >
@@ -97,13 +99,13 @@ const OfferCard = ({ offer }) => {
 
         <StatusCard offerType={offerType} />
       </View>
-    </TouchableOpacity>
+    </Animated.View>
   );
 };
 
 const PastDrawsCard = (props) => {
   return props.data.map((offer, index) => (
-    <OfferCard offer={offer} key={index} />
+    <OfferCard offer={offer} index={index} key={index} />
   ));
 };
 
