@@ -11,8 +11,15 @@ import { COLORS, FONTS } from "../../constants/Theme";
 import { RZP_KEY_ID } from "../../services/constants";
 import PrimaryButton from "../atoms/PrimaryButton";
 import { showToast } from "../atoms/Toast";
-import { getNumberOfDays, setYYYYMMDDtoDDMMYYYY } from "../../helpers/DateFunctions";
-import { getRepayment, createRazorpayOrder, updateRepayment } from "../../queries/ewa/repayment";
+import {
+  getNumberOfDays,
+  setYYYYMMDDtoDDMMYYYY,
+} from "../../helpers/DateFunctions";
+import {
+  getRepayment,
+  createRazorpayOrder,
+  updateRepayment,
+} from "../../queries/ewa/repayment";
 import { resetRepayment } from "../../store/slices/repaymentSlice";
 
 const PayMoneyCard = () => {
@@ -32,15 +39,26 @@ const PayMoneyCard = () => {
   const customerId = useSelector((state) => state.mandate.data.customerId);
   const unipeEmployeeId = useSelector((state) => state.auth.unipeEmployeeId);
   const token = useSelector((state) => state.auth.token);
-  const campaignId = useSelector((state) => state.campaign.ewaCampaignId || state.campaign.onboardingCampaignId || state.campaign.repaymentCampaignId);
+  const campaignId = useSelector(
+    (state) =>
+      state.campaign.ewaCampaignId ||
+      state.campaign.onboardingCampaignId ||
+      state.campaign.repaymentCampaignId
+  );
 
   const repaymentSlice = useSelector((state) => state.repayment);
-  const [repaymentOrderId, setRepaymentOrderId] = useState(repaymentSlice?.repaymentOrderId);
+  const [repaymentOrderId, setRepaymentOrderId] = useState(
+    repaymentSlice?.repaymentOrderId
+  );
   const [dueDate, setDueDate] = useState(repaymentSlice?.dueDate);
   const [overdueDays, setOverdueDays] = useState(repaymentSlice?.overdueDays);
-  const [repaymentAmount, setRepaymentAmount] = useState(repaymentSlice?.repaymentAmount);
+  const [repaymentAmount, setRepaymentAmount] = useState(
+    repaymentSlice?.repaymentAmount
+  );
   const [repaymentId, setRepaymentId] = useState(repaymentSlice?.repaymentId);
-  const [repaymentStatus, setRepaymentStatus] = useState(repaymentSlice?.repaymentStatus);
+  const [repaymentStatus, setRepaymentStatus] = useState(
+    repaymentSlice?.repaymentStatus
+  );
 
   const {
     isLoading: getRepaymentIsLoading,
@@ -48,14 +66,13 @@ const PayMoneyCard = () => {
     isError: getRepaymentIsError,
     error: getRepaymentError,
     data: getRepaymentData,
-  } = useQuery(['getRepayment', unipeEmployeeId, token], getRepayment, {
+  } = useQuery(["getRepayment", unipeEmployeeId, token], getRepayment, {
     staleTime: 1000 * 60 * 5,
     cacheTime: 1000 * 60 * 11,
     refetchInterval: 1000 * 60 * 5,
   });
 
   useEffect(() => {
-    console.log("ewaRepaymentFetch API getRepaymentData.data: ", getRepaymentData.data);
     if (isFocused && !getRepaymentIsLoading && getRepaymentIsSuccess) {
       if (getRepaymentData.data.status === 200) {
         var repaymentAmount = Math.max(
@@ -83,7 +100,10 @@ const PayMoneyCard = () => {
           setInactive(true);
         }
       } else if (getRepaymentData.data.status === 404) {
-        console.log("ewaRepaymentFetch API status error getRepaymentData.data: ", getRepaymentData.data);
+        console.log(
+          "ewaRepaymentFetch API status error getRepaymentData.data: ",
+          getRepaymentData.data
+        );
         dispatch(resetRepayment());
         setDueDate(null);
         setOverdueDays(0);
@@ -94,15 +114,31 @@ const PayMoneyCard = () => {
         setInactive(true);
       }
     } else if (getRepaymentIsError) {
-      console.log("ewaRepaymentFetch API error getRepaymentError.message: ", getRepaymentError.message);
+      console.log(
+        "ewaRepaymentFetch API error getRepaymentError.message: ",
+        getRepaymentError.message
+      );
       dispatch(resetRepayment());
       setInactive(true);
     }
-  }, [getRepaymentIsLoading, getRepaymentIsSuccess, getRepaymentData, isFocused]);
+  }, [
+    getRepaymentIsLoading,
+    getRepaymentIsSuccess,
+    getRepaymentData,
+    isFocused,
+  ]);
 
-  console.log("repaymentSlice, repaymentAmount: ", repaymentSlice, repaymentAmount, dueDate, repaymentId, repaymentOrderId, repaymentStatus);
+  console.log(
+    "repaymentSlice, repaymentAmount: ",
+    repaymentSlice,
+    repaymentAmount,
+    dueDate,
+    repaymentId,
+    repaymentOrderId,
+    repaymentStatus
+  );
 
-  const {mutateAsync: updateRepaymentMutateAsync} = updateRepayment();
+  const { mutateAsync: updateRepaymentMutateAsync } = updateRepayment();
 
   const { mutateAsync: createRazorpayOrderMutateAsync } = createRazorpayOrder({
     amount: repaymentAmount,
@@ -143,7 +179,10 @@ const PayMoneyCard = () => {
               token: token,
             })
               .then((response) => {
-                console.log("ewaRepayment Checkout Post response.data: ", response?.data);
+                console.log(
+                  "ewaRepayment Checkout Post response.data: ",
+                  response?.data
+                );
                 if (response?.data?.status === 200) {
                   setRepaymentStatus("INPROGRESS");
                   showToast("Loan Payment In Progress");
@@ -155,12 +194,15 @@ const PayMoneyCard = () => {
                   showToast("Loan Payment Failed. Please try again.");
                   setLoading(false);
                   Analytics.trackEvent("Ewa|RepaymentPost|Error", {
-                    unipeEmployeeId: unipeEmployeeId
+                    unipeEmployeeId: unipeEmployeeId,
                   });
                 }
               })
               .catch((error) => {
-                console.log("ewaRepayment Checkout Post response.data: ", error.toString());
+                console.log(
+                  "ewaRepayment Checkout Post response.data: ",
+                  error.toString()
+                );
                 showToast("Loan Payment Failed. Please try again.");
                 setLoading(false);
                 Analytics.trackEvent("Ewa|Repayment|Error", {
@@ -170,7 +212,10 @@ const PayMoneyCard = () => {
               });
           })
           .catch((error) => {
-            console.log("ewaRepayment Checkout response.data: ", error.description);
+            console.log(
+              "ewaRepayment Checkout response.data: ",
+              error.description
+            );
             showToast("Loan Payment Failed. Please try again.");
             setLoading(false);
             Analytics.trackEvent("Ewa|Repayment|Error", {
@@ -260,8 +305,7 @@ const PayMoneyCard = () => {
         >
           <Icon name="info-outline" size={18} color={COLORS.white} />
           <Text style={[styles.text, { marginLeft: 5 }]}>
-            {
-              overdueDays < 0
+            {overdueDays < 0
               ? `Your repayment is overdue by ${overdueDays} days`
               : dueDate !== null
               ? `Due by ${dueDate}`
