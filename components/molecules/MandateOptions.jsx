@@ -56,6 +56,7 @@ const MandateOptions = ({ ProceedButton, disabled }) => {
         return (
           <ListItem
             key={index}
+            index={index}
             item={item}
             disabled={disabled}
             showIcon={true}

@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 import { datacard } from "../../styles";
 import { COLORS, FONTS } from "../../constants/Theme";
-import Animated, { Layout, ZoomIn } from "react-native-reanimated";
+import Animated, { Layout, SlideInDown } from "react-native-reanimated";
 
 const COLOR_MAP = {
   Due: "orange",
@@ -58,7 +58,7 @@ const OfferCard = ({ offer, index }) => {
   return (
     <Animated.View
       layout={Layout}
-      entering={ZoomIn.delay(50 * index)}
+      entering={SlideInDown.delay(50 * index)}
       activeOpacity={0.8}
       onTouchEnd={() => {
         if (offerType !== "Missed") {

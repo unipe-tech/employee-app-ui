@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/core";
 import { StyleSheet, Text, View } from "react-native";
-import Animated, { Layout, ZoomIn, ZoomOut } from "react-native-reanimated";
+import Animated, { Layout, SlideInDown, ZoomOut } from "react-native-reanimated";
 import { Ionicons } from "react-native-vector-icons";
 import { COLORS, FONTS } from "../../constants/Theme";
 
@@ -15,7 +15,7 @@ const KycCheckCard = (props) => {
         item != null ? (
           <Animated.View
             key={index}
-            entering={ZoomIn.delay(50 * index)}
+            entering={SlideInDown.delay(50 * index)}
             exiting={ZoomOut}
             layout={Layout}
             onTouchEnd={() =>

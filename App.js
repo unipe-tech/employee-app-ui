@@ -14,7 +14,7 @@ import codePush from "react-native-code-push";
 import { navigationRef } from "./navigators/RootNavigation";
 import StackNavigator from "./navigators/StackNavigator";
 import { persistor, store } from "./store/store";
-
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 Crashes.setListener({
   shouldProcess: function (report) {
     return true; // return true if the crash report should be processed, otherwise false.
@@ -43,9 +43,11 @@ const App = () => {
         <NavigationContainer ref={navigationRef}>
           <QueryClientProvider client={queryClient}>
             <SafeAreaProvider style={{ backgroundColor: "white", flex: 1 }}>
-              <IconComponentProvider IconComponent={Icon}>
-                <StackNavigator />
-              </IconComponentProvider>
+              <GestureHandlerRootView style={{ flex: 1 }}>
+                <IconComponentProvider IconComponent={Icon}>
+                  <StackNavigator />
+                </IconComponentProvider>
+              </GestureHandlerRootView>
             </SafeAreaProvider>
           </QueryClientProvider>
         </NavigationContainer>

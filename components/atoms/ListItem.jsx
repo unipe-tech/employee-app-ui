@@ -2,16 +2,19 @@ import { Text, TouchableOpacity, View } from "react-native";
 import EStyleSheet from "react-native-extended-stylesheet";
 import { MaterialCommunityIcons } from "react-native-vector-icons";
 import { COLORS, FONTS } from "../../constants/Theme";
+import Animated, { Layout, SlideInDown, ZoomOut } from "react-native-reanimated";
 
-const ListItem = ({ item, disabled, showIcon }) => {
+const ListItem = ({ item, disabled, showIcon, index}) => {
   const { title, subtitle, iconName, onPress } = item;
 
   return (
-    <TouchableOpacity
+    <Animated.View
+      entering={SlideInDown.delay(50 * index)}
+      exiting={ZoomOut}
+      layout={Layout}
+      onTouchEnd={onPress}
       accessibilityLabel="InfoCard"
       style={styles.container}
-      activeOpacity={0.8}
-      onPress={onPress}
       disabled={disabled}
     >
       <MaterialCommunityIcons name={iconName} size={24} color={COLORS.gray} />
@@ -26,7 +29,7 @@ const ListItem = ({ item, disabled, showIcon }) => {
           color={COLORS.gray}
         />
       )}
-    </TouchableOpacity>
+    </Animated.View>
   );
 };
 
