@@ -13,7 +13,7 @@ const MandateOptions = ({ ProceedButton, disabled }) => {
 
   useEffect(() => {
     var mandateOptions = [];
-    var bankCode = ifsc.substring(0, 4);
+    var bankCode = ifsc?.substring(0, 4);
     var emandateOptions = bankCodeEmandateOptionsMap[bankCode] || "000";
     if (emandateOptions[0] === "1") {
       mandateOptions.push({

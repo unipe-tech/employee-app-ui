@@ -23,7 +23,7 @@ export const getBank = ({ unipeEmployeeId, token }) => {
     queryFn: async () => {
       return getBackendData({
         params: { unipeEmployeeId: unipeEmployeeId },
-        xpath: "pan",
+        xpath: "bank",
         token: token,
       });
     },

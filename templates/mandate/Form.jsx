@@ -15,10 +15,6 @@ import {
 } from "../../store/slices/mandateSlice";
 import { styles } from "../../styles";
 import { showToast } from "../../components/atoms/Toast";
-import {
-  createCustomer,
-  createOrder,
-} from "../../services/mandate/Razorpay/services";
 import { RZP_KEY_ID } from "../../services/constants";
 import { COLORS, FONTS } from "../../constants/Theme";
 import Analytics from "appcenter-analytics";
@@ -26,6 +22,11 @@ import DetailsCard from "../../components/molecules/DetailsCard";
 import MandateOptions from "../../components/molecules/MandateOptions";
 import Shield from "../../assets/Shield.svg";
 import RBI from "../../assets/RBI.svg";
+import {
+  updateMandate,
+  createMandateOrder,
+  createMandateCustomer,
+} from "../../queries/mandate/mandate";
 
 const MandateFormTemplate = (props) => {
   const dispatch = useDispatch();
@@ -59,7 +60,10 @@ const MandateFormTemplate = (props) => {
   const [verifyTimestamp, setVerifyTimestamp] = useState(
     mandateSlice?.verifyTimestamp
   );
-  const campaignId = useSelector((state) => state.campaign.ewaCampaignId || state.campaign.onboardingCampaignId);
+  const campaignId = useSelector(
+    (state) =>
+      state.campaign.ewaCampaignId || state.campaign.onboardingCampaignId
+  );
 
   useEffect(() => {
     getUniqueId().then((id) => {
@@ -95,13 +99,18 @@ const MandateFormTemplate = (props) => {
     dispatch(addVerifyTimestamp(verifyTimestamp));
   }, [verifyTimestamp]);
 
+  const { mutateAsync: updateMandateMutateAsync } = updateMandate();
+  const { mutateAsync: createMandateOrderMutateAsync } = createMandateOrder();
+  const { mutateAsync: createMandateCustomerMutateAsync } =
+    createMandateCustomer();
+
   const backendPush = ({ data, verifyMsg, verifyStatus, verifyTimestamp }) => {
     console.log("mandateSlice: ", mandateSlice);
     setData(data);
     setVerifyMsg(verifyMsg);
     setVerifyStatus(verifyStatus);
     setVerifyTimestamp(verifyTimestamp);
-    mandatePush({
+    updateMandateMutateAsync({
       data: {
         unipeEmployeeId: unipeEmployeeId,
         ipAddress: ipAddress,
@@ -120,7 +129,7 @@ const MandateFormTemplate = (props) => {
     console.log("createCustomer customerId: ", customerId, !customerId);
     if (!customerId) {
       try {
-        createCustomer({
+        createMandateCustomerMutateAsync({
           name: accountHolderName,
           email: email,
           contact: phoneNumber,
@@ -218,7 +227,7 @@ const MandateFormTemplate = (props) => {
   const ProceedButton = ({ authType }) => {
     setLoading(true);
     setAuthType(authType);
-    createOrder({
+    createMandateOrderMutateAsync({
       authType: authType,
       customerId: customerId,
       accountHolderName: accountHolderName,
@@ -245,7 +254,10 @@ const MandateFormTemplate = (props) => {
         });
       })
       .catch((error) => {
-        console.log(`Mandate|CreateOrder|${authType} JSON.stringify(error):`, JSON.stringify(error));
+        console.log(
+          `Mandate|CreateOrder|${authType} JSON.stringify(error):`,
+          JSON.stringify(error)
+        );
         console.log(`Mandate|CreateOrder|${authType} error:`, error.toString());
         Alert.alert("Error", error.toString());
         backendPush({
@@ -300,10 +312,7 @@ const MandateFormTemplate = (props) => {
             <Text style={{ ...FONTS.body4, color: COLORS.black }}>
               Your Mandate Registration is currently in progress.
             </Text>
-          ) : (
-            verifyStatus === "SUCCESS" ? (
-              null
-            ) :
+          ) : verifyStatus === "SUCCESS" ? null : (
             <MandateOptions ProceedButton={ProceedButton} disabled={loading} />
           )}
           <View

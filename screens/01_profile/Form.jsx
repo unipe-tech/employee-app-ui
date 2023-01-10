@@ -10,15 +10,15 @@ import {
   addMotherName,
   addMaritalStatus,
 } from "../../store/slices/profileSlice";
-import { profileBackendPush } from "../../helpers/BackendPush";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
-import { form, styles } from "../../styles";
+import { styles } from "../../styles";
 import { KeyboardAvoidingWrapper } from "../../KeyboardAvoidingWrapper";
 import PrimaryButton from "../../components/atoms/PrimaryButton";
 import FormInput from "../../components/atoms/FormInput";
 import DropDownForm from "../../components/molecules/DropDownForm";
 import Analytics from "appcenter-analytics";
 import LogoHeaderBack from "../../components/molecules/LogoHeaderBack";
+import { updateProfile } from "../../queries/onboarding/profile";
 
 const ProfileForm = () => {
   const dispatch = useDispatch();
@@ -39,8 +39,12 @@ const ProfileForm = () => {
   const [altMobile, setAltMobile] = useState(profileSlice?.altMobile);
   const [email, setEmail] = useState(profileSlice?.email);
   const [motherName, setMotherName] = useState(profileSlice?.motherName);
-  const campaignId = useSelector((state) => state.campaign.onboardingCampaignId);
-  
+  const campaignId = useSelector(
+    (state) => state.campaign.onboardingCampaignId
+  );
+
+  const { mutateAsync: updateProfileMutateAsync } = updateProfile();
+
   useEffect(() => {
     dispatch(addCurrentScreen("ProfileForm"));
   }, []);
@@ -76,7 +80,7 @@ const ProfileForm = () => {
   useEffect(() => {
     console.log("ProfileForm profileSlice: ", profileSlice);
     if (backendPush) {
-      profileBackendPush({
+      updateProfileMutateAsync({
         data: {
           unipeEmployeeId: unipeEmployeeId,
           maritalStatus: maritalStatus,
