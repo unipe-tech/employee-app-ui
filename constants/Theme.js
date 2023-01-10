@@ -73,15 +73,15 @@ export const SIZES = {
 
   // font sizes
   h1: normalize(30),
-  h2: normalize(21),
-  h3: normalize(18),
-  h4: normalize(15),
-  h5: normalize(13),
+  h2: normalize(24),
+  h3: normalize(20),
+  h4: normalize(16),
+  h5: normalize(14),
   body1: normalize(30),
-  body2: normalize(21),
-  body3: normalize(18),
-  body4: normalize(15),
-  body5: normalize(13),
+  body2: normalize(24),
+  body3: normalize(20),
+  body4: normalize(16),
+  body5: normalize(14),
 
   // app dimensions
   width,
