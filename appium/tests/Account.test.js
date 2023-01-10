@@ -121,7 +121,7 @@ describe("Account Test", () => {
   test("Bank KYC", async () => {
     await driver.$("~BANK").touchAction("tap");
     const AccNumberLabel = await driver.$("~123456789012 Value").getText();
-    const AccHolderLabel = await driver.$("~JOHN DOE Value").getText();
+    const AccHolderLabel = await driver.$("~KARAN XXXX Value").getText();
     const IFSCCodeLabel = await driver.$("~HDFC0200000 Value").getText();
     const BranchNameLabel = await driver
       .$("~SANTACRUZ, MUMBAI Value")
@@ -131,7 +131,7 @@ describe("Account Test", () => {
     const VerifyStatusLabel = await driver.$("~SUCCESS Value").getText();
 
     expect(AccNumberLabel).toEqual("123456789012");
-    expect(AccHolderLabel).toEqual("JOHN DOE");
+    expect(AccHolderLabel).toEqual("KARAN XXXX");
     expect(IFSCCodeLabel).toEqual("HDFC0200000");
     expect(BranchNameLabel).toEqual("SANTACRUZ, MUMBAI");
     expect(BranchCityLabel).toEqual("GREATER BOMBAY");
