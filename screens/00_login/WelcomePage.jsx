@@ -11,6 +11,7 @@ import Success from "../../assets/congratulations.svg";
 import { useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
+import { updateNotification } from "../../queries/services/notification";
 
 const WelcomePage = () => {
   const unipeEmployeeId = useSelector((state) => state.auth.unipeEmployeeId);
@@ -33,6 +34,8 @@ const WelcomePage = () => {
     return () =>
       BackHandler.removeEventListener("hardwareBackPress", backAction);
   }, []);
+
+  const { mutateAsync: updateNotificationMutateAsync } = updateNotification();
 
   return (
     <SafeAreaView accessibilityLabel="WelcomePage" style={styles.safeContainer}>
@@ -70,7 +73,7 @@ const WelcomePage = () => {
           title="Start eKYC"
           accessibilityLabel="WelcomeBtn"
           onPress={() => {
-            requestUserPermission();
+            requestUserPermission({ updateNotificationMutateAsync });
             Analytics.trackEvent("WelcomePage", {
               unipeEmployeeId: unipeEmployeeId,
             });

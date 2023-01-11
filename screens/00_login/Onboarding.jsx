@@ -14,6 +14,7 @@ import ShieldTitle from "../../components/atoms/ShieldTitle";
 import OnDemand from "../../assets/OnDemand.svg";
 import Clock from "../../assets/Clock.svg";
 import InterestFree from "../../assets/InterestFree.svg";
+import { updateNotification } from "../../queries/services/notification";
 
 const Onboarding = () => {
   const navigation = useNavigation();
@@ -35,6 +36,8 @@ const Onboarding = () => {
       imageUri: <InterestFree />,
     },
   ];
+
+  const { mutateAsync: updateNotificationMutateAsync } = updateNotification();
 
   return (
     <SafeAreaView style={[styles.safeContainer]}>
@@ -100,7 +103,7 @@ const Onboarding = () => {
         <PrimaryButton
           title="Get Started Now"
           onPress={() => {
-            requestUserPermission();
+            requestUserPermission({ updateNotificationMutateAsync });
             Analytics.trackEvent("Onboarding", {
               unipeEmployeeId: unipeEmployeeId,
             });
