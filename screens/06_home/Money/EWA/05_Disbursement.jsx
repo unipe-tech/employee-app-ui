@@ -58,7 +58,7 @@ const Disbursement = ({ route, navigation }) => {
 
   const getStatusText = (headline, subheadline) => {
     return (
-      <View style={{ alignItems: "center", width: "100%" }}>
+      <View style={{ alignItems: "center", width: "80%", marginTop: "5%" }}>
         <Text style={styles.headline}>{headline}</Text>
         <Text style={styles.subHeadline}>{subheadline}</Text>
       </View>
@@ -98,30 +98,40 @@ const Disbursement = ({ route, navigation }) => {
   useEffect(() => {
     if (getDisbursementIsSuccess) {
       if (getDisbursementData?.data?.status === 200) {
-        setBankAccountNumber(getDisbursementData?.data?.body?.bankAccountNumber);
+        setBankAccountNumber(
+          getDisbursementData?.data?.body?.bankAccountNumber
+        );
         setDueDate(getDisbursementData?.data?.body?.dueDate);
-        setLoanAccountNumber(getDisbursementData?.data?.body?.loanAccountNumber);
+        setLoanAccountNumber(
+          getDisbursementData?.data?.body?.loanAccountNumber
+        );
         setLoanAmount(getDisbursementData?.data?.body?.loanAmount);
         setNetAmount(getDisbursementData?.data?.body?.netAmount);
         setStatus(getDisbursementData?.data?.body?.status);
       } else {
-        console.log("HomeView ewaOffersFetch API error getEwaOffersData.data : ", getDisbursementData.data);
+        console.log(
+          "HomeView ewaOffersFetch API error getEwaOffersData.data : ",
+          getDisbursementData.data
+        );
       }
     } else if (getDisbursementIsError) {
-      console.log("HomeView ewaOffersFetch API error getEwaOffersError.message : ", getDisbursementError.message);
+      console.log(
+        "HomeView ewaOffersFetch API error getEwaOffersError.message : ",
+        getDisbursementError.message
+      );
     }
   }, [getDisbursementIsSuccess, getDisbursementData]);
-  
+
   useEffect(() => {
     setDueDate(offer?.dueDate);
     setLoanAccountNumber(offer?.loanAccountNumber);
     setLoanAmount(offer?.loanAmount);
-    var pf = (parseInt(offer?.loanAmount) * offer?.fees)/100;
+    var pf = (parseInt(offer?.loanAmount) * offer?.fees) / 100;
     var pF;
-    if (parseInt(pf)%10<4) {
-      pF = Math.max(9, (Math.floor((pf/10))*10) -1);
+    if (parseInt(pf) % 10 < 4) {
+      pF = Math.max(9, Math.floor(pf / 10) * 10 - 1);
     } else {
-      pF = Math.max(9, (Math.floor(((pf+10)/10))*10) -1);
+      pF = Math.max(9, Math.floor((pf + 10) / 10) * 10 - 1);
     }
     setNetAmount(parseInt(offer?.loanAmount) - pF);
   }, [offer]);
@@ -143,9 +153,15 @@ const Disbursement = ({ route, navigation }) => {
         // progress={100}
       />
       <View style={styles.container}>
-        {StatusImage(status)}
-        {StatusText(status)}
-        <View style={{ flex: 1 }} />
+        <View
+          style={[
+            styles.safeContainer,
+            { alignItems: "center", justifyContent: "center" },
+          ]}
+        >
+          {StatusImage(status)}
+          {StatusText(status)}
+        </View>
         <DisbursementCard
           data={data}
           title="Loan Details"
