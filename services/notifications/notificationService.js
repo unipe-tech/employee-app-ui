@@ -4,18 +4,17 @@ import { store } from "../../store/store";
 import { version } from "../../package.json";
 import * as RootNavigation from "../../navigators/RootNavigation";
 import PushNotification from "react-native-push-notification";
-import { fcmPush } from "../../helpers/BackendPush";
 
-export async function requestUserPermission() {
+export async function requestUserPermission({ updateNotificationMutateAsync }) {
   const authorizationStatus = await messaging().requestPermission();
 
   if (authorizationStatus) {
     console.log("Permission status:", authorizationStatus);
-    getFcmToken();
+    getFcmToken({ updateNotificationMutateAsync });
   }
 }
 
-export const getFcmToken = async () => {
+export const getFcmToken = async ({ updateNotificationMutateAsync }) => {
   let fcmToken = await AsyncStorage.getItem("fcmToken");
   await messaging().subscribeToTopic("initial-users");
   console.log(fcmToken, "the old FCM token");
@@ -30,7 +29,7 @@ export const getFcmToken = async () => {
       console.log(data);
       if (fcmToken) {
         console.log(fcmToken, "new generated FCM token");
-        fcmPush({
+        updateNotificationMutateAsync({
           data: data,
           token: store.getState().auth.token,
         });

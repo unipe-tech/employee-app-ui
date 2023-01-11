@@ -36,6 +36,7 @@ import {
   addEligible,
   resetEwaLive,
 } from "../../store/slices/ewaLiveSlice";
+import { updateNotification } from "../../queries/services/notification";
 
 const HomeView = () => {
   const dispatch = useDispatch();
@@ -61,6 +62,8 @@ const HomeView = () => {
   const [eligible, setEligible] = useState(ewaLiveSlice?.eligible);
   const [accessible, setAccessible] = useState(ewaLiveSlice?.accessible);
 
+  const { mutateAsync: updateNotificationMutateAsync } = updateNotification();
+
   const verifyStatuses = [
     aadhaarVerifyStatus != "SUCCESS"
       ? { label: "Verify AADHAAR", value: "AADHAAR" }
@@ -85,7 +88,7 @@ const HomeView = () => {
   }, []);
 
   useEffect(() => {
-    requestUserPermission();
+    requestUserPermission({ updateNotificationMutateAsync });
     notificationListener();
   }, []);
 
@@ -113,7 +116,7 @@ const HomeView = () => {
     isError: getEwaOffersIsError,
     error: getEwaOffersError,
     data: getEwaOffersData,
-  } = useQuery(['getEwaOffers', unipeEmployeeId, token], getEwaOffers, {
+  } = useQuery(["getEwaOffers", unipeEmployeeId, token], getEwaOffers, {
     staleTime: 1000 * 60 * 5,
     cacheTime: 1000 * 60 * 11,
     refetchInterval: 1000 * 60 * 5,
@@ -138,12 +141,18 @@ const HomeView = () => {
         dispatch(resetEwaHistorical(getEwaOffersData.data.body.past));
         setFetched(true);
       } else {
-        console.log("HomeView ewaOffersFetch API error getEwaOffersData.data : ", getEwaOffersData.data);
+        console.log(
+          "HomeView ewaOffersFetch API error getEwaOffersData.data : ",
+          getEwaOffersData.data
+        );
         dispatch(resetEwaLive());
         dispatch(resetEwaHistorical());
       }
     } else if (getEwaOffersIsError) {
-      console.log("HomeView ewaOffersFetch API error getEwaOffersError.message : ", getEwaOffersError.message);
+      console.log(
+        "HomeView ewaOffersFetch API error getEwaOffersError.message : ",
+        getEwaOffersError.message
+      );
       dispatch(resetEwaLive());
       dispatch(resetEwaHistorical());
     }
