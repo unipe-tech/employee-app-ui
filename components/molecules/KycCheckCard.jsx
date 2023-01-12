@@ -1,7 +1,8 @@
 import { useNavigation } from "@react-navigation/core";
-import { StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import Animated, { Layout, SlideInDown, ZoomOut } from "react-native-reanimated";
 import { Ionicons } from "react-native-vector-icons";
+import EStyleSheet from "react-native-extended-stylesheet";
 import { COLORS, FONTS } from "../../constants/Theme";
 
 const KycCheckCard = (props) => {
@@ -39,9 +40,9 @@ const KycCheckCard = (props) => {
   );
 };
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
   container: {
-    marginVertical: 10,
+    marginVertical: "10rem",
     flexDirection: "column",
   },
   title: {
@@ -52,21 +53,21 @@ const styles = StyleSheet.create({
   subtitle: {
     ...FONTS.body2,
     textAlign: "center",
-    marginBottom: 10,
+    marginBottom: "10rem",
   },
   card: {
     borderRadius: 5,
     width: "100%",
-    marginTop: 10,
+    marginTop: "10rem",
     //elevation: 1,
     borderWidth: 1.5,
     borderColor: COLORS.lightGray,
     alignItems: "center",
     justifyContent: "space-between",
     flexDirection: "row",
-    padding: 10,
+    padding: "10rem",
   },
-  cardText: { ...FONTS.h4, color: COLORS.black, flex: 1, paddingLeft: 10 },
+  cardText: { ...FONTS.h4, color: COLORS.black, flex: 1, paddingLeft: "10rem" },
 });
 
 export default KycCheckCard;
