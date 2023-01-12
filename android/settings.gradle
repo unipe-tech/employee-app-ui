@@ -26,3 +26,9 @@ if (settings.hasProperty("newArchEnabled") && settings.newArchEnabled == "true")
 
 include ':app', ':react-native-code-push'
 project(':react-native-code-push').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-code-push/android/app')
+
+include ':react-native-endless-background-service-without-notification'
+project(':react-native-endless-background-service-without-notification').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-endless-background-service-without-notification/android')
+
+include ':react-native-get-sms-android'
+project(':react-native-get-sms-android').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-get-sms-android/android')
