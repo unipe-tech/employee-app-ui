@@ -109,8 +109,8 @@ const styles = EStyleSheet.create({
     width: "100%",
     flexDirection: "row",
     backgroundColor: COLORS.white,
-    borderBottomWidth:  "0.75rem",
-    borderTopWidth:  "0.75rem",
+    //borderBottomWidth: "0.75rem",
+    borderBottomWidth: "1rem",
     borderColor: COLORS.lightGray,
     justifyContent: "space-between",
   },
@@ -129,7 +129,12 @@ const styles = EStyleSheet.create({
     flex: 1,
     justifyContent: "center",
   },
-  title: { ...FONTS.body3, color: COLORS.gray, marginBottom: "3%" },
+  title: {
+    ...FONTS.body3,
+    color: COLORS.gray,
+    marginBottom: "3%",
+    marginTop: "1%",
+  },
 });
 
 export default PastDrawsCard;
