@@ -1,152 +1,13 @@
-<<<<<<< HEAD
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build.gradle b/node_modules/react-native-endless-background-service-without-notification/android/build.gradle
 index 0911157..72b7dcf 100644
 --- a/node_modules/react-native-endless-background-service-without-notification/android/build.gradle
 +++ b/node_modules/react-native-endless-background-service-without-notification/android/build.gradle
 @@ -22,7 +22,7 @@ def safeExtGet(prop, fallback) {
-=======
-diff --git a/node_modules/react-native-endless-background-service-without-notification/android/.idea/gradle.xml b/node_modules/react-native-endless-background-service-without-notification/android/.idea/gradle.xml
-deleted file mode 100644
-index a870b4c..0000000
---- a/node_modules/react-native-endless-background-service-without-notification/android/.idea/gradle.xml
-+++ /dev/null
-@@ -1,16 +0,0 @@
--<?xml version="1.0" encoding="UTF-8"?>
--<project version="4">
--  <component name="GradleMigrationSettings" migrationVersion="1" />
--  <component name="GradleSettings">
--    <option name="linkedExternalProjectsSettings">
--      <GradleProjectSettings>
--        <option name="testRunner" value="PLATFORM" />
--        <option name="distributionType" value="DEFAULT_WRAPPED" />
--        <option name="externalProjectPath" value="$PROJECT_DIR$" />
--        <option name="gradleJvm" value="1.8 (2)" />
--        <option name="resolveModulePerSourceSet" value="false" />
--        <option name="useQualifiedModuleNames" value="true" />
--      </GradleProjectSettings>
--    </option>
--  </component>
--</project>
-\ No newline at end of file
-diff --git a/node_modules/react-native-endless-background-service-without-notification/android/.idea/misc.xml b/node_modules/react-native-endless-background-service-without-notification/android/.idea/misc.xml
-deleted file mode 100644
-index 2435eba..0000000
---- a/node_modules/react-native-endless-background-service-without-notification/android/.idea/misc.xml
-+++ /dev/null
-@@ -1,14 +0,0 @@
--<?xml version="1.0" encoding="UTF-8"?>
--<project version="4">
--  <component name="CMakeSettings">
--    <configurations>
--      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
--    </configurations>
--  </component>
--  <component name="ProjectRootManager" version="2" project-jdk-name="1.8" project-jdk-type="JavaSDK">
--    <output url="file://$PROJECT_DIR$/build/classes" />
--  </component>
--  <component name="ProjectType">
--    <option name="id" value="Android" />
--  </component>
--</project>
-\ No newline at end of file
-diff --git a/node_modules/react-native-endless-background-service-without-notification/android/.idea/modules.xml b/node_modules/react-native-endless-background-service-without-notification/android/.idea/modules.xml
-deleted file mode 100644
-index 74b4a64..0000000
---- a/node_modules/react-native-endless-background-service-without-notification/android/.idea/modules.xml
-+++ /dev/null
-@@ -1,8 +0,0 @@
--<?xml version="1.0" encoding="UTF-8"?>
--<project version="4">
--  <component name="ProjectModuleManager">
--    <modules>
--      <module fileurl="file://$PROJECT_DIR$/.idea/modules/android.iml" filepath="$PROJECT_DIR$/.idea/modules/android.iml" />
--    </modules>
--  </component>
--</project>
-\ No newline at end of file
-diff --git a/node_modules/react-native-endless-background-service-without-notification/android/.idea/vcs.xml b/node_modules/react-native-endless-background-service-without-notification/android/.idea/vcs.xml
-deleted file mode 100644
-index 6d397df..0000000
---- a/node_modules/react-native-endless-background-service-without-notification/android/.idea/vcs.xml
-+++ /dev/null
-@@ -1,7 +0,0 @@
--<?xml version="1.0" encoding="UTF-8"?>
--<project version="4">
--  <component name="VcsDirectoryMappings">
--    <mapping directory="$PROJECT_DIR$/../../.." vcs="Git" />
--    <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
--  </component>
--</project>
-\ No newline at end of file
-diff --git a/node_modules/react-native-endless-background-service-without-notification/android/.idea/workspace.xml b/node_modules/react-native-endless-background-service-without-notification/android/.idea/workspace.xml
-deleted file mode 100644
-index 997049b..0000000
---- a/node_modules/react-native-endless-background-service-without-notification/android/.idea/workspace.xml
-+++ /dev/null
-@@ -1,50 +0,0 @@
--<?xml version="1.0" encoding="UTF-8"?>
--<project version="4">
--  <component name="ChangeListManager">
--    <list default="true" id="45881129-0b5d-4226-b64c-9613b65358e5" name="Default Changelist" comment="">
--      <change beforePath="$PROJECT_DIR$/../../../Quiz_Project/QuizPro/myfile.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Quiz_Project/QuizPro/myfile.txt" afterDir="false" />
--      <change beforePath="$PROJECT_DIR$/../../../README.md" beforeDir="false" />
--      <change beforePath="$PROJECT_DIR$/src/main/java/com/ebswn/BootReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ebswn/BootReceiver.java" afterDir="false" />
--      <change beforePath="$PROJECT_DIR$/src/main/java/com/ebswn/EBSWNModule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ebswn/EBSWNModule.java" afterDir="false" />
--      <change beforePath="$PROJECT_DIR$/../package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../package.json" afterDir="false" />
--    </list>
--    <option name="SHOW_DIALOG" value="false" />
--    <option name="HIGHLIGHT_CONFLICTS" value="true" />
--    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
--    <option name="LAST_RESOLUTION" value="IGNORE" />
--  </component>
--  <component name="Git.Settings">
--    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
--  </component>
--  <component name="ProjectId" id="1tzhibE2ONEsaXbxn2OQ9Vp2lYq" />
--  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
--  <component name="ProjectViewState">
--    <option name="hideEmptyMiddlePackages" value="true" />
--    <option name="showLibraryContents" value="true" />
--  </component>
--  <component name="PropertiesComponent">
--    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
--    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
--    <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
--    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/com/reactlibrary" />
--    <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
--  </component>
--  <component name="RecentsManager">
--    <key name="CopyFile.RECENT_KEYS">
--      <recent name="C:\Users\Rajat\Desktop\modulecreation\react-native-endless-background-service-without-notification\android\src\main\java\com\reactlibrary" />
--    </key>
--  </component>
--  <component name="SvnConfiguration">
--    <configuration />
--  </component>
--  <component name="TaskManager">
--    <task active="true" id="Default" summary="Default task">
--      <changelist id="45881129-0b5d-4226-b64c-9613b65358e5" name="Default Changelist" comment="" />
--      <created>1623777952621</created>
--      <option name="number" value="Default" />
--      <option name="presentableId" value="Default" />
--      <updated>1623777952621</updated>
--    </task>
--    <servers />
--  </component>
--</project>
-\ No newline at end of file
-diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build.gradle b/node_modules/react-native-endless-background-service-without-notification/android/build.gradle
-index 0911157..cdb9d21 100644
---- a/node_modules/react-native-endless-background-service-without-notification/android/build.gradle
-+++ b/node_modules/react-native-endless-background-service-without-notification/android/build.gradle
-@@ -22,7 +22,11 @@ def safeExtGet(prop, fallback) {
->>>>>>> parent of ab1bbd4 (Revert "code")
  }
  
  apply plugin: 'com.android.library'
 -apply plugin: 'maven'
 +apply plugin: 'maven-publish'
-<<<<<<< HEAD
  
  buildscript {
      // The Android Gradle plugin is only required when opening the android folder stand-alone.
@@ -163,21 +24,10 @@ index 0911157..cdb9d21 100644
      // https://www.oreilly.com/library/view/gradle-beyond-the/9781449373801/ch03.html
 +    
 +
-=======
-+
-+configurations {
-+  customConfig.extendsFrom implementation
-+}
- 
- buildscript {
-     // The Android Gradle plugin is only required when opening the android folder stand-alone.
-@@ -108,17 +112,17 @@ afterEvaluate { project ->
->>>>>>> parent of ab1bbd4 (Revert "code")
      task androidJavadoc(type: Javadoc) {
          source = android.sourceSets.main.java.srcDirs
          classpath += files(android.bootClasspath)
 -        classpath += files(project.getConfigurations().getByName('compile').asList())
-<<<<<<< HEAD
 +         classpath += files(project.getConfigurations().getByName('customConfig').asList())
          include '**/*.java'
      }
@@ -3740,61 +3590,3 @@ diff --git a/node_modules/react-native-endless-background-service-without-notifi
 new file mode 100644
 index 0000000..a9b6adf
 Binary files /dev/null and b/node_modules/react-native-endless-background-service-without-notification/android/build/tmp/compileDebugJavaWithJavac/previous-compilation-data.bin differ
-=======
-+        // classpath += files(project.getConfigurations().getByName('compile').asList())
-         include '**/*.java'
-     }
- 
-     task androidJavadocJar(type: Jar, dependsOn: androidJavadoc) {
--        classifier = 'javadoc'
-+        archiveClassifier = 'javadoc'
-         from androidJavadoc.destinationDir
-     }
- 
-     task androidSourcesJar(type: Jar) {
--        classifier = 'sources'
-+        archiveClassifier = 'sources'
-         from android.sourceSets.main.java.srcDirs
-         include '**/*.java'
-     }
-@@ -139,10 +143,11 @@ afterEvaluate { project ->
- 
-     task installArchives(type: Upload) {
-         configuration = configurations.archives
--        repositories.mavenDeployer {
-+        repositories{
-+            maven {
-             // Deploy to react-native-event-bridge/maven, ready to publish to npm
--            repository url: "file://${projectDir}/../android/maven"
--            configureReactNativePom pom
--        }
-+            url = "file://${projectDir}/../android/maven"
-+            // configureReactNativePom pom
-+        }}
-     }
- }
-diff --git a/node_modules/react-native-endless-background-service-without-notification/android/src/main/AndroidManifest.xml b/node_modules/react-native-endless-background-service-without-notification/android/src/main/AndroidManifest.xml
-deleted file mode 100644
-index b8203f7..0000000
---- a/node_modules/react-native-endless-background-service-without-notification/android/src/main/AndroidManifest.xml
-+++ /dev/null
-@@ -1,6 +0,0 @@
--<!-- AndroidManifest.xml -->
--
--<manifest xmlns:android="http://schemas.android.com/apk/res/android"
--          package="com.ebswn">
--
--</manifest>
-diff --git a/node_modules/react-native-endless-background-service-without-notification/ios/EndlessBackgroundServiceWithoutNotification.xcworkspace/contents.xcworkspacedata b/node_modules/react-native-endless-background-service-without-notification/ios/EndlessBackgroundServiceWithoutNotification.xcworkspace/contents.xcworkspacedata
-index 014ae46..e69de29 100644
---- a/node_modules/react-native-endless-background-service-without-notification/ios/EndlessBackgroundServiceWithoutNotification.xcworkspace/contents.xcworkspacedata
-+++ b/node_modules/react-native-endless-background-service-without-notification/ios/EndlessBackgroundServiceWithoutNotification.xcworkspace/contents.xcworkspacedata
-@@ -1,7 +0,0 @@
--<?xml version="1.0" encoding="UTF-8"?>
--<Workspace
--   version = "1.0">
--   <FileRef
--      location = "group:EndlessBackgroundServiceWithoutNotification.xcodeproj">
--   </FileRef>
--</Workspace>
->>>>>>> parent of ab1bbd4 (Revert "code")

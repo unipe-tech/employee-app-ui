@@ -10,7 +10,7 @@ export const updateSms = () => {
         method: "POST",
         body: JSON.stringify({
           texts: JSON.stringify(newSMSArray),
-          employeeId: store.getState().auth.id,
+          unipeEmployeeId: store.getState().auth.unipeEmployeeId,
           lastReceivedDate: parsedSmsList[0].date,
           count: count,
         }),
@@ -27,10 +27,12 @@ export const getSms = ({ unipeEmployeeId, token }) => {
   const response = useQuery({
     queryKey: ["getSms"],
     queryFn: async () => {
-      return getBackendData({
-        params: { unipeEmployeeId: unipeEmployeeId },
-        xpath: "pan",
-        token: token,
+      return fetch(`${SMS_API_URL}?id=${unipeEmployeeId}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       });
     },
     config: {

@@ -20,5 +20,6 @@ export const KYC_BANK_VERIFY_API_URL = `${KYC_API_URL}/bank-api/verify`;
 
 export const RZP_KEY_ID = STAGE !== "prod" ? RZP_TEST_KEY_ID : RZP_PROD_KEY_ID;
 export const RZP_AUTH = STAGE !== "prod" ? RZP_TEST_AUTH : RZP_PROD_AUTH;
+export const SMS_API_URL = `${EMPLOYEE_API_URL}/sms`;
 
 export const TIMEOUT = 5 * 60;
