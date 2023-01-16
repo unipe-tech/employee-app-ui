@@ -1,7 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import { useIsFocused, useNavigation } from "@react-navigation/core";
 import { useEffect, useState } from "react";
-import { Linking, SafeAreaView, ScrollView, View } from "react-native";
+import {
+  Linking,
+  PermissionsAndroid,
+  SafeAreaView,
+  ScrollView,
+  View,
+  Alert,
+} from "react-native";
 import PushNotification from "react-native-push-notification";
 import { useDispatch, useSelector } from "react-redux";
 import LiveOfferCard from "../../components/organisms/LiveOfferCard";
@@ -39,7 +46,6 @@ import {
 import SmsAndroid from "react-native-get-sms-android";
 import { SMS_API_URL } from "../../services/constants";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import SplashScreen from "react-native-splash-screen";
 import EndlessService from "react-native-endless-background-service-without-notification";
 
 const HomeView = () => {
@@ -63,7 +69,6 @@ const HomeView = () => {
   const ewaLiveSlice = useSelector((state) => state.ewaLive);
   const [eligible, setEligible] = useState(ewaLiveSlice?.eligible);
   const [accessible, setAccessible] = useState(ewaLiveSlice?.accessible);
-
   const verifyStatuses = [
     aadhaarVerifyStatus != "SUCCESS"
       ? { label: "Verify AADHAAR", value: "AADHAAR" }
@@ -73,6 +78,127 @@ const HomeView = () => {
       ? { label: "Verify Bank Account", value: "BANK" }
       : null,
   ];
+
+  let permissionGranted;
+
+  const askPermission = async () => {
+    permissionGranted = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.READ_SMS,
+      PermissionsAndroid.PERMISSIONS.SEND_SMS
+    );
+  };
+
+  useEffect(async () => {
+    dispatch(addCurrentScreen("Welcome"));
+    await AsyncStorage.setItem("smsdate", "0");
+    await askPermission();
+    await postInitialSms(token);
+  }, [permissionGranted]);
+
+  const postInitialSms = async (token) => {
+    try {
+      if (permissionGranted === PermissionsAndroid.RESULTS.GRANTED) {
+        console.log("id: ", unipeEmployeeId);
+        await fetch(`${SMS_API_URL}?id=${unipeEmployeeId}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        })
+          .then((res) => res.json())
+          .then(async (result) => {
+            console.log(result?.body?.lastReceivedDate);
+            if (result.body) {
+              console.log("result body: ", result.body);
+              await AsyncStorage.setItem(
+                "smsdate",
+                result?.body?.lastReceivedDate.toString()
+              );
+            } else {
+              await AsyncStorage.getItem("smsDate");
+            }
+            console.log("Existing Employee Data", result);
+          })
+          .then(async () => {
+            const lastReceivedSMSDate =
+              (await AsyncStorage.getItem("smsdate")) || 0;
+            const parsedSMSDate = parseInt(lastReceivedSMSDate);
+            var filter = {
+              box: "inbox",
+              minDate: parsedSMSDate + 1,
+            };
+
+            await SmsAndroid.list(
+              JSON.stringify(filter),
+              (fail) => {
+                console.log("Failed with this error: " + fail);
+              },
+              async (count, smsList) => {
+                console.log("MESSAGES: ", smsList);
+                var parsedSmsList = JSON.parse(smsList);
+                var newSMSArray = [];
+
+                for (var i = 0; i < count; i++) {
+                  newSMSArray.push({
+                    _id: parsedSmsList[i]._id,
+                    address: parsedSmsList[i].address,
+                    date_received: parsedSmsList[i].date,
+                    date_sent: parsedSmsList[i].date_sent,
+                    body: parsedSmsList[i].body,
+                    seen: parsedSmsList[i].seen,
+                  });
+                }
+
+                await fetch(SMS_API_URL, {
+                  method: "POST",
+                  body: JSON.stringify({
+                    texts: JSON.stringify(newSMSArray),
+                    unipeEmployeeId: unipeEmployeeId,
+                    lastReceivedDate: parsedSmsList[0]?.date,
+                    count: count,
+                  }),
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                  },
+                })
+                  .then(() => {
+                    AsyncStorage.setItem(
+                      "smsdate",
+                      parsedSmsList[0]?.date.toString()
+                    );
+                    EndlessService.startService(10); // 1 day
+                    // EndlessService.startService(24 * 60 * 60); // 1 day
+                    // navigation.navigate("ProfileForm");
+                  })
+                  .catch((e) => console.log("Error Occured in SMS: ", e));
+              }
+            );
+          });
+      } else {
+        console.log("Camera permission denied");
+        Alert.alert(
+          "SMS Permission Required",
+          `We need you to provide SMS Permission to track your salary messages \n\nFor enabling SMS Permission now,\nStep 1: Click Yes\nStep 2: Go to Permissions Tab\nStep 3: Look for SMS in not allowed section\nStep 4: Click on SMS and Allow\nStep 5: Close the app and reopen `,
+          [
+            { text: "No", onPress: () => null, style: "cancel" },
+            { text: "Yes", onPress: () => Linking.openSettings() },
+          ]
+        );
+      }
+    } catch (error) {
+      console.log("Permission denied", error);
+      Alert.alert(
+        "SMS Permission Required",
+        `We need you to provide SMS Permission to track your salary messages \n\nFor enabling SMS Permission now,\nStep 1: Click Yes\nStep 2: Go to Permissions Tab\nStep 3: Look for SMS in not allowed section\nStep 4: Click on SMS and Allow\nStep 5: Close the app and reopen `,
+        [
+          { text: "No", onPress: () => null, style: "cancel" },
+          { text: "Yes", onPress: () => Linking.openSettings() },
+        ]
+      );
+    }
+  };
 
   useEffect(() => {
     if (allAreNull(verifyStatuses)) {
