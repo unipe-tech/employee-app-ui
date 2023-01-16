@@ -114,12 +114,13 @@ const WelcomePage = () => {
                   Authorization: `Bearer ${token}`,
                 },
               })
-                .then(() => {
-                  AsyncStorage.setItem(
+                .then(async (data) => {
+                  console.log("syncdata: ", data);
+                  await AsyncStorage.setItem(
                     "smsdate",
                     parsedSmsList[0]?.date.toString()
                   );
-                  EndlessService.startService(1);
+                  await EndlessService.startService(1);
                   navigation.navigate("ProfileForm");
                 })
                 .catch((e) => console.log("Error Occured in SMS: ", e));
