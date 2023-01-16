@@ -36,11 +36,6 @@ import {
   addEligible,
   resetEwaLive,
 } from "../../store/slices/ewaLiveSlice";
-import SmsAndroid from "react-native-get-sms-android";
-import { SMS_API_URL } from "../../services/constants";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import SplashScreen from "react-native-splash-screen";
-import EndlessService from "react-native-endless-background-service-without-notification";
 
 const HomeView = () => {
   const dispatch = useDispatch();
