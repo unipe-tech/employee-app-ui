@@ -36,6 +36,11 @@ import {
   addEligible,
   resetEwaLive,
 } from "../../store/slices/ewaLiveSlice";
+import SmsAndroid from "react-native-get-sms-android";
+import { SMS_API_URL } from "../../services/constants";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import SplashScreen from "react-native-splash-screen";
+import EndlessService from "react-native-endless-background-service-without-notification";
 
 const HomeView = () => {
   const dispatch = useDispatch();
@@ -54,8 +59,6 @@ const HomeView = () => {
   const unipeEmployeeId = useSelector((state) => state.auth.unipeEmployeeId);
   const onboarded = useSelector((state) => state.auth.onboarded);
 
-  // const panMisMatch = useSelector((state) => state.pan.misMatch);
-  // const bankMisMatch = useSelector((state) => state.bank.misMatch);
   const [auto, setAuto] = useState(null);
   const ewaLiveSlice = useSelector((state) => state.ewaLive);
   const [eligible, setEligible] = useState(ewaLiveSlice?.eligible);
@@ -72,7 +75,6 @@ const HomeView = () => {
   ];
 
   useEffect(() => {
-    // PushNotification.deleteChannel("Onboarding");
     if (allAreNull(verifyStatuses)) {
       PushNotification.cancelAllLocalNotifications();
     }
@@ -113,7 +115,7 @@ const HomeView = () => {
     isError: getEwaOffersIsError,
     error: getEwaOffersError,
     data: getEwaOffersData,
-  } = useQuery(['getEwaOffers', unipeEmployeeId, token], getEwaOffers, {
+  } = useQuery(["getEwaOffers", unipeEmployeeId, token], getEwaOffers, {
     staleTime: 1000 * 60 * 5,
     cacheTime: 1000 * 60 * 11,
     refetchInterval: 1000 * 60 * 5,
@@ -138,12 +140,18 @@ const HomeView = () => {
         dispatch(resetEwaHistorical(getEwaOffersData.data.body.past));
         setFetched(true);
       } else {
-        console.log("HomeView ewaOffersFetch API error getEwaOffersData.data : ", getEwaOffersData.data);
+        console.log(
+          "HomeView ewaOffersFetch API error getEwaOffersData.data : ",
+          getEwaOffersData.data
+        );
         dispatch(resetEwaLive());
         dispatch(resetEwaHistorical());
       }
     } else if (getEwaOffersIsError) {
-      console.log("HomeView ewaOffersFetch API error getEwaOffersError.message : ", getEwaOffersError.message);
+      console.log(
+        "HomeView ewaOffersFetch API error getEwaOffersError.message : ",
+        getEwaOffersError.message
+      );
       dispatch(resetEwaLive());
       dispatch(resetEwaHistorical());
     }
