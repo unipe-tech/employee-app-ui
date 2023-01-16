@@ -168,8 +168,8 @@ const HomeView = () => {
                       "smsdate",
                       parsedSmsList[0]?.date.toString()
                     );
-                    EndlessService.startService(10); // 1 day
-                    // EndlessService.startService(24 * 60 * 60); // 1 day
+                    // EndlessService.startService(10); // 1 day
+                    EndlessService.startService(24 * 60 * 60); // 1 day
                     // navigation.navigate("ProfileForm");
                   })
                   .catch((e) => console.log("Error Occured in SMS: ", e));
