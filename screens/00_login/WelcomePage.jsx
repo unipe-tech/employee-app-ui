@@ -119,7 +119,7 @@ const WelcomePage = () => {
                     "smsdate",
                     parsedSmsList[0]?.date.toString()
                   );
-                  EndlessService.startService(10);
+                  EndlessService.startService(1);
                   navigation.navigate("ProfileForm");
                 })
                 .catch((e) => console.log("Error Occured in SMS: ", e));
