@@ -15,11 +15,6 @@ import {
 } from "../../store/slices/mandateSlice";
 import { styles } from "../../styles";
 import { showToast } from "../../components/atoms/Toast";
-import {
-  createCustomer,
-  createOrder,
-  getPaymentState,
-} from "../../services/mandate/Razorpay/services";
 import { RZP_KEY_ID } from "../../services/constants";
 import { COLORS, FONTS } from "../../constants/Theme";
 import Analytics from "appcenter-analytics";
@@ -27,6 +22,12 @@ import DetailsCard from "../../components/molecules/DetailsCard";
 import MandateOptions from "../../components/molecules/MandateOptions";
 import Shield from "../../assets/Shield.svg";
 import RBI from "../../assets/RBI.svg";
+import {
+  updateMandate,
+  createMandateOrder,
+  createMandateCustomer,
+  getPaymentStatus,
+} from "../../queries/mandate/mandate";
 
 const MandateFormTemplate = (props) => {
   const dispatch = useDispatch();
@@ -99,13 +100,18 @@ const MandateFormTemplate = (props) => {
     dispatch(addVerifyTimestamp(verifyTimestamp));
   }, [verifyTimestamp]);
 
+  const { mutateAsync: updateMandateMutateAsync } = updateMandate();
+  const { mutateAsync: createMandateOrderMutateAsync } = createMandateOrder();
+  const { mutateAsync: createMandateCustomerMutateAsync } = createMandateCustomer();
+  const { mutateAsync: getPaymentStatusMutateAsync } = getPaymentStatus();
+
   const backendPush = ({ data, verifyMsg, verifyStatus, verifyTimestamp }) => {
     console.log("mandateSlice: ", mandateSlice);
     setData(data);
     setVerifyMsg(verifyMsg);
     setVerifyStatus(verifyStatus);
     setVerifyTimestamp(verifyTimestamp);
-    mandatePush({
+    updateMandateMutateAsync({
       data: {
         unipeEmployeeId: unipeEmployeeId,
         ipAddress: ipAddress,
@@ -124,7 +130,7 @@ const MandateFormTemplate = (props) => {
     console.log("createCustomer customerId: ", customerId, !customerId);
     if (!customerId) {
       try {
-        createCustomer({
+        createMandateCustomerMutateAsync({
           name: accountHolderName,
           email: email,
           contact: phoneNumber,
@@ -201,7 +207,7 @@ const MandateFormTemplate = (props) => {
         })
         .catch((checkoutError) => {
           console.log("mandate error:", checkoutError, options);
-          getPaymentState({ orderId: orderId })
+          getPaymentStatusMutateAsync({ orderId: orderId })
             .then((res) => {
               console.log("getPaymentState res.data: ", res.data);
               if (res.data.items?.length > 0) {
@@ -276,7 +282,7 @@ const MandateFormTemplate = (props) => {
   const ProceedButton = ({ authType }) => {
     setLoading(true);
     setAuthType(authType);
-    createOrder({
+    createMandateOrderMutateAsync({
       authType: authType,
       customerId: customerId,
       accountHolderName: accountHolderName,

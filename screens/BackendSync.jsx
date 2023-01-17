@@ -2,20 +2,21 @@ import { useNavigation } from "@react-navigation/core";
 import { useEffect } from "react";
 import { Image } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { getBackendData } from "../services/employees/employeeServices";
 import { resetAadhaar } from "../store/slices/aadhaarSlice";
 import { resetBank } from "../store/slices/bankSlice";
 import { resetPan } from "../store/slices/panSlice";
 import { resetProfile } from "../store/slices/profileSlice";
-import { resetLicense } from "../store/slices/licenseSlice";
 import { resetMandate } from "../store/slices/mandateSlice";
-
+import { getAadhaar } from "../queries/onboarding/aadhaar";
+import { getPan } from "../queries/onboarding/pan";
+import { getBank } from "../queries/onboarding/bank";
+import { getMandate } from "../queries/mandate/mandate";
+import { getProfile } from "../queries/onboarding/profile";
 
 const BackendSync = (props) => {
-
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  
+
   const token = useSelector((state) => state.auth.token);
   const unipeEmployeeId = useSelector((state) => state.auth.unipeEmployeeId);
 
@@ -24,95 +25,81 @@ const BackendSync = (props) => {
     navigation.navigate(props.route.params.destination);
   }, []);
 
-  useEffect(() => {
-    if (unipeEmployeeId) {
-      getBackendData({ params: { unipeEmployeeId: unipeEmployeeId }, xpath: "aadhaar", token: token  })
-        .then((response) => {
-          console.log("aadhaarBackendFetch response.data", response.data);
-          if (response.data.status === 200) {
-            dispatch(resetAadhaar(response.data.body));
-          }
-        })
-        .catch((error) => {
-          console.log("aadhaarBackendFetch error: ", error);
-        });
-    }
-  }, [unipeEmployeeId]);
+  const { data: getAadhaarData, isLoading: isGetAadhaarLoading } = getAadhaar({
+    unipeEmployeeId,
+    token,
+  });
+  const { data: getPanData, isLoading: isGetPanLoading } = getPan({
+    unipeEmployeeId,
+    token,
+  });
+  const { data: getBankData, isLoading: isGetBankLoading } = getBank({
+    unipeEmployeeId,
+    token,
+  });
+  const { data: getMandateData, isLoading: isGetMandateLoading } = getMandate({
+    unipeEmployeeId,
+    token,
+  });
+  const { data: getProfileData, isLoading: isGetProfileLoading } = getProfile({
+    unipeEmployeeId,
+    token,
+  });
 
   useEffect(() => {
-    if (unipeEmployeeId) {
-      getBackendData({ params: { unipeEmployeeId: unipeEmployeeId }, xpath: "bank", token: token  })
-        .then((response) => {
-          console.log("bankBackendFetch response.data", response.data);
-          if (response.data.status === 200) {
-            dispatch(resetBank(response.data.body));
-          }
-        })
-        .catch((error) => {
-          console.log("bankBackendFetch error: ", error);
-        });
+    if (!isGetAadhaarLoading && getAadhaarData != null && unipeEmployeeId) {
+      if (getAadhaarData.data.status === 200) {
+        console.log("AadhaarBackendFetch: ", getAadhaarData.data);
+        dispatch(resetAadhaar(getAadhaarData.data.body));
+      } else {
+        console.error("Error in AadhaarBackendFetch: ", getAadhaarData);
+      }
     }
-  }, [unipeEmployeeId]);
+  }, [unipeEmployeeId, getAadhaarData, isGetAadhaarLoading]);
 
   useEffect(() => {
-    if (unipeEmployeeId) {
-      getBackendData({ params: { unipeEmployeeId: unipeEmployeeId }, xpath: "pan", token: token  })
-        .then((response) => {
-          console.log("panBackendFetch response.data", response.data);
-          if (response.data.status === 200) {
-            dispatch(resetPan(response.data.body));
-          }
-        })
-        .catch((error) => {
-          console.log("panBackendFetch error: ", error);
-        });
+    if (!isGetPanLoading && getPanData != null && unipeEmployeeId) {
+      if (getPanData.data.status === 200) {
+        console.log("PanBackendFetch: ", getPanData.data);
+        dispatch(resetPan(getPanData.data.body));
+      } else {
+        console.error("Error in PanBackendFetch: ", getPanData);
+      }
     }
-  }, [unipeEmployeeId]);
+  }, [unipeEmployeeId, getPanData, isGetPanLoading]);
 
   useEffect(() => {
-    if (unipeEmployeeId) {
-      getBackendData({ params: { unipeEmployeeId: unipeEmployeeId }, xpath: "profile", token: token  })
-        .then((response) => {
-          console.log("profileBackendFetch response.data", response.data);
-          if (response.data.status === 200) {
-            dispatch(resetProfile(response.data.body));
-          }
-        })
-        .catch((error) => {
-          console.log("profileBackendFetch error: ", error);
-        });
+    if (!isGetBankLoading && getBankData != null && unipeEmployeeId) {
+      if (getBankData.data.status === 200) {
+        console.log("BankBackendFetch: ", getBankData.data);
+        dispatch(resetBank(getBankData.data.body));
+      } else {
+        console.error("Error in BankBackendFetch: ", getBankData);
+      }
     }
-  }, [unipeEmployeeId]);
+  }, [unipeEmployeeId, getBankData, isGetBankLoading]);
 
   useEffect(() => {
-    if (unipeEmployeeId) {
-      getBackendData({ params: { unipeEmployeeId: unipeEmployeeId }, xpath: "driving-license", token: token  })
-        .then((response) => {
-          console.log("licenseBackendFetch response.data", response.data);
-          if (response.data.status === 200) {
-            dispatch(resetLicense(response.data.body));
-          }
-        })
-        .catch((error) => {
-          console.log("licenseBackendFetch error: ", error);
-        });
+    if (!isGetMandateLoading && getMandateData != null && unipeEmployeeId) {
+      if (getMandateData.data.status === 200) {
+        console.log("MandateBackendFetch: ", getMandateData.data);
+        dispatch(resetMandate(getMandateData.data.body));
+      } else {
+        console.error("Error in MandateBackendFetch: ", getMandateData);
+      }
     }
-  }, [unipeEmployeeId]);
+  }, [unipeEmployeeId, getMandateData, isGetMandateLoading]);
 
   useEffect(() => {
-    if (unipeEmployeeId) {
-      getBackendData({ params: { unipeEmployeeId: unipeEmployeeId }, xpath: "mandate", token: token  })
-        .then((response) => {
-          console.log("mandateFetch response.data", response.data);
-          if (response.data.status === 200) {
-            dispatch(resetMandate(response.data.body));
-          }
-        })
-        .catch((error) => {
-          console.log("mandateFetch error: ", error);
-        });
+    if (!isGetProfileLoading && getProfileData != null && unipeEmployeeId) {
+      if (getProfileData.data.status === 200) {
+        console.log("ProfileBackendFetch: ", getProfileData.data);
+        dispatch(resetProfile(getProfileData.data.body));
+      } else {
+        console.error("Error in ProfileBackendFetch: ", getProfileData);
+      }
     }
-  }, [unipeEmployeeId]);
+  }, [unipeEmployeeId, getProfileData, isGetProfileLoading]);
 
   return (
     <Image
