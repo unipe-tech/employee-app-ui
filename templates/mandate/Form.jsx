@@ -15,6 +15,9 @@ import {
 } from "../../store/slices/mandateSlice";
 import { styles } from "../../styles";
 import { showToast } from "../../components/atoms/Toast";
+import {
+  getPaymentState,
+} from "../../services/mandate/Razorpay/services";
 import { RZP_KEY_ID } from "../../services/constants";
 import { COLORS, FONTS } from "../../constants/Theme";
 import Analytics from "appcenter-analytics";
@@ -31,6 +34,7 @@ import {
 const MandateFormTemplate = (props) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
+
   const [deviceId, setDeviceId] = useState(0);
   const [ipAddress, setIpAdress] = useState(0);
 
@@ -48,7 +52,6 @@ const MandateFormTemplate = (props) => {
   );
   const accountNumber = useSelector((state) => state.bank?.data?.accountNumber);
   const ifsc = useSelector((state) => state.bank?.data?.ifsc);
-
   const mandateSlice = useSelector((state) => state.mandate);
   const [loading, setLoading] = useState(false);
   const [authType, setAuthType] = useState();
@@ -178,11 +181,12 @@ const MandateFormTemplate = (props) => {
         },
         theme: { color: COLORS.primary },
         notes: { unipeEmployeeId: unipeEmployeeId },
+        // callback_url: "https://eooylq2n69q46f9.m.pipedream.net",
       };
 
       RazorpayCheckout.open(options)
         .then((data) => {
-          showToast("Mandate Registration In Progress");
+          console.log("mandate checkout:", data, options);
           backendPush({
             data: {
               authType: authType,
@@ -192,7 +196,7 @@ const MandateFormTemplate = (props) => {
               paymentSignature: data.razorpay_signature,
               provider: "razorpay",
             },
-            verifyMsg: "Mandate Initiated from App",
+            verifyMsg: "Mandate Initiated from App Checkout Success",
             verifyStatus: "INPROGRESS",
             verifyTimestamp: Date.now(),
           });
@@ -200,26 +204,79 @@ const MandateFormTemplate = (props) => {
           Analytics.trackEvent("Mandate|Authorize|InProgress", {
             unipeEmployeeId: unipeEmployeeId,
           });
+          navigation.navigate("HomeStack");
+          showToast("Mandate Registration In Progress");
         })
-        .catch((error) => {
-          console.log("mandate error:", error, options);
-          Alert.alert("Error", error?.error?.description || error?.description);
-          backendPush({
-            data: {
-              authType: authType,
-              customerId: customerId,
-              orderId: orderId,
-              provider: "razorpay",
-            },
-            verifyMsg: error?.error?.description || error?.description,
-            verifyStatus: "ERROR",
-            verifyTimestamp: Date.now(),
-          });
+        .catch((checkoutError) => {
+          console.log("mandate error:", checkoutError, options);
+          getPaymentState({ orderId: orderId })
+            .then((res) => {
+              console.log("getPaymentState res.data: ", res.data);
+              if (res.data.items?.length > 0) {
+                backendPush({
+                  data: {
+                    authType: authType,
+                    customerId: customerId,
+                    orderId: orderId,
+                    provider: "razorpay",
+                  },
+                  verifyMsg: `Mandate Initiated from App Checkout Error : ${
+                    checkoutError?.error?.description ||
+                    checkoutError?.description
+                  }`,
+                  verifyStatus: "INPROGRESS",
+                  verifyTimestamp: Date.now(),
+                });
+                navigation.navigate("HomeStack");
+                showToast("Mandate Registration In Progress");
+              } else {
+                Alert.alert(
+                  "Error",
+                  checkoutError?.error?.description ||
+                    checkoutError?.description
+                );
+                backendPush({
+                  data: {
+                    authType: authType,
+                    customerId: customerId,
+                    orderId: orderId,
+                    provider: "razorpay",
+                  },
+                  verifyMsg: `Mandate Initiated from App Checkout Error : ${
+                    checkoutError?.error?.description ||
+                    checkoutError?.description
+                  }`,
+                  verifyStatus: "ERROR",
+                  verifyTimestamp: Date.now(),
+                });
+              }
+            })
+            .catch((paymentStateError) => {
+              console.log(
+                "getPaymentState Catch Error: ",
+                paymentStateError.toString()
+              );
+              Alert.alert(
+                "Error",
+                paymentStateError?.error?.description ||
+                  paymentStateError?.description
+              );
+              backendPush({
+                data: {
+                  authType: authType,
+                  customerId: customerId,
+                  orderId: orderId,
+                  provider: "razorpay",
+                },
+                verifyMsg: `Mandate Initiated from App Checkout Error : ${
+                  paymentStateError?.error?.description ||
+                  paymentStateError?.description
+                }`,
+                verifyStatus: "ERROR",
+                verifyTimestamp: Date.now(),
+              });
+            });
           setLoading(false);
-          Analytics.trackEvent("Mandate|Authorize|Error", {
-            unipeEmployeeId: unipeEmployeeId,
-            error: error?.error?.description || error?.description,
-          });
         });
     }
   }, [orderId]);
@@ -237,6 +294,7 @@ const MandateFormTemplate = (props) => {
       unipeEmployeeId: unipeEmployeeId,
     })
       .then((res) => {
+        setAuthType("");
         console.log(`Mandate|CreateOrder|${authType} res.data:`, res.data);
         setOrderId(res.data.id);
         backendPush({
@@ -254,6 +312,7 @@ const MandateFormTemplate = (props) => {
         });
       })
       .catch((error) => {
+        setAuthType("");
         console.log(
           `Mandate|CreateOrder|${authType} JSON.stringify(error):`,
           JSON.stringify(error)
@@ -299,11 +358,13 @@ const MandateFormTemplate = (props) => {
       <KeyboardAvoidingWrapper>
         <ScrollView showsVerticalScrollIndicator={false}>
           <DetailsCard data={cardData()} />
-          <Text
-            style={{ ...FONTS.body4, color: COLORS.gray, marginVertical: 10 }}
-          >
-            Please choose your preferred mode
-          </Text>
+          {verifyStatus != "INPROGRESS" && (
+            <Text
+              style={{ ...FONTS.body4, color: COLORS.gray, marginVertical: 10 }}
+            >
+              Please choose your preferred mode
+            </Text>
+          )}
           {customerId === null || !fetched ? (
             <Text style={{ ...FONTS.body4, color: COLORS.gray }}>
               Initializing ...
@@ -313,7 +374,11 @@ const MandateFormTemplate = (props) => {
               Your Mandate Registration is currently in progress.
             </Text>
           ) : verifyStatus === "SUCCESS" ? null : (
-            <MandateOptions ProceedButton={ProceedButton} disabled={loading} />
+            <MandateOptions
+              ProceedButton={ProceedButton}
+              disabled={loading}
+              authType={authType}
+            />
           )}
           <View
             style={{

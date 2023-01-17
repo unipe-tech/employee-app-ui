@@ -221,30 +221,23 @@ export const ewa = EStyleSheet.create({
   },
 });
 
-export const datacard = EStyleSheet.create({
-  card: {
-    alignSelf: "center",
-    marginTop: "3%",
-    padding: "3%",
-    width: "100%",
-    borderRadius: 5,
-    flexDirection: "row",
-    backgroundColor: COLORS.cardBackground,
-    borderWidth: 0.5,
-    borderColor: COLORS.lightGray,
-    justifyContent: "space-between",
-  },
-  cardTitle: {
-    ...FONTS.body3,
-    color: COLORS.secondary,
-  },
-});
-
 export const dev = EStyleSheet.create({
   title: {
     alignSelf: "center",
     marginTop: "20rem",
     width: "60%",
+  },
+});
+
+export const onboardingStyles = EStyleSheet.create({
+  curvedBox: {
+    height: "32rem",
+    width: "32rem",
+    backgroundColor: COLORS.primary,
+    borderTopRightRadius: "10rem",
+    borderBottomRightRadius: "10rem",
+    marginRight: "10rem",
+    marginLeft: "-20rem",
   },
 });
 
