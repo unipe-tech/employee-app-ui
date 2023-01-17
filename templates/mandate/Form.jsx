@@ -15,9 +15,6 @@ import {
 } from "../../store/slices/mandateSlice";
 import { styles } from "../../styles";
 import { showToast } from "../../components/atoms/Toast";
-import {
-  getPaymentState,
-} from "../../services/mandate/Razorpay/services";
 import { RZP_KEY_ID } from "../../services/constants";
 import { COLORS, FONTS } from "../../constants/Theme";
 import Analytics from "appcenter-analytics";
@@ -29,6 +26,7 @@ import {
   updateMandate,
   createMandateOrder,
   createMandateCustomer,
+  getPaymentStatus,
 } from "../../queries/mandate/mandate";
 
 const MandateFormTemplate = (props) => {
@@ -104,8 +102,8 @@ const MandateFormTemplate = (props) => {
 
   const { mutateAsync: updateMandateMutateAsync } = updateMandate();
   const { mutateAsync: createMandateOrderMutateAsync } = createMandateOrder();
-  const { mutateAsync: createMandateCustomerMutateAsync } =
-    createMandateCustomer();
+  const { mutateAsync: createMandateCustomerMutateAsync } = createMandateCustomer();
+  const { mutateAsync: getPaymentStatusMutateAsync } = getPaymentStatus();
 
   const backendPush = ({ data, verifyMsg, verifyStatus, verifyTimestamp }) => {
     console.log("mandateSlice: ", mandateSlice);
@@ -209,7 +207,7 @@ const MandateFormTemplate = (props) => {
         })
         .catch((checkoutError) => {
           console.log("mandate error:", checkoutError, options);
-          getPaymentState({ orderId: orderId })
+          getPaymentStatusMutateAsync({ orderId: orderId })
             .then((res) => {
               console.log("getPaymentState res.data: ", res.data);
               if (res.data.items?.length > 0) {

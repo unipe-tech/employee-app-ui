@@ -4,6 +4,7 @@ import { mandatePush } from "../../helpers/BackendPush";
 import {
   createCustomer,
   createOrder,
+  getPaymentState,
 } from "../../services/mandate/Razorpay/services";
 
 export const updateMandate = () => {
@@ -51,6 +52,17 @@ export const createMandateCustomer = () => {
         email,
         contact,
         unipeEmployeeId,
+      });
+    },
+  });
+  return mutation;
+};
+
+export const getPaymentStatus = () => {
+  const mutation = useMutation({
+    mutationFn: async ({ orderId }) => {
+      return getPaymentState({
+        orderId,
       });
     },
   });
