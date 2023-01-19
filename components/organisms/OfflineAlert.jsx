@@ -1,6 +1,6 @@
 import NetInfo from "@react-native-community/netinfo";
 import { useEffect, useState } from "react";
-import { Modal, Text, View } from "react-native";
+import { Image, Modal, Text, View } from "react-native";
 import { AddListener } from "../../helpers/InternetCheck";
 import { showToast } from "../atoms/Toast";
 import EStyleSheet from "react-native-extended-stylesheet";
@@ -35,7 +35,10 @@ const OfflineAlert = ({ children }) => {
           <Modal animationType="fade" visible={true}>
             <LogoHeader />
             <View style={styles.modalContainer}>
-              <Offline />
+              <Image
+                source={require("../../assets/gifs/offline.gif")}
+                style={{ alignSelf: "center", width: "100%", height: "50%" }}
+              />
 
               <Text style={styles.title}>No Internet</Text>
 

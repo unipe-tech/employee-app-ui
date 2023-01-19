@@ -1,4 +1,11 @@
-import { View, Text, SafeAreaView, Alert, BackHandler } from "react-native";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  Alert,
+  BackHandler,
+  Image,
+} from "react-native";
 import { styles } from "../../styles";
 import LogoHeader from "../../components/atoms/LogoHeader";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -43,7 +50,10 @@ const WelcomePage = () => {
       />
 
       <View style={styles.container}>
-        <Success style={{ alignSelf: "center", width: "70%" }} />
+        <Image
+          source={require("../../assets/gifs/success.gif")}
+          style={{ alignSelf: "center", width: "100%", height: "70%" }}
+        />
         <View style={{ flex: 1 }} />
 
         <Text
