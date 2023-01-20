@@ -31,7 +31,6 @@ import LoginInput from "../../components/molecules/LoginInput";
 import AgreementText from "../../components/organisms/AgreementText";
 import { STAGE } from "@env";
 
-
 const LoginScreen = () => {
   SplashScreen.hide();
   const dispatch = useDispatch();

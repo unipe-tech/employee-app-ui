@@ -5,13 +5,11 @@ import {
   View,
   Text,
   ScrollView,
+  Image,
 } from "react-native";
 import { styles } from "../../../../styles";
 import { useSelector } from "react-redux";
 import Header from "../../../../components/atoms/Header";
-import SVGImgFailure from "../../../../assets/ewa_failure.svg";
-import SVGImgSuccess from "../../../../assets/ewa_success.svg";
-import SVGImgPending from "../../../../assets/ewa_pending.svg";
 import DisbursementCard from "../../../../components/molecules/DisbursementCard";
 import { getDisbursement } from "../../../../queries/ewa/disbursement";
 
@@ -48,11 +46,26 @@ const Disbursement = ({ route, navigation }) => {
   const StatusImage = (status) => {
     switch (status) {
       case "SUCCESS":
-        return <SVGImgSuccess style={{ alignSelf: "center" }} />;
+        return (
+          <Image
+            source={require("../../../../assets/gifs/ewa_success.gif")}
+            style={{ alignSelf: "center", height: "50%", width: "100%" }}
+          />
+        );
       case "FAILURE":
-        return <SVGImgFailure style={{ alignSelf: "center" }} />;
+        return (
+          <Image
+            source={require("../../../../assets/gifs/ewa_failure.gif")}
+            style={{ alignSelf: "center", height: "50%", width: "100%" }}
+          />
+        );
       default:
-        return <SVGImgPending style={{ alignSelf: "center" }} />;
+        return (
+          <Image
+            source={require("../../../../assets/gifs/ewa_pending.gif")}
+            style={{ alignSelf: "center", height: "50%", width: "100%" }}
+          />
+        );
     }
   };
 
@@ -98,30 +111,40 @@ const Disbursement = ({ route, navigation }) => {
   useEffect(() => {
     if (getDisbursementIsSuccess) {
       if (getDisbursementData?.data?.status === 200) {
-        setBankAccountNumber(getDisbursementData?.data?.body?.bankAccountNumber);
+        setBankAccountNumber(
+          getDisbursementData?.data?.body?.bankAccountNumber
+        );
         setDueDate(getDisbursementData?.data?.body?.dueDate);
-        setLoanAccountNumber(getDisbursementData?.data?.body?.loanAccountNumber);
+        setLoanAccountNumber(
+          getDisbursementData?.data?.body?.loanAccountNumber
+        );
         setLoanAmount(getDisbursementData?.data?.body?.loanAmount);
         setNetAmount(getDisbursementData?.data?.body?.netAmount);
         setStatus(getDisbursementData?.data?.body?.status);
       } else {
-        console.log("HomeView ewaOffersFetch API error getEwaOffersData.data : ", getDisbursementData.data);
+        console.log(
+          "HomeView ewaOffersFetch API error getEwaOffersData.data : ",
+          getDisbursementData.data
+        );
       }
     } else if (getDisbursementIsError) {
-      console.log("HomeView ewaOffersFetch API error getEwaOffersError.message : ", getDisbursementError.message);
+      console.log(
+        "HomeView ewaOffersFetch API error getEwaOffersError.message : ",
+        getDisbursementError.message
+      );
     }
   }, [getDisbursementIsSuccess, getDisbursementData]);
-  
+
   useEffect(() => {
     setDueDate(offer?.dueDate);
     setLoanAccountNumber(offer?.loanAccountNumber);
     setLoanAmount(offer?.loanAmount);
-    var pf = (parseInt(offer?.loanAmount) * offer?.fees)/100;
+    var pf = (parseInt(offer?.loanAmount) * offer?.fees) / 100;
     var pF;
-    if (parseInt(pf)%10<4) {
-      pF = Math.max(9, (Math.floor((pf/10))*10) -1);
+    if (parseInt(pf) % 10 < 4) {
+      pF = Math.max(9, Math.floor(pf / 10) * 10 - 1);
     } else {
-      pF = Math.max(9, (Math.floor(((pf+10)/10))*10) -1);
+      pF = Math.max(9, Math.floor((pf + 10) / 10) * 10 - 1);
     }
     setNetAmount(parseInt(offer?.loanAmount) - pF);
   }, [offer]);
@@ -144,7 +167,9 @@ const Disbursement = ({ route, navigation }) => {
       />
       <View style={styles.container}>
         {StatusImage(status)}
+        <View style={{ flex: 1 }} />
         {StatusText(status)}
+        <View style={{ flex: 1 }} />
         <DisbursementCard
           data={data}
           title="Loan Details"

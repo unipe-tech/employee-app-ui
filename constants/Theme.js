@@ -60,6 +60,8 @@ export const COLORS = {
   cardBackground: "#F2F8F9",
   moneyCardBg: "#3C3F54",
   moneyCardBgVariant: "#4D5162",
+  pending: "#FDA04B",
+  pendingBackground: "rgba(183, 65, 44, 0.08)",
 };
 
 export const SIZES = {

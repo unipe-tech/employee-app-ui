@@ -37,7 +37,7 @@ const OfflineAlert = ({ children }) => {
             <View style={styles.modalContainer}>
               <Image
                 source={require("../../assets/gifs/offline.gif")}
-                style={{ alignSelf: "center", width: "100%", height: "50%" }}
+                style={{ alignSelf: "center", width: "100%", height: "40%" }}
               />
 
               <Text style={styles.title}>No Internet</Text>
