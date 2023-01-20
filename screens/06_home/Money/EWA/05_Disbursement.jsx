@@ -1,12 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  BackHandler,
-  SafeAreaView,
-  View,
-  Text,
-  ScrollView,
-  Image,
-} from "react-native";
+import { BackHandler, SafeAreaView, View, Text, Image } from "react-native";
 import { styles } from "../../../../styles";
 import { useSelector } from "react-redux";
 import Header from "../../../../components/atoms/Header";
