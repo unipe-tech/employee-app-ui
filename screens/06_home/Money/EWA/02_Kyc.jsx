@@ -16,7 +16,7 @@ import {
   resetMandate,
 } from "../../../../store/slices/mandateSlice";
 import { MismatchScore } from "../../../../components/molecules/FuzzyCheck";
-import { setMistmatch as setPanMismatch } from "../../../../store/slices/panSlice";
+import { setMismatch as setPanMismatch } from "../../../../store/slices/panSlice";
 import { setMismatch as setBankMismatch } from "../../../../store/slices/bankSlice";
 
 const KYC = () => {

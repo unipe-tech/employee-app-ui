@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { Alert } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import { setMistmatch as setBankMismatch } from "../../store/slices/bankSlice";
-import { setMistmatch as setPanMistach } from "../../store/slices/panSlice";
+import { setMismatch as setBankMismatch } from "../../store/slices/bankSlice";
+import { setMismatch as setPanMismatch } from "../../store/slices/panSlice";
 const fuzz = require("fuzzball");
 
 export const MismatchScore = ({ string, checkString }) => {
@@ -17,7 +17,7 @@ const FuzzyCheck = (props) => {
   useEffect(() => {
     console.log("FuzzyCheck", props.step, score);
     if (props.step == "PAN") {
-      dispatch(setPanMistach(score));
+      dispatch(setPanMismatch(score));
     } else {
       dispatch(setBankMismatch(score));
     }
