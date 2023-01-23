@@ -57,7 +57,7 @@ const bankSlice = createSlice({
         Object.assign(state, action.payload);
       }
     },
-    setMistmatch(state, action) {
+    setMismatch(state, action) {
       state.misMatch = action.payload;
     },
   },
@@ -74,7 +74,7 @@ export const {
   addVerifyMsg,
   addVerifyStatus,
   addVerifyTimestamp,
-  setMistmatch,
+  setMismatch,
   resetBank,
 } = bankSlice.actions;
 

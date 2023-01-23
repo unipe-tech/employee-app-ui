@@ -15,6 +15,9 @@ import {
   addVerifyStatus,
   resetMandate,
 } from "../../../../store/slices/mandateSlice";
+import { MismatchScore } from "../../../../components/molecules/FuzzyCheck";
+import { setMistmatch as setPanMismatch } from "../../../../store/slices/panSlice";
+import { setMismatch as setBankMismatch } from "../../../../store/slices/bankSlice";
 
 const KYC = () => {
   const dispatch = useDispatch();
@@ -38,6 +41,11 @@ const KYC = () => {
   const aadharNumber = useSelector((state) => state.aadhaar.number);
   const panNumber = useSelector((state) => state.pan.number);
   const ewaLiveSlice = useSelector((state) => state.ewaLive);
+
+  const panMismatch = useSelector((state) => state.pan.misMatch);
+  const bankMismatch = useSelector((state) => state.bank.misMatch);
+  const panName = useSelector((state) => state.pan?.data?.name);
+  const bankName = useSelector((state) => state.bank?.data?.accountHolderName);
 
   useEffect(() => {
     getUniqueId().then((id) => {
@@ -68,6 +76,46 @@ const KYC = () => {
         });
     }
   }, [deviceId, ipAddress]);
+
+  useEffect(() => {
+    if (panMismatch == 20 || bankMismatch == 20) {
+      setLoading(true);
+      Alert.alert(
+        "KYC Details Mismatch",
+        `Cannot Verify KYC. Mismatch between Aadhaar and other KYC details. Please try again with correct details.`,
+        [
+          {
+            text: "Ok",
+            onPress: () =>
+              navigation.navigate("AccountStack", {
+                screen: "KYC",
+                params: { screen: `${panMismatch > 20 ? "PAN" : "BANK"}` },
+              }),
+          },
+        ]
+      );
+    } else  {
+      console.log("panMismatch", panMismatch, "bankMismatch", bankMismatch);
+      setLoading(true);
+      dispatch(
+        setBankMismatch(
+          MismatchScore({
+            string: bankName,
+            checkString: aadhaarData?.name,
+          })
+        )
+      );
+      dispatch(
+        setPanMismatch(
+          MismatchScore({
+            string: panName,
+            checkString: aadhaarData?.name,
+          })
+        )
+      );
+      setLoading(false);
+    }
+  }, [panMismatch, bankMismatch]);
 
   const { mutateAsync: updateKycMutateAsync } = updateKyc();
 

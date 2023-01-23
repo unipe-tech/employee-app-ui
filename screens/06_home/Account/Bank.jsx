@@ -6,6 +6,7 @@ import BankConfirmApi from "../../../apis/bank/Confirm";
 import TopTabNav from "../../../navigators/TopTabNav";
 import { styles } from "../../../styles";
 import DetailsCard from "../../../components/molecules/DetailsCard";
+import PrimaryButton from "../../../components/atoms/PrimaryButton";
 
 const Bank = () => {
   const verifyStatus = useSelector((state) => state.bank.verifyStatus);

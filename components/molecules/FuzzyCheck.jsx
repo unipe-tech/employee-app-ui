@@ -5,14 +5,15 @@ import { setMistmatch as setBankMismatch } from "../../store/slices/bankSlice";
 import { setMistmatch as setPanMistach } from "../../store/slices/panSlice";
 const fuzz = require("fuzzball");
 
+export const MismatchScore = ({ string, checkString }) => {
+  const score = 100 - fuzz.token_set_ratio(string, checkString);
+  return score;
+};
+
 const FuzzyCheck = (props) => {
-  const name = useSelector((state) => state.aadhaar.data?.name);
   const dispatch = useDispatch();
-  const checkName =
-    props.step == "PAN"
-      ? useSelector((state) => state.pan.data?.name)
-      : useSelector((state) => state.bank.data?.accountHolderName);
-  const score = 100 - fuzz.token_set_ratio(name, checkName);
+  const aadhaarName = useSelector((state) => state.aadhaar.data?.name);
+  const score = MismatchScore({ string: props.name, checkString: aadhaarName});
   useEffect(() => {
     console.log("FuzzyCheck", props.step, score);
     if (props.step == "PAN") {
@@ -27,7 +28,7 @@ const FuzzyCheck = (props) => {
       {score > 20
         ? Alert.alert(
             "Name mismatch",
-            `Your Aadhaar Card name ${name} does not match with your ${props.step} name ${checkName}`
+            `Your Aadhaar Card name ${aadhaarName} does not match with your ${props.step} name ${checkName}`
           )
         : null}
     </>
