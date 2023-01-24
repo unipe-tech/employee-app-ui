@@ -90,7 +90,7 @@ const KYC = () => {
       setLoading(true);
       Alert.alert(
         "KYC Details Mismatch",
-        `Cannot Verify KYC. Mismatch between Aadhaar and other KYC details. Please try again with correct details.`,
+        `Cannot Verify KYC. Mismatch between Aadhaar and ${panMismatch > 20 ? "PAN" :""} ${bankMismatch === 0 ? ", BANK " : ""}details. Please try again with correct details.`,
         [
           {
             text: "Ok",
@@ -103,7 +103,6 @@ const KYC = () => {
         ]
       );
     } else {
-      console.log("panMismatch", panMismatch, "bankMismatch", bankMismatch);
       setLoading(true);
       setBankMismatch(
         MismatchScore({
