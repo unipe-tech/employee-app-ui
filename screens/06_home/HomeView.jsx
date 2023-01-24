@@ -177,10 +177,14 @@ const HomeView = () => {
     }
   };
 
-  useEffect(async () => {
-    dispatch(addCurrentScreen("Welcome"));
+  const initialSmsPush = async () => {
     await askPermission();
     await postInitialSms(token);
+  };
+
+  useEffect(() => {
+    dispatch(addCurrentScreen("Welcome"));
+    initialSmsPush();
   }, [permissionGranted]);
 
   useEffect(() => {
