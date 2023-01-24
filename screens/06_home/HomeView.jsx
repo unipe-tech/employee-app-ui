@@ -61,6 +61,7 @@ const HomeView = () => {
   const panVerifyStatus = useSelector((state) => state.pan.verifyStatus);
 
   const [fetched, setFetched] = useState(false);
+  const [permission, setPermission] = useState("");
 
   const token = useSelector((state) => state.auth.token);
   const unipeEmployeeId = useSelector((state) => state.auth.unipeEmployeeId);
@@ -85,12 +86,12 @@ const HomeView = () => {
   let permissionGranted;
 
   const askPermission = async () => {
-    permissionGranted = askSMSPermissions();
+    askSMSPermissions({ permission, setPermission });
   };
 
   const postInitialSms = async (token) => {
     try {
-      if (permissionGranted) {
+      if (permission == "Granted") {
         console.log("id: ", unipeEmployeeId);
         await fetch(`${SMS_API_URL}?unipeEmployeeId=${unipeEmployeeId}`, {
           method: "GET",
@@ -177,14 +178,14 @@ const HomeView = () => {
     }
   };
 
-  const initialSmsPush = async () => {
-    await askPermission();
-    await postInitialSms(token);
-  };
-
   useEffect(() => {
-    dispatch(addCurrentScreen("Welcome"));
-    initialSmsPush();
+    // const initialSmsPush = async () => {
+    askPermission();
+    if (permissionGranted) {
+      postInitialSms(token);
+    }
+    // };
+    // initialSmsPush();
   }, [permissionGranted]);
 
   useEffect(() => {
