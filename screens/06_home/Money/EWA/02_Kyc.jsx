@@ -16,8 +16,8 @@ import {
   resetMandate,
 } from "../../../../store/slices/mandateSlice";
 import { MismatchScore } from "../../../../components/molecules/FuzzyCheck";
-import { setMismatch as setPanMismatch } from "../../../../store/slices/panSlice";
-import { setMismatch as setBankMismatch } from "../../../../store/slices/bankSlice";
+import { setMismatch as AddPanMismatch } from "../../../../store/slices/panSlice";
+import { setMismatch as AddBankMismatch } from "../../../../store/slices/bankSlice";
 
 const KYC = () => {
   const dispatch = useDispatch();
@@ -42,8 +42,8 @@ const KYC = () => {
   const panNumber = useSelector((state) => state.pan.number);
   const ewaLiveSlice = useSelector((state) => state.ewaLive);
 
-  const panMismatch = useSelector((state) => state.pan.misMatch);
-  const bankMismatch = useSelector((state) => state.bank.misMatch);
+  const [panMismatch,setPanMismatch] = useState(useSelector((state) => state.pan.misMatch));
+  const [bankMismatch,setBankMismatch] = useState(useSelector((state) => state.bank.misMatch));
   const panName = useSelector((state) => state.pan?.data?.name);
   const bankName = useSelector((state) => state.bank?.data?.accountHolderName);
 
@@ -55,6 +55,14 @@ const KYC = () => {
       setIpAdress(ipv4Address);
     });
   }, []);
+
+  useEffect(() => {
+    dispatch(AddPanMismatch(panMismatch));
+  }, [panMismatch]);
+
+  useEffect(() => {
+    dispatch(AddBankMismatch(bankMismatch));
+  }, [bankMismatch]);
 
   useEffect(() => {
     if (unipeEmployeeId && deviceId !== 0 && ipAddress !== 0) {
@@ -78,7 +86,7 @@ const KYC = () => {
   }, [deviceId, ipAddress]);
 
   useEffect(() => {
-    if (panMismatch == 20 || bankMismatch == 20) {
+    if (panMismatch >= 20 || bankMismatch >= 20) {
       setLoading(true);
       Alert.alert(
         "KYC Details Mismatch",
@@ -94,24 +102,20 @@ const KYC = () => {
           },
         ]
       );
-    } else  {
+    } else {
       console.log("panMismatch", panMismatch, "bankMismatch", bankMismatch);
       setLoading(true);
-      dispatch(
-        setBankMismatch(
-          MismatchScore({
-            string: bankName,
-            checkString: aadhaarData?.name,
-          })
-        )
-      );
-      dispatch(
-        setPanMismatch(
-          MismatchScore({
-            string: panName,
-            checkString: aadhaarData?.name,
-          })
-        )
+      setBankMismatch(
+        MismatchScore({
+          string: bankName,
+          checkString: aadhaarData?.name,
+        })
+      )
+      setPanMismatch(
+        MismatchScore({
+          string: panName,
+          checkString: aadhaarData?.name,
+        })
       );
       setLoading(false);
     }
