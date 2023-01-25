@@ -85,10 +85,6 @@ const HomeView = () => {
 
   let permissionGranted;
 
-  const askPermission = async () => {
-    askSMSPermissions({ permission, setPermission });
-  };
-
   const postInitialSms = async (token) => {
     try {
       if (permission == "Granted") {
@@ -179,14 +175,9 @@ const HomeView = () => {
   };
 
   useEffect(() => {
-    // const initialSmsPush = async () => {
-    askPermission();
-    if (permissionGranted) {
-      postInitialSms(token);
-    }
-    // };
-    // initialSmsPush();
-  }, [permissionGranted]);
+    askSMSPermissions({ permission, setPermission });
+    postInitialSms(token);
+  }, [permission]);
 
   useEffect(() => {
     if (allAreNull(verifyStatuses)) {
