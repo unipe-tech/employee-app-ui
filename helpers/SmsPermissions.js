@@ -1,10 +1,6 @@
 import { Alert, Linking } from "react-native";
 import { PERMISSIONS, RESULTS, request } from "react-native-permissions";
 
-const requestPermission = ({ permission }) => {
-  request(permission);
-};
-
 export const askSMSPermissions = async ({ permission, setPermission }) => {
   await request(PERMISSIONS.ANDROID.READ_SMS).then((status) => {
     console.log({ status });
@@ -35,7 +31,7 @@ export const askSMSPermissions = async ({ permission, setPermission }) => {
         break;
       case RESULTS.LIMITED:
         setPermission("Limited");
-        requestPermission({ permission: PERMISSIONS.ANDROID.READ_SMS });
+        request(PERMISSIONS.ANDROID.READ_SMS);
         break;
       case RESULTS.GRANTED:
         setPermission("Granted");
