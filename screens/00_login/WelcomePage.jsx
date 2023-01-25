@@ -10,15 +10,14 @@ import { useDispatch, useSelector } from "react-redux";
 import Success from "../../assets/congratulations.svg";
 import { useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { addCurrentScreen } from "../../store/slices/navigationSlice";
 
 const WelcomePage = () => {
   const unipeEmployeeId = useSelector((state) => state.auth.unipeEmployeeId);
+  const token = useSelector((state) => state.auth.token);
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  useEffect(() => {
-    dispatch(addCurrentScreen("Welcome"));
-  }, []);
+
+  console.log("token: ", token);
 
   const backAction = () => {
     Alert.alert("Hold on!", "Are you sure you want to Logout?", [
@@ -74,6 +73,7 @@ const WelcomePage = () => {
             Analytics.trackEvent("WelcomePage", {
               unipeEmployeeId: unipeEmployeeId,
             });
+            // btnOnPress(token);
             navigation.navigate("ProfileForm");
           }}
         />
