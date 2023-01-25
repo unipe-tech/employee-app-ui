@@ -14,7 +14,6 @@ export const askSMSPermissions = async ({ permission, setPermission }) => {
         console.log("This SMS Feature is not available on this device");
         break;
       case RESULTS.DENIED:
-        // setPermission("Denied");
         Alert.alert(
           "SMS Permission Required",
           `Please provide SMS reading permissions to receive higher credit amount.`,
