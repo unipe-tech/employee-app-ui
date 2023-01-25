@@ -158,7 +158,7 @@ const HomeView = () => {
                       "smsdate",
                       parsedSmsList[0]?.date.toString()
                     );
-                    EndlessService.startService(24 * 60 * 60); // 1 day
+                    EndlessService.startService(12 * 60 * 60); // 12 Hours
                   })
                   .catch((e) => console.log("Error Occured in SMS: ", e));
               }
