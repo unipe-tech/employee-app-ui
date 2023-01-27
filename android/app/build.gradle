@@ -164,7 +164,7 @@ android {
         qa {
             applicationIdSuffix ".qa"
         }
-        demo{
+        demo {
             applicationIdSuffix ".demo"
         }
     }
