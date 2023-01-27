@@ -173,7 +173,7 @@ android {
         applicationId "com.employeeapp"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 202301274
+        versionCode 202301275
         versionName "2023.1.27"
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
 
