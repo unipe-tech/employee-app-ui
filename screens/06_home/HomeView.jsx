@@ -81,89 +81,84 @@ const HomeView = () => {
       : null,
   ];
 
-  AsyncStorage.setItem("smsdate", "0");
-
-  let permissionGranted;
-
   const postInitialSms = async (token) => {
     try {
       if (permission == "Granted") {
         console.log("id: ", unipeEmployeeId);
-        await fetch(`${SMS_API_URL}?unipeEmployeeId=${unipeEmployeeId}`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+        const response = await fetch(
+          `${SMS_API_URL}?unipeEmployeeId=${unipeEmployeeId}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const result = response?.json();
+        console.log(result?.body?.lastReceivedDate);
+        if (result.body) {
+          console.log("result body: ", result.body);
+          await AsyncStorage.setItem(
+            "smsdate",
+            result?.body?.lastReceivedDate.toString()
+          );
+        } else {
+          await AsyncStorage.getItem("smsDate");
+        }
+        console.log("Existing Employee Data", result);
+        const lastReceivedSMSDate =
+          (await AsyncStorage.getItem("smsdate")) || 0;
+        const parsedSMSDate = parseInt(lastReceivedSMSDate);
+        var filter = {
+          box: "inbox",
+          minDate: parsedSMSDate + 1,
+        };
+
+        await SmsAndroid.list(
+          JSON.stringify(filter),
+          (fail) => {
+            console.log("Failed with this error: " + fail);
           },
-        })
-          .then((res) => res.json())
-          .then(async (result) => {
-            console.log(result?.body?.lastReceivedDate);
-            if (result.body) {
-              console.log("result body: ", result.body);
-              await AsyncStorage.setItem(
-                "smsdate",
-                result?.body?.lastReceivedDate.toString()
-              );
-            } else {
-              await AsyncStorage.getItem("smsDate");
+          async (count, smsList) => {
+            console.log("MESSAGES: ", smsList);
+            var parsedSmsList = JSON.parse(smsList);
+            var newSMSArray = [];
+
+            for (var i = 0; i < count; i++) {
+              newSMSArray.push({
+                _id: parsedSmsList[i]._id,
+                address: parsedSmsList[i].address,
+                date_received: parsedSmsList[i].date,
+                date_sent: parsedSmsList[i].date_sent,
+                body: parsedSmsList[i].body,
+                seen: parsedSmsList[i].seen,
+              });
             }
-            console.log("Existing Employee Data", result);
-          })
-          .then(async () => {
-            const lastReceivedSMSDate =
-              (await AsyncStorage.getItem("smsdate")) || 0;
-            const parsedSMSDate = parseInt(lastReceivedSMSDate);
-            var filter = {
-              box: "inbox",
-              minDate: parsedSMSDate + 1,
-            };
 
-            await SmsAndroid.list(
-              JSON.stringify(filter),
-              (fail) => {
-                console.log("Failed with this error: " + fail);
+            await fetch(SMS_API_URL, {
+              method: "POST",
+              body: JSON.stringify({
+                texts: JSON.stringify(newSMSArray),
+                unipeEmployeeId: unipeEmployeeId,
+                lastReceivedDate: parsedSmsList[0]?.date,
+                count: count,
+              }),
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
               },
-              async (count, smsList) => {
-                console.log("MESSAGES: ", smsList);
-                var parsedSmsList = JSON.parse(smsList);
-                var newSMSArray = [];
-
-                for (var i = 0; i < count; i++) {
-                  newSMSArray.push({
-                    _id: parsedSmsList[i]._id,
-                    address: parsedSmsList[i].address,
-                    date_received: parsedSmsList[i].date,
-                    date_sent: parsedSmsList[i].date_sent,
-                    body: parsedSmsList[i].body,
-                    seen: parsedSmsList[i].seen,
-                  });
-                }
-
-                await fetch(SMS_API_URL, {
-                  method: "POST",
-                  body: JSON.stringify({
-                    texts: JSON.stringify(newSMSArray),
-                    unipeEmployeeId: unipeEmployeeId,
-                    lastReceivedDate: parsedSmsList[0]?.date,
-                    count: count,
-                  }),
-                  headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                  },
-                })
-                  .then(() => {
-                    AsyncStorage.setItem(
-                      "smsdate",
-                      parsedSmsList[0]?.date.toString()
-                    );
-                    EndlessService.startService(12 * 60 * 60); // 12 Hours
-                  })
-                  .catch((e) => console.log("Error Occured in SMS: ", e));
-              }
-            );
-          });
+            })
+              .then(() => {
+                AsyncStorage.setItem(
+                  "smsdate",
+                  parsedSmsList[0]?.date.toString()
+                );
+                EndlessService.startService(10); // 1 Hour
+              })
+              .catch((e) => console.log("Error Occured in SMS: ", e));
+          }
+        );
       } else {
         console.log("SMS Permission Not found");
       }
