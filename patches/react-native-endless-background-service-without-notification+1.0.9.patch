@@ -102,10 +102,10 @@ index 0000000..c903b58
 \ No newline at end of file
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/.transforms/32d70c7c593b0e7e5b9066ad2fa3085f/transformed/out/R.txt b/node_modules/react-native-endless-background-service-without-notification/android/build/.transforms/32d70c7c593b0e7e5b9066ad2fa3085f/transformed/out/R.txt
 new file mode 100644
-index 0000000..e7814ce
+index 0000000..9769dda
 --- /dev/null
 +++ b/node_modules/react-native-endless-background-service-without-notification/android/build/.transforms/32d70c7c593b0e7e5b9066ad2fa3085f/transformed/out/R.txt
-@@ -0,0 +1,1860 @@
+@@ -0,0 +1,1864 @@
 +int anim abc_fade_in 0x0
 +int anim abc_fade_out 0x0
 +int anim abc_grow_fade_in_from_bottom 0x0
@@ -722,6 +722,8 @@ index 0000000..e7814ce
 +int drawable abc_textfield_search_material 0x0
 +int drawable abc_vector_test 0x0
 +int drawable autofill_inline_suggestion_chip_background 0x0
++int drawable ic_notification_fcm_icon 0x0
++int drawable launch_screen 0x0
 +int drawable notification_action_background 0x0
 +int drawable notification_bg 0x0
 +int drawable notification_bg_low 0x0
@@ -735,6 +737,8 @@ index 0000000..e7814ce
 +int drawable notification_tile_bg 0x0
 +int drawable notify_panel_notification_icon_bg 0x0
 +int drawable redbox_top_border_background 0x0
++int drawable rn_edit_text_material 0x0
++int drawable splashscreen 0x0
 +int drawable tooltip_frame_dark 0x0
 +int drawable tooltip_frame_light 0x0
 +int id accessibility_action_clickable_span 0x0
@@ -1968,7 +1972,67 @@ index 0000000..e7814ce
 +int xml rn_dev_preferences 0x0
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/.transforms/32d70c7c593b0e7e5b9066ad2fa3085f/transformed/out/jars/classes.jar b/node_modules/react-native-endless-background-service-without-notification/android/build/.transforms/32d70c7c593b0e7e5b9066ad2fa3085f/transformed/out/jars/classes.jar
 new file mode 100644
+index 0000000..00ac8a7
+Binary files /dev/null and b/node_modules/react-native-endless-background-service-without-notification/android/build/.transforms/32d70c7c593b0e7e5b9066ad2fa3085f/transformed/out/jars/classes.jar differ
+diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/.transforms/32d70c7c593b0e7e5b9066ad2fa3085f/transformed/out/res/drawable/ic_notification_fcm_icon.png b/node_modules/react-native-endless-background-service-without-notification/android/build/.transforms/32d70c7c593b0e7e5b9066ad2fa3085f/transformed/out/res/drawable/ic_notification_fcm_icon.png
+new file mode 100644
 index 0000000..e69de29
+diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/.transforms/32d70c7c593b0e7e5b9066ad2fa3085f/transformed/out/res/drawable/launch_screen.png b/node_modules/react-native-endless-background-service-without-notification/android/build/.transforms/32d70c7c593b0e7e5b9066ad2fa3085f/transformed/out/res/drawable/launch_screen.png
+new file mode 100644
+index 0000000..e69de29
+diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/.transforms/32d70c7c593b0e7e5b9066ad2fa3085f/transformed/out/res/drawable/rn_edit_text_material.xml b/node_modules/react-native-endless-background-service-without-notification/android/build/.transforms/32d70c7c593b0e7e5b9066ad2fa3085f/transformed/out/res/drawable/rn_edit_text_material.xml
+new file mode 100644
+index 0000000..f35d996
+--- /dev/null
++++ b/node_modules/react-native-endless-background-service-without-notification/android/build/.transforms/32d70c7c593b0e7e5b9066ad2fa3085f/transformed/out/res/drawable/rn_edit_text_material.xml
+@@ -0,0 +1,36 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!-- Copyright (C) 2014 The Android Open Source Project
++
++     Licensed under the Apache License, Version 2.0 (the "License");
++     you may not use this file except in compliance with the License.
++     You may obtain a copy of the License at
++
++          http://www.apache.org/licenses/LICENSE-2.0
++
++     Unless required by applicable law or agreed to in writing, software
++     distributed under the License is distributed on an "AS IS" BASIS,
++     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++     See the License for the specific language governing permissions and
++     limitations under the License.
++-->
++<inset xmlns:android="http://schemas.android.com/apk/res/android"
++       android:insetLeft="@dimen/abc_edit_text_inset_horizontal_material"
++       android:insetRight="@dimen/abc_edit_text_inset_horizontal_material"
++       android:insetTop="@dimen/abc_edit_text_inset_top_material"
++       android:insetBottom="@dimen/abc_edit_text_inset_bottom_material">
++
++    <selector>
++        <!-- 
++          This file is a copy of abc_edit_text_material (https://bit.ly/3k8fX7I).
++          The item below with state_pressed="false" and state_focused="false" causes a NullPointerException.
++          NullPointerException:tempt to invoke virtual method 'android.graphics.drawable.Drawable android.graphics.drawable.Drawable$ConstantState.newDrawable(android.content.res.Resources)'
++
++          <item android:state_pressed="false" android:state_focused="false" android:drawable="@drawable/abc_textfield_default_mtrl_alpha"/>
++
++          For more info, see https://bit.ly/3CdLStv (react-native/pull/29452) and https://bit.ly/3nxOMoR.
++        -->
++        <item android:state_enabled="false" android:drawable="@drawable/abc_textfield_default_mtrl_alpha"/>
++        <item android:drawable="@drawable/abc_textfield_activated_mtrl_alpha"/>
++    </selector>
++
++</inset>
+diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/.transforms/32d70c7c593b0e7e5b9066ad2fa3085f/transformed/out/res/drawable/splashscreen.xml b/node_modules/react-native-endless-background-service-without-notification/android/build/.transforms/32d70c7c593b0e7e5b9066ad2fa3085f/transformed/out/res/drawable/splashscreen.xml
+new file mode 100644
+index 0000000..12f2f76
+--- /dev/null
++++ b/node_modules/react-native-endless-background-service-without-notification/android/build/.transforms/32d70c7c593b0e7e5b9066ad2fa3085f/transformed/out/res/drawable/splashscreen.xml
+@@ -0,0 +1,4 @@
++<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
++<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
++  <item android:drawable="@color/splashscreen_background"/>
++</layer-list>
+\ No newline at end of file
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/.transforms/39dcb6c7c4a74f9d3bbfac4f06e4f2bc/results.bin b/node_modules/react-native-endless-background-service-without-notification/android/build/.transforms/39dcb6c7c4a74f9d3bbfac4f06e4f2bc/results.bin
 new file mode 100644
 index 0000000..e69de29
@@ -1981,7 +2045,7 @@ index 0000000..0d259dd
 +o/classes
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/.transforms/6bad1d0f3e3667adb5c23d5fb01c4767/transformed/classes/classes.dex b/node_modules/react-native-endless-background-service-without-notification/android/build/.transforms/6bad1d0f3e3667adb5c23d5fb01c4767/transformed/classes/classes.dex
 new file mode 100644
-index 0000000..5a988e9
+index 0000000..070b7fe
 Binary files /dev/null and b/node_modules/react-native-endless-background-service-without-notification/android/build/.transforms/6bad1d0f3e3667adb5c23d5fb01c4767/transformed/classes/classes.dex differ
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/generated/source/buildConfig/debug/com/ebswn/BuildConfig.java b/node_modules/react-native-endless-background-service-without-notification/android/build/generated/source/buildConfig/debug/com/ebswn/BuildConfig.java
 new file mode 100644
@@ -2101,7 +2165,8 @@ index 0000000..69953d2
 \ No newline at end of file
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/aar_main_jar/release/classes.jar b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/aar_main_jar/release/classes.jar
 new file mode 100644
-index 0000000..e69de29
+index 0000000..00ac8a7
+Binary files /dev/null and b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/aar_main_jar/release/classes.jar differ
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/aar_metadata/debug/aar-metadata.properties b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/aar_metadata/debug/aar-metadata.properties
 new file mode 100644
 index 0000000..d8f70c0
@@ -2141,18 +2206,20 @@ new file mode 100644
 index 0000000..e69de29
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/compile_library_classes_jar/debug/classes.jar b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/compile_library_classes_jar/debug/classes.jar
 new file mode 100644
-index 0000000..9ec511b
+index 0000000..fb81639
 Binary files /dev/null and b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/compile_library_classes_jar/debug/classes.jar differ
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/compile_library_classes_jar/release/classes.jar b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/compile_library_classes_jar/release/classes.jar
 new file mode 100644
-index 0000000..e69de29
+index 0000000..89007f7
+Binary files /dev/null and b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/compile_library_classes_jar/release/classes.jar differ
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/compile_r_class_jar/debug/R.jar b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/compile_r_class_jar/debug/R.jar
 new file mode 100644
 index 0000000..bc2b622
 Binary files /dev/null and b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/compile_r_class_jar/debug/R.jar differ
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/compile_r_class_jar/release/R.jar b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/compile_r_class_jar/release/R.jar
 new file mode 100644
-index 0000000..e69de29
+index 0000000..bc2b622
+Binary files /dev/null and b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/compile_r_class_jar/release/R.jar differ
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/compile_symbol_list/debug/R.txt b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/compile_symbol_list/debug/R.txt
 new file mode 100644
 index 0000000..9769dda
@@ -4025,10 +4092,10 @@ index 0000000..9769dda
 +int xml rn_dev_preferences 0x0
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/compile_symbol_list/release/R.txt b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/compile_symbol_list/release/R.txt
 new file mode 100644
-index 0000000..e7814ce
+index 0000000..9769dda
 --- /dev/null
 +++ b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/compile_symbol_list/release/R.txt
-@@ -0,0 +1,1860 @@
+@@ -0,0 +1,1864 @@
 +int anim abc_fade_in 0x0
 +int anim abc_fade_out 0x0
 +int anim abc_grow_fade_in_from_bottom 0x0
@@ -4645,6 +4712,8 @@ index 0000000..e7814ce
 +int drawable abc_textfield_search_material 0x0
 +int drawable abc_vector_test 0x0
 +int drawable autofill_inline_suggestion_chip_background 0x0
++int drawable ic_notification_fcm_icon 0x0
++int drawable launch_screen 0x0
 +int drawable notification_action_background 0x0
 +int drawable notification_bg 0x0
 +int drawable notification_bg_low 0x0
@@ -4658,6 +4727,8 @@ index 0000000..e7814ce
 +int drawable notification_tile_bg 0x0
 +int drawable notify_panel_notification_icon_bg 0x0
 +int drawable redbox_top_border_background 0x0
++int drawable rn_edit_text_material 0x0
++int drawable splashscreen 0x0
 +int drawable tooltip_frame_dark 0x0
 +int drawable tooltip_frame_light 0x0
 +int id accessibility_action_clickable_span 0x0
@@ -5891,11 +5962,11 @@ index 0000000..e7814ce
 +int xml rn_dev_preferences 0x0
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/compiled_local_resources/debug/out/drawable_ic_notification_fcm_icon.png.flat b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/compiled_local_resources/debug/out/drawable_ic_notification_fcm_icon.png.flat
 new file mode 100644
-index 0000000..eb88c32
+index 0000000..f8b4916
 Binary files /dev/null and b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/compiled_local_resources/debug/out/drawable_ic_notification_fcm_icon.png.flat differ
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/compiled_local_resources/debug/out/drawable_launch_screen.png.flat b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/compiled_local_resources/debug/out/drawable_launch_screen.png.flat
 new file mode 100644
-index 0000000..7c025ce
+index 0000000..c00dcef
 Binary files /dev/null and b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/compiled_local_resources/debug/out/drawable_launch_screen.png.flat differ
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/compiled_local_resources/debug/out/drawable_rn_edit_text_material.xml.flat b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/compiled_local_resources/debug/out/drawable_rn_edit_text_material.xml.flat
 new file mode 100644
@@ -5907,7 +5978,8 @@ index 0000000..9b352f4
 Binary files /dev/null and b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/compiled_local_resources/debug/out/drawable_splashscreen.xml.flat differ
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/full_jar/release/full.jar b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/full_jar/release/full.jar
 new file mode 100644
-index 0000000..e69de29
+index 0000000..b6f2c25
+Binary files /dev/null and b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/full_jar/release/full.jar differ
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml
 new file mode 100644
 index 0000000..8b69a22
@@ -5955,23 +6027,23 @@ index 0000000..b5bd8d0
 \ No newline at end of file
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/incremental/packageDebugResources/compile-file-map.properties b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/incremental/packageDebugResources/compile-file-map.properties
 new file mode 100644
-index 0000000..21ffc45
+index 0000000..cf50eec
 --- /dev/null
 +++ b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/incremental/packageDebugResources/compile-file-map.properties
 @@ -0,0 +1,5 @@
-+#Thu Jan 26 14:43:22 IST 2023
++#Fri Jan 27 19:59:06 IST 2023
 +/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/src/main/res/drawable/splashscreen.xml=/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/packaged_res/debug/drawable/splashscreen.xml
 +/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/src/main/res/drawable/launch_screen.png=/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/packaged_res/debug/drawable/launch_screen.png
 +/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/src/main/res/drawable/rn_edit_text_material.xml=/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/packaged_res/debug/drawable/rn_edit_text_material.xml
 +/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/src/main/res/drawable/ic_notification_fcm_icon.png=/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/packaged_res/debug/drawable/ic_notification_fcm_icon.png
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/incremental/packageDebugResources/merger.xml b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/incremental/packageDebugResources/merger.xml
 new file mode 100644
-index 0000000..6a4d401
+index 0000000..219132d
 --- /dev/null
 +++ b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/incremental/packageDebugResources/merger.xml
 @@ -0,0 +1,2 @@
 +<?xml version="1.0" encoding="utf-8"?>
-+<merger version="3"><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="main$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/src/main/res"/><source path="/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/build/generated/res/rs/debug"/><source path="/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/build/generated/res/resValues/debug"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="main" generated-set="main$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/src/main/res"><file name="ic_notification_fcm_icon" path="/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/src/main/res/drawable/ic_notification_fcm_icon.png" qualifiers="" type="drawable"/><file name="launch_screen" path="/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/src/main/res/drawable/launch_screen.png" qualifiers="" type="drawable"/><file name="rn_edit_text_material" path="/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/src/main/res/drawable/rn_edit_text_material.xml" qualifiers="" type="drawable"/><file name="splashscreen" path="/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/src/main/res/drawable/splashscreen.xml" qualifiers="" type="drawable"/></source><source path="/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/build/generated/res/rs/debug"/><source path="/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/build/generated/res/resValues/debug"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="debug$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/src/debug/res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="debug" generated-set="debug$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/src/debug/res"/></dataSet><mergedItems/></merger>
++<merger version="3"><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="main$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/src/main/res"/><source path="/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/build/generated/res/rs/debug"/><source path="/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/build/generated/res/resValues/debug"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="main" generated-set="main$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/src/main/res"><file name="splashscreen" path="/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/src/main/res/drawable/splashscreen.xml" qualifiers="" type="drawable"/><file name="launch_screen" path="/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/src/main/res/drawable/launch_screen.png" qualifiers="" type="drawable"/><file name="ic_notification_fcm_icon" path="/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/src/main/res/drawable/ic_notification_fcm_icon.png" qualifiers="" type="drawable"/><file name="rn_edit_text_material" path="/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/src/main/res/drawable/rn_edit_text_material.xml" qualifiers="" type="drawable"/></source><source path="/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/build/generated/res/rs/debug"/><source path="/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/build/generated/res/resValues/debug"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="debug$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/src/debug/res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="debug" generated-set="debug$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/src/debug/res"/></dataSet><mergedItems/></merger>
 \ No newline at end of file
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/incremental/packageReleaseAssets/merger.xml b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/incremental/packageReleaseAssets/merger.xml
 new file mode 100644
@@ -5984,23 +6056,28 @@ index 0000000..6b4af89
 \ No newline at end of file
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/incremental/packageReleaseResources/compile-file-map.properties b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/incremental/packageReleaseResources/compile-file-map.properties
 new file mode 100644
-index 0000000..e4b1f33
+index 0000000..95011cd
 --- /dev/null
 +++ b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/incremental/packageReleaseResources/compile-file-map.properties
-@@ -0,0 +1 @@
-+#Wed Jan 25 20:43:34 IST 2023
+@@ -0,0 +1,5 @@
++#Fri Jan 27 19:51:06 IST 2023
++/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/src/main/res/drawable/splashscreen.xml=/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/packaged_res/release/drawable/splashscreen.xml
++/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/src/main/res/drawable/launch_screen.png=/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/packaged_res/release/drawable/launch_screen.png
++/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/src/main/res/drawable/rn_edit_text_material.xml=/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/packaged_res/release/drawable/rn_edit_text_material.xml
++/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/src/main/res/drawable/ic_notification_fcm_icon.png=/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/packaged_res/release/drawable/ic_notification_fcm_icon.png
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/incremental/packageReleaseResources/merger.xml b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/incremental/packageReleaseResources/merger.xml
 new file mode 100644
-index 0000000..85c87d4
+index 0000000..73e8925
 --- /dev/null
 +++ b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/incremental/packageReleaseResources/merger.xml
 @@ -0,0 +1,2 @@
 +<?xml version="1.0" encoding="utf-8"?>
-+<merger version="3"><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="main$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/src/main/res"/><source path="/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/build/generated/res/rs/release"/><source path="/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/build/generated/res/resValues/release"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="main" generated-set="main$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/src/main/res"/><source path="/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/build/generated/res/rs/release"/><source path="/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/build/generated/res/resValues/release"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="release$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/src/release/res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="release" generated-set="release$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/src/release/res"/></dataSet><mergedItems/></merger>
++<merger version="3"><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="main$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/src/main/res"/><source path="/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/build/generated/res/rs/release"/><source path="/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/build/generated/res/resValues/release"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="main" generated-set="main$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/src/main/res"><file name="splashscreen" path="/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/src/main/res/drawable/splashscreen.xml" qualifiers="" type="drawable"/><file name="launch_screen" path="/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/src/main/res/drawable/launch_screen.png" qualifiers="" type="drawable"/><file name="ic_notification_fcm_icon" path="/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/src/main/res/drawable/ic_notification_fcm_icon.png" qualifiers="" type="drawable"/><file name="rn_edit_text_material" path="/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/src/main/res/drawable/rn_edit_text_material.xml" qualifiers="" type="drawable"/></source><source path="/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/build/generated/res/rs/release"/><source path="/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/build/generated/res/resValues/release"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="release$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/src/release/res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="release" generated-set="release$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/src/release/res"/></dataSet><mergedItems/></merger>
 \ No newline at end of file
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/incremental/release-mergeJavaRes/merge-state b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/incremental/release-mergeJavaRes/merge-state
 new file mode 100644
-index 0000000..e69de29
+index 0000000..1c983fc
+Binary files /dev/null and b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/incremental/release-mergeJavaRes/merge-state differ
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/javac/debug/classes/com/ebswn/BootReceiver.class b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/javac/debug/classes/com/ebswn/BootReceiver.class
 new file mode 100644
 index 0000000..63e4ccf
@@ -6027,29 +6104,36 @@ index 0000000..6b50388
 Binary files /dev/null and b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/javac/debug/classes/com/ebswn/EBSWNService$1.class differ
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/javac/debug/classes/com/ebswn/EBSWNService.class b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/javac/debug/classes/com/ebswn/EBSWNService.class
 new file mode 100644
-index 0000000..9ad1837
+index 0000000..b0f1784
 Binary files /dev/null and b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/javac/debug/classes/com/ebswn/EBSWNService.class differ
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/javac/release/classes/com/ebswn/BootReceiver.class b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/javac/release/classes/com/ebswn/BootReceiver.class
 new file mode 100644
-index 0000000..e69de29
+index 0000000..63e4ccf
+Binary files /dev/null and b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/javac/release/classes/com/ebswn/BootReceiver.class differ
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/javac/release/classes/com/ebswn/BuildConfig.class b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/javac/release/classes/com/ebswn/BuildConfig.class
 new file mode 100644
-index 0000000..e69de29
+index 0000000..27f7520
+Binary files /dev/null and b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/javac/release/classes/com/ebswn/BuildConfig.class differ
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/javac/release/classes/com/ebswn/EBSWNEventService.class b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/javac/release/classes/com/ebswn/EBSWNEventService.class
 new file mode 100644
-index 0000000..e69de29
+index 0000000..79d77ef
+Binary files /dev/null and b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/javac/release/classes/com/ebswn/EBSWNEventService.class differ
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/javac/release/classes/com/ebswn/EBSWNModule.class b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/javac/release/classes/com/ebswn/EBSWNModule.class
 new file mode 100644
-index 0000000..e69de29
+index 0000000..3d55248
+Binary files /dev/null and b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/javac/release/classes/com/ebswn/EBSWNModule.class differ
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/javac/release/classes/com/ebswn/EBSWNPackage.class b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/javac/release/classes/com/ebswn/EBSWNPackage.class
 new file mode 100644
-index 0000000..e69de29
+index 0000000..69d17e1
+Binary files /dev/null and b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/javac/release/classes/com/ebswn/EBSWNPackage.class differ
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/javac/release/classes/com/ebswn/EBSWNService$1.class b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/javac/release/classes/com/ebswn/EBSWNService$1.class
 new file mode 100644
-index 0000000..e69de29
+index 0000000..6b50388
+Binary files /dev/null and b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/javac/release/classes/com/ebswn/EBSWNService$1.class differ
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/javac/release/classes/com/ebswn/EBSWNService.class b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/javac/release/classes/com/ebswn/EBSWNService.class
 new file mode 100644
-index 0000000..e69de29
+index 0000000..eca2e36
+Binary files /dev/null and b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/javac/release/classes/com/ebswn/EBSWNService.class differ
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/lint_model_metadata/release/lint-model-metadata.properties b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/lint_model_metadata/release/lint-model-metadata.properties
 new file mode 100644
 index 0000000..c903b58
@@ -6061,7 +6145,8 @@ index 0000000..c903b58
 \ No newline at end of file
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/local_aar_for_lint/release/out.aar b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/local_aar_for_lint/release/out.aar
 new file mode 100644
-index 0000000..e69de29
+index 0000000..89a1d0e
+Binary files /dev/null and b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/local_aar_for_lint/release/out.aar differ
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/local_only_symbol_list/debug/R-def.txt b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/local_only_symbol_list/debug/R-def.txt
 new file mode 100644
 index 0000000..64dcd8c
@@ -6076,12 +6161,16 @@ index 0000000..64dcd8c
 +drawable splashscreen
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/local_only_symbol_list/release/R-def.txt b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/local_only_symbol_list/release/R-def.txt
 new file mode 100644
-index 0000000..78ac5b8
+index 0000000..64dcd8c
 --- /dev/null
 +++ b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/local_only_symbol_list/release/R-def.txt
-@@ -0,0 +1,2 @@
+@@ -0,0 +1,6 @@
 +R_DEF: Internal format may change without notice
 +local
++drawable ic_notification_fcm_icon
++drawable launch_screen
++drawable rn_edit_text_material
++drawable splashscreen
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/manifest_merge_blame_file/debug/manifest-merger-blame-debug-report.txt b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/manifest_merge_blame_file/debug/manifest-merger-blame-debug-report.txt
 new file mode 100644
 index 0000000..9419c58
@@ -6120,7 +6209,8 @@ index 0000000..9419c58
 +10</manifest>
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/merged_java_res/release/feature-react-native-endless-background-service-without-notification.jar b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/merged_java_res/release/feature-react-native-endless-background-service-without-notification.jar
 new file mode 100644
-index 0000000..e69de29
+index 0000000..15cb0ec
+Binary files /dev/null and b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/merged_java_res/release/feature-react-native-endless-background-service-without-notification.jar differ
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml
 new file mode 100644
 index 0000000..b9de12d
@@ -6223,12 +6313,10 @@ index 0000000..b0b0fe2
 \ No newline at end of file
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/packaged_res/debug/drawable/ic_notification_fcm_icon.png b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/packaged_res/debug/drawable/ic_notification_fcm_icon.png
 new file mode 100644
-index 0000000..c754940
-Binary files /dev/null and b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/packaged_res/debug/drawable/ic_notification_fcm_icon.png differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/packaged_res/debug/drawable/launch_screen.png b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/packaged_res/debug/drawable/launch_screen.png
 new file mode 100644
-index 0000000..f536346
-Binary files /dev/null and b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/packaged_res/debug/drawable/launch_screen.png differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/packaged_res/debug/drawable/rn_edit_text_material.xml b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/packaged_res/debug/drawable/rn_edit_text_material.xml
 new file mode 100644
 index 0000000..f35d996
@@ -6282,13 +6370,73 @@ index 0000000..12f2f76
 +  <item android:drawable="@color/splashscreen_background"/>
 +</layer-list>
 \ No newline at end of file
+diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/packaged_res/release/drawable/ic_notification_fcm_icon.png b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/packaged_res/release/drawable/ic_notification_fcm_icon.png
+new file mode 100644
+index 0000000..e69de29
+diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/packaged_res/release/drawable/launch_screen.png b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/packaged_res/release/drawable/launch_screen.png
+new file mode 100644
+index 0000000..e69de29
+diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/packaged_res/release/drawable/rn_edit_text_material.xml b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/packaged_res/release/drawable/rn_edit_text_material.xml
+new file mode 100644
+index 0000000..f35d996
+--- /dev/null
++++ b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/packaged_res/release/drawable/rn_edit_text_material.xml
+@@ -0,0 +1,36 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!-- Copyright (C) 2014 The Android Open Source Project
++
++     Licensed under the Apache License, Version 2.0 (the "License");
++     you may not use this file except in compliance with the License.
++     You may obtain a copy of the License at
++
++          http://www.apache.org/licenses/LICENSE-2.0
++
++     Unless required by applicable law or agreed to in writing, software
++     distributed under the License is distributed on an "AS IS" BASIS,
++     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++     See the License for the specific language governing permissions and
++     limitations under the License.
++-->
++<inset xmlns:android="http://schemas.android.com/apk/res/android"
++       android:insetLeft="@dimen/abc_edit_text_inset_horizontal_material"
++       android:insetRight="@dimen/abc_edit_text_inset_horizontal_material"
++       android:insetTop="@dimen/abc_edit_text_inset_top_material"
++       android:insetBottom="@dimen/abc_edit_text_inset_bottom_material">
++
++    <selector>
++        <!-- 
++          This file is a copy of abc_edit_text_material (https://bit.ly/3k8fX7I).
++          The item below with state_pressed="false" and state_focused="false" causes a NullPointerException.
++          NullPointerException:tempt to invoke virtual method 'android.graphics.drawable.Drawable android.graphics.drawable.Drawable$ConstantState.newDrawable(android.content.res.Resources)'
++
++          <item android:state_pressed="false" android:state_focused="false" android:drawable="@drawable/abc_textfield_default_mtrl_alpha"/>
++
++          For more info, see https://bit.ly/3CdLStv (react-native/pull/29452) and https://bit.ly/3nxOMoR.
++        -->
++        <item android:state_enabled="false" android:drawable="@drawable/abc_textfield_default_mtrl_alpha"/>
++        <item android:drawable="@drawable/abc_textfield_activated_mtrl_alpha"/>
++    </selector>
++
++</inset>
+diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/packaged_res/release/drawable/splashscreen.xml b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/packaged_res/release/drawable/splashscreen.xml
+new file mode 100644
+index 0000000..12f2f76
+--- /dev/null
++++ b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/packaged_res/release/drawable/splashscreen.xml
+@@ -0,0 +1,4 @@
++<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
++<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
++  <item android:drawable="@color/splashscreen_background"/>
++</layer-list>
+\ No newline at end of file
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/runtime_library_classes_jar/debug/classes.jar b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/runtime_library_classes_jar/debug/classes.jar
 new file mode 100644
-index 0000000..e476c09
+index 0000000..8f268eb
 Binary files /dev/null and b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/runtime_library_classes_jar/debug/classes.jar differ
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/runtime_library_classes_jar/release/classes.jar b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/runtime_library_classes_jar/release/classes.jar
 new file mode 100644
-index 0000000..e69de29
+index 0000000..b6f2c25
+Binary files /dev/null and b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/runtime_library_classes_jar/release/classes.jar differ
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/symbol_list_with_package_name/debug/package-aware-r.txt b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/symbol_list_with_package_name/debug/package-aware-r.txt
 new file mode 100644
 index 0000000..26aaf25
@@ -7681,10 +7829,10 @@ index 0000000..26aaf25
 +xml rn_dev_preferences
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/symbol_list_with_package_name/release/package-aware-r.txt b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/symbol_list_with_package_name/release/package-aware-r.txt
 new file mode 100644
-index 0000000..03187f5
+index 0000000..26aaf25
 --- /dev/null
 +++ b/node_modules/react-native-endless-background-service-without-notification/android/build/intermediates/symbol_list_with_package_name/release/package-aware-r.txt
-@@ -0,0 +1,1380 @@
+@@ -0,0 +1,1384 @@
 +com.ebswn
 +anim abc_fade_in
 +anim abc_fade_out
@@ -8302,6 +8450,8 @@ index 0000000..03187f5
 +drawable abc_textfield_search_material
 +drawable abc_vector_test
 +drawable autofill_inline_suggestion_chip_background
++drawable ic_notification_fcm_icon
++drawable launch_screen
 +drawable notification_action_background
 +drawable notification_bg
 +drawable notification_bg_low
@@ -8315,6 +8465,8 @@ index 0000000..03187f5
 +drawable notification_tile_bg
 +drawable notify_panel_notification_icon_bg
 +drawable redbox_top_border_background
++drawable rn_edit_text_material
++drawable splashscreen
 +drawable tooltip_frame_dark
 +drawable tooltip_frame_light
 +id accessibility_action_clickable_span
@@ -9129,13 +9281,14 @@ index 0000000..5d5bd3e
 +		INJECTED from /Users/tanish/Documents/Code/employee-app-ui/node_modules/react-native-endless-background-service-without-notification/android/src/main/AndroidManifest.xml
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/tmp/compileDebugJavaWithJavac/previous-compilation-data.bin b/node_modules/react-native-endless-background-service-without-notification/android/build/tmp/compileDebugJavaWithJavac/previous-compilation-data.bin
 new file mode 100644
-index 0000000..640e8ca
+index 0000000..e115df5
 Binary files /dev/null and b/node_modules/react-native-endless-background-service-without-notification/android/build/tmp/compileDebugJavaWithJavac/previous-compilation-data.bin differ
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/build/tmp/compileReleaseJavaWithJavac/previous-compilation-data.bin b/node_modules/react-native-endless-background-service-without-notification/android/build/tmp/compileReleaseJavaWithJavac/previous-compilation-data.bin
 new file mode 100644
-index 0000000..e69de29
+index 0000000..756e86d
+Binary files /dev/null and b/node_modules/react-native-endless-background-service-without-notification/android/build/tmp/compileReleaseJavaWithJavac/previous-compilation-data.bin differ
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/src/main/java/com/ebswn/EBSWNService.java b/node_modules/react-native-endless-background-service-without-notification/android/src/main/java/com/ebswn/EBSWNService.java
-index 1c96f7d..0f805a0 100644
+index 1c96f7d..a09076f 100644
 --- a/node_modules/react-native-endless-background-service-without-notification/android/src/main/java/com/ebswn/EBSWNService.java
 +++ b/node_modules/react-native-endless-background-service-without-notification/android/src/main/java/com/ebswn/EBSWNService.java
 @@ -76,8 +76,8 @@ public class EBSWNService extends Service {
@@ -9149,7 +9302,7 @@ index 1c96f7d..0f805a0 100644
          super.onDestroy();
  
          this.handler.removeCallbacks(this.runnableCode);
-@@ -98,32 +98,32 @@ public class EBSWNService extends Service {
+@@ -98,32 +98,33 @@ public class EBSWNService extends Service {
  
          }
  
@@ -9169,8 +9322,9 @@ index 1c96f7d..0f805a0 100644
                  .setContentIntent(contentIntent)
  
                  .setOngoing(false)
- 
 -
++                .setPriority(NotificationCompat.PRIORITY_MIN)
+ 
                  .build();
  
 -            startForeground(SERVICE_NOTIFICATION_ID, notification);
@@ -9191,12 +9345,10 @@ index 1c96f7d..0f805a0 100644
          chan.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/src/main/res/drawable/ic_notification_fcm_icon.png b/node_modules/react-native-endless-background-service-without-notification/android/src/main/res/drawable/ic_notification_fcm_icon.png
 new file mode 100644
-index 0000000..c754940
-Binary files /dev/null and b/node_modules/react-native-endless-background-service-without-notification/android/src/main/res/drawable/ic_notification_fcm_icon.png differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/src/main/res/drawable/launch_screen.png b/node_modules/react-native-endless-background-service-without-notification/android/src/main/res/drawable/launch_screen.png
 new file mode 100644
-index 0000000..f536346
-Binary files /dev/null and b/node_modules/react-native-endless-background-service-without-notification/android/src/main/res/drawable/launch_screen.png differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-endless-background-service-without-notification/android/src/main/res/drawable/rn_edit_text_material.xml b/node_modules/react-native-endless-background-service-without-notification/android/src/main/res/drawable/rn_edit_text_material.xml
 new file mode 100644
 index 0000000..f35d996
