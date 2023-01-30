@@ -42,8 +42,12 @@ const KYC = () => {
   const panNumber = useSelector((state) => state.pan.number);
   const ewaLiveSlice = useSelector((state) => state.ewaLive);
 
-  const [panMismatch,setPanMismatch] = useState(useSelector((state) => state.pan.misMatch));
-  const [bankMismatch,setBankMismatch] = useState(useSelector((state) => state.bank.misMatch));
+  const [panMismatch, setPanMismatch] = useState(
+    useSelector((state) => state.pan.misMatch)
+  );
+  const [bankMismatch, setBankMismatch] = useState(
+    useSelector((state) => state.bank.misMatch)
+  );
   const panName = useSelector((state) => state.pan?.data?.name);
   const bankName = useSelector((state) => state.bank?.data?.accountHolderName);
 
@@ -86,22 +90,28 @@ const KYC = () => {
   }, [deviceId, ipAddress]);
 
   useEffect(() => {
-    if (panMismatch >= 20 || bankMismatch >= 20) {
-      setLoading(true);
-      Alert.alert(
-        "KYC Details Mismatch",
-        `Cannot Verify KYC. Mismatch between Aadhaar and ${panMismatch > 20 ? "PAN" :""} ${bankMismatch === 0 ? ", BANK " : ""}details. Please try again with correct details.`,
-        [
-          {
-            text: "Ok",
-            onPress: () =>
-              navigation.navigate("AccountStack", {
-                screen: "KYC",
-                params: { screen: `${panMismatch > 20 ? "PAN" : "BANK"}` },
-              }),
-          },
-        ]
-      );
+    if (panMismatch && bankMismatch) {
+      if (panMismatch >= 20 || bankMismatch >= 20) {
+        setLoading(true);
+        Alert.alert(
+          "KYC Details Mismatch",
+          `Cannot Verify KYC. Mismatch between Aadhaar and ${
+            panMismatch > 20 ? "PAN" : ""
+          } ${
+            bankMismatch === 0 ? ", BANK " : ""
+          }details. Please try again with correct details.`,
+          [
+            {
+              text: "Ok",
+              onPress: () =>
+                navigation.navigate("AccountStack", {
+                  screen: "KYC",
+                  params: { screen: `${panMismatch > 20 ? "PAN" : "BANK"}` },
+                }),
+            },
+          ]
+        );
+      }
     } else {
       setLoading(true);
       setBankMismatch(
@@ -109,7 +119,7 @@ const KYC = () => {
           string: bankName,
           checkString: aadhaarData?.name,
         })
-      )
+      );
       setPanMismatch(
         MismatchScore({
           string: panName,
