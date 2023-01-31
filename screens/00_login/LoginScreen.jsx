@@ -150,7 +150,7 @@ const LoginScreen = () => {
         case "login":
           switch (splitted[4]?.toLowerCase()) {
             case "otp":
-              checkVerification(splitted[5]).then((res) => {
+              checkVerification(splitted[5]?.split("?waId=")[1]).then((res) => {
                 setLoading(false);
                 if (res.success) {
                   if (onboarded) {
