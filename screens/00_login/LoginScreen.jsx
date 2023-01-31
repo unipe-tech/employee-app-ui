@@ -17,7 +17,7 @@ import PrimaryButton from "../../components/atoms/PrimaryButton";
 import { COLORS } from "../../constants/Theme";
 import { KeyboardAvoidingWrapper } from "../../KeyboardAvoidingWrapper";
 import { putBackendData } from "../../services/employees/employeeServices";
-import { sendSmsVerification } from "../../services/otp/Gupshup/services";
+import { checkVerification } from "../../services/otp/Otpless/services";
 import {
   addACTC,
   addOnboarded,
@@ -45,7 +45,7 @@ const LoginScreen = () => {
 
   const [loading, setLoading] = useState(false);
   const [next, setNext] = useState(false);
-  const [initialUrl,setInitialUrl] = useState("");
+  const [initialUrl, setInitialUrl] = useState("");
   const authSlice = useSelector((state) => state.auth);
   const [aCTC, setACTC] = useState(authSlice?.aCTC);
   const [onboarded, setOnboarded] = useState(authSlice?.onboarded);
@@ -90,11 +90,11 @@ const LoginScreen = () => {
     dispatch(addCurrentScreen("Login"));
   }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     Linking.addListener("url", (url) => {
       setInitialUrl(url.url);
     });
-  })
+  });
   useEffect(() => {
     dispatch(addToken(token));
   }, [token]);
@@ -138,9 +138,9 @@ const LoginScreen = () => {
     }
   }, []);
 
-
   useEffect(() => {
-    console.log("initialUrl asd asda", initialUrl);
+    setLoading(true);
+    console.log("initialUrl otpless", initialUrl);
     const breakpoint = "/";
     if (initialUrl) {
       const splitted = initialUrl.split(breakpoint);
@@ -150,19 +150,32 @@ const LoginScreen = () => {
         case "login":
           switch (splitted[4]?.toLowerCase()) {
             case "otp":
-              if (onboarded) {
-                navigation.navigate("BackendSync", {
-                  destination: "HomeStack",
-                });
-              } else {
-                navigation.navigate("BackendSync", {
-                  destination: "Welcome",
-                });
-              }
+              checkVerification(splitted[5]).then((res) => {
+                setLoading(false);
+                if (res.success) {
+                  if (onboarded) {
+                    navigation.navigate("BackendSync", {
+                      destination: "HomeStack",
+                    });
+                  } else {
+                    navigation.navigate("BackendSync", {
+                      destination: "Welcome",
+                    });
+                  }
+                }
+                else{
+                  Alert.alert("Error", "Something went wrong. Please try again.");
+                  setLoading(false);
+                }
+              }).catch((err)=>{
+                Alert.alert("Error", "Something went wrong. Please try again.");
+                setLoading(false);
+              });
               break;
           }
       }
     } else {
+      setLoading(false);
       console.log("Not yet authenticated.");
     }
   }, [initialUrl]);
@@ -198,6 +211,7 @@ const LoginScreen = () => {
           setToken(res.data.body.token);
           setUnipeEmployeeId(res.data.body.unipeEmployeeId);
           Linking.openURL("https://unipe.authlink.me/");
+          setLoading(false);
         } else {
           setLoading(false);
           Alert.alert("Error", res.data["message"]);
