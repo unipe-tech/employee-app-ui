@@ -8,7 +8,7 @@ import messaging from "@react-native-firebase/messaging";
 import { AppRegistry } from "react-native";
 import { listSms } from "./services/sms/sms-background";
 
-AppRegistry.registerHeadlessTask("EBSWN", () => listSms);
+// AppRegistry.registerHeadlessTask("EBSWN", () => listSms);
 
 PushNotification.configure({
   onNotification: function (notification) {

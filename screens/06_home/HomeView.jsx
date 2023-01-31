@@ -8,6 +8,7 @@ import {
   ScrollView,
   View,
   Alert,
+  NativeModules,
 } from "react-native";
 import PushNotification from "react-native-push-notification";
 import { useDispatch, useSelector } from "react-redux";
@@ -50,6 +51,10 @@ import EndlessService from "react-native-endless-background-service-without-noti
 import { askSMSPermissions } from "../../helpers/SmsPermissions";
 
 const HomeView = () => {
+  const { BackgroundModule } = NativeModules;
+
+  console.log("BackgroundModule: ", BackgroundModule);
+  BackgroundModule.testMethod();
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
   const navigation = useNavigation();

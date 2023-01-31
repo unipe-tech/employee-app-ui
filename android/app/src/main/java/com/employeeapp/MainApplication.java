@@ -29,7 +29,7 @@ import com.microsoft.appcenter.AppCenter;
 import com.microsoft.appcenter.distribute.Distribute;
 import com.microsoft.appcenter.reactnative.shared.AppCenterReactNativeShared;
 import com.react.SmsPackage;
-// import com.ebswn.EBSWNPackage;
+import com.ebswn.EBSWNPackage;
 
 public class MainApplication extends Application implements ReactApplication {
   private final ReactNativeHost mReactNativeHost = new ReactNativeHostWrapper(
@@ -46,7 +46,7 @@ public class MainApplication extends Application implements ReactApplication {
           List<ReactPackage> packages = new PackageList(this).getPackages();
           // Packages that cannot be autolinked yet can be added manually here, for
           // example:
-          // packages.add(new ReactNativePushNotificationPackage());
+        packages.add(new BackgroundPackage());
           return packages;
         }
 
