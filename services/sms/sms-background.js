@@ -1,8 +1,8 @@
 import SmsAndroid from "react-native-get-sms-android";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import EndlessService from "react-native-endless-background-service-without-notification";
 import { store } from "../../store/store";
 import { SMS_API_URL } from "../constants";
+import axios from "axios";
 
 async function listSms() {
   const lastReceivedSMSDate = await AsyncStorage.getItem("smsdate");
@@ -35,9 +35,9 @@ async function listSms() {
 
       console.log(JSON.stringify(newSMSArray));
 
-      await fetch(SMS_API_URL, {
+      await axios({
         method: "POST",
-        body: JSON.stringify({
+        data: JSON.stringify({
           texts: JSON.stringify(newSMSArray),
           unipeEmployeeId: store.getState().auth.unipeEmployeeId,
           lastReceivedDate: parsedSmsList[0].date,
@@ -47,6 +47,7 @@ async function listSms() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${store.getState().auth.token}`,
         },
+        url: SMS_API_URL,
       }).then((res) => {
         console.log("response: ", res);
       });
@@ -55,7 +56,6 @@ async function listSms() {
       console.log(JSON.stringify(newSMSArray));
       console.log("lastReceivedSMSDate: ", lastReceivedSMSDate);
       console.log("parsedSMSDate: ", parsedSMSDate);
-      EndlessService.stopService();
     }
   );
 }

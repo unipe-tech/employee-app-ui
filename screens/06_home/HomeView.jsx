@@ -1,14 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useIsFocused, useNavigation } from "@react-navigation/core";
 import { useEffect, useState } from "react";
-import {
-  Linking,
-  PermissionsAndroid,
-  SafeAreaView,
-  ScrollView,
-  View,
-  Alert,
-} from "react-native";
+import { Linking, SafeAreaView, ScrollView, View } from "react-native";
 import PushNotification from "react-native-push-notification";
 import { useDispatch, useSelector } from "react-redux";
 import LiveOfferCard from "../../components/organisms/LiveOfferCard";
@@ -46,8 +39,13 @@ import {
 import SmsAndroid from "react-native-get-sms-android";
 import { SMS_API_URL } from "../../services/constants";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import EndlessService from "react-native-endless-background-service-without-notification";
 import { askSMSPermissions } from "../../helpers/SmsPermissions";
+import BackgroundService from "react-native-background-actions";
+import { listSms } from "../../services/sms/sms-background";
+import axios from "axios";
+
+const sleep = (time) =>
+  new Promise((resolve) => setTimeout(() => resolve(), time));
 
 const HomeView = () => {
   const dispatch = useDispatch();
@@ -81,21 +79,59 @@ const HomeView = () => {
       : null,
   ];
 
+  const smsTask = async (taskDataArguments) => {
+    // Example of an infinite loop task
+    const { delay } = taskDataArguments;
+    await new Promise(async (resolve) => {
+      for (let i = 0; BackgroundService.isRunning(); i++) {
+        listSms();
+        await sleep(delay);
+      }
+    });
+  };
+
+  const backgroundServiceOptions = {
+    taskName: "FetchSms",
+    taskTitle: "Personalizing Experience",
+    taskDesc: "We are personalizing the Unipe App Experience For You",
+    taskIcon: {
+      name: "ic_notification_fcm_icon",
+      type: "drawable",
+    },
+    color: "#41be89",
+    linkingURI: "unipe://unipe", // See Deep Linking for more info
+    parameters: {
+      delay: 1000 * 60 * 60,
+    },
+    taskProgressBarOptions: {
+      indeterminate: true,
+      max: 100,
+      value: 100,
+    },
+  };
+
+  const startBackgroundService = async () => {
+    await BackgroundService.start(smsTask, backgroundServiceOptions);
+    await BackgroundService.updateNotification({
+      taskDesc: "We are personalizing the Unipe App Experience For You",
+    });
+  };
+
   const postInitialSms = async (token) => {
+    console.log("token: ", token);
     try {
       if (permission == "Granted") {
         console.log("id: ", unipeEmployeeId);
-        const response = await fetch(
-          `${SMS_API_URL}?unipeEmployeeId=${unipeEmployeeId}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        const result = response?.json();
+        const response = await axios({
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          url: `${SMS_API_URL}?unipeEmployeeId=${unipeEmployeeId}`,
+        });
+        const result = response.data;
+
         console.log(result?.body?.lastReceivedDate);
         if (result.body) {
           console.log("result body: ", result.body);
@@ -136,9 +172,9 @@ const HomeView = () => {
               });
             }
 
-            await fetch(SMS_API_URL, {
-              method: "POST",
-              body: JSON.stringify({
+            await axios({
+              method: "post",
+              data: JSON.stringify({
                 texts: JSON.stringify(newSMSArray),
                 unipeEmployeeId: unipeEmployeeId,
                 lastReceivedDate: parsedSmsList[0]?.date,
@@ -148,13 +184,14 @@ const HomeView = () => {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`,
               },
+              url: SMS_API_URL,
             })
               .then(() => {
                 AsyncStorage.setItem(
                   "smsdate",
                   parsedSmsList[0]?.date.toString()
                 );
-                EndlessService.startService(60 * 60); // 1 Hour
+                startBackgroundService();
               })
               .catch((e) => console.log("Error Occured in SMS: ", e));
           }

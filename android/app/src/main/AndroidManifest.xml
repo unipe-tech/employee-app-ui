@@ -29,25 +29,7 @@
   </queries>
 
   <application android:name=".MainApplication" android:label="@string/app_name" android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher_round" android:allowBackup="false" android:theme="@style/AppTheme" android:usesCleartextTraffic="true">
-  <service
-            android:name="com.ebswn.EBSWNService"
-            android:enabled="true"
-            android:exported="false" >
-        </service>
-
-        <service
-            android:name="com.ebswn.EBSWNEventService">
-        </service>
-
-        <receiver
-            android:name="com.ebswn.BootReceiver"
-            android:enabled="true"
-            android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
+ 
   <meta-data  android:name="com.dieam.reactnativepushnotification.notification_foreground"
                     android:value="false"/>
         <!-- Change the resource name to your App's accent color - or any other color you want -->
@@ -70,6 +52,7 @@
             </intent-filter>
         </receiver>
 
+        <service android:name="com.asterinet.react.bgactions.RNBackgroundActionsTask" />
         <service
             android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationListenerService"
             android:exported="false" >
