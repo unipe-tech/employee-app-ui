@@ -1,7 +1,7 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text } from "react-native";
 import React from "react";
 import LogoHeader from "../atoms/LogoHeader";
-import { Ionicons, MaterialCommunityIcons } from "react-native-vector-icons";
+import { Ionicons } from "react-native-vector-icons";
 import { COLORS, FONTS } from "../../constants/Theme";
 
 const LogoHeaderBack = ({ leftOnPress, rightOnPress, title, skipEnabled }) => {
