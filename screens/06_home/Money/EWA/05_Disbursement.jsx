@@ -14,6 +14,7 @@ import SVGImgSuccess from "../../../../assets/ewa_success.svg";
 import SVGImgPending from "../../../../assets/ewa_pending.svg";
 import DisbursementCard from "../../../../components/molecules/DisbursementCard";
 import { getDisbursement } from "../../../../queries/ewa/disbursement";
+import PrimaryButton from "../../../../components/atoms/PrimaryButton";
 
 const Disbursement = ({ route, navigation }) => {
   const { offer } = route.params;
@@ -152,6 +153,7 @@ const Disbursement = ({ route, navigation }) => {
           iconName="ticket-percent-outline"
           variant={"dark"}
         />
+        <PrimaryButton title="Take Me Home" onPress={() => backAction()} />
       </View>
     </SafeAreaView>
   );

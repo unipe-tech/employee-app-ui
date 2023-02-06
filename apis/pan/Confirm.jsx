@@ -64,7 +64,7 @@ const PanConfirmApi = (props) => {
       </Text>
       <DetailsCard data={cardData()} />
       <View style={[styles.row, { justifyContent: "space-between" }]}>
-        <FuzzyCheck name={data["name"]} step="PAN" />
+        <FuzzyCheck name={data?.name} step="PAN"/>
         <Button
           title="Not Me"
           type="solid"
