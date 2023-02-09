@@ -1,7 +1,14 @@
 import Analytics from "appcenter-analytics";
 import { useNavigation } from "@react-navigation/core";
 import { useEffect, useState } from "react";
-import { Alert, BackHandler, SafeAreaView, Text, View } from "react-native";
+import {
+  Alert,
+  BackHandler,
+  SafeAreaView,
+  Text,
+  View,
+  Linking,
+} from "react-native";
 import SmsRetriever from "react-native-sms-retriever";
 import { useDispatch, useSelector } from "react-redux";
 import PushNotification, { Importance } from "react-native-push-notification";
@@ -10,7 +17,7 @@ import PrimaryButton from "../../components/atoms/PrimaryButton";
 import { COLORS } from "../../constants/Theme";
 import { KeyboardAvoidingWrapper } from "../../KeyboardAvoidingWrapper";
 import { putBackendData } from "../../services/employees/employeeServices";
-import { sendSmsVerification } from "../../services/otp/Gupshup/services";
+import { checkVerification } from "../../services/otp/Otpless/services";
 import {
   addACTC,
   addOnboarded,
@@ -31,7 +38,6 @@ import LoginInput from "../../components/molecules/LoginInput";
 import AgreementText from "../../components/organisms/AgreementText";
 import { STAGE } from "@env";
 
-
 const LoginScreen = () => {
   SplashScreen.hide();
   const dispatch = useDispatch();
@@ -39,7 +45,7 @@ const LoginScreen = () => {
 
   const [loading, setLoading] = useState(false);
   const [next, setNext] = useState(false);
-
+  const [initialUrl, setInitialUrl] = useState("");
   const authSlice = useSelector((state) => state.auth);
   const [aCTC, setACTC] = useState(authSlice?.aCTC);
   const [onboarded, setOnboarded] = useState(authSlice?.onboarded);
@@ -85,6 +91,11 @@ const LoginScreen = () => {
   }, []);
 
   useEffect(() => {
+    Linking.addListener("url", (url) => {
+      setInitialUrl(url.url);
+    });
+  });
+  useEffect(() => {
     dispatch(addToken(token));
   }, [token]);
 
@@ -127,6 +138,48 @@ const LoginScreen = () => {
     }
   }, []);
 
+  useEffect(() => {
+    setLoading(true);
+    console.log("initialUrl otpless", initialUrl);
+    const breakpoint = "/";
+    if (initialUrl) {
+      const splitted = initialUrl.split(breakpoint);
+      console.log("initialUrl", splitted);
+      console.log("route", splitted[3]);
+      switch (splitted[3].toLowerCase()) {
+        case "login":
+          switch (splitted[4]?.toLowerCase()) {
+            case "otp":
+              checkVerification(splitted[5]?.split("?waId=")[1]).then((res) => {
+                setLoading(false);
+                if (res.success) {
+                  if (onboarded) {
+                    navigation.navigate("BackendSync", {
+                      destination: "HomeStack",
+                    });
+                  } else {
+                    navigation.navigate("BackendSync", {
+                      destination: "Welcome",
+                    });
+                  }
+                }
+                else{
+                  Alert.alert("Error", "Something went wrong. Please try again.");
+                  setLoading(false);
+                }
+              }).catch((err)=>{
+                Alert.alert("Error", "Something went wrong. Please try again.");
+                setLoading(false);
+              });
+              break;
+          }
+      }
+    } else {
+      setLoading(false);
+      console.log("Not yet authenticated.");
+    }
+  }, [initialUrl]);
+
   const backAction = () => {
     Alert.alert("Hold on!", "Are you sure you want to go back?", [
       { text: "No", onPress: () => null, style: "cancel" },
@@ -157,36 +210,8 @@ const LoginScreen = () => {
           setOnboarded(res.data.body.onboarded);
           setToken(res.data.body.token);
           setUnipeEmployeeId(res.data.body.unipeEmployeeId);
-          sendSmsVerification(phoneNumber)
-            .then((result) => {
-              console.log("sendSmsVerification result: ", result);
-              if (result["response"]["status"] === "success") {
-                setLoading(false);
-                Analytics.trackEvent("LoginScreen|SendSms|Success", {
-                  unipeEmployeeId: unipeEmployeeId,
-                });
-                navigation.navigate("Otp");
-              } else {
-                setLoading(false);
-                Alert.alert(
-                  result["response"]["status"],
-                  result["response"]["details"]
-                );
-                Analytics.trackEvent("LoginScreen|SendSms|Error", {
-                  unipeEmployeeId: unipeEmployeeId,
-                  error: result["response"]["details"],
-                });
-              }
-            })
-            .catch((error) => {
-              console.log("sendSmsVerification result: ", error.toString());
-              setLoading(false);
-              Alert("Error", error.toString());
-              Analytics.trackEvent("LoginScreen|SendSms|Error", {
-                unipeEmployeeId: unipeEmployeeId,
-                error: error.toString(),
-              });
-            });
+          Linking.openURL("https://unipe.authlink.me/");
+          setLoading(false);
         } else {
           setLoading(false);
           Alert.alert("Error", res.data["message"]);
