@@ -2,6 +2,7 @@ import { View, Text, ScrollView, TouchableNativeFeedback } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 import { COLORS, FONTS } from "../../constants/Theme";
 import EStyleSheet from "react-native-extended-stylesheet";
+import Animated, { Layout, SlideInDown } from "react-native-reanimated";
 
 const COLOR_MAP = {
   Due: "orange",
@@ -37,7 +38,7 @@ const StatusCard = ({ offerType }) => {
   );
 };
 
-const OfferCard = ({ offer }) => {
+const OfferCard = ({ offer, index }) => {
   const navigation = useNavigation();
   var offerType = "Missed";
   var amount = offer.eligibleAmount;
@@ -62,8 +63,11 @@ const OfferCard = ({ offer }) => {
   var month = dateString.split(" ")[1];
 
   return (
-    <TouchableNativeFeedback
-      onPress={() => {
+    <Animated.View
+      layout={Layout}
+      entering={SlideInDown.delay(50 * index)}
+      activeOpacity={0.8}
+      onTouchEnd={() => {
         if (offerType !== "Missed") {
           navigation.navigate("EWAStack", {
             screen: "EWA_DISBURSEMENT",
@@ -86,7 +90,7 @@ const OfferCard = ({ offer }) => {
 
         <StatusCard offerType={offerType} />
       </View>
-    </TouchableNativeFeedback>
+    </Animated.View>
   );
 };
 
@@ -95,7 +99,7 @@ const PastDrawsCard = (props) => {
     <ScrollView style={{ marginTop: "5%" }}>
       <Text style={styles.title}>Your past draws</Text>
       {props.data.map((offer, index) => (
-        <OfferCard offer={offer} key={index} />
+        <OfferCard offer={offer} key={index} index={index} />
       ))}
     </ScrollView>
   );
@@ -109,8 +113,8 @@ const styles = EStyleSheet.create({
     width: "100%",
     flexDirection: "row",
     backgroundColor: COLORS.white,
-    borderBottomWidth:  "0.75rem",
-    borderTopWidth:  "0.75rem",
+    borderBottomWidth: "0.75rem",
+    borderTopWidth: "0.75rem",
     borderColor: COLORS.lightGray,
     justifyContent: "space-between",
   },
