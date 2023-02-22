@@ -19,6 +19,7 @@ import TnC from "../../../../templates/docs/EWATnC.js";
 import SliderCard from "../../../../components/organisms/SliderCard";
 import Checkbox from "../../../../components/atoms/Checkbox";
 import { updateOffer } from "../../../../queries/ewa/offer";
+import EMICard from "../../../../components/organisms/EMICard";
 
 const Offer = () => {
   const dispatch = useDispatch();
@@ -235,8 +236,8 @@ const Offer = () => {
           setAmount={setLoanAmount}
           eligibleAmount={ewaLiveSlice.eligibleAmount}
         />
+        <EMICard/>
         <View style={{ flex: 1 }} />
-
         <Checkbox
           text={"I agree to the"}
           value={consent}
