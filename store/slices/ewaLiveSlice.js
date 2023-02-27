@@ -8,7 +8,12 @@ const initialState = {
   eligibleAmount: 0,
   employerId: "",
   employmentId: "",
-  fees: 5,
+  feesWithoutEmi: 5,
+  feesWithEmi: 2, //DISCUSS
+  maxTenor: 0,
+  availedTenor: 1,
+  emiAmount: 0,
+  interestRate : 10, //DISCUSS
   loanAmount: 0,
   offerId: "",
   netAmount: 0,
@@ -26,8 +31,14 @@ const ewaLiveSlice = createSlice({
     addAPR(state, action) {
       state.apr = action.payload;
     },
+    addAvailedTenor(state, action) {
+      state.availedTenor = action.payload;
+    },
     addEligible(state, action) {
       state.eligible = action.payload;
+    },
+    addEmiAmount(state, action) {
+      state.emiAmount = action.payload;
     },
     addLoanAmount(state, action) {
       state.loanAmount = action.payload;
@@ -51,7 +62,9 @@ const ewaLiveSlice = createSlice({
 export const {
   addAccessible,
   addAPR,
+  addAvailedTenor,
   addEligible,
+  addEmiAmount,
   addLoanAmount,
   addNetAmount,
   addProcessingFees,

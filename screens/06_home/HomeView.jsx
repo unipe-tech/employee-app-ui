@@ -131,6 +131,10 @@ const HomeView = () => {
         } else {
           setAccessible(false);
         }
+        console.log(
+          "HomeView ewaOffersFetch API success getEwaOffersData.data : ",
+          getEwaOffersData.data
+        );
         dispatch(resetEwaLive(getEwaOffersData.data.body.live));
         dispatch(resetEwaHistorical(getEwaOffersData.data.body.past));
         setFetched(true);

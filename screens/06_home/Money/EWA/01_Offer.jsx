@@ -52,6 +52,9 @@ const Offer = () => {
 
   const ewaLiveSlice = useSelector((state) => state.ewaLive);
   const fees = useSelector((state) => state.ewaLive.fees);
+  const availedTenor = useSelector((state) => state.ewaLive.availedTenor);
+  const emiAmount = useSelector((state) => state.ewaLive.emiAmount);
+  const interestRate = useSelector((state) => state.ewaLive.interestRate);
   const [loanAmount, setLoanAmount] = useState(ewaLiveSlice?.eligibleAmount);
   const [processingFees, setProcessingFees] = useState(
     ewaLiveSlice?.processingFees
@@ -190,6 +193,8 @@ const Offer = () => {
           deviceId: deviceId,
           loanAmount: parseInt(loanAmount),
           campaignId: campaignId,
+          availedTenor : availedTenor,
+          emiAmount : emiAmount,
         },
         token: token,
         xpath: "ewa/offer",
@@ -236,7 +241,7 @@ const Offer = () => {
           setAmount={setLoanAmount}
           eligibleAmount={ewaLiveSlice.eligibleAmount}
         />
-        <EMICard/>
+        <EMICard loanAmount={loanAmount} interestRate={interestRate}/>
         <View style={{ flex: 1 }} />
         <Checkbox
           text={"I agree to the"}
