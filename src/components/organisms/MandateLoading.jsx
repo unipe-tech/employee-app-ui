@@ -77,7 +77,6 @@ export default function MandateLoading({
     }, 10000);
 
     return () => clearInterval(interval);
-
   }, [refetchTime]);
 
   return (
@@ -89,7 +88,7 @@ export default function MandateLoading({
     >
       <View style={styles.container}>
         <Image
-          source={require("../../assets/coin_loading.gif")}
+          source={require("../../assets/CoinLoading.gif")}
           style={{ width: "100%", height: SIZES.height * 0.5 }}
         />
         <View style={{ flex: 1 }} />
