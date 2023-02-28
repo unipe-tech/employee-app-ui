@@ -66,7 +66,7 @@ const EMICard = ({ loanAmount, interestRate }) => {
             item={item}
             disabled={item.disabled}
             selected={tenor === index + 1}
-            showIcon={!item.disabled}
+            radio={!item.disabled}
           />
         );
       })}

@@ -8,6 +8,7 @@ const ListItem = ({
   disabled,
   showIcon,
   selected,
+  radio,
   titleStyle,
   subtitleStyle,
 }) => {
@@ -69,6 +70,23 @@ const ListItem = ({
             }
           />
         )}
+        {radio ? selected ? (
+          <MaterialCommunityIcons
+            name="check-circle-outline"
+            size={24}
+            color={
+              selected ? COLORS.white : disabled ? COLORS.gray : COLORS.black
+            }
+          />
+        ) : (
+          <MaterialCommunityIcons
+            name="checkbox-blank-circle-outline"
+            size={24}
+            color={
+              selected ? COLORS.white : disabled ? COLORS.gray : COLORS.black
+            }
+          />
+        ): null}
       </View>
     </TouchableNativeFeedback>
   );

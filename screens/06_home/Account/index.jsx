@@ -156,6 +156,7 @@ const AccountMenu = (props) => {
             key={index}
             item={{ ...item, onPress: () => onPressCard(item) }}
             showIcon={false}
+            radio={false}
           />
         ))}
       </ScrollView>

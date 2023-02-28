@@ -87,6 +87,7 @@ const MandateOptions = ({ ProceedButton, disabled, authType }) => {
             disabled={disabled || item.disabled}
             showIcon={!item.disabled}
             selected={authType == item.type}
+            radio={false}
           />
         );
       })}
