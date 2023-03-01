@@ -158,30 +158,32 @@ const KYC = () => {
   return (
     <SafeAreaView style={styles.safeContainer}>
       <Header title="KYC" onLeftIconPress={() => backAction()} progress={50} />
-      <View style={styles.container}>
-        <Text style={styles.headline}>Are these your Kyc details?</Text>
-        <Text style={styles.subHeadline}>
-          कृपया स्पष्ट करें की यहाँ दी गयी सारी जानकारी आपकी ही है?
-        </Text>
+      <ScrollView>
+        <View style={styles.container}>
+          <Text style={styles.headline}>Are these your Kyc details?</Text>
+          <Text style={styles.subHeadline}>
+            कृपया स्पष्ट करें की यहाँ दी गयी सारी जानकारी आपकी ही है?
+          </Text>
 
-        <DetailsCard
-          data={cardData()}
-          imageUri={{
-            uri: `data:image/jpeg;base64,${aadhaarData["photo_base64"]}`,
-            cache: "only-if-cached",
-          }}
-        />
+          <DetailsCard
+            data={cardData()}
+            imageUri={{
+              uri: `data:image/jpeg;base64,${aadhaarData["photo_base64"]}`,
+              cache: "only-if-cached",
+            }}
+          />
 
-        <View style={{ flex: 1 }} />
+          <View style={{ flex: 1 }} />
 
-        <PrimaryButton
-          title={loading ? "Verifying" : "Proceed"}
-          disabled={loading || !fetched}
-          onPress={() => {
-            handleKyc();
-          }}
-        />
-      </View>
+          <PrimaryButton
+            title={loading ? "Verifying" : "Proceed"}
+            disabled={loading || !fetched}
+            onPress={() => {
+              handleKyc();
+            }}
+          />
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
