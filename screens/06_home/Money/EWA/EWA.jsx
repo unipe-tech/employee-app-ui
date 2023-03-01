@@ -85,7 +85,6 @@ const EWA = () => {
       STAGE !== "prod" ||
       (STAGE === "prod" && parseInt(ewaLiveSlice?.eligibleAmount) >= 1000)
     ) {
-      console.log("first");
       setEligible(true);
     } else {
       setEligible(false);
