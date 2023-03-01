@@ -191,8 +191,7 @@ const Agreement = () => {
     {
       subTitle: "Disbursement Amount *",
       value: "₹" + ewaLiveSlice?.netAmount,
-    },
-    { subTitle: "Due Date", value: ewaLiveSlice?.dueDate },
+    },{ subTitle: "EMI Amount", value: ewaLiveSlice?.availedTenor >1 ? "₹" + ewaLiveSlice?.emiAmount : "-"},{ subTitle: "Due Date", value: ewaLiveSlice?.dueDate },
   ];
 
   function handleAgreement() {
@@ -290,9 +289,9 @@ const Agreement = () => {
               handleAgreement();
             }}
           />
-          <LiquiloansTitle title={"an RBI registered NBFC-P2P"}/>
+          <LiquiloansTitle title={"an RBI registered NBFC-P2P"} />
           <Text style={moneyStyles.percentageTitle}>
-            † Annual Percentage Rate @ {ewaLiveSlice?.apr} %
+            † Annual Percentage Rate @ {ewaLiveSlice?.apr.toFixed(2)} %
           </Text>
           <Modal
             isVisible={isTermsModalVisible}

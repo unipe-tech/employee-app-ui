@@ -30,6 +30,7 @@ const Disbursement = ({ route, navigation }) => {
   const [loanAmount, setLoanAmount] = useState(0);
   const [netAmount, setNetAmount] = useState(0);
   const [status, setStatus] = useState("");
+  const processingFees = useSelector((state) => state.ewaLive.processingFees);
 
   const backAction = () => {
     navigation.navigate("HomeStack", {
@@ -113,17 +114,7 @@ const Disbursement = ({ route, navigation }) => {
   }, [getDisbursementIsSuccess, getDisbursementData]);
   
   useEffect(() => {
-    setDueDate(offer?.dueDate);
-    setLoanAccountNumber(offer?.loanAccountNumber);
-    setLoanAmount(offer?.loanAmount);
-    var pf = (parseInt(offer?.loanAmount) * offer?.fees)/100;
-    var pF;
-    if (parseInt(pf)%10<4) {
-      pF = Math.max(9, (Math.floor((pf/10))*10) -1);
-    } else {
-      pF = Math.max(9, (Math.floor(((pf+10)/10))*10) -1);
-    }
-    setNetAmount(parseInt(offer?.loanAmount) - pF);
+    setNetAmount(parseInt(offer?.loanAmount) - processingFees);
   }, [offer]);
 
   const data = [

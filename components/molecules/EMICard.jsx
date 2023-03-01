@@ -77,7 +77,7 @@ const EMICard = ({ loanAmount, interestRate }) => {
 const styles = EStyleSheet.create({
   titleText: {
     color: COLORS.secondary,
-    ...FONTS.body4,
+    ...FONTS.h4,
     marginVertical: "6rem",
   },
 });
