@@ -4,7 +4,7 @@ import { View } from "react-native";
 import EStyleSheet from "react-native-extended-stylesheet";
 import { COLORS, FONTS } from "../../constants/Theme";
 import ListItem from "../atoms/ListItem";
-import BankCodeEmandateOptionsMap from "../../assets/BankCodeEmandateOptionsMap";
+import BankCodeEmandateOptionsMap from "../../assets/bankCodeEmandateOptionsMap";
 
 const MandateOptions = ({ ProceedButton, disabled, authType }) => {
   const ifsc = useSelector((state) => state.bank?.data?.ifsc);
