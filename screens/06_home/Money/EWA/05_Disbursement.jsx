@@ -14,6 +14,7 @@ import Failure from "../../../../assets/animations/Failure";
 import Pending from "../../../../assets/animations/Pending";
 import DisbursementCard from "../../../../components/molecules/DisbursementCard";
 import { getDisbursement } from "../../../../queries/ewa/disbursement";
+import PayMoneyCard from "../../../../components/molecules/PayMoneyCard";
 
 const Disbursement = ({ route, navigation }) => {
   const { offer } = route.params;
@@ -133,7 +134,7 @@ const Disbursement = ({ route, navigation }) => {
         onLeftIconPress={() => backAction()}
         // progress={100}
       />
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         {StatusImage(status)}
         {StatusText(status)}
         <DisbursementCard
@@ -143,7 +144,8 @@ const Disbursement = ({ route, navigation }) => {
           iconName="ticket-percent-outline"
           variant={"dark"}
         />
-      </View>
+        <PayMoneyCard/>
+      </ScrollView>
     </SafeAreaView>
   );
 };

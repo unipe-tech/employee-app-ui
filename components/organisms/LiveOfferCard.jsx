@@ -1,6 +1,5 @@
 import { useNavigation } from "@react-navigation/core";
 import GetMoneyCard from "../molecules/GetMoneyCard";
-import PayMoneyCard from "../molecules/PayMoneyCard";
 
 const LiveOfferCard = ({ eligible, accessible, ewaLiveSlice }) => {
   const navigation = useNavigation();
@@ -13,7 +12,6 @@ const LiveOfferCard = ({ eligible, accessible, ewaLiveSlice }) => {
         accessible={accessible}
         amount={"₹" + ewaLiveSlice?.eligibleAmount}
       />
-      <PayMoneyCard />
     </>
   );
 };
