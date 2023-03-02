@@ -43,8 +43,10 @@ const ProfileFormTemplate = ({ type }) => {
   const campaignId = useSelector(
     (state) => state.campaign.onboardingCampaignId
   );
-  
-  const aadhaarVerifyStatus = useSelector((state) => state.aadhaar.verifyStatus);
+
+  const aadhaarVerifyStatus = useSelector(
+    (state) => state.aadhaar.verifyStatus
+  );
   const panVerifyStatus = useSelector((state) => state.pan.verifyStatus);
   const bankVerifyStatus = useSelector((state) => state.bank.verifyStatus);
 
@@ -103,7 +105,6 @@ const ProfileFormTemplate = ({ type }) => {
   };
 
   const backendPush = async () => {
-    
     const body = {
       unipeEmployeeId: unipeEmployeeId,
       maritalStatus: maritalStatus,
@@ -114,7 +115,11 @@ const ProfileFormTemplate = ({ type }) => {
       campaignId: campaignId,
     };
 
-    const response = await putBackendData({ data: body, xpath: "profile", token: token });
+    const response = await putBackendData({
+      data: body,
+      xpath: "profile",
+      token: token,
+    });
     const responseJson = response?.data;
 
     if (responseJson.status === 200) {
@@ -219,10 +224,11 @@ const ProfileFormTemplate = ({ type }) => {
             keyboardType="email-address"
             value={email}
             onChange={setEmail}
+            errorMsg={email && !validEmail ? "Incorrect Format" : null}
           />
-          {email && !validEmail ? (
+          {/* {email && !validEmail ? (
             <Text style={form.formatmsg}>Incorrect Format</Text>
-          ) : null}
+          ) : null} */}
           <PrimaryButton
             accessibilityLabel={"ProfileBtn"}
             title="Continue"
