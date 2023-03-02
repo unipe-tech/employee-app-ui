@@ -12,11 +12,10 @@ import { resetTimer } from "../../store/slices/timerSlice";
 import PrimaryButton from "../../components/atoms/PrimaryButton";
 import Analytics from "appcenter-analytics";
 import { COLORS, FONTS } from "../../constants/Theme";
-import {
-  generateAadhaarOTP
-} from "../../queries/onboarding/aadhaar";
+import { generateAadhaarOTP } from "../../queries/onboarding/aadhaar";
 import { putBackendData } from "../../services/employees/employeeServices";
 import { showToast } from "../../components/atoms/Toast";
+import FormButton from "../../components/molecules/FormButton";
 
 const AadhaarOtpApi = (props) => {
   const dispatch = useDispatch();
@@ -39,6 +38,8 @@ const AadhaarOtpApi = (props) => {
     (state) => state.campaign.onboardingCampaignId
   );
 
+  let loadingButton;
+
   useEffect(() => {
     dispatch(addSubmitOTPtxnId(submitOTPtxnId));
   }, [submitOTPtxnId]);
@@ -60,7 +61,6 @@ const AadhaarOtpApi = (props) => {
   const { mutateAsync: generateAadhaarOTPMutateAsync } = generateAadhaarOTP();
 
   const backendPush = async ({ verifyMsg, verifyStatus, verifyTimestamp }) => {
-    
     setVerifyMsg(verifyMsg);
     setVerifyStatus(verifyStatus);
     setVerifyTimestamp(verifyTimestamp);
@@ -75,7 +75,11 @@ const AadhaarOtpApi = (props) => {
       campaignId: campaignId,
     };
 
-    const response = await putBackendData({ data: body, xpath: "aadhaar", token: token });
+    const response = await putBackendData({
+      data: body,
+      xpath: "aadhaar",
+      token: token,
+    });
     const responseJson = response?.data;
 
     console.log("responseJson: ", responseJson);
@@ -183,27 +187,35 @@ const AadhaarOtpApi = (props) => {
                 }
               } catch (error) {
                 backendPush({
-                  verifyMsg: `Try Catch Error: ${JSON.stringify(error)}, ${JSON.stringify(res)}`,
+                  verifyMsg: `Try Catch Error: ${JSON.stringify(
+                    error
+                  )}, ${JSON.stringify(res)}`,
                   verifyStatus: "ERROR",
                   verifyTimestamp: verifyTimestamp,
                 });
                 Alert.alert("Error", JSON.stringify(error));
                 Analytics.trackEvent("Aadhaar|Otp|Error", {
                   unipeEmployeeId: unipeEmployeeId,
-                  error: `Try Catch Error: ${JSON.stringify(error)}, ${JSON.stringify(res)}`,
+                  error: `Try Catch Error: ${JSON.stringify(
+                    error
+                  )}, ${JSON.stringify(res)}`,
                 });
               }
             })
             .catch((error) => {
               backendPush({
-                verifyMsg: `generateAadhaarOTP API Catch Error: ${JSON.stringify(error)}`,
+                verifyMsg: `generateAadhaarOTP API Catch Error: ${JSON.stringify(
+                  error
+                )}`,
                 verifyStatus: "ERROR",
                 verifyTimestamp: verifyTimestamp,
               });
               Alert.alert("Error", JSON.stringify(error));
               Analytics.trackEvent("Aadhaar|Otp|Error", {
                 unipeEmployeeId: unipeEmployeeId,
-                error: `generateAadhaarOTP API Catch Error: ${JSON.stringify(error)}`,
+                error: `generateAadhaarOTP API Catch Error: ${JSON.stringify(
+                  error
+                )}`,
               });
             });
         }
@@ -219,11 +231,10 @@ const AadhaarOtpApi = (props) => {
       {props.textButton}
     </Text>
   ) : (
-    <PrimaryButton
+    <FormButton
       accessibilityLabel={"AadhaarOtpBtn"}
       title={loading ? "Verifying" : props.title || "Continue"}
       disabled={props.disabled}
-      loading={loading}
       onPress={() => {
         goForFetch();
       }}

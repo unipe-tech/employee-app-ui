@@ -1,6 +1,13 @@
 import { useNavigation } from "@react-navigation/core";
 import { useEffect, useState } from "react";
-import { SafeAreaView, Text, View, BackHandler, Alert } from "react-native";
+import {
+  SafeAreaView,
+  Text,
+  View,
+  BackHandler,
+  Alert,
+  Dimensions,
+} from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addAltMobile,
@@ -19,6 +26,8 @@ import FormInput from "../../components/atoms/FormInput";
 import DropDownForm from "../../components/molecules/DropDownForm";
 import Analytics from "appcenter-analytics";
 import { showToast } from "../../components/atoms/Toast";
+import LoadingButton from "../../components/atoms/LoadingButton";
+import FormButton from "../../components/molecules/FormButton";
 
 const ProfileFormTemplate = ({ type }) => {
   const dispatch = useDispatch();
@@ -27,6 +36,7 @@ const ProfileFormTemplate = ({ type }) => {
   const [next, setNext] = useState(false);
   const [validEmail, setValidEmail] = useState(false);
   const [validAltMobile, setValidAltMobile] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const unipeEmployeeId = useSelector((state) => state.auth.unipeEmployeeId);
   const token = useSelector((state) => state.auth.token);
@@ -43,10 +53,13 @@ const ProfileFormTemplate = ({ type }) => {
   const campaignId = useSelector(
     (state) => state.campaign.onboardingCampaignId
   );
-  
-  const aadhaarVerifyStatus = useSelector((state) => state.aadhaar.verifyStatus);
+
+  const aadhaarVerifyStatus = useSelector(
+    (state) => state.aadhaar.verifyStatus
+  );
   const panVerifyStatus = useSelector((state) => state.pan.verifyStatus);
   const bankVerifyStatus = useSelector((state) => state.bank.verifyStatus);
+  let loadingButton;
 
   useEffect(() => {
     dispatch(addCurrentScreen("ProfileForm"));
@@ -103,7 +116,6 @@ const ProfileFormTemplate = ({ type }) => {
   };
 
   const backendPush = async () => {
-    
     const body = {
       unipeEmployeeId: unipeEmployeeId,
       maritalStatus: maritalStatus,
@@ -114,7 +126,11 @@ const ProfileFormTemplate = ({ type }) => {
       campaignId: campaignId,
     };
 
-    const response = await putBackendData({ data: body, xpath: "profile", token: token });
+    const response = await putBackendData({
+      data: body,
+      xpath: "profile",
+      token: token,
+    });
     const responseJson = response?.data;
 
     if (responseJson.status === 200) {
@@ -223,7 +239,8 @@ const ProfileFormTemplate = ({ type }) => {
           {email && !validEmail ? (
             <Text style={form.formatmsg}>Incorrect Format</Text>
           ) : null}
-          <PrimaryButton
+
+          <FormButton
             accessibilityLabel={"ProfileBtn"}
             title="Continue"
             disabled={!next}
