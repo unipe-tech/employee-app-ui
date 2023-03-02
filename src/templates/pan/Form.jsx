@@ -27,16 +27,7 @@ const PanFormTemplate = (props) => {
   const panSlice = useSelector((state) => state.pan);
   const [number, setNumber] = useState(panSlice?.number);
 
-  useEffect(() => {
-    var panReg = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/gm;
-    if (panReg.test(number)) {
-      dispatch(addNumber(number));
-      setValidNumber(true);
-    } else {
-      setValidNumber(false);
-    }
-    return () => {};
-  }, [number]);
+  var panReg = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/gm;
 
   return (
     <SafeAreaView style={styles.safeContainer}>
@@ -65,7 +56,7 @@ const PanFormTemplate = (props) => {
               }
             />
 
-            {number && !validNumber ? (
+            {number.length == 10 && (number && !panReg.test(number)) ? (
               <Text style={bankform.formatmsg}>Invalid PAN Number.</Text>
             ) : null}
 

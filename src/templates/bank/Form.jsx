@@ -56,23 +56,10 @@ const BankFormTemplate = (props) => {
     dispatch(addUpi(upi));
   }, [upi]);
 
-  useEffect(() => {
-    var accountNumberReg = /^[A-Z0-9]{6,25}$/gm;
-    if (accountNumberReg.test(accountNumber)) {
-      setAccNumNext(true);
-    } else {
-      setAccNumNext(false);
-    }
-  }, [accountNumber]);
+  var accountNumberReg = /^[A-Z0-9]{6,25}$/gm;
+  var ifscReg = /^[A-Z]{4}0[A-Z0-9]{6}$/gm;
 
-  useEffect(() => {
-    var ifscReg = /^[A-Z]{4}0[A-Z0-9]{6}$/gm;
-    if (ifscReg.test(ifsc)) {
-      setIfscNext(true);
-    } else {
-      setIfscNext(false);
-    }
-  }, [ifsc]);
+
 
   return (
     <SafeAreaView style={styles.safeContainer}>
@@ -101,13 +88,14 @@ const BankFormTemplate = (props) => {
               placeholder={"Bank Account Number*"}
               value={accountNumber}
               onChange={setAccountNumber}
+              maxLength={18}
               autoFocus={isFocused}
               autoCapitalize="characters"
               content={
                 "Refer to your Bank Passbook or Cheque book to get the Bank Account Number."
               }
             />
-            {accountNumber && !accNumNext ? (
+            {accountNumber.length >= 9 && (accountNumber && !accountNumberReg.test(accountNumber)) ? (
               <Text style={bankform.formatmsg}>Incorrect Format</Text>
             ) : null}
 
@@ -115,6 +103,7 @@ const BankFormTemplate = (props) => {
               accessibilityLabel={"IfscCode"}
               placeholder={"IFSC Code*"}
               value={ifsc}
+              maxLength={11}
               onChange={setIfsc}
               autoCapitalize="characters"
               content={
@@ -122,7 +111,7 @@ const BankFormTemplate = (props) => {
               }
             />
 
-            {ifsc && !ifscNext ? (
+            {ifsc.length == 11 && (ifsc && !ifscReg.test(ifsc)) ? (
               <Text style={bankform.formatmsg}>Incorrect Format</Text>
             ) : null}
 
