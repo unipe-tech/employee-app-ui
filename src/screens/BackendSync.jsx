@@ -8,13 +8,12 @@ import { resetBank } from "../store/slices/bankSlice";
 import { resetPan } from "../store/slices/panSlice";
 import { resetProfile } from "../store/slices/profileSlice";
 import { resetMandate } from "../store/slices/mandateSlice";
-
+import SplashSvg from "../assets/Splash.svg";
 
 const BackendSync = (props) => {
-
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  
+
   const token = useSelector((state) => state.auth.token);
   const unipeEmployeeId = useSelector((state) => state.auth.unipeEmployeeId);
 
@@ -25,7 +24,11 @@ const BackendSync = (props) => {
 
   useEffect(() => {
     if (unipeEmployeeId) {
-      getBackendData({ params: { unipeEmployeeId: unipeEmployeeId }, xpath: "aadhaar", token: token  })
+      getBackendData({
+        params: { unipeEmployeeId: unipeEmployeeId },
+        xpath: "aadhaar",
+        token: token,
+      })
         .then((response) => {
           console.log("aadhaarBackendFetch response.data", response.data);
           if (response.data.status === 200) {
@@ -40,7 +43,11 @@ const BackendSync = (props) => {
 
   useEffect(() => {
     if (unipeEmployeeId) {
-      getBackendData({ params: { unipeEmployeeId: unipeEmployeeId }, xpath: "bank", token: token  })
+      getBackendData({
+        params: { unipeEmployeeId: unipeEmployeeId },
+        xpath: "bank",
+        token: token,
+      })
         .then((response) => {
           console.log("bankBackendFetch response.data", response.data);
           if (response.data.status === 200) {
@@ -55,7 +62,11 @@ const BackendSync = (props) => {
 
   useEffect(() => {
     if (unipeEmployeeId) {
-      getBackendData({ params: { unipeEmployeeId: unipeEmployeeId }, xpath: "pan", token: token  })
+      getBackendData({
+        params: { unipeEmployeeId: unipeEmployeeId },
+        xpath: "pan",
+        token: token,
+      })
         .then((response) => {
           console.log("panBackendFetch response.data", response.data);
           if (response.data.status === 200) {
@@ -70,7 +81,11 @@ const BackendSync = (props) => {
 
   useEffect(() => {
     if (unipeEmployeeId) {
-      getBackendData({ params: { unipeEmployeeId: unipeEmployeeId }, xpath: "profile", token: token  })
+      getBackendData({
+        params: { unipeEmployeeId: unipeEmployeeId },
+        xpath: "profile",
+        token: token,
+      })
         .then((response) => {
           console.log("profileBackendFetch response.data", response.data);
           if (response.data.status === 200) {
@@ -85,7 +100,11 @@ const BackendSync = (props) => {
 
   useEffect(() => {
     if (unipeEmployeeId) {
-      getBackendData({ params: { unipeEmployeeId: unipeEmployeeId }, xpath: "mandate", token: token  })
+      getBackendData({
+        params: { unipeEmployeeId: unipeEmployeeId },
+        xpath: "mandate",
+        token: token,
+      })
         .then((response) => {
           console.log("mandateFetch response.data", response.data);
           if (response.data.status === 200) {
@@ -99,10 +118,11 @@ const BackendSync = (props) => {
   }, [unipeEmployeeId]);
 
   return (
-    <Image
-      source={require("../../android/app/src/main/res/drawable/launch_screen.png")}
-      style={{ width: "100%", height: "100%" }}
-    />
+    // <Image
+    //   source={require("../../android/app/src/main/res/drawable/launch_screen.svg")}
+    //   style={{ width: "100%", height: "100%" }}
+    // />
+    <SplashSvg />
   );
 };
 
