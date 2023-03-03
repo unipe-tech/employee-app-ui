@@ -1,10 +1,17 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { COLORS, FONTS } from "../constants/Theme";
 import HomeView from "../screens/06_home/HomeView";
 import AccountStack from "./stacks/AccountStack";
 import EWAStack from "./stacks/EWAStack";
 import InvestStack from "./stacks/InvestStack";
+import HomeFocused from "../assets/Home_G.svg";
+import InvestFocused from "../assets/Invest_G.svg";
+import MoneyFocused from "../assets/Money_G.svg";
+import AccountFocused from "../assets/Account_G.svg";
+import HomeOutlined from "../assets/Home.svg";
+import InvestOutlined from "../assets/Invest_nav.svg";
+import MoneyOutlined from "../assets/Money.svg";
+import AccountOutlined from "../assets/Account.svg";
 
 export default BottomTabNav = () => {
   const bottomTab = createBottomTabNavigator();
@@ -24,22 +31,14 @@ export default BottomTabNav = () => {
           let iconName;
           switch (route.name) {
             case "Home":
-              iconName = focused ? "home" : "home-outline";
-              break;
+              return focused ? <HomeFocused /> : <HomeOutlined />;
             case "Invest":
-              iconName = focused ? "cash-multiple" : "cash-multiple";
-              break;
-            case "Benefits":
-              iconName = focused ? "crown" : "crown-outline";
-              break;
+              return focused ? <InvestFocused /> : <InvestOutlined />;
             case "Money":
-              iconName = focused ? "currency-inr" : "currency-inr";
-              break;
+              return focused ? <MoneyFocused /> : <MoneyOutlined />;
             case "Account":
-              iconName = focused ? "account-circle" : "account-circle-outline";
-              break;
+              return focused ? <AccountFocused /> : <AccountOutlined />;
           }
-          return <Icon name={iconName} size={size} color={color} />;
         },
         tabBarActiveTintColor: COLORS.primary,
         tabBarInactiveTintColor: COLORS.gray,

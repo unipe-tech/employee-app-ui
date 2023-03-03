@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Home</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Earned-Wage-Access-Copy-14" transform="translate(-31.000000, -620.000000)">
+            <g id="Home" transform="translate(31.000000, 620.000000)">
+                <polygon id="Path" points="0 0 24 0 24 24 0 24"></polygon>
+                <polyline id="Path" stroke="#597E8D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" points="5 12 3 12 12 3 21 12 19 12"></polyline>
+                <path d="M5,12 L5,19 C5,20.1045695 5.8954305,21 7,21 L17,21 C18.1045695,21 19,20.1045695 19,19 L19,12" id="Path" stroke="#597E8D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M9,21 L9,15 C9,13.8954305 9.8954305,13 11,13 L13,13 C14.1045695,13 15,13.8954305 15,15 L15,21" id="Path" stroke="#597E8D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </g>
+        </g>
+    </g>
+</svg>
