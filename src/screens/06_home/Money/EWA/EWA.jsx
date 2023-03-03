@@ -2,7 +2,7 @@ import { STAGE } from "@env";
 import { useIsFocused, useNavigation } from "@react-navigation/core";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import { BackHandler, SafeAreaView, View } from "react-native";
+import { BackHandler, Linking, SafeAreaView, View } from "react-native";
 import { Ionicons } from "react-native-vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import LogoHeader from "../../../../components/atoms/LogoHeader";
@@ -148,11 +148,7 @@ const EWA = () => {
       <LogoHeader
         title={"Money"}
         rightIcon={
-          <Ionicons
-            name="logo-whatsapp"
-            size={28}
-            color={COLORS.primary}
-          />
+          <Ionicons name="logo-whatsapp" size={28} color={COLORS.primary} />
         }
         rightOnPress={() => {
           Linking.openURL(`whatsapp://send?text=&phone=7483447528`);

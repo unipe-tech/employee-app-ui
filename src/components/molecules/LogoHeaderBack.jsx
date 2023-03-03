@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, Linking } from "react-native";
 import React from "react";
 import LogoHeader from "../atoms/LogoHeader";
 import { Ionicons } from "react-native-vector-icons";
@@ -28,11 +28,7 @@ const LogoHeaderBack = ({ leftOnPress, rightOnPress, title, skipEnabled }) => {
             />
           </View>
         ) : (
-          <Ionicons
-            name="logo-whatsapp"
-            size={28}
-            color={COLORS.primary}
-          />
+          <Ionicons name="logo-whatsapp" size={28} color={COLORS.primary} />
         )
       }
       rightOnPress={
