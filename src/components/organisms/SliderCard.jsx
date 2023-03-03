@@ -91,6 +91,8 @@ const SliderCard = ({ info, iconName, amount, setAmount, eligibleAmount }) => {
               justifyContent: "center",
               marginTop: 5,
               backgroundColor: COLORS.lightGray,
+              borderBottomLeftRadius: 5,
+              borderBottomRightRadius: 5,
             },
           ]}
         >
@@ -121,11 +123,11 @@ const styles = EStyleSheet.create({
   container: {
     width: "100%",
     flexDirection: "column",
-    borderRadius: 4,
+    borderRadius: 10,
     backgroundColor: COLORS.white,
-    elevation: 7,
+    // elevation: 7,
     marginVertical: "10rem",
-    // borderWidth: 0.5,
+    borderWidth: 1,
     borderColor: COLORS.lightgray_01,
   },
   row: { flexDirection: "row", alignItems: "center", padding: "8rem" },
