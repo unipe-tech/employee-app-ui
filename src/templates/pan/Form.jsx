@@ -19,6 +19,7 @@ const PanFormTemplate = (props) => {
 
   const [consent, setConsent] = useState(true);
   const [validNumber, setValidNumber] = useState(true);
+  const [keyboardType, setKeyboardType] = useState("default");
 
   const aadhaarVerifyStatus = useSelector(
     (state) => state.aadhaar.verifyStatus
@@ -38,6 +39,14 @@ const PanFormTemplate = (props) => {
     return () => {};
   }, [number]);
 
+  useEffect(() => {
+    if (number.length >= 5 && number.length < 9) {
+      setKeyboardType("number-pad");
+    } else {
+      setKeyboardType("default");
+    }
+  }, [number]);
+
   return (
     <SafeAreaView style={styles.safeContainer}>
       {aadhaarVerifyStatus === "SUCCESS" ? (
@@ -51,7 +60,7 @@ const PanFormTemplate = (props) => {
             <FormInput
               accessibilityLabel={"PanInput"}
               placeholder={"PAN Number"}
-              keyboardType="default"
+              keyboardType={keyboardType}
               autoCapitalize="characters"
               autoFocus={isFocused}
               value={number}
