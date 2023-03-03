@@ -124,7 +124,7 @@ const OTPScreen = () => {
         if (res["response"]["status"] === "success") {
           setVerified(true);
           navigation.navigate("BackendSync", {
-            destination: "HomeStack",
+            destination: "Welcome",
           });
           Analytics.trackEvent("OTPScreen|Check|Success", {
             unipeEmployeeId: unipeEmployeeId,

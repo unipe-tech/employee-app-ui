@@ -1,41 +1,47 @@
-import { View, Text, SafeAreaView, Alert, BackHandler } from "react-native";
-import { styles } from "../../styles";
-import LogoHeader from "../../components/atoms/LogoHeader";
-import Icon from "react-native-vector-icons/Ionicons";
-import { COLORS, FONTS } from "../../constants/Theme";
+import { useNavigation } from "@react-navigation/core";
 import Analytics from "appcenter-analytics";
-import { requestUserPermission } from "../../services/notifications/notificationService";
-import PrimaryButton from "../../components/atoms/PrimaryButton";
+import { Linking, SafeAreaView, Text, View } from "react-native";
+import Icon from "react-native-vector-icons/Ionicons";
 import { useDispatch, useSelector } from "react-redux";
-import Success from "../../assets/congratulations.svg";
+import Clock from "../../assets/Clock.svg";
+import InterestFree from "../../assets/InterestFree.svg";
+import OnDemand from "../../assets/OnDemand.svg";
+import LogoHeader from "../../components/atoms/LogoHeader";
+import PrimaryButton from "../../components/atoms/PrimaryButton";
+import ShieldTitle from "../../components/atoms/ShieldTitle";
+import SvgListItem from "../../components/molecules/SvgListItem";
+import { COLORS, FONTS } from "../../constants/Theme";
 import { useEffect } from "react";
-import { useNavigation } from "@react-navigation/native";
+import { requestUserPermission } from "../../services/notifications/notificationService";
+import { onboardingStyles, styles } from "../../styles";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
 
 const WelcomePage = () => {
-  const unipeEmployeeId = useSelector((state) => state.auth.unipeEmployeeId);
   const dispatch = useDispatch();
   const navigation = useNavigation();
   useEffect(() => {
     dispatch(addCurrentScreen("Welcome"));
   }, []);
+  const unipeEmployeeId = useSelector((state) => state.auth.unipeEmployeeId);
 
-  const backAction = () => {
-    Alert.alert("Hold on!", "Are you sure you want to Logout?", [
-      { text: "No", onPress: () => null, style: "cancel" },
-      { text: "Yes", onPress: () => navigation.navigate("Login") },
-    ]);
-    return true;
-  };
-
-  useEffect(() => {
-    BackHandler.addEventListener("hardwareBackPress", backAction);
-    return () =>
-      BackHandler.removeEventListener("hardwareBackPress", backAction);
-  }, []);
+  const data = [
+    {
+      title: "On-demand Salary\n(पाएँ वेतन अपने मनचाहे समय पर)",
+      imageUri: <OnDemand />,
+    },
+    {
+      title: "Interest Free\nशून्य ब्याज दर",
+      imageUri: <Clock />,
+    },
+    {
+      title:
+        "Money in your bank in 5 mins\nसिर्फ़ पाँच मिनट में पैसा आपके बैंक अकाउंट में",
+      imageUri: <InterestFree />,
+    },
+  ];
 
   return (
-    <SafeAreaView accessibilityLabel="WelcomePage" style={styles.safeContainer}>
+    <SafeAreaView style={styles.safeContainer}>
       <LogoHeader
         rightIcon={
           <Icon name="logo-whatsapp" size={28} color={COLORS.primary} />
@@ -44,40 +50,35 @@ const WelcomePage = () => {
           Linking.openURL(`whatsapp://send?text=&phone=7483447528`);
         }}
       />
-
       <View style={styles.container}>
-        <Success style={{ alignSelf: "center", width: "70%" }} />
-        <View style={{ flex: 1 }} />
+        <Text
+          style={{
+            ...FONTS.title,
+            color: COLORS.primary,
+          }}
+        >
+          नमस्ते
+        </Text>
+        <View style={styles.row}>
+          <View style={onboardingStyles.curvedBox} />
+          <Text style={{ ...FONTS.h2, color: COLORS.secondary }}>
+            Unipe के साथ पाएँ
+          </Text>
+        </View>
+        {data.map((item, index) => (
+          <SvgListItem item={item} key={index} />
+        ))}
 
-        <Text
-          style={[styles.subHeadline, { width: "90%", alignSelf: "center" }]}
-        >
-          <Text style={{ color: COLORS.warning }}>Congratulations!</Text> {"\n"}
-          Your phone number verified successfully.
-        </Text>
-        <Text
-          style={[
-            styles.headline,
-            {
-              ...FONTS.h3,
-              width: "90%",
-              alignSelf: "center",
-              marginBottom: 20,
-            },
-          ]}
-        >
-          As a next step please complete your eKYC to get money in your bank
-          account
-        </Text>
+        <View style={{ flex: 1 }} />
+        <ShieldTitle title="100% Secure" />
         <PrimaryButton
-          title="Start eKYC"
-          accessibilityLabel="WelcomeBtn"
+          title="Get Started Now"
           onPress={() => {
             requestUserPermission();
             Analytics.trackEvent("WelcomePage", {
               unipeEmployeeId: unipeEmployeeId,
             });
-            navigation.navigate("ProfileForm");
+            navigation.navigate("HomeStack");
           }}
         />
       </View>
