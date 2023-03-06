@@ -39,6 +39,7 @@ const OTPScreen = () => {
   const countDownTime = useSelector((state) => state.timer.login);
   const phoneNumber = useSelector((state) => state.auth.phoneNumber);
   const unipeEmployeeId = useSelector((state) => state.auth.unipeEmployeeId);
+  const onboarded = useSelector((state) => state.auth.onboarded);
 
   useEffect(() => {
     dispatch(addCurrentScreen("Otp"));
@@ -123,9 +124,15 @@ const OTPScreen = () => {
       .then((res) => {
         if (res["response"]["status"] === "success") {
           setVerified(true);
-          navigation.navigate("BackendSync", {
-            destination: "Welcome",
-          });
+          {
+            onboarded
+              ? navigation.navigate("BackendSync", {
+                  destination: "HomeStack",
+                })
+              : navigation.navigate("BackendSync", {
+                  destination: "Welcome",
+                });
+          }
           Analytics.trackEvent("OTPScreen|Check|Success", {
             unipeEmployeeId: unipeEmployeeId,
             error: res["response"]["details"],
