@@ -276,6 +276,7 @@ const PayMoneyCard = () => {
               paddingHorizontal: "2%",
               paddingVertical: "1%",
               alignSelf: "center",
+              backgroundColor: COLORS.primaryBackground,
             }}
           >
             <Text style={{ ...FONTS.body5 }}>Pay Now</Text>

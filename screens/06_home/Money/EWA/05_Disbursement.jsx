@@ -31,7 +31,7 @@ const Disbursement = ({ route, navigation }) => {
   const [loanAmount, setLoanAmount] = useState(0);
   const [netAmount, setNetAmount] = useState(0);
   const [status, setStatus] = useState("");
-  const processingFees = useSelector((state) => state.ewaLive.processingFees);
+  const [tenor, setTenor] = useState(1);
 
   const backAction = () => {
     navigation.navigate("HomeStack", {
@@ -99,6 +99,7 @@ const Disbursement = ({ route, navigation }) => {
 
   useEffect(() => {
     if (getDisbursementIsSuccess) {
+      console.log("HomeView ewaOffersFetch API success getEwaOffersData.data : ", getDisbursementData.data);
       if (getDisbursementData?.data?.status === 200) {
         setBankAccountNumber(getDisbursementData?.data?.body?.bankAccountNumber);
         setDueDate(getDisbursementData?.data?.body?.dueDate);
@@ -106,6 +107,7 @@ const Disbursement = ({ route, navigation }) => {
         setLoanAmount(getDisbursementData?.data?.body?.loanAmount);
         setNetAmount(getDisbursementData?.data?.body?.netAmount);
         setStatus(getDisbursementData?.data?.body?.status);
+        setTenor(getDisbursementData?.data?.body?.tenor);
       } else {
         console.log("HomeView ewaOffersFetch API error getEwaOffersData.data : ", getDisbursementData.data);
       }
@@ -114,15 +116,11 @@ const Disbursement = ({ route, navigation }) => {
     }
   }, [getDisbursementIsSuccess, getDisbursementData]);
   
-  useEffect(() => {
-    setNetAmount(parseInt(offer?.loanAmount) - processingFees);
-  }, [offer]);
-
   const data = [
     { subTitle: "Loan Amount ", value: "₹" + loanAmount },
     { subTitle: "Net Transfer Amount ", value: "₹" + netAmount },
     { subTitle: "Bank Account Number", value: bankAccountNumber },
-    { subTitle: "Due Date", value: dueDate },
+    { subTitle: tenor > 1 ? "First EMI Date": "Due Date", value: dueDate },
     { subTitle: "Loan Account Number", value: loanAccountNumber },
     { subTitle: "Transfer Status", value: status },
   ];
