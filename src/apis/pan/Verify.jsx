@@ -12,6 +12,7 @@ import PrimaryButton from "../../components/atoms/PrimaryButton";
 import Analytics from "appcenter-analytics";
 import { verifyPan } from "../../queries/onboarding/pan";
 import { putBackendData } from "../../services/employees/employeeServices";
+import FormButton from "../../components/molecules/FormButton";
 
 const PanVerifyApi = (props) => {
   const dispatch = useDispatch();

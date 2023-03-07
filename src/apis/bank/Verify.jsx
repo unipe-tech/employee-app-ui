@@ -11,7 +11,7 @@ import {
   addVerifyStatus,
   addVerifyTimestamp,
 } from "../../store/slices/bankSlice";
-import PrimaryButton from "../../components/atoms/PrimaryButton";
+import FormButton from "../../components/molecules/FormButton";
 import Analytics from "appcenter-analytics";
 import { verifyBank } from "../../queries/onboarding/bank";
 import { putBackendData } from "../../services/employees/employeeServices";
