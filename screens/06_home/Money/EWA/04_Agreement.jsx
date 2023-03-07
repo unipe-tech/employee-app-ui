@@ -190,9 +190,8 @@ const Agreement = () => {
     },
     {
       subTitle: "Disbursement Amount *",
-      value: "₹" + ewaLiveSlice?.netAmount,
-    },
-    { subTitle: "EMI Amount", value: "₹" + ewaLiveSlice?.emiAmount },
+      value: "₹" + ewaLiveSlice?.netAmount
+    },{ subTitle: "EMI Amount", value: "₹" + ewaLiveSlice?.emiAmount},
     { subTitle: "Due Date", value: ewaLiveSlice?.dueDate },
   ];
 
