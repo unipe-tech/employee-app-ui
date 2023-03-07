@@ -11,7 +11,7 @@ import {
   addVerifyStatus,
   addVerifyTimestamp,
 } from "../../store/slices/bankSlice";
-import PrimaryButton from "../../components/atoms/PrimaryButton";
+import FormButton from "../../components/molecules/FormButton";
 import Analytics from "appcenter-analytics";
 import { verifyBank } from "../../queries/onboarding/bank";
 import { putBackendData } from "../../services/employees/employeeServices";
@@ -83,7 +83,6 @@ const BankVerifyApi = (props) => {
     branchName,
     branchCity,
   }) => {
-
     setAccountHolderName(accountHolderName);
     setBankName(bankName);
     setBranchName(branchName);
@@ -103,7 +102,11 @@ const BankVerifyApi = (props) => {
       campaignId: campaignId,
     };
 
-    const response = await putBackendData({ data: payload, xpath: "bank", token: token });
+    const response = await putBackendData({
+      data: payload,
+      xpath: "bank",
+      token: token,
+    });
     const responseJson = response?.data;
 
     if (responseJson.status === 200) {
@@ -122,7 +125,7 @@ const BankVerifyApi = (props) => {
     } else {
       Alert.alert("Error", JSON.stringify(responseJson));
     }
-    
+
     setLoading(false);
   };
 
@@ -228,29 +231,35 @@ const BankVerifyApi = (props) => {
                 }
               } catch (error) {
                 backendPush({
-                  verifyMsg: `Try Catch Error: ${JSON.stringify(error)}, ${JSON.stringify(res)}`,
+                  verifyMsg: `Try Catch Error: ${JSON.stringify(
+                    error
+                  )}, ${JSON.stringify(res)}`,
                   verifyStatus: "ERROR",
                   verifyTimestamp: verifyTimestamp,
                 });
                 Alert.alert("Error", JSON.stringify(error));
                 Analytics.trackEvent("Bank|Verify|Error", {
                   unipeEmployeeId: unipeEmployeeId,
-                  error: `Try Catch Error: ${JSON.stringify(error)}, ${JSON.stringify(res)}`,
+                  error: `Try Catch Error: ${JSON.stringify(
+                    error
+                  )}, ${JSON.stringify(res)}`,
                 });
               }
-          })
-          .catch((error) => {
-            backendPush({
-              verifyMsg: `verifyBank API Catch Error: ${JSON.stringify(error)}`,
-              verifyStatus: "ERROR",
-              verifyTimestamp: verifyTimestamp,
+            })
+            .catch((error) => {
+              backendPush({
+                verifyMsg: `verifyBank API Catch Error: ${JSON.stringify(
+                  error
+                )}`,
+                verifyStatus: "ERROR",
+                verifyTimestamp: verifyTimestamp,
+              });
+              Alert.alert("Error", JSON.stringify(error));
+              Analytics.trackEvent("Bank|Verify|Error", {
+                unipeEmployeeId: unipeEmployeeId,
+                error: `verifyBank API Catch Error: ${JSON.stringify(error)}`,
+              });
             });
-            Alert.alert("Error", JSON.stringify(error));
-            Analytics.trackEvent("Bank|Verify|Error", {
-              unipeEmployeeId: unipeEmployeeId,
-              error: `verifyBank API Catch Error: ${JSON.stringify(error)}`,
-            });
-          });
         }
       })
       .catch((error) => {
@@ -260,17 +269,15 @@ const BankVerifyApi = (props) => {
   };
 
   return (
-    <PrimaryButton
+    <FormButton
       accessibilityLabel={"BankFormBtn"}
       title={loading ? "Verifying" : "Continue"}
       disabled={props.disabled}
-      loading={loading}
       onPress={() => {
         goForFetch();
       }}
     />
   );
-  
 };
 
 export default BankVerifyApi;

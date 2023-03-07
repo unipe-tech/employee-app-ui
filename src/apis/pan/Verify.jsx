@@ -12,6 +12,7 @@ import PrimaryButton from "../../components/atoms/PrimaryButton";
 import Analytics from "appcenter-analytics";
 import { verifyPan } from "../../queries/onboarding/pan";
 import { putBackendData } from "../../services/employees/employeeServices";
+import FormButton from "../../components/molecules/FormButton";
 
 const PanVerifyApi = (props) => {
   const dispatch = useDispatch();
@@ -54,8 +55,12 @@ const PanVerifyApi = (props) => {
     return () => {};
   }, [verifyTimestamp]);
 
-  const backendPush = async ({ data, verifyMsg, verifyStatus, verifyTimestamp }) => {
-
+  const backendPush = async ({
+    data,
+    verifyMsg,
+    verifyStatus,
+    verifyTimestamp,
+  }) => {
     setData(data);
     setVerifyMsg(verifyMsg);
     setVerifyStatus(verifyStatus);
@@ -71,7 +76,11 @@ const PanVerifyApi = (props) => {
       campaignId: campaignId,
     };
 
-    const response = await putBackendData({ data: payload, xpath: "pan", token: token });
+    const response = await putBackendData({
+      data: payload,
+      xpath: "pan",
+      token: token,
+    });
     const responseJson = response?.data;
 
     if (responseJson.status === 200) {
@@ -186,21 +195,27 @@ const PanVerifyApi = (props) => {
               } catch (error) {
                 backendPush({
                   data: data,
-                  verifyMsg: `Try Catch Error: ${JSON.stringify(error)}, ${JSON.stringify(res)}`,
+                  verifyMsg: `Try Catch Error: ${JSON.stringify(
+                    error
+                  )}, ${JSON.stringify(res)}`,
                   verifyStatus: "ERROR",
                   verifyTimestamp: verifyTimestamp,
                 });
                 Alert.alert("Error", JSON.stringify(error));
                 Analytics.trackEvent("Pan|Verify|Error", {
                   unipeEmployeeId: unipeEmployeeId,
-                  error: `Try Catch Error: ${JSON.stringify(error)}, ${JSON.stringify(res)}`,
+                  error: `Try Catch Error: ${JSON.stringify(
+                    error
+                  )}, ${JSON.stringify(res)}`,
                 });
               }
             })
             .catch((error) => {
               backendPush({
                 data: data,
-                verifyMsg: `verifyPan API Catch Error: ${JSON.stringify(error)}`,
+                verifyMsg: `verifyPan API Catch Error: ${JSON.stringify(
+                  error
+                )}`,
                 verifyStatus: "ERROR",
                 verifyTimestamp: verifyTimestamp,
               });
@@ -219,11 +234,10 @@ const PanVerifyApi = (props) => {
   };
 
   return (
-    <PrimaryButton
+    <FormButton
       accessibilityLabel={"PanVerifyBtn"}
       title={loading ? "Verifying" : "Continue"}
       disabled={props.disabled}
-      loading={loading}
       onPress={() => {
         goForFetch();
       }}
