@@ -11,7 +11,7 @@ import { styles } from "./styles";
 export const KeyboardAvoidingWrapper = ({ children }) => {
   return (
     <ScrollView
-      keyboardShouldPersistTaps="handled"
+      // keyboardShouldPersistTaps="handled"
       showsVerticalScrollIndicator={false}
     >
       <KeyboardAvoidingView
