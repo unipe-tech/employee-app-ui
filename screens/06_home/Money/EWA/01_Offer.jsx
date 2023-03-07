@@ -9,10 +9,8 @@ import Header from "../../../../components/atoms/Header";
 import TermsAndPrivacyModal from "../../../../components/molecules/TermsAndPrivacyModal";
 import PrimaryButton from "../../../../components/atoms/PrimaryButton";
 import {
-  addAPR,
   addLoanAmount,
   addNetAmount,
-  addProcessingFees,
 } from "../../../../store/slices/ewaLiveSlice";
 import { styles } from "../../../../styles";
 import TnC from "../../../../templates/docs/EWATnC.js";
@@ -51,14 +49,11 @@ const Offer = () => {
   const bankVerifyStatus = useSelector((state) => state.bank.verifyStatus);
 
   const ewaLiveSlice = useSelector((state) => state.ewaLive);
-  const fees = useSelector((state) => state.ewaLive.fees);
   const availedTenor = useSelector((state) => state.ewaLive.availedTenor);
   const emiAmount = useSelector((state) => state.ewaLive.emiAmount);
   const interestRate = useSelector((state) => state.ewaLive.interestRate);
   const [loanAmount, setLoanAmount] = useState(ewaLiveSlice?.eligibleAmount);
-  const [processingFees, setProcessingFees] = useState(
-    ewaLiveSlice?.processingFees
-  );
+  const processingFees = ewaLiveSlice?.processingFees
 
   useEffect(() => {
     getUniqueId().then((id) => {
@@ -128,35 +123,10 @@ const Offer = () => {
   }, [loanAmount]);
 
   useEffect(() => {
-    var pF = Math.ceil((parseInt(loanAmount) * fees) / 100);
-    setProcessingFees(pF);
-    dispatch(addProcessingFees(pF));
-    dispatch(addNetAmount(parseInt(loanAmount) - pF));
-    dispatch(addAPR(APR(processingFees, loanAmount)));
+    dispatch(addNetAmount(parseInt(loanAmount) - processingFees));
     setUpdating(false);
   }, [loanAmount, processingFees]);
 
-  const APR = (processingFees, loanAmount) => {
-    var today = new Date();
-    var dueDateComponents = ewaLiveSlice.dueDate.split("/");
-    var dueDate = new Date(
-      dueDateComponents[2],
-      parseInt(dueDateComponents[1])-1,
-      dueDateComponents[0]
-    );
-    console.log(`dueDate, today: ${dueDate}, ${today}`);
-    var timeDiff = dueDate.getTime() - today.getTime();
-    var daysDiff = parseInt(timeDiff / (1000 * 3600 * 24)) + 1;
-    var apr = 100 * (processingFees / parseInt(loanAmount)) * (365 / daysDiff);
-    console.log(
-      "processingFees, loanAmount, daysDiff, APR: ",
-      processingFees,
-      loanAmount,
-      daysDiff,
-      apr
-    );
-    return apr.toFixed(2);
-  };
 
   const handleConditionalNav = () => {
     if (onboarded) {
@@ -183,6 +153,7 @@ const Offer = () => {
   function handleAmount() {
     setLoading(true);
     if (validAmount) {
+      console.log("asdadsasdasdads",emiAmount, interestRate, loanAmount, availedTenor)
       updateOfferMutateAsync({
         data: {
           offerId: ewaLiveSlice.offerId,
@@ -194,7 +165,7 @@ const Offer = () => {
           loanAmount: parseInt(loanAmount),
           campaignId: campaignId,
           availedTenor : availedTenor,
-          emiAmount : emiAmount,
+          emiAmount : parseInt(emiAmount),
         },
         token: token,
         xpath: "ewa/offer",

@@ -15,12 +15,14 @@ import {
   addVerifyStatus,
   resetMandate,
 } from "../../../../store/slices/mandateSlice";
+import { addAPR, addEmiAmount, addProcessingFees } from "../../../../store/slices/ewaLiveSlice";
 
 const KYC = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
-  const [fetched, setFetched] = useState(false);
+  const [mandateFetched, setMandateFetched] = useState(false);
+  const [offerCalculationsFetched, setOfferCalculationsFetched] = useState(false);
   const [deviceId, setDeviceId] = useState(0);
   const [ipAddress, setIpAdress] = useState(0);
 
@@ -38,6 +40,7 @@ const KYC = () => {
   const aadharNumber = useSelector((state) => state.aadhaar.number);
   const panNumber = useSelector((state) => state.pan.number);
   const ewaLiveSlice = useSelector((state) => state.ewaLive);
+  const offerId = ewaLiveSlice?.offerId;
 
   useEffect(() => {
     getUniqueId().then((id) => {
@@ -60,22 +63,45 @@ const KYC = () => {
           dispatch(resetMandate(response?.data?.body));
           dispatch(addVerifyStatus(response?.data?.body?.verifyStatus));
           setMandateVerifyStatus(response?.data?.body?.verifyStatus);
-          setFetched(true);
+          setMandateFetched(true);
         })
         .catch((error) => {
           console.log("mandateFetch error: ", error);
           Alert.alert("An Error occured", error.toString());
+          setMandateFetched(false);
         });
     }
   }, [deviceId, ipAddress]);
 
+  useEffect(() => {
+    if (unipeEmployeeId && offerId) {
+      getBackendData({
+        params: { unipeEmployeeId: unipeEmployeeId , offerId: offerId},
+        xpath: "ewa/offer",
+        token: token,
+      })
+        .then((response) => {
+          console.log("Form offerCalculationsFetch response.data", response.data.data.data);
+          dispatch(addProcessingFees(response?.data?.data?.data?.processingFees))
+          dispatch(addAPR(response?.data?.data?.data?.bookingAPR))
+          dispatch(addEmiAmount(response?.data?.data?.data?.emiAmount))
+          setOfferCalculationsFetched(true);
+        })
+        .catch((error) => {
+          console.log("offerCalculationsFetch error: ", error);
+          Alert.alert("An Error occured", error.toString());
+          setOfferCalculationsFetched(false);
+        });
+    }
+  }, [offerId]);
+
   const { mutateAsync: updateKycMutateAsync } = updateKyc();
 
   useEffect(() => {
-    if (fetched) {
+    if (mandateFetched && offerCalculationsFetched) {
       updateKycMutateAsync({
         data: {
-          offerId: ewaLiveSlice?.offerId,
+          offerId: offerId,
           unipeEmployeeId: unipeEmployeeId,
           status: "INPROGRESS",
           timestamp: Date.now(),
@@ -93,7 +119,7 @@ const KYC = () => {
           Alert.alert("An Error occured", error.toString());
         });
     }
-  }, [fetched]);
+  }, [mandateFetched , offerCalculationsFetched]);
 
   const backAction = () => {
     navigation.navigate("EWA_OFFER");
@@ -110,7 +136,7 @@ const KYC = () => {
     setLoading(true);
     updateKycMutateAsync({
       data: {
-        offerId: ewaLiveSlice?.offerId,
+        offerId: offerId,
         unipeEmployeeId: unipeEmployeeId,
         status: "CONFIRMED",
         timestamp: Date.now(),
@@ -176,7 +202,7 @@ const KYC = () => {
 
         <PrimaryButton
           title={loading ? "Verifying" : "Proceed"}
-          disabled={loading || !fetched}
+          disabled={loading || !mandateFetched || !offerCalculationsFetched}
           onPress={() => {
             handleKyc();
           }}
