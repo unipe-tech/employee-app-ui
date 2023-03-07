@@ -9,8 +9,8 @@ import { addNumber } from "../../store/slices/panSlice";
 import InfoCard from "../../components/atoms/InfoCard";
 import FormInput from "../../components/atoms/FormInput";
 import Checkbox from "../../components/atoms/Checkbox";
-import PrimaryButton from "../../components/atoms/PrimaryButton";
 import { useNavigation, useIsFocused } from "@react-navigation/core";
+import PrimaryButton from "../../components/atoms/PrimaryButton";
 
 const PanFormTemplate = (props) => {
   const dispatch = useDispatch();
@@ -28,6 +28,18 @@ const PanFormTemplate = (props) => {
   const [number, setNumber] = useState(panSlice?.number);
 
   var panReg = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/gm;
+
+  useEffect(() => {
+    dispatch(addNumber(number));
+    console.log("pan valid:", panReg.test(number));
+    if (number.length == 10 && panReg.test(number)) {
+      setValidNumber(true);
+    } else {
+      console.log("dooo");
+      setValidNumber(false);
+    }
+    return () => {};
+  }, [number, validNumber]);
 
   return (
     <SafeAreaView style={styles.safeContainer}>
@@ -56,7 +68,7 @@ const PanFormTemplate = (props) => {
               }
             />
 
-            {number.length == 10 && (number && !panReg.test(number)) ? (
+            {number.length == 10 && !panReg.test(number) ? (
               <Text style={bankform.formatmsg}>Invalid PAN Number.</Text>
             ) : null}
 

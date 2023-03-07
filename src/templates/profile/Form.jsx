@@ -44,8 +44,10 @@ const ProfileFormTemplate = ({ type }) => {
   const campaignId = useSelector(
     (state) => state.campaign.onboardingCampaignId
   );
-  
-  const aadhaarVerifyStatus = useSelector((state) => state.aadhaar.verifyStatus);
+
+  const aadhaarVerifyStatus = useSelector(
+    (state) => state.aadhaar.verifyStatus
+  );
   const panVerifyStatus = useSelector((state) => state.pan.verifyStatus);
   const bankVerifyStatus = useSelector((state) => state.bank.verifyStatus);
   var phoneno = /^[0-9]{10}$/gm;
@@ -105,7 +107,6 @@ const ProfileFormTemplate = ({ type }) => {
   };
 
   const backendPush = async () => {
-    
     const body = {
       unipeEmployeeId: unipeEmployeeId,
       maritalStatus: maritalStatus,
@@ -116,7 +117,11 @@ const ProfileFormTemplate = ({ type }) => {
       campaignId: campaignId,
     };
 
-    const response = await putBackendData({ data: body, xpath: "profile", token: token });
+    const response = await putBackendData({
+      data: body,
+      xpath: "profile",
+      token: token,
+    });
     const responseJson = response?.data;
 
     if (responseJson.status === 200) {
@@ -168,6 +173,14 @@ const ProfileFormTemplate = ({ type }) => {
       BackHandler.removeEventListener("hardwareBackPress", backAction);
   }, []);
 
+  useEffect(() => {
+    if (altMobile.length == 10) {
+      setValidAltMobile(true);
+    } else {
+      setValidAltMobile(false);
+    }
+  }, [altMobile]);
+
   return (
     <SafeAreaView style={styles.safeContainer} accessibilityLabel="ProfileForm">
       <Text style={styles.headline}>Tell us about you</Text>
@@ -209,7 +222,7 @@ const ProfileFormTemplate = ({ type }) => {
               </Text>
             }
           />
-          {altMobile.length == 10 && (altMobile && !phoneno.test(altMobile)) ? (
+          {altMobile.length == 10 && !phoneno.test(altMobile) ? (
             <Text style={form.formatmsg}>Incorrect Format</Text>
           ) : null}
           <FormInput

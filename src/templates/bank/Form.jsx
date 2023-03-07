@@ -59,7 +59,23 @@ const BankFormTemplate = (props) => {
   var accountNumberReg = /^[A-Z0-9]{6,25}$/gm;
   var ifscReg = /^[A-Z]{4}0[A-Z0-9]{6}$/gm;
 
+  useEffect(() => {
+    console.log("IFSC Valid: ", ifscReg.test(ifsc));
+    if (ifsc.length == 11 && ifscReg.test(ifsc)) {
+      setIfscNext(true);
+    } else {
+      setIfscNext(false);
+    }
+  }, [ifsc]);
 
+  useEffect(() => {
+    console.log("AccountNumber Valid: ", accountNumberReg.test(accountNumber));
+    if (accountNumber.length == 11 && accountNumberReg.test(accountNumber)) {
+      setAccNumNext(true);
+    } else {
+      setAccNumNext(false);
+    }
+  }, [accountNumber]);
 
   return (
     <SafeAreaView style={styles.safeContainer}>
@@ -95,7 +111,8 @@ const BankFormTemplate = (props) => {
                 "Refer to your Bank Passbook or Cheque book to get the Bank Account Number."
               }
             />
-            {accountNumber.length >= 9 && (accountNumber && !accountNumberReg.test(accountNumber)) ? (
+            {accountNumber.length >= 9 &&
+            !accountNumberReg.test(accountNumber) ? (
               <Text style={bankform.formatmsg}>Incorrect Format</Text>
             ) : null}
 
@@ -111,7 +128,7 @@ const BankFormTemplate = (props) => {
               }
             />
 
-            {ifsc.length == 11 && (ifsc && !ifscReg.test(ifsc)) ? (
+            {ifsc.length == 11 && !ifscReg.test(ifsc) ? (
               <Text style={bankform.formatmsg}>Incorrect Format</Text>
             ) : null}
 
