@@ -163,6 +163,7 @@ const EWA = () => {
           eligible={eligible}
           accessible={accessible}
           ewaLiveSlice={ewaLiveSlice}
+          fetched={fetched}
         />
         <VerifyMandateCard mandateVerifyStatus={mandateVerifyStatus} />
         <PastDrawsCard data={ewaHistoricalSlice} />

@@ -224,6 +224,7 @@ const HomeView = () => {
               eligible={eligible}
               accessible={accessible}
               ewaLiveSlice={ewaLiveSlice}
+              fetched={fetched}
             />
             <CompleteKycCard />
             <ExploreCards />
