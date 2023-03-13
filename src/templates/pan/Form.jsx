@@ -35,7 +35,6 @@ const PanFormTemplate = (props) => {
     if (number.length == 10 && panReg.test(number)) {
       setValidNumber(true);
     } else {
-      console.log("dooo");
       setValidNumber(false);
     }
     return () => {};
