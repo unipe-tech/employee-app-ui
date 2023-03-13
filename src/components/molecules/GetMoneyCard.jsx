@@ -1,7 +1,9 @@
-import { ActivityIndicator, Text, View } from "react-native";
+import React from "react";
+import { Text, View } from "react-native";
 import EStyleSheet from "react-native-extended-stylesheet";
 import { COLORS, FONTS } from "../../constants/Theme";
 import PrimaryButton from "../atoms/PrimaryButton";
+import SkeletonLoader from "../atoms/SkeletonLoader";
 
 const GetMoneyCard = ({
   navigation,
@@ -42,13 +44,8 @@ const GetMoneyCard = ({
           />
         </View>
       ) : (
-        <Animateda style={styles.loadingContainer}>
+        <SkeletonLoader style={styles.container}>
           <Text style={styles.text}>Getting your On-Demand Salary</Text>
-          <ActivityIndicator
-            size="large"
-            color={COLORS.primary}
-            style={styles.loader}
-          />
           <View
             style={{
               width: "100%",
@@ -57,7 +54,7 @@ const GetMoneyCard = ({
             }}
           />
           <PrimaryButton title={"Loading Offer"} disabled={true} />
-        </Animateda>
+        </SkeletonLoader>
       )}
     </>
   );
@@ -82,7 +79,7 @@ const styles = EStyleSheet.create({
     elevation: 2,
     backgroundColor: COLORS.lightgray_01,
   },
-  loader:{ margin: "10rem"},
+  loader: { margin: "10rem" },
   text: { ...FONTS.body3, color: COLORS.secondary, marginVertical: 5 },
 });
 
