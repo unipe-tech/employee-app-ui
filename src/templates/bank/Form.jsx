@@ -6,7 +6,6 @@ import BankVerifyApi from "../../apis/bank/Verify";
 import Checkbox from "../../components/atoms/Checkbox";
 import InfoCard from "../../components/atoms/InfoCard";
 import PopableInput from "../../components/molecules/PopableInput";
-import PrimaryButton from "../../components/atoms/PrimaryButton";
 import { KeyboardAvoidingWrapper } from "../../KeyboardAvoidingWrapper";
 import {
   addAccountHolderName,
@@ -70,7 +69,7 @@ const BankFormTemplate = (props) => {
 
   useEffect(() => {
     console.log("AccountNumber Valid: ", accountNumberReg.test(accountNumber));
-    if (accountNumber.length == 11 && accountNumberReg.test(accountNumber)) {
+    if (accountNumber.length >= 11 && accountNumberReg.test(accountNumber)) {
       setAccNumNext(true);
     } else {
       setAccNumNext(false);

@@ -24,7 +24,8 @@ const AadhaarFormTemplate = (props) => {
 
   useEffect(() => {
     dispatch(addNumber(number));
-    if (number.length == 12) {
+    console.log("number:", number, aadhaarReg.test(number));
+    if (number.length == 12 && aadhaarReg.test(number)) {
       setValidNumber(true);
     } else {
       setValidNumber(false);
