@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { Text, View, ActivityIndicator } from "react-native";
 import EStyleSheet from "react-native-extended-stylesheet";
 import { COLORS, FONTS } from "../../constants/Theme";
 import PrimaryButton from "../atoms/PrimaryButton";
@@ -46,6 +46,11 @@ const GetMoneyCard = ({
       ) : (
         <SkeletonLoader style={styles.container}>
           <Text style={styles.text}>Getting your On-Demand Salary</Text>
+          <ActivityIndicator
+            size="large"
+            color={COLORS.primary}
+            style={styles.loader}
+          />
           <View
             style={{
               width: "100%",
