@@ -51,6 +51,7 @@ export const COLORS = {
   warning: "#f56a6a",
   warningBackground: "#fde1e1",
   pending: "orange",
+  pendingBackground: "rgba(183, 65, 44, 0.08)",
   darkGray: "#333333",
   gray: "#5E8290",
   lightGray: "#DDE5E5",
@@ -60,7 +61,6 @@ export const COLORS = {
   cardBackground: "#F2F8F9",
   moneyCardBg: "#3C3F54",
   moneyCardBgVariant: "#4D5162",
-  yellow: "#F9C700",
 };
 
 export const SIZES = {
