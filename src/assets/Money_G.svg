@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Plans_g</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Earned-Wage-Access-Copy-8" transform="translate(-239.000000, -738.000000)">
+            <g id="Plans_g" transform="translate(239.000000, 738.000000)">
+                <g id="Group">
+                    <polygon id="Path" points="0 0 24 0 24 24 0 24"></polygon>
+                    <circle id="Oval" stroke="#2CB77C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" cx="12" cy="12" r="9"></circle>
+                </g>
+                <g id="Group" transform="translate(8.727273, 8.727273)" stroke="#2CB77C" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6.54545455,0 L0.25974026,0 L1.97402597,0 C3.23639112,0 4.25974026,1.02334914 4.25974026,2.28571429 C4.25974026,3.54807943 3.23639112,4.57142857 1.97402597,4.57142857 L0.25974026,4.57142857 L3.68831169,8" id="Path"></path>
+                    <line x1="0.25974026" y1="2.28571429" x2="6.54545455" y2="2.28571429" id="Path"></line>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

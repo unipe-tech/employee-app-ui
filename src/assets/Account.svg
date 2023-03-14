@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Account</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Earned-Wage-Access-Copy-8" transform="translate(-306.000000, -738.000000)">
+            <g id="Account" transform="translate(306.000000, 738.000000)">
+                <polygon id="Path" points="0 0 24 0 24 24 0 24"></polygon>
+                <circle id="Oval" stroke="#597E8D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" cx="12" cy="12" r="9"></circle>
+                <circle id="Oval" stroke="#597E8D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" cx="12" cy="10" r="3"></circle>
+                <path d="M6.168,18.849 C6.67623761,17.157455 8.23375269,15.99948 10,15.9999998 L14,15.9999998 C15.7686393,15.9993898 17.3277271,17.1603694 17.834,18.855" id="Path" stroke="#597E8D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </g>
+        </g>
+    </g>
+</svg>
