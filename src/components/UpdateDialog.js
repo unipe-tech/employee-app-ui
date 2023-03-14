@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { Text, TouchableNativeFeedback, View, Linking} from "react-native";
+import {
+  Text,
+  TouchableNativeFeedback,
+  View,
+  Linking,
+  TouchableOpacity,
+} from "react-native";
 import codePush from "react-native-code-push";
 import EStyleSheet from "react-native-extended-stylesheet";
 import Modal from "react-native-modal";
@@ -7,7 +13,6 @@ import { MaterialCommunityIcons } from "react-native-vector-icons";
 import { COLORS, FONTS, SIZES } from "../constants/Theme";
 
 const UpdateDialog = () => {
-
   const [show, setShow] = useState(false);
   const [state, setState] = useState("");
   const [receivedData, setReceivedData] = useState(0);
@@ -46,7 +51,7 @@ const UpdateDialog = () => {
       <View
         style={
           state === "ERROR"
-            ? [styles.container, { height: SIZES.height * 0.3}]
+            ? [styles.container, { height: SIZES.height * 0.3 }]
             : [styles.container, { height: SIZES.height * 0.2 }]
         }
       >
@@ -96,7 +101,8 @@ const UpdateDialog = () => {
             : "Please dont press the back button or close the app"}
         </Text>
         {state === "ERROR" ? (
-          <TouchableNativeFeedback
+          <TouchableOpacity
+            style={styles.btnContainer}
             onPress={() => {
               Linking.openURL(`whatsapp://send?text=&phone=7483447528`);
             }}
@@ -104,14 +110,21 @@ const UpdateDialog = () => {
             <MaterialCommunityIcons
               style={{
                 alignSelf: "center",
-                marginTop: "5%",
                 color: COLORS.primary,
               }}
               name="whatsapp"
               size={44}
               color={COLORS.black}
             />
-          </TouchableNativeFeedback>
+            <View style={{ flexDirection: "column", paddingLeft: 5 }}>
+              <Text style={{ ...FONTS.body5, color: COLORS.gray }}>
+                Need Help?
+              </Text>
+              <Text style={{ ...FONTS.h4, color: COLORS.primary }}>
+                Talk to Support
+              </Text>
+            </View>
+          </TouchableOpacity>
         ) : null}
       </View>
     </Modal>
@@ -130,6 +143,19 @@ const styles = EStyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     width: "100%",
+  },
+  btnContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 0.5,
+    borderColor: COLORS.lightGray,
+    elevation: 2,
+    marginTop: "20rem",
+    borderRadius: "5rem",
+    backgroundColor: COLORS.white,
+    padding: "10rem",
+    alignSelf: "center",
   },
 });
 
