@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/core";
 import Analytics from "appcenter-analytics";
 import { useEffect, useState } from "react";
-import { Alert, BackHandler, SafeAreaView, Text, View } from "react-native";
+import { Alert, BackHandler, SafeAreaView, ScrollView, Text, View } from "react-native";
 import { getUniqueId } from "react-native-device-info";
 import { NetworkInfo } from "react-native-network-info";
 import { useDispatch, useSelector } from "react-redux";
