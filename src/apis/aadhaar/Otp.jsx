@@ -2,9 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Alert, Text } from "react-native";
 import { useNavigation } from "@react-navigation/core";
-import {
-  addVerifyStatus,
-} from "../../store/slices/aadhaarSlice";
+import { addVerifyStatus } from "../../store/slices/aadhaarSlice";
 import { resetTimer } from "../../store/slices/timerSlice";
 import PrimaryButton from "../../components/atoms/PrimaryButton";
 import Analytics from "appcenter-analytics";
@@ -37,7 +35,7 @@ const AadhaarOtpApi = (props) => {
         unipeEmployeeId: unipeEmployeeId,
         aadhaarNumber: aadhaarSlice?.number,
         campaignId: campaignId,
-        provider: 'ongrid'
+        provider: "ongrid",
       },
       xpath: "kyc/aadhaar-generate-otp",
       token: token,
@@ -49,7 +47,7 @@ const AadhaarOtpApi = (props) => {
         try {
           if (responseJson?.status === 200) {
             dispatch(resetTimer());
-            showToast(responseJson?.body?.message);
+            showToast(responseJson?.body?.message, "success");
             Analytics.trackEvent("Aadhaar|Otp|Success", {
               unipeEmployeeId: unipeEmployeeId,
             });
@@ -63,10 +61,15 @@ const AadhaarOtpApi = (props) => {
           }
         } catch (error) {
           dispatch(addVerifyStatus("ERROR"));
-          Alert.alert("generateAadhaarOTP API Catch Error", JSON.stringify(error));
+          Alert.alert(
+            "generateAadhaarOTP API Catch Error",
+            JSON.stringify(error)
+          );
           Analytics.trackEvent("Aadhaar|Otp|Error", {
             unipeEmployeeId: unipeEmployeeId,
-            error: `generateAadhaarOTP API Catch Error: ${JSON.stringify(error)}, ${JSON.stringify(res)}`,
+            error: `generateAadhaarOTP API Catch Error: ${JSON.stringify(
+              error
+            )}, ${JSON.stringify(res)}`,
           });
           setLoading(false);
         }
