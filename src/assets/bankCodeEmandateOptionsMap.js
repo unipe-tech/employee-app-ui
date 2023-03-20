@@ -1,4 +1,4 @@
-const bankCodeEmandateOptionsMap = {
+const BankCodeEmandateOptionsMap = {
   // bankCode: "NetBanking[1/0]DebitCard[1/0]Aadhaar[1/0]"
   SBIN: "110",
   UTIB: "111",
@@ -394,4 +394,4 @@ const bankCodeEmandateOptionsMap = {
   SGMB: "001",
 };
 
-export default bankCodeEmandateOptionsMap;
+export default BankCodeEmandateOptionsMap;

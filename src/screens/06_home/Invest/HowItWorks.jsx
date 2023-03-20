@@ -1,8 +1,8 @@
 import { View, Text, SafeAreaView } from "react-native";
 import { investStyles, styles } from "../../../styles";
-import Percentage from "../../../assets/percentage.svg";
-import Insurance from "../../../assets/insurance.svg";
-import TaskList from "../../../assets/task.svg";
+import Percentage from "../../../assets/Percentage.svg";
+import Insurance from "../../../assets/Insurance.svg";
+import TaskList from "../../../assets/Task.svg";
 import Header from "../../../components/atoms/Header";
 import PrimaryButton from "../../../components/atoms/PrimaryButton";
 import SvgListItem from "../../../components/molecules/SvgListItem";
