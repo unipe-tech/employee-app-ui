@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/core";
 import Analytics from "appcenter-analytics";
 import { useEffect, useState } from "react";
-import { Alert, BackHandler, SafeAreaView, Text, View } from "react-native";
+import { Alert, BackHandler, SafeAreaView, ScrollView, Text, View } from "react-native";
 import { getUniqueId } from "react-native-device-info";
 import { NetworkInfo } from "react-native-network-info";
 import { useDispatch, useSelector } from "react-redux";
@@ -158,30 +158,32 @@ const KYC = () => {
   return (
     <SafeAreaView style={styles.safeContainer}>
       <Header title="KYC" onLeftIconPress={() => backAction()} progress={50} />
-      <View style={styles.container}>
-        <Text style={styles.headline}>Are these your Kyc details?</Text>
-        <Text style={styles.subHeadline}>
-          कृपया स्पष्ट करें की यहाँ दी गयी सारी जानकारी आपकी ही है?
-        </Text>
+      <ScrollView>
+        <View style={styles.container}>
+          <Text style={styles.headline}>Are these your Kyc details?</Text>
+          <Text style={styles.subHeadline}>
+            कृपया स्पष्ट करें की यहाँ दी गयी सारी जानकारी आपकी ही है?
+          </Text>
 
-        <DetailsCard
-          data={cardData()}
-          imageUri={{
-            uri: `data:image/jpeg;base64,${aadhaarData["photo_base64"]}`,
-            cache: "only-if-cached",
-          }}
-        />
+          <DetailsCard
+            data={cardData()}
+            imageUri={{
+              uri: `data:image/jpeg;base64,${aadhaarData["photo_base64"]}`,
+              cache: "only-if-cached",
+            }}
+          />
 
-        <View style={{ flex: 1 }} />
+          <View style={{ flex: 1 }} />
 
-        <PrimaryButton
-          title={loading ? "Verifying" : "Proceed"}
-          disabled={loading || !fetched}
-          onPress={() => {
-            handleKyc();
-          }}
-        />
-      </View>
+          <PrimaryButton
+            title={loading ? "Verifying" : "Proceed"}
+            disabled={loading || !fetched}
+            onPress={() => {
+              handleKyc();
+            }}
+          />
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };

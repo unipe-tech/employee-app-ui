@@ -8,14 +8,12 @@ import AadhaarOtpApi from "../../apis/aadhaar/Otp";
 import { addNumber } from "../../store/slices/aadhaarSlice";
 import InfoCard from "../../components/atoms/InfoCard";
 import FormInput from "../../components/atoms/FormInput";
-import Checkbox from "../../components/atoms/Checkbox";
 import { COLORS, FONTS } from "../../constants/Theme";
 
 const AadhaarFormTemplate = (props) => {
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
 
-  const [consent, setConsent] = useState(true);
   const [validNumber, setValidNumber] = useState(true);
 
   const aadhaarSlice = useSelector((state) => state.aadhaar);
@@ -24,7 +22,6 @@ const AadhaarFormTemplate = (props) => {
 
   useEffect(() => {
     dispatch(addNumber(number));
-    console.log("number:", number, aadhaarReg.test(number));
     if (number.length == 12 && aadhaarReg.test(number)) {
       setValidNumber(true);
     } else {
@@ -64,22 +61,12 @@ const AadhaarFormTemplate = (props) => {
 
           <InfoCard
             info={
-              "Please note: You will receive an OTP to your Aadhaar registered mobile number."
+              "I agree with the KYC registration Terms & Conditions to verifiy my identity. You will receive an OTP to your Aadhaar registered mobile number."
             }
-          />
-
-          <Checkbox
-            text={
-              "I agree with the KYC registration Terms and Conditions to verifiy my identity."
-            }
-            value={consent}
-            setValue={setConsent}
           />
 
           <AadhaarOtpApi
-            data={{ aadhaar_number: number, consent: "Y" }}
-            style={styles.btn}
-            disabled={!validNumber || !consent}
+            disabled={!validNumber}
             type={props?.route?.params?.type || ""}
           />
         </View>
