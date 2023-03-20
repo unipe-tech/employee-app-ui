@@ -4,13 +4,13 @@ import { useIsFocused } from "@react-navigation/core";
 import { useDispatch, useSelector } from "react-redux";
 import { styles } from "../../../styles";
 import DetailsCard from "../../../components/molecules/DetailsCard";
-import Header from "../../../components/atoms/Header";
 import {
   addVerifyStatus,
   resetMandate,
 } from "../../../store/slices/mandateSlice";
 import MandateFormTemplate from "../../../templates/mandate/Form";
 import { getBackendData } from "../../../services/employees/employeeServices";
+import PrimaryButton from "../../../components/atoms/PrimaryButton";
 
 const Mandate = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -21,6 +21,7 @@ const Mandate = ({ navigation }) => {
   const mandateSlice = useSelector((state) => state.mandate);
   const authType = mandateSlice.data?.authType?.toUpperCase();
   const [verifyStatus, setVerifyStatus] = useState(mandateSlice?.verifyStatus);
+  const bankVerifyStatus = useSelector((state) => state.bank.verifyStatus);
 
   useEffect(() => {
     if (isFocused && unipeEmployeeId) {
@@ -58,25 +59,36 @@ const Mandate = ({ navigation }) => {
     return res;
   };
 
-  const backAction = () => {
-    navigation.replace("HomeStack", {
-      screen: "Account",
-    });
-    return true;
-  };
-
-  return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
-      <Header title="Mandate" onLeftIconPress={() => backAction()} />
-      {authType && verifyStatus === "SUCCESS" ? (
+  if (authType && verifyStatus === "SUCCESS") {
+    return (
+      <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
         <View style={styles.container}>
           <DetailsCard data={cardData()} />
         </View>
-      ) : (
-        <MandateFormTemplate type="KYC" />
-      )}
     </SafeAreaView>
-  );
+    )
+  } else if (bankVerifyStatus != "SUCCESS") {
+    return (
+      <SafeAreaView style={styles.safeContainer}>
+        <View style={styles.container}>
+          <PrimaryButton
+            title="Continue to Bank Verification"
+            onPress={() => {
+              navigation.navigate("KYC", {
+                screen: "BANK",
+              });
+            }}
+          />
+        </View>
+      </SafeAreaView>
+    );
+  } else {
+    return (
+      <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
+        <MandateFormTemplate type="KYC" />
+      </SafeAreaView>
+    );
+  }
 };
 
 export default Mandate;

@@ -71,18 +71,19 @@ const Aadhaar = () => {
     return () => {};
   }, [verifyStatus]);
 
-  return (
-    <SafeAreaView style={styles.safeContainer}>
-      {verifyStatus === "SUCCESS" ? (
+  if (verifyStatus == "SUCCESS") {
+    return (
+      <SafeAreaView style={styles.safeContainer}>
         <View style={styles.container}>
-          <DetailsCard
-            data={cardData()}
-            imageUri={{
-              uri: `data:image/jpeg;base64,${data["photo_base64"]}`,
-              cache: "only-if-cached",
-            }}
-          />
-          {panVerifyStatus != "SUCCESS" ? (
+        <DetailsCard
+          data={cardData()}
+          imageUri={{
+            uri: `data:image/jpeg;base64,${data["photo_base64"]}`,
+            cache: "only-if-cached",
+          }}
+        />
+        {
+          panVerifyStatus != "SUCCESS" ? (
             <PrimaryButton
               title="Continue to PAN Verification"
               onPress={() => {
@@ -100,13 +101,18 @@ const Aadhaar = () => {
                 });
               }}
             />
-          ) : null}
+          ) : null
+        }
         </View>
-      ) : (
+      </SafeAreaView>
+    )
+  } else {
+    return (
+      <SafeAreaView style={styles.safeContainer}>
         <TopTabNav tabs={tabs} hide={true} />
-      )}
-    </SafeAreaView>
-  );
+      </SafeAreaView>
+    );
+  }
 };
 
 export default Aadhaar;

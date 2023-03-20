@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/core";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { SafeAreaView, View } from "react-native";
 import { useSelector } from "react-redux";
 import PanConfirmApi from "../../../apis/pan/Confirm";
@@ -15,6 +15,7 @@ const Pan = () => {
   const data = useSelector((state) => state.pan.data);
   const number = useSelector((state) => state.pan.number);
   const verifyStatus = useSelector((state) => state.pan.verifyStatus);
+  const aadhaarVerifyStatus = useSelector((state) => state.aadhaar.verifyStatus);
   const bankVerifyStatus = useSelector((state) => state.bank.verifyStatus);
 
   useEffect(() => {
@@ -56,29 +57,48 @@ const Pan = () => {
     },
   ];
 
-  return (
-    <SafeAreaView style={styles.safeContainer}>
-      {verifyStatus == "SUCCESS" ? (
+  if (verifyStatus == "SUCCESS") {
+    return (
+      <SafeAreaView style={styles.safeContainer}>
         <View style={styles.container}>
           <DetailsCard data={cardData()} />
-          {bankVerifyStatus != "SUCCESS" ? (
-            <PrimaryButton
-              title="Continue to Bank Verification"
-              onPress={() => {
-                navigation.navigate("KYC", {
-                  screen: "BANK",
-                });
-              }}
-            />
-          ) : null}
+          {
+            bankVerifyStatus != "SUCCESS" ? (
+              <PrimaryButton
+                title="Continue to Bank Verification"
+                onPress={() => {
+                  navigation.navigate("KYC", {
+                    screen: "BANK",
+                  });
+                }}
+              />
+            ) : null
+          }
         </View>
-      ) : (
-        <>
-          <TopTabNav tabs={tabs} hide={true} />
-        </>
-      )}
-    </SafeAreaView>
-  );
+      </SafeAreaView>
+    );
+  } else if (aadhaarVerifyStatus != "SUCCESS") {
+    return (
+      <SafeAreaView style={styles.safeContainer}>
+        <View style={styles.container}>
+          <PrimaryButton
+            title="Continue to Aadhaar Verification"
+            onPress={() => {
+              navigation.navigate("KYC", {
+                screen: "AADHAAR",
+              });
+            }}
+          />
+        </View>
+      </SafeAreaView>
+    );
+  } else {
+    return (
+      <SafeAreaView style={styles.safeContainer}>
+        <TopTabNav tabs={tabs} hide={true} />
+      </SafeAreaView>
+    );
+  }
 };
 
 export default Pan;

@@ -1,7 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import SplashScreen from "react-native-splash-screen";
-import Icon from "react-native-vector-icons/MaterialIcons";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { STAGE } from "@env";
@@ -46,7 +45,7 @@ const App = () => {
           <QueryClientProvider client={queryClient}>
             <SafeAreaProvider style={{ backgroundColor: "white", flex: 1 }}>
               <StackNavigator />
-              <UpdateDialog />
+              {STAGE != "dev" && <UpdateDialog />}
             </SafeAreaProvider>
           </QueryClientProvider>
         </NavigationContainer>
