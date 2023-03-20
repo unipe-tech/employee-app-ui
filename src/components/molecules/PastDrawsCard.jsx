@@ -4,17 +4,17 @@ import { COLORS, FONTS } from "../../constants/Theme";
 import EStyleSheet from "react-native-extended-stylesheet";
 
 const COLOR_MAP = {
-  Due: "orange",
+  Due: COLORS.pending,
   Missed: COLORS.warning,
   Paid: COLORS.primary,
-  Pending: "orange",
+  Pending: COLORS.pending,
 };
 
 const BACKGROUND_COLOR_MAP = {
-  Due: "rgba(183, 65, 44, 0.08)",
+  Due: COLORS.pendingBackground,
   Missed: COLORS.warningBackground,
   Paid: COLORS.primaryBackground,
-  Pending: "rgba(183, 65, 44, 0.08)",
+  Pending: COLORS.pendingBackground,
 };
 
 const StatusCard = ({ offerType }) => {
@@ -79,15 +79,11 @@ const OfferCard = ({ offer }) => {
         </View>
         <View style={styles.textContainer}>
           <Text style={{ ...FONTS.h4, color: COLORS.black }}>₹{amount}</Text>
-          {
-            ["Due", "Pending"].includes(offerType) 
-            ?
+          {["Due", "Pending"].includes(offerType) ? (
             <Text style={{ color: COLORS.gray, ...FONTS.body5 }}>
               Due date {offer.dueDate}
             </Text>
-            :
-            null
-          }
+          ) : null}
         </View>
 
         <StatusCard offerType={offerType} />
@@ -115,8 +111,8 @@ const styles = EStyleSheet.create({
     width: "100%",
     flexDirection: "row",
     backgroundColor: COLORS.white,
-    borderBottomWidth:  "0.75rem",
-    borderTopWidth:  "0.75rem",
+    borderBottomWidth: "0.75rem",
+    borderTopWidth: "0.75rem",
     borderColor: COLORS.lightGray,
     justifyContent: "space-between",
   },

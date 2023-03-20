@@ -51,6 +51,7 @@ export const COLORS = {
   warning: "#f56a6a",
   warningBackground: "#fde1e1",
   pending: "orange",
+  pendingBackground: "rgba(183, 65, 44, 0.08)",
   darkGray: "#333333",
   gray: "#5E8290",
   lightGray: "#DDE5E5",
@@ -60,7 +61,6 @@ export const COLORS = {
   cardBackground: "#F2F8F9",
   moneyCardBg: "#3C3F54",
   moneyCardBgVariant: "#4D5162",
-  yellow: "#F9C700",
 };
 
 export const SIZES = {
@@ -105,22 +105,22 @@ export const FONTS = {
   h1: {
     fontFamily: "Montserrat-Bold",
     fontSize: SIZES.h1,
-    lineHeight: normalize(36),
+    lineHeight: normalize(33),
   },
   h2: {
     fontFamily: "Montserrat-Bold",
     fontSize: SIZES.h2,
-    lineHeight: normalize(30),
+    lineHeight: normalize(24),
   },
   h3: {
     fontFamily: "Montserrat-Bold",
     fontSize: SIZES.h3,
-    lineHeight: normalize(24),
+    lineHeight: normalize(21),
   },
   h4: {
     fontFamily: "Montserrat-Bold",
     fontSize: SIZES.h4,
-    lineHeight: normalize(20),
+    lineHeight: normalize(18),
   },
   h5: {
     fontFamily: "Montserrat-Bold",
@@ -130,22 +130,22 @@ export const FONTS = {
   body1: {
     fontFamily: "Montserrat-Medium",
     fontSize: SIZES.body1,
-    lineHeight: normalize(36),
+    lineHeight: normalize(33),
   },
   body2: {
     fontFamily: "Montserrat-Medium",
     fontSize: SIZES.body2,
-    lineHeight: normalize(30),
+    lineHeight: normalize(24),
   },
   body3: {
     fontFamily: "Montserrat-Medium",
     fontSize: SIZES.body3,
-    lineHeight: normalize(24),
+    lineHeight: normalize(21),
   },
   body4: {
     fontFamily: "Montserrat-Medium",
     fontSize: SIZES.body4,
-    lineHeight: normalize(20),
+    lineHeight: normalize(18),
   },
   body5: {
     fontFamily: "Montserrat-Medium",
