@@ -7,9 +7,15 @@ import { useQuery } from "@tanstack/react-query";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { useDispatch, useSelector } from "react-redux";
 import { COLORS, FONTS } from "../../constants/Theme";
-import { createRepaymentOrder, openRazorpayCheckout } from "../../services/mandate/Razorpay/services"
+import {
+  createRepaymentOrder,
+  openRazorpayCheckout,
+} from "../../services/mandate/Razorpay/services";
 import PrimaryButton from "../atoms/PrimaryButton";
-import { getNumberOfDays, setYYYYMMDDtoDDMMYYYY } from "../../helpers/DateFunctions";
+import {
+  getNumberOfDays,
+  setYYYYMMDDtoDDMMYYYY,
+} from "../../helpers/DateFunctions";
 import { getRepayment, updateRepayment } from "../../queries/ewa/repayment";
 import { resetRepayment } from "../../store/slices/repaymentSlice";
 
@@ -133,10 +139,9 @@ const PayMoneyCard = () => {
     })
       .then((res) => {
         console.log("repaymentPush response: ", res?.data);
-        if (res?.data.status === 200){
+        if (res?.data.status === 200) {
           setRepaymentStatus(status);
-        }
-        else {
+        } else {
           setRepaymentStatus(res?.data.paymentStatus);
         }
         throw res?.data;
@@ -147,7 +152,7 @@ const PayMoneyCard = () => {
       });
   };
 
-  const initiateRazorpayCheckout = async ({orderId, customerId}) => {
+  const initiateRazorpayCheckout = async ({ orderId, customerId }) => {
     let data;
     try {
       const res = await openRazorpayCheckout({
@@ -158,8 +163,8 @@ const PayMoneyCard = () => {
           name: accountHolderName,
           email: email,
           contact: phoneNumber,
-        }
-      })
+        },
+      });
       console.log("ewaRepayment Checkout RazorpayCheckout data: ", res);
       data = {
         orderId,
@@ -172,7 +177,6 @@ const PayMoneyCard = () => {
       Analytics.trackEvent("Ewa|Repayment|Success", {
         unipeEmployeeId: unipeEmployeeId,
       });
-      
     } catch (error) {
       console.log("ewaRepayment Checkout error: ", error);
       data = {
@@ -189,15 +193,15 @@ const PayMoneyCard = () => {
         data: data,
         status: "INPROGRESS",
       })
-      .then(() => {
-        setLoading(false);
-      })
-      .catch((error) => {
-        setLoading(false);
-        Alert("Error", error);
-      });
+        .then(() => {
+          setLoading(false);
+        })
+        .catch((error) => {
+          setLoading(false);
+          Alert.alert("Error", error);
+        });
     }
-  }
+  };
 
   const initiatePayment = async () => {
     if (repaymentAmount > 0) {
@@ -207,11 +211,11 @@ const PayMoneyCard = () => {
           unipeEmployeeId,
           repaymentIds: [repaymentId],
           token,
-        })
+        });
         let repaymentOrder = res.data.body;
         await initiateRazorpayCheckout({
           orderId: repaymentOrder.id,
-          customerId: repaymentOrder.customer_id
+          customerId: repaymentOrder.customer_id,
         });
       } catch (error) {
         Alert.alert("Error", JSON.stringify(error));
@@ -220,7 +224,7 @@ const PayMoneyCard = () => {
           error: JSON.stringify(error),
         });
         setLoading(false);
-      };
+      }
     }
   };
 
