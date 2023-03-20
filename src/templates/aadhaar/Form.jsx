@@ -14,10 +14,11 @@ const AadhaarFormTemplate = (props) => {
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
 
-  const [validNumber, setValidNumber] = useState(true);
+  const [validNumber, setValidNumber] = useState(false);
 
   const aadhaarSlice = useSelector((state) => state.aadhaar);
   const [number, setNumber] = useState(aadhaarSlice?.number);
+
   var aadhaarReg = /^[0-9]{12}$/gm;
 
   useEffect(() => {

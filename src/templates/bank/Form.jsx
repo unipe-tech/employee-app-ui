@@ -49,7 +49,6 @@ const BankFormTemplate = (props) => {
   var ifscReg = /^[A-Z]{4}0[A-Z0-9]{6}$/gm;
 
   useEffect(() => {
-    console.log("IFSC Valid: ", ifscReg.test(ifsc));
     if (ifsc.length == 11 && ifscReg.test(ifsc)) {
       setIfscNext(true);
     } else {
@@ -58,8 +57,7 @@ const BankFormTemplate = (props) => {
   }, [ifsc]);
 
   useEffect(() => {
-    console.log("AccountNumber Valid: ", accountNumberReg.test(accountNumber));
-    if (accountNumber.length >= 11 && accountNumberReg.test(accountNumber)) {
+    if (accountNumber.length >= 9 && accountNumberReg.test(accountNumber)) {
       setAccNumNext(true);
     } else {
       setAccNumNext(false);

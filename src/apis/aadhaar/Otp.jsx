@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Alert, Text } from "react-native";
 import { useNavigation } from "@react-navigation/core";

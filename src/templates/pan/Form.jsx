@@ -29,14 +29,13 @@ const PanFormTemplate = (props) => {
 
   useEffect(() => {
     dispatch(addNumber(number));
-    console.log("pan valid:", panReg.test(number));
     if (number.length == 10 && panReg.test(number)) {
       setValidNumber(true);
     } else {
       setValidNumber(false);
     }
     return () => {};
-  }, [number, validNumber]);
+  }, [number]);
 
   return (
     <SafeAreaView style={styles.safeContainer}>
