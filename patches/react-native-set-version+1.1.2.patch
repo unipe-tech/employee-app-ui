@@ -1,0 +1,29 @@
+diff --git a/node_modules/react-native-set-version/build/index.js b/node_modules/react-native-set-version/build/index.js
+index 60baf53..003cc24 100755
+--- a/node_modules/react-native-set-version/build/index.js
++++ b/node_modules/react-native-set-version/build/index.js
+@@ -20,7 +20,7 @@ const display = console.log; // eslint-disable-line no-console
+ const paths = {
+   androidManifest: './android/app/src/main/AndroidManifest.xml',
+   buildGradle: './android/app/build.gradle',
+-  infoPlist: './ios/<APP_NAME>/Info.plist',
++  infoPlist: './ios/employeeapp/Info.plist',
+   packageJson: './package.json'
+ };
+ 
+@@ -29,6 +29,7 @@ function setPackageVersion(versionText) {
+ 
+   try {
+     packageJSON = JSON.parse(_fs.default.readFileSync(paths.packageJson));
++     console.log({packageJSON})
+     display(_chalk.default.yellow(`Will set package version to ${_chalk.default.bold.underline(versionText)}`));
+     packageJSON.version = versionText;
+ 
+@@ -72,6 +73,7 @@ function getIOSVersionInfo(versionText) {
+ }
+ 
+ async function setIosApplicationVersion(versionText) {
++
+   const {
+     version
+   } = await getIOSVersionInfo(versionText);
