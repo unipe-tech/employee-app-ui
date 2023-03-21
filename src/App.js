@@ -13,6 +13,8 @@ import { navigationRef } from "./navigators/RootNavigation";
 import StackNavigator from "./navigators/StackNavigator";
 import { persistor, store } from "./store/store";
 import UpdateDialog from "./components/UpdateDialog";
+import DeviceInfo from "react-native-device-info";
+import { BackHandler } from "react-native";
 
 Crashes.setListener({
   shouldProcess: function (report) {
@@ -36,7 +38,20 @@ const analyticsStatus = async () => {
   }
 };
 
+const checkEmulatorOnProd = async () => {
+  DeviceInfo.isEmulator()
+    .then((res) => {
+      if (res && STAGE == "prod") {
+        console.log("Emulator running on Prod");
+        BackHandler.exitApp();
+        //Can track IP and have analytics
+      } else console.log("Emulator not running on Prod");
+    })
+    .catch((err) => console.log(err));
+};
+
 const App = () => {
+  checkEmulatorOnProd();
   analyticsStatus();
   SplashScreen.hide();
   return (
