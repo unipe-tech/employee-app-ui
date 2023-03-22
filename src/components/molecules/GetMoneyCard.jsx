@@ -24,6 +24,7 @@ const GetMoneyCard = ({
               width: "100%",
               borderWidth: 0.4,
               borderColor: COLORS.primary,
+              marginTop: 5,
             }}
           />
 
@@ -45,17 +46,37 @@ const GetMoneyCard = ({
         </View>
       ) : (
         <SkeletonLoader style={styles.container}>
-          <Text style={styles.text}>Getting your On-Demand Salary</Text>
-          <ActivityIndicator
-            size="large"
-            color={COLORS.primary}
-            style={styles.loader}
-          />
+          <Text
+            style={[
+              styles.text,
+              {
+                backgroundColor: COLORS.lightgray_01,
+                color: COLORS.lightgray_01,
+              },
+            ]}
+          >
+            Getting your On-Demand Salary
+          </Text>
+          <Text
+            style={[
+              styles.text,
+              {
+                ...FONTS.h1,
+                backgroundColor: COLORS.lightgray_01,
+                color: COLORS.lightgray_01,
+                width: "50%",
+              },
+            ]}
+          >
+            text
+          </Text>
+
           <View
             style={{
               width: "100%",
               borderWidth: 0.4,
-              borderColor: COLORS.primary,
+              borderColor: COLORS.lightGray,
+              marginTop: 5,
             }}
           />
           <PrimaryButton title={"Loading Offer"} disabled={true} />
