@@ -62,11 +62,11 @@ const CompleteKycCard = () => {
     ) {
       setShow(true);
     } else {
-      kycStatus.forEach((item) => {
-        if (item != "SUCCESS" && item != true) {
-          setProgress((prev) => prev + 22.5);
-        }
-      });
+    kycStatus.forEach((item) => {
+      if (item === "SUCCESS" || item === true) {
+        setProgress((prev) => prev + 20);
+      }
+    });
     }
   }, [profileComplete, aadhaarVerifyStatus, panVerifyStatus, bankVerifyStatus]);
 
@@ -83,15 +83,18 @@ const CompleteKycCard = () => {
             <Text style={styles.subtitle}>
               Verify your personal details {"\n"}to get on-demand salary
             </Text>
-            <View style={styles.linearLine}>
-              <View
-                style={[
-                  styles.progress,
-                  {
-                    width: `${progress}%`,
-                  },
-                ]}
-              />
+            <View style={{ flexDirection: "row" }}>
+              <View style={styles.linearLine}>
+                <View
+                  style={[
+                    styles.progress,
+                    {
+                      width: `${progress}%`,
+                    },
+                  ]}
+                />
+              </View>
+              <Text style={styles.progressText}>{(progress / 80) * 4}/4</Text>
             </View>
           </View>
           <View style={styles.card}>
@@ -145,12 +148,17 @@ const styles = EStyleSheet.create({
     height: "3rem",
     borderRadius: "10rem",
     marginTop: "10rem",
-    width: "90%",
+    width: "80%",
   },
   progress: {
     backgroundColor: COLORS.primary,
     height: "3rem",
     borderRadius: "10rem",
+  },
+  progressText: {
+    ...FONTS.body5,
+    color: "white",
+    marginLeft: "10rem",
   },
 });
 
