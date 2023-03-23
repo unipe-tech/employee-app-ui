@@ -37,10 +37,12 @@ import {
 import CompleteKycCard from "../../components/molecules/CompleteKycCard";
 import ExploreCards from "../../components/molecules/ExploreCards";
 import whatsappLinking from "../../helpers/WhatsappLinking";
+import KycBottomAlert from "../../components/molecules/KycBottomAlert";
 const HomeView = () => {
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
   const navigation = useNavigation();
+  const profileComplete = useSelector((state) => state.profile.profileComplete);
 
   const aadhaarVerifyStatus = useSelector(
     (state) => state.aadhaar.verifyStatus
@@ -199,9 +201,22 @@ const HomeView = () => {
     }
   };
 
+  // useEffect(() => {
+  //   if (
+  //     !profileComplete ||
+  //     aadhaarVerifyStatus != "SUCCESS" ||
+  //     panVerifyStatus != "SUCCESS" ||
+  //     bankVerifyStatus != "SUCCESS"
+  //   ) {
+  //     setVisible(true);
+  //   }
+  // }, [profileComplete, aadhaarVerifyStatus, panVerifyStatus, bankVerifyStatus]);
+
   useEffect(() => {
     getUrlAsync();
   }, []);
+
+  const [visible, setVisible] = useState(false);
 
   return (
     <SafeAreaView style={styles.safeContainer}>
@@ -227,6 +242,7 @@ const HomeView = () => {
           </>
         </View>
       </ScrollView>
+      {true && <KycBottomAlert visible={true} setVisible={setVisible} />}
     </SafeAreaView>
   );
 };
