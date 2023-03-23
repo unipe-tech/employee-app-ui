@@ -14,6 +14,7 @@ import Failure from "../../../../assets/animations/Failure";
 import Pending from "../../../../assets/animations/Pending";
 import DisbursementCard from "../../../../components/molecules/DisbursementCard";
 import { getDisbursement } from "../../../../queries/ewa/disbursement";
+import PayMoneyCard from "../../../../components/molecules/PayMoneyCard";
 
 const Disbursement = ({ route, navigation }) => {
   const { offer } = route.params;
@@ -30,7 +31,7 @@ const Disbursement = ({ route, navigation }) => {
   const [loanAmount, setLoanAmount] = useState(0);
   const [netAmount, setNetAmount] = useState(0);
   const [status, setStatus] = useState("");
-  const processingFees = useSelector((state) => state.ewaLive.processingFees);
+  const [tenor, setTenor] = useState(1);
 
   const backAction = () => {
     navigation.navigate("HomeStack", {
@@ -98,6 +99,7 @@ const Disbursement = ({ route, navigation }) => {
 
   useEffect(() => {
     if (getDisbursementIsSuccess) {
+      console.log("HomeView ewaOffersFetch API success getEwaOffersData.data : ", getDisbursementData.data);
       if (getDisbursementData?.data?.status === 200) {
         setBankAccountNumber(getDisbursementData?.data?.body?.bankAccountNumber);
         setDueDate(getDisbursementData?.data?.body?.dueDate);
@@ -105,6 +107,7 @@ const Disbursement = ({ route, navigation }) => {
         setLoanAmount(getDisbursementData?.data?.body?.loanAmount);
         setNetAmount(getDisbursementData?.data?.body?.netAmount);
         setStatus(getDisbursementData?.data?.body?.status);
+        setTenor(getDisbursementData?.data?.body?.tenor);
       } else {
         console.log("HomeView ewaOffersFetch API error getEwaOffersData.data : ", getDisbursementData.data);
       }
@@ -113,15 +116,11 @@ const Disbursement = ({ route, navigation }) => {
     }
   }, [getDisbursementIsSuccess, getDisbursementData]);
   
-  useEffect(() => {
-    setNetAmount(parseInt(offer?.loanAmount) - processingFees);
-  }, [offer]);
-
   const data = [
     { subTitle: "Loan Amount ", value: "₹" + loanAmount },
     { subTitle: "Net Transfer Amount ", value: "₹" + netAmount },
     { subTitle: "Bank Account Number", value: bankAccountNumber },
-    { subTitle: "Due Date", value: dueDate },
+    { subTitle: tenor > 1 ? "First EMI Date": "Due Date", value: dueDate },
     { subTitle: "Loan Account Number", value: loanAccountNumber },
     { subTitle: "Transfer Status", value: status },
   ];
@@ -133,7 +132,7 @@ const Disbursement = ({ route, navigation }) => {
         onLeftIconPress={() => backAction()}
         // progress={100}
       />
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         {StatusImage(status)}
         {StatusText(status)}
         <DisbursementCard
@@ -143,7 +142,8 @@ const Disbursement = ({ route, navigation }) => {
           iconName="ticket-percent-outline"
           variant={"dark"}
         />
-      </View>
+        <PayMoneyCard/>
+      </ScrollView>
     </SafeAreaView>
   );
 };
