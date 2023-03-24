@@ -6,7 +6,7 @@ import {
   Platform,
   Image,
 } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import EStyleSheet from "react-native-extended-stylesheet";
 import FormInput from "../atoms/FormInput";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -15,9 +15,49 @@ import BottomSheetWrapper from "../atoms/BottomSheetWrapper";
 import { useState } from "react";
 import PrimaryButton from "../atoms/PrimaryButton";
 import AlertSvg from "../../assets/KycAlert.svg";
+import { useNavigation } from "@react-navigation/core";
+import { useSelector } from "react-redux";
 
 const KycBottomAlert = ({ visible, setVisible }) => {
-  return (
+  const navigation = useNavigation();
+
+  const profileComplete = useSelector((state) => state.profile.profileComplete);
+  const aadhaarVerifyStatus = useSelector(
+    (state) => state.aadhaar.verifyStatus
+  );
+  const panVerifyStatus = useSelector((state) => state.pan.verifyStatus);
+  const bankVerifyStatus = useSelector((state) => state.bank.verifyStatus);
+
+  const handleConditionalNav = () => {
+    if (!profileComplete) {
+      navigation.navigate("AccountStack", {
+        screen: "Profile",
+      });
+    } else if (aadhaarVerifyStatus != "SUCCESS") {
+      navigation.navigate("AccountStack", {
+        screen: "KYC",
+        params: {
+          screen: "AADHAAR",
+        },
+      });
+    } else if (panVerifyStatus != "SUCCESS") {
+      navigation.navigate("AccountStack", {
+        screen: "KYC",
+        params: {
+          screen: "PAN",
+        },
+      });
+    } else if (bankVerifyStatus != "SUCCESS") {
+      navigation.navigate("AccountStack", {
+        screen: "KYC",
+        params: {
+          screen: "BANK",
+        },
+      });
+    }
+  };
+
+  return visible ? (
     <BottomSheetWrapper open={visible} setOpen={setVisible}>
       <View
         style={{
@@ -57,6 +97,7 @@ const KycBottomAlert = ({ visible, setVisible }) => {
         title="Start KYC"
         onPress={() => {
           setVisible(false);
+          handleConditionalNav();
         }}
       />
 
@@ -73,7 +114,7 @@ const KycBottomAlert = ({ visible, setVisible }) => {
         }}
       />
     </BottomSheetWrapper>
-  );
+  ) : null;
 };
 
 const styles = EStyleSheet.create({

@@ -201,16 +201,16 @@ const HomeView = () => {
     }
   };
 
-  // useEffect(() => {
-  //   if (
-  //     !profileComplete ||
-  //     aadhaarVerifyStatus != "SUCCESS" ||
-  //     panVerifyStatus != "SUCCESS" ||
-  //     bankVerifyStatus != "SUCCESS"
-  //   ) {
-  //     setVisible(true);
-  //   }
-  // }, [profileComplete, aadhaarVerifyStatus, panVerifyStatus, bankVerifyStatus]);
+  useEffect(() => {
+    if (
+      !profileComplete ||
+      aadhaarVerifyStatus != "SUCCESS" ||
+      panVerifyStatus != "SUCCESS" ||
+      bankVerifyStatus != "SUCCESS"
+    ) {
+      setVisible(true);
+    }
+  }, [profileComplete, aadhaarVerifyStatus, panVerifyStatus, bankVerifyStatus]);
 
   useEffect(() => {
     getUrlAsync();
@@ -242,7 +242,7 @@ const HomeView = () => {
           </>
         </View>
       </ScrollView>
-      {true && <KycBottomAlert visible={true} setVisible={setVisible} />}
+      {visible && <KycBottomAlert visible={visible} setVisible={setVisible} />}
     </SafeAreaView>
   );
 };
