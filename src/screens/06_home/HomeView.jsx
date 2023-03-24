@@ -210,7 +210,7 @@ const HomeView = () => {
     ) {
       setVisible(true);
     }
-  }, [profileComplete, aadhaarVerifyStatus, panVerifyStatus, bankVerifyStatus]);
+  }, []);
 
   useEffect(() => {
     getUrlAsync();

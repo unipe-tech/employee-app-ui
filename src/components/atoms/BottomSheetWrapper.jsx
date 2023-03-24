@@ -10,6 +10,8 @@ const BottomSheetWrapper = ({ open, setOpen, children }) => {
     <Modal
       isVisible={open}
       style={styles.modal}
+      animationIn="slideInUp"
+      animationOut={"slideInDown"}
       onBackdropPress={() => setOpen(false)}
     >
       <View style={styles.container}>{children}</View>
