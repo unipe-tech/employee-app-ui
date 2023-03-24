@@ -16,7 +16,7 @@ const GetMoneyCard = ({
     <>
       {fetched ? (
         <View style={styles.container}>
-          <Text style={styles.text}>Here is your On-Demand Salary</Text>
+          <Text style={styles.text}>Available Balance</Text>
 
           <Text style={[styles.text, { ...FONTS.h1 }]}>{amount}</Text>
           <View
@@ -46,17 +46,10 @@ const GetMoneyCard = ({
         </View>
       ) : (
         <SkeletonLoader style={styles.container}>
-          <Text
-            style={[
-              styles.text,
-              {
-                backgroundColor: COLORS.lightgray_01,
-                color: COLORS.lightgray_01,
-              },
-            ]}
-          >
-            Getting your On-Demand Salary
+          <Text style={[styles.text, { color: COLORS.gray }]}>
+            Calculating Available Balance
           </Text>
+
           <Text
             style={[
               styles.text,
