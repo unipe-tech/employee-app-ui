@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/core";
 import React, { useState, useEffect } from "react";
-import { View, Text, Image, ToastAndroid, Modal } from "react-native";
+import { View, Text, Image, Modal } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { COLORS, FONTS, SIZES } from "../../constants/Theme";
 import { getBackendData } from "../../services/employees/employeeServices";
@@ -34,14 +34,14 @@ export default function MandateLoading({
             token: token,
           })
             .then((response) => {
-              console.log("mandateLoader", response.data)
+              console.log("mandateLoader", response.data);
               let mandateData = response?.data?.body;
               dispatch(resetMandate(mandateData));
               dispatch(addVerifyStatus(mandateData?.verifyStatus));
               setMandateVerifyStatus(mandateData?.verifyStatus);
               if (mandateData.verifyStatus == "ERROR") {
-                showToast("Mandate Registration Failed, Please Try Again")
-                setModalVisible(false)
+                showToast("Mandate Registration Failed, Please Try Again", "warning");
+                setModalVisible(false);
               }
             })
             .catch((error) => {
@@ -51,7 +51,7 @@ export default function MandateLoading({
       } else if (refetchTime > 60) {
         setModalVisible(false);
         if (mandateVerifyStatus === "INPROGRESS") {
-          showToast("Mandate verification In Progress");
+          showToast("Mandate verification In Progress", "pending");
           navigation.navigate("HomeStack", { screen: "Money" });
         }
       }
