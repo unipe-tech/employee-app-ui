@@ -15,6 +15,9 @@ import {
 import { useNavigation } from "@react-navigation/core";
 import { bankform, styles } from "../../styles";
 import ShieldTitle from "../../components/atoms/ShieldTitle";
+import { COLORS, FONTS } from "../../constants/Theme";
+import FormInput from "../../components/atoms/FormInput";
+import PrimaryButton from "../../components/atoms/PrimaryButton";
 
 const BankFormTemplate = (props) => {
   const dispatch = useDispatch();
@@ -103,7 +106,7 @@ const BankFormTemplate = (props) => {
               <Text style={bankform.formatmsg}>Incorrect Format</Text>
             ) : null}
 
-            <PopableInput
+            <FormInput
               accessibilityLabel={"IfscCode"}
               placeholder={"IFSC Code*"}
               value={ifsc}
@@ -112,6 +115,11 @@ const BankFormTemplate = (props) => {
               autoCapitalize="characters"
               content={
                 "You can find the IFSC code on the cheque book or bank passbook that is provided by the bank"
+              }
+              appendComponent={
+                <Text style={{ ...FONTS.body5, color: COLORS.gray }}>
+                  {ifsc.length}/11
+                </Text>
               }
             />
 
@@ -136,9 +144,7 @@ const BankFormTemplate = (props) => {
             />
 
             <BankVerifyApi
-              disabled={
-                !ifscNext || !accNumNext || !accountHolderName
-              }
+              disabled={!ifscNext || !accNumNext || !accountHolderName}
               type={props?.route?.params?.type || ""}
             />
             <ShieldTitle title={"All your details are safe with us"} />
