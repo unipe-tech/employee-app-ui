@@ -4,6 +4,8 @@ apply plugin: 'com.google.gms.google-services'
 
 import com.android.build.OutputFile
 
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
+
 /**
  * This is the configuration block to customize your React Native Android app.
  * By default you don't need to apply any configuration, just uncomment the lines you need.
@@ -99,8 +101,8 @@ android {
         applicationId "com.employeeapp"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 202303095
-        versionName "2023.3.9"
+        versionCode 202303273
+        versionName "2023.3.27"
         resValue 'string', "CODE_PUSH_APK_BUILD_TIME", String.format("\"%d\"", System.currentTimeMillis())
     }
 
@@ -135,6 +137,12 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+        release {
+            storeFile file('unipe.keystore')
+            storePassword project.env.get("STORE_PASSWORD")
+            keyAlias project.env.get("KEY_ALIAS")
+            keyPassword project.env.get("KEY_PASSWORD")
+        }
     }
     buildTypes {
         debug {
@@ -143,9 +151,12 @@ android {
         release {
             // Caution! In production, you need to generate your own keystore file.
             // see https://reactnative.dev/docs/signed-apk-android.
-            signingConfig signingConfigs.debug
-            minifyEnabled enableProguardInReleaseBuilds
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            // resValue 'string', "envDeploymentKey", project.env.get("CODE_PUSH_DEPLOYMENT_KEY")
+            
         }
     }
 
@@ -154,7 +165,7 @@ android {
         variant.outputs.each { output ->
             // For each separate APK per architecture, set a unique version code as described here:
             // https://developer.android.com/studio/build/configure-apk-splits.html
-            // Example: versionCode 202303095 will generate 1001 for armeabi-v7a, 1002 for x86, etc.
+            // Example: versionCode 202303273 will generate 1001 for armeabi-v7a, 1002 for x86, etc.
             def versionCodes = ["armeabi-v7a": 1, "x86": 2, "arm64-v8a": 3, "x86_64": 4]
             def abi = output.getFilter(OutputFile.ABI)
             if (abi != null) {  // null for the universal-debug, universal-release variants
