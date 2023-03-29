@@ -118,10 +118,6 @@ const BackendSync = (props) => {
   }, [unipeEmployeeId]);
 
   return (
-    // <Image
-    //   source={require("../../android/app/src/main/res/drawable/launch_screen.svg")}
-    //   style={{ width: "100%", height: "100%" }}
-    // />
     <SplashSvg />
   );
 };
