@@ -8,13 +8,15 @@ import {
   SafeAreaView,
   Text,
   View,
+  Keyboard,
 } from "react-native";
 import SmsRetriever from "react-native-sms-retriever";
 import { useDispatch, useSelector } from "react-redux";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 // import PushNotification, {Importance} from 'react-native-push-notification';
 import SplashScreen from "react-native-splash-screen";
 import PrimaryButton from "../../components/atoms/PrimaryButton";
-import { COLORS } from "../../constants/Theme";
+import { COLORS, FONTS } from "../../constants/Theme";
 import { KeyboardAvoidingWrapper } from "../../KeyboardAvoidingWrapper";
 import { putBackendData } from "../../services/employees/employeeServices";
 import { sendSmsVerification } from "../../services/otp/Gupshup/services";
@@ -38,6 +40,8 @@ import ShieldTitle from "../../components/atoms/ShieldTitle";
 import LoginInput from "../../components/molecules/LoginInput";
 import AgreementText from "../../components/organisms/AgreementText";
 import { STAGE } from "@env";
+import Animated, { EasingNode } from "react-native-reanimated";
+import SvgListItem from "../../components/molecules/SvgListItem";
 
 const LoginScreen = () => {
   SplashScreen.hide();
@@ -190,6 +194,79 @@ const LoginScreen = () => {
       });
   };
 
+  const [startClicked, setStartClicked] = useState(false);
+  useEffect(() => {
+    if (startClicked) {
+      Animated.timing(bottomFlex, {
+        toValue: 4,
+        duration: 250,
+        useNativeDriver: false,
+        easing: EasingNode.in,
+      }).start();
+    } else {
+      Animated.timing(bottomFlex, {
+        toValue: 0,
+        duration: 250,
+        useNativeDriver: false,
+        easing: EasingNode.in,
+      }).start();
+    }
+  }, [startClicked]);
+  const [bottomFlex, setbottomFlex] = useState(new Animated.Value(0));
+
+  const data = [
+    {
+      title: "0% Interest Charges",
+      imageUri: (
+        <MaterialCommunityIcons
+          name="check-circle"
+          size={20}
+          color={COLORS.primary}
+        />
+      ),
+    },
+    {
+      title: "No Joining Fees",
+      imageUri: (
+        <MaterialCommunityIcons
+          name="check-circle"
+          size={20}
+          color={COLORS.primary}
+        />
+      ),
+    },
+    {
+      title: "Instant cash in bank account",
+      imageUri: (
+        <MaterialCommunityIcons
+          name="check-circle"
+          size={20}
+          color={COLORS.primary}
+        />
+      ),
+    },
+  ];
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      () => {
+        setStartClicked(true);
+      }
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      () => {
+        setStartClicked(false);
+      }
+    );
+
+    return () => {
+      keyboardDidHideListener.remove();
+      keyboardDidShowListener.remove();
+    };
+  }, []);
+
   return (
     <SafeAreaView accessibilityLabel="LoginScreen" style={styles.safeContainer}>
       <LogoHeader
@@ -200,36 +277,78 @@ const LoginScreen = () => {
           Linking.openURL(`whatsapp://send?text=&phone=7483447528`);
         }}
       />
-      <KeyboardAvoidingWrapper>
-        <View>
-          <Text style={styles.headline}>Verify your mobile</Text>
-          <Text style={styles.subHeadline}>
-            Your mobile number must be linked to your Aadhaar
+
+      <View style={[styles.container]}>
+        {startClicked ? (
+          <Text
+            style={[
+              styles.subHeadline,
+              {
+                textAlign: "left",
+                alignSelf: "flex-start",
+                ...FONTS.body3,
+                marginTop: "4%",
+                marginBottom: 0,
+                color: COLORS.secondary,
+              },
+            ]}
+          >
+            Welcome to Unipe
           </Text>
+        ) : (
+          <Text
+            style={{
+              ...FONTS.title,
+              color: COLORS.primary,
+            }}
+          >
+            नमस्ते
+          </Text>
+        )}
+        <Text
+          style={{
+            ...FONTS.h1,
+            color: COLORS.secondary,
+            marginBottom: "5%",
+          }}
+        >
+          Get your salary today!
+        </Text>
 
-          <LoginInput
-            accessibilityLabel="MobileNumber"
-            phoneNumber={phoneNumber}
-            setPhoneNumber={setPhoneNumber}
-          />
+        {!startClicked &&
+          data.map((item, index) => <SvgListItem item={item} key={index} />)}
+      </View>
 
-          <AgreementText
-            isTermsOfUseModalVisible={isTermsOfUseModalVisible}
-            setIsTermsOfUseModalVisible={setIsTermsOfUseModalVisible}
-            isPrivacyModalVisible={isPrivacyModalVisible}
-            setIsPrivacyModalVisible={setIsPrivacyModalVisible}
-          />
+      {/* {startClicked ? null : <View style={{ flex: 1 }} />} */}
+      <Animated.View style={[styles.bottomPart, { flex: bottomFlex }]}>
+        <KeyboardAvoidingWrapper>
+          <View>
+            <LoginInput
+              accessibilityLabel="MobileNumber"
+              phoneNumber={phoneNumber}
+              setPhoneNumber={setPhoneNumber}
+              autoFocus={false}
+            />
 
-          <PrimaryButton
-            title="Verify"
-            accessibilityLabel="LoginNextBtn"
-            disabled={!next}
-            loading={loading}
-            onPress={() => signIn()}
-          />
-          <ShieldTitle title={"All your details are safe with us"} />
-        </View>
-      </KeyboardAvoidingWrapper>
+            <AgreementText
+              isTermsOfUseModalVisible={isTermsOfUseModalVisible}
+              setIsTermsOfUseModalVisible={setIsTermsOfUseModalVisible}
+              isPrivacyModalVisible={isPrivacyModalVisible}
+              setIsPrivacyModalVisible={setIsPrivacyModalVisible}
+            />
+          </View>
+        </KeyboardAvoidingWrapper>
+      </Animated.View>
+      <View style={[styles.container, { flex: 0 }]}>
+        <PrimaryButton
+          title="Continue"
+          accessibilityLabel="LoginNextBtn"
+          disabled={!next}
+          loading={loading}
+          onPress={() => signIn()}
+        />
+        <ShieldTitle title={"100% Secure"} />
+      </View>
     </SafeAreaView>
   );
 };
