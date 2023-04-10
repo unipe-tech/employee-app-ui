@@ -35,19 +35,19 @@ react-native run-ios
 
 ## Build Strategies
 
-`STAGE = "dev" | "test" | "prod"`
+`STAGE = "dev" | "qa" | "prod"`
 
 ```
 start:dev
 - Emulator for developers while building a feature or making a fix with `dev` STAGE [DB]
 
-start:test
+start:qa
 - Emulator for developers while building a feature or making a fix with `test` STAGE [DB]
 
 build:dev
 - Test out an APK for developers while building a feature or making a fix with `dev` STAGE [DB]
 
-build:test
+build:qa
 - Test out an APK for Client Servicing Team while building a feature or making a fix with `test` STAGE [DB]
 
 build:prod
@@ -104,3 +104,11 @@ https://www.mobile-app.unipe.co/repayment/campaign/DDMMYYY$TEMPLATE_NAME
 
 Onboarding
 https://www.mobile-app.unipe.co/onboarding/[profile|aadhaar|pan|bank]/campaign/DDMMYYY$TEMPLATE_NAME
+
+## Patching
+
+```
+LIBRARY_NAME=react-native-code-push
+npx patch-package $LIBRARY_NAME
+
+```
