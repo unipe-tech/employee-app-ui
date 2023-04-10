@@ -1,76 +1,35 @@
-import { Text, TouchableNativeFeedback, View } from "react-native";
+import { Text, View } from "react-native";
 import EStyleSheet from "react-native-extended-stylesheet";
 import { MaterialCommunityIcons } from "react-native-vector-icons";
 import { COLORS, FONTS } from "../../constants/Theme";
+import Animated, { Layout, SlideInDown, ZoomOut } from "react-native-reanimated";
 
-const ListItem = ({
-  item,
-  disabled,
-  showIcon,
-  selected,
-  titleStyle,
-  subtitleStyle,
-}) => {
+const ListItem = ({ item, disabled, showIcon, index}) => {
   const { title, subtitle, iconName, onPress } = item;
 
   return (
-    <TouchableNativeFeedback
+    <Animated.View
+      entering={SlideInDown.delay(50 * index)}
+      exiting={ZoomOut}
+      layout={Layout}
+      onTouchEnd={onPress}
       accessibilityLabel="InfoCard"
-      onPress={onPress}
+      style={styles.container}
       disabled={disabled}
     >
-      <View
-        style={[
-          styles.container,
-          {
-            backgroundColor: selected
-              ? COLORS.primary
-              : disabled
-              ? COLORS.lightgray_01
-              : COLORS.white,
-          },
-        ]}
-      >
-        <MaterialCommunityIcons
-          name={iconName}
-          size={24}
-          color={
-            selected ? COLORS.white : disabled ? COLORS.gray : COLORS.black
-          }
-        />
-        <View style={styles.textContainer}>
-          <Text
-            style={[
-              styles.title,
-              { ...titleStyle },
-              {
-                color: selected
-                  ? COLORS.white
-                  : disabled
-                  ? COLORS.gray
-                  : COLORS.black,
-              },
-            ]}
-          >
-            {title}
-          </Text>
-          {subtitle && (
-            <Text style={[styles.subtitle, { ...subtitleStyle }]}>
-              {subtitle}
-            </Text>
-          )}
-        </View>
-        {showIcon && (
-          <MaterialCommunityIcons
-            name="chevron-right"
-            size={24}
-            color={
-              selected ? COLORS.white : disabled ? COLORS.gray : COLORS.black
-            }
-          />
-        )}
+      <MaterialCommunityIcons name={iconName} size={24} color={COLORS.gray} />
+      <View style={styles.textContainer}>
+        <Text style={styles.title}>{title}</Text>
+        {subtitle && <Text style={styles.subtitle}>{subtitle}</Text>}
       </View>
-    </TouchableNativeFeedback>
+      {showIcon && (
+        <MaterialCommunityIcons
+          name="chevron-right"
+          size={24}
+          color={COLORS.gray}
+        />
+      )}
+    </Animated.View>
   );
 };
 

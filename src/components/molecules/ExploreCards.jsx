@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/core";
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 import EStyleSheet from "react-native-extended-stylesheet";
 import Earn from "../../assets/Earn.svg";
 import ODS from "../../assets/GetODS.svg";
@@ -7,19 +7,21 @@ import Refer from "../../assets/Refer.svg";
 import { COLORS, FONTS } from "../../constants/Theme";
 import { useRef } from "react";
 import { Ionicons } from "react-native-vector-icons";
+import Animated, { Layout, SlideInRight } from "react-native-reanimated";
 
-const Card = ({ destination, component, inactive }) => {
+const Card = ({ destination, component, inactive , index}) => {
   const navigation = useNavigation();
   return (
-    <TouchableOpacity
-      activeOpacity={0.7}
-      disabled={inactive}
-      onPress={() => {
+    <Animated.View
+      layout={Layout}
+      entering={SlideInRight.delay(50 * index)}
+      activeOpacity={0.8}
+      onTouchEnd={() => {
         navigation.navigate(destination);
       }}
     >
       {component}
-    </TouchableOpacity>
+    </Animated.View>
   );
 };
 const data = [
@@ -39,10 +41,6 @@ const data = [
 
 const ExploreCards = () => {
   const scrollRef = useRef(null);
-
-  const onPress = (targetIndex) => {
-    scrollRef.current?.scrollTo({ x: normalize.width(90) });
-  };
 
   return (
     <View style={styles.container}>
@@ -70,6 +68,7 @@ const ExploreCards = () => {
         {data.map((item, index) => (
           <Card
             key={index}
+            index={index}
             destination={item.destination}
             component={item.component}
             inactive={item.inactive}
