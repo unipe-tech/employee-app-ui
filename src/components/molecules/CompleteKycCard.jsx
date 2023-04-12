@@ -17,7 +17,13 @@ const CompleteKycCard = () => {
   );
   const panVerifyStatus = useSelector((state) => state.pan.verifyStatus);
   const bankVerifyStatus = useSelector((state) => state.bank.verifyStatus);
-
+  const [progress, setProgress] = useState(0);
+  const kycStatus = [
+    profileComplete,
+    aadhaarVerifyStatus,
+    panVerifyStatus,
+    bankVerifyStatus,
+  ];
   const handleConditionalNav = () => {
     if (!profileComplete) {
       navigation.navigate("AccountStack", {
@@ -54,7 +60,13 @@ const CompleteKycCard = () => {
       panVerifyStatus == "SUCCESS" &&
       bankVerifyStatus == "SUCCESS"
     ) {
-      setShow(false);
+      setShow(true);
+    } else {
+    kycStatus.forEach((item) => {
+      if (item === "SUCCESS" || item === true) {
+        setProgress((prev) => prev + 20);
+      }
+    });
     }
   }, [profileComplete, aadhaarVerifyStatus, panVerifyStatus, bankVerifyStatus]);
 
@@ -71,6 +83,19 @@ const CompleteKycCard = () => {
             <Text style={styles.subtitle}>
               Verify your personal details {"\n"}to get on-demand salary
             </Text>
+            <View style={{ flexDirection: "row" }}>
+              <View style={styles.linearLine}>
+                <View
+                  style={[
+                    styles.progress,
+                    {
+                      width: `${progress}%`,
+                    },
+                  ]}
+                />
+              </View>
+              <Text style={styles.progressText}>{(progress / 80) * 4}/4</Text>
+            </View>
           </View>
           <View style={styles.card}>
             <Text style={styles.cardText}>Start now</Text>
@@ -117,6 +142,23 @@ const styles = EStyleSheet.create({
     ...FONTS.h5,
     color: COLORS.darkGray,
     marginRight: "10rem",
+  },
+  linearLine: {
+    backgroundColor: COLORS.gray,
+    height: "3rem",
+    borderRadius: "10rem",
+    marginTop: "10rem",
+    width: "80%",
+  },
+  progress: {
+    backgroundColor: COLORS.primary,
+    height: "3rem",
+    borderRadius: "10rem",
+  },
+  progressText: {
+    ...FONTS.body5,
+    color: "white",
+    marginLeft: "10rem",
   },
 });
 
