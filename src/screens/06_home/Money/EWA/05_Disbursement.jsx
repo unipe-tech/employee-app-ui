@@ -14,6 +14,7 @@ import Failure from "../../../../assets/animations/Failure";
 import Pending from "../../../../assets/animations/Pending";
 import DisbursementCard from "../../../../components/molecules/DisbursementCard";
 import { getDisbursement } from "../../../../queries/ewa/disbursement";
+import SvgContainer from "../../../../components/SvgContainer";
 
 const Disbursement = ({ route, navigation }) => {
   const { offer } = route.params;
@@ -48,11 +49,23 @@ const Disbursement = ({ route, navigation }) => {
   const StatusImage = (status) => {
     switch (status) {
       case "SUCCESS":
-        return <Success />;
+        return (
+          <SvgContainer height={300} width={300}>
+            <Success />
+          </SvgContainer>
+        );
       case "FAILURE":
-        return <Failure />;
+        return (
+          <SvgContainer height={300} width={350}>
+            <Failure />
+          </SvgContainer>
+        );
       default:
-        return <Pending />;
+        return (
+          <SvgContainer height={300} width={350}>
+            <Pending />
+          </SvgContainer>
+        );
     }
   };
 
@@ -98,30 +111,40 @@ const Disbursement = ({ route, navigation }) => {
   useEffect(() => {
     if (getDisbursementIsSuccess) {
       if (getDisbursementData?.data?.status === 200) {
-        setBankAccountNumber(getDisbursementData?.data?.body?.bankAccountNumber);
+        setBankAccountNumber(
+          getDisbursementData?.data?.body?.bankAccountNumber
+        );
         setDueDate(getDisbursementData?.data?.body?.dueDate);
-        setLoanAccountNumber(getDisbursementData?.data?.body?.loanAccountNumber);
+        setLoanAccountNumber(
+          getDisbursementData?.data?.body?.loanAccountNumber
+        );
         setLoanAmount(getDisbursementData?.data?.body?.loanAmount);
         setNetAmount(getDisbursementData?.data?.body?.netAmount);
         setStatus(getDisbursementData?.data?.body?.status);
       } else {
-        console.log("HomeView ewaOffersFetch API error getEwaOffersData.data : ", getDisbursementData.data);
+        console.log(
+          "HomeView ewaOffersFetch API error getEwaOffersData.data : ",
+          getDisbursementData.data
+        );
       }
     } else if (getDisbursementIsError) {
-      console.log("HomeView ewaOffersFetch API error getEwaOffersError.message : ", getDisbursementError.message);
+      console.log(
+        "HomeView ewaOffersFetch API error getEwaOffersError.message : ",
+        getDisbursementError.message
+      );
     }
   }, [getDisbursementIsSuccess, getDisbursementData]);
-  
+
   useEffect(() => {
     setDueDate(offer?.dueDate);
     setLoanAccountNumber(offer?.loanAccountNumber);
     setLoanAmount(offer?.loanAmount);
-    var pf = (parseInt(offer?.loanAmount) * offer?.fees)/100;
+    var pf = (parseInt(offer?.loanAmount) * offer?.fees) / 100;
     var pF;
-    if (parseInt(pf)%10<4) {
-      pF = Math.max(9, (Math.floor((pf/10))*10) -1);
+    if (parseInt(pf) % 10 < 4) {
+      pF = Math.max(9, Math.floor(pf / 10) * 10 - 1);
     } else {
-      pF = Math.max(9, (Math.floor(((pf+10)/10))*10) -1);
+      pF = Math.max(9, Math.floor((pf + 10) / 10) * 10 - 1);
     }
     setNetAmount(parseInt(offer?.loanAmount) - pF);
   }, [offer]);
@@ -142,7 +165,7 @@ const Disbursement = ({ route, navigation }) => {
         onLeftIconPress={() => backAction()}
         // progress={100}
       />
-      <View style={styles.container}>
+      <View style={[styles.container, { alignItems: "center" }]}>
         {StatusImage(status)}
         {StatusText(status)}
         <DisbursementCard

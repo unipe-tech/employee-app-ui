@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity } from "react-native";
 import { COLORS, FONTS } from "../../constants/Theme";
 import LogoImage from "../../assets/HeaderLogo.svg";
 import EStyleSheet from "react-native-extended-stylesheet";
+import SvgContainer from "../SvgContainer";
 
 const LogoHeader = ({
   containerStyle,
@@ -33,7 +34,9 @@ const LogoHeader = ({
         {title ? (
           <Text style={{ ...FONTS.body3, color: COLORS.black }}>{title}</Text>
         ) : (
-          <LogoImage style={styles.logo} />
+          <SvgContainer width={100} height={35}>
+            <LogoImage style={styles.logo} />
+          </SvgContainer>
         )}
       </View>
       {rightIcon ? (

@@ -7,6 +7,7 @@ import Refer from "../../assets/Refer.svg";
 import { COLORS, FONTS } from "../../constants/Theme";
 import { useRef } from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import SvgContainer from "../SvgContainer";
 
 const Card = ({ destination, component, inactive }) => {
   const navigation = useNavigation();
@@ -25,14 +26,26 @@ const Card = ({ destination, component, inactive }) => {
 const data = [
   {
     destination: "Money",
-    component: <ODS width={150} height={200} />,
+    component: (
+      <SvgContainer width={150} height={200}>
+        <ODS />
+      </SvgContainer>
+    ),
   },
   {
     destination: "Invest",
-    component: <Earn width={150} height={200} />,
+    component: (
+      <SvgContainer width={150} height={200}>
+        <Earn />
+      </SvgContainer>
+    ),
   },
   {
-    component: <Refer width={150} height={200} />,
+    component: (
+      <SvgContainer width={150} height={200}>
+        <Refer />
+      </SvgContainer>
+    ),
     inactive: true,
   },
 ];

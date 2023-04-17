@@ -1,5 +1,5 @@
 import { View, Text, Modal } from "react-native";
-import { FONTS } from "../../constants/Theme";
+import { COLORS, FONTS } from "../../constants/Theme";
 import EStyleSheet from "react-native-extended-stylesheet";
 import SVGImg from "../../assets/UnipeLogo.svg";
 
@@ -45,7 +45,7 @@ const styles = EStyleSheet.create({
     height: "100%",
   },
   modalContainer: {
-    backgroundColor: "$white",
+    backgroundColor: COLORS.white,
     flex: 1,
     padding: "15rem",
     alignItems: "center",

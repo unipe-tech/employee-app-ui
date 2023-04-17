@@ -3,12 +3,12 @@ import EStyleSheet from "react-native-extended-stylesheet";
 
 export const styles = EStyleSheet.create({
   container: {
-    backgroundColor: "$white",
+    backgroundColor: COLORS.white,
     flex: 1,
     padding: "10rem",
   },
   safeContainer: {
-    backgroundColor: "$white",
+    backgroundColor: COLORS.white,
     flex: 1,
   },
 
@@ -245,6 +245,18 @@ export const onboardingStyles = EStyleSheet.create({
     borderBottomRightRadius: "10rem",
     marginRight: "10rem",
     marginLeft: "-20rem",
+  },
+  firstHeadline: {
+    textAlign: "left",
+    alignSelf: "flex-start",
+    ...FONTS.body3,
+    // marginTop: "5rem",
+    color: COLORS.secondary,
+  },
+  secondHeadline: {
+    ...FONTS.h1,
+    color: COLORS.secondary,
+    marginBottom: "10rem",
   },
 });
 

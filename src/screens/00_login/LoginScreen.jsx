@@ -33,7 +33,7 @@ import {
   addCurrentStack,
 } from "../../store/slices/navigationSlice";
 import { resetTimer } from "../../store/slices/timerSlice";
-import { styles } from "../../styles";
+import { onboardingStyles, styles } from "../../styles";
 import LogoHeader from "../../components/atoms/LogoHeader";
 import Icon from "react-native-vector-icons/Ionicons";
 import ShieldTitle from "../../components/atoms/ShieldTitle";
@@ -281,17 +281,10 @@ const LoginScreen = () => {
       <View style={[styles.container]}>
         {startClicked ? (
           <Text
-            style={[
-              styles.subHeadline,
-              {
-                textAlign: "left",
-                alignSelf: "flex-start",
-                ...FONTS.body3,
-                marginTop: "4%",
-                marginBottom: 0,
-                color: COLORS.secondary,
-              },
-            ]}
+            style={{
+              ...styles.subHeadline,
+              ...onboardingStyles.firstHeadline,
+            }}
           >
             Welcome to Unipe
           </Text>
@@ -305,13 +298,7 @@ const LoginScreen = () => {
             नमस्ते
           </Text>
         )}
-        <Text
-          style={{
-            ...FONTS.h1,
-            color: COLORS.secondary,
-            marginBottom: "5%",
-          }}
-        >
+        <Text style={onboardingStyles.secondHeadline}>
           Get your salary today!
         </Text>
 
@@ -320,7 +307,7 @@ const LoginScreen = () => {
       </View>
 
       {/* {startClicked ? null : <View style={{ flex: 1 }} />} */}
-      <Animated.View style={[styles.bottomPart, { flex: bottomFlex }]}>
+      <Animated.View style={{ flex: bottomFlex }}>
         <KeyboardAvoidingWrapper>
           <View>
             <LoginInput
