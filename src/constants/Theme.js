@@ -2,52 +2,33 @@ import { Dimensions, PixelRatio, Platform } from "react-native";
 import EStyleSheet from "react-native-extended-stylesheet";
 
 const { width, height } = Dimensions.get("window");
+let guidelineBaseWidth;
+console.log("Aspect Ratio: " + height / width);
+const aspectRatio = height / width;
 
-const scale = width / 380;
+if (aspectRatio > 2.1) guidelineBaseWidth = 380;
+else if (aspectRatio < 2.1 && aspectRatio > 1.9) guidelineBaseWidth = 400;
+else if (aspectRatio < 1.9 && aspectRatio > 1.7) guidelineBaseWidth = 450;
+
+const scale = width / guidelineBaseWidth;
 
 EStyleSheet.build({
   $rem: scale,
-  $primaryPending: "#4E46F1",
-  $primary: "#41be89",
-  $primaryBackground: "#D5F9EA",
-  $appBarBackground: "#2CB77C",
-  $appBarText: "",
-  $secondary: "#230C45",
-  $warning: "#f56a6a",
-  $warningBackground: "#fde1e1",
-  $darkGray: "#333333",
-  $gray: "#808080",
-  $lightGray: "#aaaaaa",
-  $black: "#000000",
-  $white: "#FFFFFF",
-  $lightgray_01: "#f1f1f1",
 });
+
 export function normalize(size) {
   const newSize = size * scale;
   if (Platform.OS === "ios") {
     return Math.round(PixelRatio.roundToNearestPixel(newSize));
   } else {
-    return Math.round(PixelRatio.roundToNearestPixel(newSize)) - 2;
+    return Math.round(PixelRatio.roundToNearestPixel(newSize)) - 1;
   }
 }
+
 export const COLORS = {
   primary: "#41be89",
   primaryBackground: "#D5F9EA",
   secondary: "#170D45",
-  button: {
-    disabled: {
-      background: "",
-      text: "",
-    },
-    disabled: {
-      background: "",
-      text: "",
-    },
-  },
-  appBar: {
-    background: "#2CB77C",
-    text: "",
-  },
   warning: "#f56a6a",
   warningBackground: "#fde1e1",
   pending: "orange",
@@ -100,7 +81,7 @@ export const FONTS = {
   title: {
     fontFamily: "Montserrat-Regular",
     fontSize: normalize(68),
-    lineHeight: normalize(100),
+    lineHeight: normalize(95),
   },
   h1: {
     fontFamily: "Montserrat-Bold",
