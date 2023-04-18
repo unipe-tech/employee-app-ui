@@ -36,10 +36,13 @@ import {
 } from "../../store/slices/ewaLiveSlice";
 import CompleteKycCard from "../../components/molecules/CompleteKycCard";
 import ExploreCards from "../../components/molecules/ExploreCards";
+
+import KycBottomAlert from "../../components/molecules/KycBottomAlert";
 const HomeView = () => {
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
   const navigation = useNavigation();
+  const profileComplete = useSelector((state) => state.profile.profileComplete);
 
   const aadhaarVerifyStatus = useSelector(
     (state) => state.aadhaar.verifyStatus
@@ -202,6 +205,8 @@ const HomeView = () => {
     getUrlAsync();
   }, []);
 
+  const [visible, setVisible] = useState(false);
+
   return (
     <SafeAreaView style={styles.safeContainer}>
       <LogoHeader
@@ -226,6 +231,7 @@ const HomeView = () => {
           </>
         </View>
       </ScrollView>
+      {true && <KycBottomAlert visible={true} setVisible={setVisible} />}
     </SafeAreaView>
   );
 };
