@@ -6,7 +6,7 @@ import {
   Platform,
   Image,
 } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import EStyleSheet from "react-native-extended-stylesheet";
 import FormInput from "../atoms/FormInput";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -15,22 +15,52 @@ import BottomSheetWrapper from "../atoms/BottomSheetWrapper";
 import { useState } from "react";
 import PrimaryButton from "../atoms/PrimaryButton";
 import KycSteps from "../../assets/KycSteps.svg";
+import { useNavigation } from "@react-navigation/core";
+import { useSelector } from "react-redux";
 import SvgContainer from "../SvgContainer";
 
 const KycBottomAlert = ({ visible, setVisible }) => {
-  return (
+  const navigation = useNavigation();
+
+  const profileComplete = useSelector((state) => state.profile.profileComplete);
+  const aadhaarVerifyStatus = useSelector(
+    (state) => state.aadhaar.verifyStatus
+  );
+  const panVerifyStatus = useSelector((state) => state.pan.verifyStatus);
+  const bankVerifyStatus = useSelector((state) => state.bank.verifyStatus);
+
+  const handleConditionalNav = () => {
+    if (!profileComplete) {
+      navigation.navigate("AccountStack", {
+        screen: "Profile",
+      });
+    } else if (aadhaarVerifyStatus != "SUCCESS") {
+      navigation.navigate("AccountStack", {
+        screen: "KYC",
+        params: {
+          screen: "AADHAAR",
+        },
+      });
+    } else if (panVerifyStatus != "SUCCESS") {
+      navigation.navigate("AccountStack", {
+        screen: "KYC",
+        params: {
+          screen: "PAN",
+        },
+      });
+    } else if (bankVerifyStatus != "SUCCESS") {
+      navigation.navigate("AccountStack", {
+        screen: "KYC",
+        params: {
+          screen: "BANK",
+        },
+      });
+    }
+  };
+
+  return visible ? (
     <BottomSheetWrapper open={visible} setOpen={setVisible}>
-      <View
-        style={{
-          backgroundColor: COLORS.lightgray_01,
-          margin: -15,
-          borderTopLeftRadius: 20,
-          borderTopRightRadius: 20,
-          marginBottom: 10,
-          paddingTop: 15,
-          alignItems: "center",
-        }}
-      >
+      <View style={styles.svgBackground}>
         <SvgContainer width={250} height={200}>
           <KycSteps />
         </SvgContainer>
@@ -52,7 +82,7 @@ const KycBottomAlert = ({ visible, setVisible }) => {
           color: COLORS.gray,
           alignSelf: "center",
           textAlign: "center",
-          marginVertical: 5,
+          marginBottom: 5,
         }}
       >
         Verify your identity to withdraw advance salary in our bank account
@@ -61,6 +91,7 @@ const KycBottomAlert = ({ visible, setVisible }) => {
         title="Start KYC"
         onPress={() => {
           setVisible(false);
+          handleConditionalNav();
         }}
       />
 
@@ -77,7 +108,7 @@ const KycBottomAlert = ({ visible, setVisible }) => {
         }}
       />
     </BottomSheetWrapper>
-  );
+  ) : null;
 };
 
 const styles = EStyleSheet.create({
@@ -91,6 +122,15 @@ const styles = EStyleSheet.create({
     resizeMode: "contain",
     alignSelf: "center",
     //backgroundColor: COLORS.black,
+  },
+  svgBackground: {
+    backgroundColor: COLORS.lightgray_01,
+    margin: "-15rem",
+    borderTopLeftRadius: "20rem",
+    borderTopRightRadius: "20rem",
+    marginBottom: "10rem",
+    paddingTop: "15rem",
+    alignItems: "center",
   },
 });
 
