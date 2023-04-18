@@ -6,7 +6,7 @@ import {
   BackHandler,
   Linking,
 } from "react-native";
-import { styles } from "../../styles";
+import { onboardingStyles, styles } from "../../styles";
 import LogoHeader from "../../components/atoms/LogoHeader";
 import Icon from "react-native-vector-icons/Ionicons";
 import { COLORS, FONTS } from "../../constants/Theme";
@@ -14,17 +14,20 @@ import Analytics from "appcenter-analytics";
 import { requestUserPermission } from "../../services/notifications/notificationService";
 import PrimaryButton from "../../components/atoms/PrimaryButton";
 import { useDispatch, useSelector } from "react-redux";
-import Success from "../../assets/congratulations.svg";
+import KycSteps from "../../assets/KycSteps.svg";
+import Info from "../../assets/Info.svg";
 import { useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { addCurrentScreen } from "../../store/slices/navigationSlice";
+import SvgContainer from "../../components/SvgContainer";
+import LinearGradient from "react-native-linear-gradient";
 
-const WelcomePage = () => {
+const LoginSuccess = () => {
   const unipeEmployeeId = useSelector((state) => state.auth.unipeEmployeeId);
   const dispatch = useDispatch();
   const navigation = useNavigation();
   useEffect(() => {
-    dispatch(addCurrentScreen("Welcome"));
+    dispatch(addCurrentScreen("LoginSuccess"));
   }, []);
 
   const backAction = () => {
@@ -53,31 +56,58 @@ const WelcomePage = () => {
       />
 
       <View style={styles.container}>
-        <Success style={{ alignSelf: "center", width: "70%" }} />
-        <View style={{ flex: 1 }} />
-
-        <Text
-          style={[styles.subHeadline, { width: "90%", alignSelf: "center" }]}
-        >
-          <Text style={{ color: COLORS.warning }}>Congratulations!</Text> {"\n"}
-          Your phone number verified successfully.
+        <Text style={[styles.headline, { ...FONTS.h1 }]}>
+          Congratulations on joining Unipe!
         </Text>
         <Text
           style={[
-            styles.headline,
+            styles.subHeadline,
             {
-              ...FONTS.h3,
-              width: "90%",
-              alignSelf: "center",
-              marginBottom: 20,
+              color: COLORS.secondary,
+              ...FONTS.body3,
+              width: "100%",
             },
           ]}
         >
-          As a next step please complete your eKYC to get money in your bank
-          account
+          Your employer, XXXXXXX, has initiated your onboarding process.
         </Text>
+        {/* <SvgContainer width={360} height={360}>
+          <Background />
+        </SvgContainer> */}
+        <LinearGradient
+          colors={["#ffffff", "#E9FFF6"]}
+          style={{
+            flex: 1,
+            alignItems: "center",
+            justifyContent: "flex-end",
+            marginHorizontal: -15,
+          }}
+        >
+          <SvgContainer width={300} height={280}>
+            <KycSteps />
+          </SvgContainer>
+        </LinearGradient>
+        {/* <View style={{ flex: 0.1 }} /> */}
+
+        <View style={onboardingStyles.alertBox}>
+          <SvgContainer width={40} height={40}>
+            <Info />
+          </SvgContainer>
+          <Text
+            style={{
+              ...FONTS.body4,
+              color: COLORS.secondary,
+              flex: 1,
+              paddingLeft: 10,
+            }}
+          >
+            As per RBI guidelines, you have to complete e-KYC to get Advance
+            Salary
+          </Text>
+        </View>
+
         <PrimaryButton
-          title="Start eKYC"
+          title="Start KYC"
           accessibilityLabel="WelcomeBtn"
           onPress={() => {
             requestUserPermission();
@@ -87,9 +117,19 @@ const WelcomePage = () => {
             navigation.navigate("ProfileForm");
           }}
         />
+        <PrimaryButton
+          title="I will do it later"
+          containerStyle={{
+            backgroundColor: COLORS.white,
+            borderWidth: 1.5,
+            borderColor: COLORS.warning,
+          }}
+          titleStyle={{ color: COLORS.warning }}
+          onPress={() => {}}
+        />
       </View>
     </SafeAreaView>
   );
 };
 
-export default WelcomePage;
+export default LoginSuccess;

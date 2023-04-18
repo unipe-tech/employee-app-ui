@@ -258,6 +258,15 @@ export const onboardingStyles = EStyleSheet.create({
     color: COLORS.secondary,
     marginBottom: "10rem",
   },
+  alertBox: {
+    backgroundColor: "rgba(255, 193, 33, 0.33)",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: "15rem",
+    marginTop: "15rem",
+    borderRadius: "10rem",
+  },
 });
 
 export const moneyStyles = EStyleSheet.create({
