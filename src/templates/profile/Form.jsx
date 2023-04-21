@@ -232,10 +232,11 @@ const ProfileFormTemplate = ({ type }) => {
             keyboardType="email-address"
             value={email}
             onChange={setEmail}
+            errorMsg={email && !validEmail ? "Incorrect Format" : null}
           />
-          {email && !validEmail ? (
+          {/* {email && !validEmail ? (
             <Text style={form.formatmsg}>Incorrect Format</Text>
-          ) : null}
+          ) : null} */}
           <PrimaryButton
             accessibilityLabel={"ProfileBtn"}
             title="Continue"

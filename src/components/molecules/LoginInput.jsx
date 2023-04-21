@@ -6,7 +6,7 @@ import { COLORS, FONTS } from "../../constants/Theme";
 const LoginInput = ({ phoneNumber, setPhoneNumber, accessibilityLabel }) => {
   return (
     <FormInput
-      //placeholder="Enter mobile number"
+      placeholder="Enter mobile number"
       accessibilityLabel={accessibilityLabel}
       containerStyle={{ marginVertical: 15, borderColor: COLORS.primary }}
       autoCompleteType="tel"
@@ -15,7 +15,7 @@ const LoginInput = ({ phoneNumber, setPhoneNumber, accessibilityLabel }) => {
       onChange={setPhoneNumber}
       autoFocus={true}
       maxLength={10}
-      inputStyle={{ ...FONTS.h4, color: COLORS.secondary }}
+      inputStyle={{ ...FONTS.h3, color: COLORS.secondary }}
       prependComponent={
         <View
           style={{
