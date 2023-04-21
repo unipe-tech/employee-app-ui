@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/core";
 import { useEffect, useState } from "react";
-import { Alert, SafeAreaView, ScrollView, Text, View } from "react-native";
+import { Alert, SafeAreaView, ScrollView, Text } from "react-native";
 import { getUniqueId } from "react-native-device-info";
 import { NetworkInfo } from "react-native-network-info";
 import { useDispatch, useSelector } from "react-redux";
@@ -23,9 +23,8 @@ import { COLORS, FONTS } from "../../constants/Theme";
 import Analytics from "appcenter-analytics";
 import DetailsCard from "../../components/molecules/DetailsCard";
 import MandateOptions from "../../components/molecules/MandateOptions";
-import Shield from "../../assets/Shield.svg";
-import RBI from "../../assets/RBI.svg";
 import MandateLoading from "../../components/organisms/MandateLoading";
+import RBIApproved from "../../components/molecules/RBIApproved";
 
 const MandateFormTemplate = (props) => {
   const dispatch = useDispatch();
@@ -209,7 +208,7 @@ const MandateFormTemplate = (props) => {
       const createOrderResponse = res?.data;
       console.log(`Mandate|CreateOrder|${authType} res.data:`, createOrderResponse);
       if (createOrderResponse.status === 200) {
-        let razorpayOrder = createOrderResponse.body
+        let razorpayOrder = createOrderResponse.body;
         
         Analytics.trackEvent(`Mandate|CreateOrder|${authType}|Success`, {
           unipeEmployeeId: unipeEmployeeId,
@@ -218,7 +217,7 @@ const MandateFormTemplate = (props) => {
           orderId: razorpayOrder.id,
           customerId: razorpayOrder.customer_id,
           notes: razorpayOrder.notes
-        })  
+        });
       } else {
         throw createOrderResponse
       }
@@ -260,90 +259,23 @@ const MandateFormTemplate = (props) => {
     ];
   };
 
-  return (
-    <SafeAreaView style={styles.safeContainer}>
-      <KeyboardAvoidingWrapper>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <DetailsCard data={cardData()} />
-          {verifyStatus != "INPROGRESS" && (
-            <Text
-              style={{ ...FONTS.body4, color: COLORS.gray, marginVertical: 10 }}
-            >
-              Please choose your preferred mode
-            </Text>
-          )}
-          {!fetched ? (
-            <Text style={{ ...FONTS.body4, color: COLORS.gray }}>
-              Initializing ...
-            </Text>
-          ) : verifyStatus === "INPROGRESS" ? (
+  if (verifyStatus == "SUCCESS") {
+    return (
+      <SafeAreaView style={styles.safeContainer}>
+        <KeyboardAvoidingWrapper>
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <DetailsCard data={cardData()} />
             <Text style={{ ...FONTS.body4, color: COLORS.black }}>
-              Your Mandate Registration is currently in progress.
+              Your Mandate is successfully registered.
             </Text>
-          ) : verifyStatus === "SUCCESS" ? null : (
-            <MandateOptions
-              ProceedButton={ProceedButton}
-              disabled={loading}
-              authType={authType}
-            />
-          )}
-          <View
-            style={{
-              padding: 10,
-              backgroundColor: COLORS.lightGray,
-              marginVertical: 10,
-              borderRadius: 5,
-              alignItems: "center",
-              justifyContent: "center",
-              marginTop: "10%",
-            }}
-          >
-            <Text
-              style={{
-                ...FONTS.body4,
-                color: COLORS.gray,
-                marginBottom: 5,
-                textAlign: "center",
-              }}
-            >
-              Mandate is required to auto-debit loan payments on Due Date. This
-              is 100% secure and executed by an RBI approved entity.
-            </Text>
-          </View>
-          <View
-            style={{
-              flexDirection: "row",
-              width: "100%",
-              padding: 10,
-              justifyContent: "space-evenly",
-              alignItems: "center",
-            }}
-          >
-            <View style={{ flexDirection: "column", alignItems: "center" }}>
-              <Shield />
-              <Text
-                style={{ ...FONTS.body4, color: COLORS.gray, marginTop: 5 }}
-              >
-                100% Secure
-              </Text>
-            </View>
-            <View
-              style={{
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <RBI />
-              <Text
-                style={{ ...FONTS.body4, color: COLORS.gray, marginTop: 5 }}
-              >
-                RBI Approved
-              </Text>
-            </View>
-          </View>
-        </ScrollView>
-      </KeyboardAvoidingWrapper>
-      {modalVisible && (
+            <RBIApproved />
+          </ScrollView>
+        </KeyboardAvoidingWrapper>
+      </SafeAreaView>
+    );
+  } else if (modalVisible) {
+    return (
+      <SafeAreaView style={styles.safeContainer}>
         <MandateLoading
           {...props}
           setMandateVerifyStatus={setVerifyStatus}
@@ -351,9 +283,39 @@ const MandateFormTemplate = (props) => {
           modalVisible={modalVisible}
           setModalVisible={setModalVisible}
         />
-      )}
-    </SafeAreaView>
-  );
+      </SafeAreaView>
+    );
+  } else if (verifyStatus == "INPROGRESS") {
+    return (
+      <SafeAreaView style={styles.safeContainer}>
+        <KeyboardAvoidingWrapper>
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <DetailsCard data={cardData()} />
+            <Text style={{ ...FONTS.body4, color: COLORS.black }}>
+              Your Mandate Registration is currently in progress.
+            </Text>
+            <RBIApproved />
+          </ScrollView>
+        </KeyboardAvoidingWrapper>
+      </SafeAreaView>
+    );
+  } else {
+    return (
+      <SafeAreaView style={styles.safeContainer}>
+        <KeyboardAvoidingWrapper>
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <DetailsCard data={cardData()} />
+              <MandateOptions
+                ProceedButton={ProceedButton}
+                disabled={loading}
+                authType={authType}
+              />
+              <RBIApproved />
+          </ScrollView>
+        </KeyboardAvoidingWrapper>
+      </SafeAreaView>
+    );
+  }
 };
 
 export default MandateFormTemplate;

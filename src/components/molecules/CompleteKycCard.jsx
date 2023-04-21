@@ -17,6 +17,7 @@ const CompleteKycCard = () => {
   );
   const panVerifyStatus = useSelector((state) => state.pan.verifyStatus);
   const bankVerifyStatus = useSelector((state) => state.bank.verifyStatus);
+  const mandateVerifyStatus = useSelector((state) => state.mandate.verifyStatus);
 
   const handleConditionalNav = () => {
     if (!profileComplete) {
@@ -44,6 +45,13 @@ const CompleteKycCard = () => {
           screen: "BANK",
         },
       });
+    } else if (mandateVerifyStatus != "SUCCESS") {
+      navigation.navigate("AccountStack", {
+        screen: "KYC",
+        params: {
+          screen: "MANDATE",
+        },
+      });
     }
   };
 
@@ -52,11 +60,12 @@ const CompleteKycCard = () => {
       profileComplete &&
       aadhaarVerifyStatus == "SUCCESS" &&
       panVerifyStatus == "SUCCESS" &&
-      bankVerifyStatus == "SUCCESS"
+      bankVerifyStatus == "SUCCESS" &&
+      mandateVerifyStatus == "SUCCESS"
     ) {
       setShow(false);
     }
-  }, [profileComplete, aadhaarVerifyStatus, panVerifyStatus, bankVerifyStatus]);
+  }, [profileComplete, aadhaarVerifyStatus, panVerifyStatus, bankVerifyStatus, mandateVerifyStatus]);
 
   return (
     <>

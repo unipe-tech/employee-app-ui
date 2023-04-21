@@ -1,5 +1,5 @@
 import { SafeAreaView, View } from "react-native";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigation } from "@react-navigation/core";
 import { useSelector } from "react-redux";
 import BankFormTemplate from "../../../templates/bank/Form";
@@ -7,11 +7,14 @@ import BankConfirmApi from "../../../apis/bank/Confirm";
 import TopTabNav from "../../../navigators/TopTabNav";
 import { styles } from "../../../styles";
 import DetailsCard from "../../../components/molecules/DetailsCard";
+import PrimaryButton from "../../../components/atoms/PrimaryButton";
 
 const Bank = () => {
   const navigation = useNavigation();
 
   const verifyStatus = useSelector((state) => state.bank.verifyStatus);
+  const aadhaarVerifyStatus = useSelector((state) => state.aadhaar.verifyStatus);
+  const mandateVerifyStatus = useSelector((state) => state.mandate.verifyStatus);
   const data = useSelector((state) => state.bank.data);
 
   useEffect(() => {
@@ -62,17 +65,48 @@ const Bank = () => {
     },
   ];
 
-  return (
-    <SafeAreaView style={styles.safeContainer}>
-      {verifyStatus == "SUCCESS" ? (
+  if (verifyStatus == "SUCCESS") {
+    return (
+      <SafeAreaView style={styles.safeContainer}>
         <View style={styles.container}>
           <DetailsCard data={cardData()} />
+          {
+            mandateVerifyStatus != "SUCCESS" ? (
+              <PrimaryButton
+                title="Continue to Mandate Verification"
+                onPress={() => {
+                  navigation.navigate("KYC", {
+                    screen: "MANDATE",
+                  });
+                }}
+              />
+            ) : null
+          }
         </View>
-      ) : (
+      </SafeAreaView>
+    );
+  } else if (aadhaarVerifyStatus != "SUCCESS") {
+    return (
+      <SafeAreaView style={styles.safeContainer}>
+        <View style={styles.container}>
+          <PrimaryButton
+            title="Continue to Aadhaar Verification"
+            onPress={() => {
+              navigation.navigate("KYC", {
+                screen: "AADHAAR",
+              });
+            }}
+          />
+        </View>
+      </SafeAreaView>
+    );
+  } else {
+    return (
+      <SafeAreaView style={styles.safeContainer}>
         <TopTabNav tabs={tabs} hide={true} />
-      )}
-    </SafeAreaView>
-  );
+      </SafeAreaView>
+    );
+  }
 };
 
 export default Bank;
