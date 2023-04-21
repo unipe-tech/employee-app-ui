@@ -13,6 +13,7 @@ import AccountStack from "./stacks/AccountStack";
 import InvestStack from "./stacks/InvestStack";
 import SplashScreen from "../screens/SplashScreen";
 import BottomTabNav from "./BottomTabNav";
+import KYCStack from "./stacks/KYCStack";
 
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator();
@@ -72,6 +73,13 @@ const StackNavigator = () => {
         <Stack.Screen
           name="EWAStack"
           component={EWAStack}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="KYCStack"
+          component={KYCStack}
           options={{
             headerShown: false,
           }}

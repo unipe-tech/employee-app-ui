@@ -4,7 +4,6 @@ import { View, Text, Image, ToastAndroid, Modal } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { COLORS, FONTS, SIZES } from "../../constants/Theme";
 import { getBackendData } from "../../services/employees/employeeServices";
-import { getPaymentState } from "../../services/mandate/Razorpay/services";
 import { addVerifyStatus, resetMandate } from "../../store/slices/mandateSlice";
 import { styles } from "../../styles";
 import { showToast } from "../atoms/Toast";
@@ -35,32 +34,14 @@ export default function MandateLoading({
             token: token,
           })
             .then((response) => {
-              if (
-                response.data.status === 200 &&
-                response.data?.body?.data?.orderId
-              ) {
-                getPaymentState({
-                  orderId: response.data?.body?.data?.orderId,
-                }).then((paymentStateRes) => {
-                  let paymentStateData = paymentStateRes.data;
-                  if (paymentStateData?.count > 0) {
-                    dispatch(resetMandate(response?.data?.body));
-                    dispatch(
-                      addVerifyStatus(response?.data?.body?.verifyStatus)
-                    );
-                    setMandateVerifyStatus(response?.data?.body?.verifyStatus);
-                  } else {
-                    dispatch(resetMandate(response?.data?.body));
-                    dispatch(
-                      addVerifyStatus(response?.data?.body?.verifyStatus)
-                    );
-                    setMandateVerifyStatus(response?.data?.body?.verifyStatus);
-                  }
-                });
-              } else {
-                dispatch(resetMandate(response?.data?.body));
-                dispatch(addVerifyStatus(response?.data?.body?.verifyStatus));
-                setMandateVerifyStatus(response?.data?.body?.verifyStatus);
+              console.log("mandateLoader", response.data)
+              let mandateData = response?.data?.body;
+              dispatch(resetMandate(mandateData));
+              dispatch(addVerifyStatus(mandateData?.verifyStatus));
+              setMandateVerifyStatus(mandateData?.verifyStatus);
+              if (mandateData.verifyStatus == "ERROR") {
+                showToast("Mandate Registration Failed, Please Try Again")
+                setModalVisible(false)
               }
             })
             .catch((error) => {
@@ -77,7 +58,6 @@ export default function MandateLoading({
     }, 10000);
 
     return () => clearInterval(interval);
-
   }, [refetchTime]);
 
   return (
@@ -89,7 +69,7 @@ export default function MandateLoading({
     >
       <View style={styles.container}>
         <Image
-          source={require("../../assets/coin_loading.gif")}
+          source={require("../../assets/CoinLoading.gif")}
           style={{ width: "100%", height: SIZES.height * 0.5 }}
         />
         <View style={{ flex: 1 }} />

@@ -8,16 +8,14 @@ import PanVerifyApi from "../../apis/pan/Verify";
 import { addNumber } from "../../store/slices/panSlice";
 import InfoCard from "../../components/atoms/InfoCard";
 import FormInput from "../../components/atoms/FormInput";
-import Checkbox from "../../components/atoms/Checkbox";
-import PrimaryButton from "../../components/atoms/PrimaryButton";
 import { useNavigation, useIsFocused } from "@react-navigation/core";
+import PrimaryButton from "../../components/atoms/PrimaryButton";
 
 const PanFormTemplate = (props) => {
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
   const navigation = useNavigation();
 
-  const [consent, setConsent] = useState(true);
   const [validNumber, setValidNumber] = useState(true);
 
   const aadhaarVerifyStatus = useSelector(
@@ -27,10 +25,11 @@ const PanFormTemplate = (props) => {
   const panSlice = useSelector((state) => state.pan);
   const [number, setNumber] = useState(panSlice?.number);
 
+  var panReg = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/gm;
+
   useEffect(() => {
-    var panReg = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/gm;
-    if (panReg.test(number)) {
-      dispatch(addNumber(number));
+    dispatch(addNumber(number));
+    if (number.length == 10 && panReg.test(number)) {
       setValidNumber(true);
     } else {
       setValidNumber(false);
@@ -65,7 +64,7 @@ const PanFormTemplate = (props) => {
               }
             />
 
-            {number && !validNumber ? (
+            {number.length == 10 && !panReg.test(number) ? (
               <Text style={bankform.formatmsg}>Invalid PAN Number.</Text>
             ) : null}
 
@@ -84,21 +83,12 @@ const PanFormTemplate = (props) => {
 
             <InfoCard
               info={
-                "Please note: PAN is required to verify name and date of birth"
+                "I agree with the KYC registration Terms & Conditions to verifiy my identity. PAN is required to verify name and date of birth."
               }
-            />
-
-            <Checkbox
-              text={
-                "I agree KYC registration for the Term & conditions to verify my identity"
-              }
-              value={consent}
-              setValue={setConsent}
             />
 
             <PanVerifyApi
-              data={{ pan_number: number, consent: "Y" }}
-              disabled={!validNumber || !consent}
+              disabled={!validNumber}
               type={props?.route?.params?.type || ""}
             />
           </View>
@@ -111,7 +101,7 @@ const PanFormTemplate = (props) => {
           <PrimaryButton
             title="Verify Aadhaar Now"
             onPress={() => {
-              props?.route?.params?.type
+              props?.route?.params?.type === "KYC"
                 ? navigation.navigate("KYC", {
                     screen: "AADHAAR",
                   })
