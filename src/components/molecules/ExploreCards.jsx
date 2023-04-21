@@ -24,15 +24,16 @@ const Card = ({ destination, component, inactive }) => {
 };
 const data = [
   {
-    destination: "Money",
-    component: <ODS width={150} height={200} />,
-  },
-  {
     destination: "Invest",
-    component: <Earn width={150} height={200} />,
+    component: <Earn width={180} height={240} />,
   },
   {
-    component: <Refer width={150} height={200} />,
+    destination: "Money",
+    component: <ODS width={180} height={240} />,
+  },
+
+  {
+    component: <Refer width={180} height={240} />,
     inactive: true,
   },
 ];
@@ -48,14 +49,6 @@ const ExploreCards = () => {
     <View style={styles.container}>
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
         <Text style={styles.title}>Explore</Text>
-        <View style={{ justifyContent: "flex-end" }}>
-          <Ionicons
-            name="arrow-forward"
-            color={COLORS.darkGray}
-            size={20}
-            onPress={() => scrollRef.current.scrollToEnd({ animated: true })}
-          />
-        </View>
       </View>
       <ScrollView
         horizontal={true}
