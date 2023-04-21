@@ -26,6 +26,7 @@ const LoginSuccess = () => {
   const unipeEmployeeId = useSelector((state) => state.auth.unipeEmployeeId);
   const dispatch = useDispatch();
   const navigation = useNavigation();
+
   useEffect(() => {
     dispatch(addCurrentScreen("LoginSuccess"));
   }, []);
@@ -43,6 +44,42 @@ const LoginSuccess = () => {
     return () =>
       BackHandler.removeEventListener("hardwareBackPress", backAction);
   }, []);
+
+  const profileComplete = useSelector((state) => state.profile.profileComplete);
+  const aadhaarVerifyStatus = useSelector(
+    (state) => state.aadhaar.verifyStatus
+  );
+  const panVerifyStatus = useSelector((state) => state.pan.verifyStatus);
+  const bankVerifyStatus = useSelector((state) => state.bank.verifyStatus);
+
+  const handleConditionalNav = () => {
+    if (!profileComplete) {
+      navigation.navigate("AccountStack", {
+        screen: "Profile",
+      });
+    } else if (aadhaarVerifyStatus != "SUCCESS") {
+      navigation.navigate("AccountStack", {
+        screen: "KYC",
+        params: {
+          screen: "AADHAAR",
+        },
+      });
+    } else if (panVerifyStatus != "SUCCESS") {
+      navigation.navigate("AccountStack", {
+        screen: "KYC",
+        params: {
+          screen: "PAN",
+        },
+      });
+    } else if (bankVerifyStatus != "SUCCESS") {
+      navigation.navigate("AccountStack", {
+        screen: "KYC",
+        params: {
+          screen: "BANK",
+        },
+      });
+    }
+  };
 
   return (
     <SafeAreaView accessibilityLabel="WelcomePage" style={styles.safeContainer}>
@@ -69,11 +106,16 @@ const LoginSuccess = () => {
             },
           ]}
         >
-          Your employer, XXXXXXX, has initiated your onboarding process.
+          Your employer,{" "}
+          <Text
+            style={{
+              ...FONTS.h3,
+            }}
+          >
+            XXXXXXX
+          </Text>
+          , has initiated your onboarding process.
         </Text>
-        {/* <SvgContainer width={360} height={360}>
-          <Background />
-        </SvgContainer> */}
         <LinearGradient
           colors={["#ffffff", "#E9FFF6"]}
           style={{
@@ -87,7 +129,6 @@ const LoginSuccess = () => {
             <KycSteps />
           </SvgContainer>
         </LinearGradient>
-        {/* <View style={{ flex: 0.1 }} /> */}
 
         <View style={onboardingStyles.alertBox}>
           <SvgContainer width={40} height={40}>
@@ -114,7 +155,7 @@ const LoginSuccess = () => {
             Analytics.trackEvent("WelcomePage", {
               unipeEmployeeId: unipeEmployeeId,
             });
-            navigation.navigate("ProfileForm");
+            handleConditionalNav();
           }}
         />
         <PrimaryButton
@@ -125,7 +166,9 @@ const LoginSuccess = () => {
             borderColor: COLORS.warning,
           }}
           titleStyle={{ color: COLORS.warning }}
-          onPress={() => {}}
+          onPress={() => {
+            navigation.navigate("HomeStack");
+          }}
         />
       </View>
     </SafeAreaView>

@@ -8,7 +8,7 @@ export default DevMenu = () => {
   const screens = [
     { title: "Onboarding", stack: "OnboardingStack", name: "Onboarding" },
     { title: "Login", stack: "OnboardingStack", name: "Login" },
-    { title: "LoginSuccess", stack: "OnboardingStack", name: "LoginSuccess" },
+    { title: "Login Success", stack: "OnboardingStack", name: "LoginSuccess" },
     { title: "Profile", stack: "OnboardingStack", name: "ProfileForm" },
     { title: "AADHAAR", stack: "OnboardingStack", name: "AadhaarForm" },
     { title: "PAN", stack: "OnboardingStack", name: "PanForm" },
