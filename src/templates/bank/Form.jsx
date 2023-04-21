@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import BankVerifyApi from "../../apis/bank/Verify";
 import InfoCard from "../../components/atoms/InfoCard";
 import PopableInput from "../../components/molecules/PopableInput";
-import PrimaryButton from "../../components/atoms/PrimaryButton";
 import { KeyboardAvoidingWrapper } from "../../KeyboardAvoidingWrapper";
 import {
   addAccountHolderName,
@@ -16,6 +15,9 @@ import {
 import { useNavigation } from "@react-navigation/core";
 import { bankform, styles } from "../../styles";
 import ShieldTitle from "../../components/atoms/ShieldTitle";
+import { COLORS, FONTS } from "../../constants/Theme";
+import FormInput from "../../components/atoms/FormInput";
+import PrimaryButton from "../../components/atoms/PrimaryButton";
 
 const BankFormTemplate = (props) => {
   const dispatch = useDispatch();
@@ -46,25 +48,24 @@ const BankFormTemplate = (props) => {
     dispatch(addUpi(upi));
   }, [upi]);
 
-  useEffect(() => {
-    var accountNumberReg = /^[A-Z0-9]{6,25}$/gm;
-    if (accountNumberReg.test(accountNumber)) {
-      dispatch(addAccountNumber(accountNumber));
-      setAccNumNext(true);
-    } else {
-      setAccNumNext(false);
-    }
-  }, [accountNumber]);
+  var accountNumberReg = /^[A-Z0-9]{6,25}$/gm;
+  var ifscReg = /^[A-Z]{4}0[A-Z0-9]{6}$/gm;
 
   useEffect(() => {
-    var ifscReg = /^[A-Z]{4}0[A-Z0-9]{6}$/gm;
-    if (ifscReg.test(ifsc)) {
-      dispatch(addIfsc(ifsc));
+    if (ifsc.length == 11 && ifscReg.test(ifsc)) {
       setIfscNext(true);
     } else {
       setIfscNext(false);
     }
   }, [ifsc]);
+
+  useEffect(() => {
+    if (accountNumber.length >= 9 && accountNumberReg.test(accountNumber)) {
+      setAccNumNext(true);
+    } else {
+      setAccNumNext(false);
+    }
+  }, [accountNumber]);
 
   return (
     <SafeAreaView style={styles.safeContainer}>
@@ -93,28 +94,36 @@ const BankFormTemplate = (props) => {
               placeholder={"Bank Account Number*"}
               value={accountNumber}
               onChange={setAccountNumber}
+              maxLength={18}
               autoFocus={isFocused}
               autoCapitalize="characters"
               content={
                 "Refer to your Bank Passbook or Cheque book to get the Bank Account Number."
               }
             />
-            {accountNumber && !accNumNext ? (
+            {accountNumber.length >= 9 &&
+            !accountNumberReg.test(accountNumber) ? (
               <Text style={bankform.formatmsg}>Incorrect Format</Text>
             ) : null}
 
-            <PopableInput
+            <FormInput
               accessibilityLabel={"IfscCode"}
               placeholder={"IFSC Code*"}
               value={ifsc}
+              maxLength={11}
               onChange={setIfsc}
               autoCapitalize="characters"
               content={
                 "You can find the IFSC code on the cheque book or bank passbook that is provided by the bank"
               }
+              appendComponent={
+                <Text style={{ ...FONTS.body5, color: COLORS.gray }}>
+                  {ifsc.length}/11
+                </Text>
+              }
             />
 
-            {ifsc && !ifscNext ? (
+            {ifsc.length == 11 && !ifscReg.test(ifsc) ? (
               <Text style={bankform.formatmsg}>Incorrect Format</Text>
             ) : null}
 
@@ -135,9 +144,7 @@ const BankFormTemplate = (props) => {
             />
 
             <BankVerifyApi
-              disabled={
-                !ifscNext || !accNumNext || !accountHolderName
-              }
+              disabled={!ifscNext || !accNumNext || !accountHolderName}
               type={props?.route?.params?.type || ""}
             />
             <ShieldTitle title={"All your details are safe with us"} />

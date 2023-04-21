@@ -19,6 +19,7 @@ import FormInput from "../../components/atoms/FormInput";
 import DropDownForm from "../../components/molecules/DropDownForm";
 import Analytics from "appcenter-analytics";
 import { showToast } from "../../components/atoms/Toast";
+import { COLORS, FONTS } from "../../constants/Theme";
 
 const ProfileFormTemplate = ({ type }) => {
   const dispatch = useDispatch();
@@ -43,10 +44,13 @@ const ProfileFormTemplate = ({ type }) => {
   const campaignId = useSelector(
     (state) => state.campaign.onboardingCampaignId
   );
-  
-  const aadhaarVerifyStatus = useSelector((state) => state.aadhaar.verifyStatus);
+
+  const aadhaarVerifyStatus = useSelector(
+    (state) => state.aadhaar.verifyStatus
+  );
   const panVerifyStatus = useSelector((state) => state.pan.verifyStatus);
   const bankVerifyStatus = useSelector((state) => state.bank.verifyStatus);
+  var phoneno = /^[0-9]{10}$/gm;
 
   useEffect(() => {
     dispatch(addCurrentScreen("ProfileForm"));
@@ -103,7 +107,6 @@ const ProfileFormTemplate = ({ type }) => {
   };
 
   const backendPush = async () => {
-    
     const body = {
       unipeEmployeeId: unipeEmployeeId,
       maritalStatus: maritalStatus,
@@ -114,7 +117,11 @@ const ProfileFormTemplate = ({ type }) => {
       campaignId: campaignId,
     };
 
-    const response = await putBackendData({ data: body, xpath: "profile", token: token });
+    const response = await putBackendData({
+      data: body,
+      xpath: "profile",
+      token: token,
+    });
     const responseJson = response?.data;
 
     if (responseJson.status === 200) {
@@ -161,19 +168,18 @@ const ProfileFormTemplate = ({ type }) => {
   }, [email]);
 
   useEffect(() => {
-    var phoneno = /^[0-9]{10}$/gm;
-    if (phoneno.test(altMobile)) {
+    BackHandler.addEventListener("hardwareBackPress", backAction);
+    return () =>
+      BackHandler.removeEventListener("hardwareBackPress", backAction);
+  }, []);
+
+  useEffect(() => {
+    if (altMobile.length == 10) {
       setValidAltMobile(true);
     } else {
       setValidAltMobile(false);
     }
   }, [altMobile]);
-
-  useEffect(() => {
-    BackHandler.addEventListener("hardwareBackPress", backAction);
-    return () =>
-      BackHandler.removeEventListener("hardwareBackPress", backAction);
-  }, []);
 
   return (
     <SafeAreaView style={styles.safeContainer} accessibilityLabel="ProfileForm">
@@ -208,8 +214,15 @@ const ProfileFormTemplate = ({ type }) => {
             keyboardType="phone-pad"
             value={altMobile}
             onChange={setAltMobile}
+            numeric
+            maxLength={10}
+            appendComponent={
+              <Text style={{ ...FONTS.body5, color: COLORS.gray }}>
+                {altMobile.length}/10
+              </Text>
+            }
           />
-          {altMobile && !validAltMobile ? (
+          {altMobile.length == 10 && !phoneno.test(altMobile) ? (
             <Text style={form.formatmsg}>Incorrect Format</Text>
           ) : null}
           <FormInput

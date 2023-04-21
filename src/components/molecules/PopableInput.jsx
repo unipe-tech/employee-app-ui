@@ -13,12 +13,14 @@ const PopableInput = ({
   autoCapitalize,
   content,
   accessibilityLabel,
+  maxLength
 }) => {
   return (
     <FormInput
       accessibilityLabel={accessibilityLabel}
       containerStyle={{ ...styles.container, ...containerStyle }}
       placeholder={placeholder}
+      maxLength={maxLength}
       value={value}
       autoCapitalize={autoCapitalize}
       onChange={onChange}

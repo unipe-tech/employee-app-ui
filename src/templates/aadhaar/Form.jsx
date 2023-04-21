@@ -14,15 +14,16 @@ const AadhaarFormTemplate = (props) => {
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
 
-  const [validNumber, setValidNumber] = useState(true);
+  const [validNumber, setValidNumber] = useState(false);
 
   const aadhaarSlice = useSelector((state) => state.aadhaar);
   const [number, setNumber] = useState(aadhaarSlice?.number);
-  
+
+  var aadhaarReg = /^[0-9]{12}$/gm;
+
   useEffect(() => {
-    var aadhaarReg = /^[0-9]{12}$/gm;
-    if (aadhaarReg.test(number)) {
-      dispatch(addNumber(number));
+    dispatch(addNumber(number));
+    if (number.length == 12 && aadhaarReg.test(number)) {
       setValidNumber(true);
     } else {
       setValidNumber(false);
@@ -46,7 +47,11 @@ const AadhaarFormTemplate = (props) => {
             value={number}
             onChange={setNumber}
             maxLength={12}
-            errorMsg={number && !validNumber ? "Invalid Aadhaar Number" : ""}
+            errorMsg={
+              number.length == 12 && !aadhaarReg.test(number)
+                ? "Invalid Aadhaar Number"
+                : ""
+            }
             numeric
             appendComponent={
               <Text style={{ ...FONTS.body5, color: COLORS.gray }}>
