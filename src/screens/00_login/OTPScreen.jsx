@@ -25,6 +25,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import OtpInput from "../../components/molecules/OtpInput";
 import LogoHeaderBack from "../../components/molecules/LogoHeaderBack";
 import BackgroundTimer from "react-native-background-timer";
+import { isKycCompleted } from "../../helpers/KycStatus";
 
 const OTPScreen = () => {
   const dispatch = useDispatch();
@@ -40,6 +41,13 @@ const OTPScreen = () => {
   const countDownTime = useSelector((state) => state.timer.login);
   const phoneNumber = useSelector((state) => state.auth.phoneNumber);
   const unipeEmployeeId = useSelector((state) => state.auth.unipeEmployeeId);
+
+  const profileComplete = useSelector((state) => state.profile.profileComplete);
+  const aadhaarVerifyStatus = useSelector(
+    (state) => state.aadhaar.verifyStatus
+  );
+  const panVerifyStatus = useSelector((state) => state.pan.verifyStatus);
+  const bankVerifyStatus = useSelector((state) => state.bank.verifyStatus);
 
   useEffect(() => {
     dispatch(addCurrentScreen("Otp"));
@@ -148,7 +156,14 @@ const OTPScreen = () => {
         if (res["response"]["status"] === "success") {
           setVerified(true);
           navigation.navigate("BackendSync", {
-            destination: "HomeStack",
+            destination: isKycCompleted(
+              profileComplete,
+              aadhaarVerifyStatus,
+              panVerifyStatus,
+              bankVerifyStatus
+            )
+              ? "HomeStack"
+              : "LoginSuccess",
           });
           Analytics.trackEvent("OTPScreen|Check|Success", {
             unipeEmployeeId: unipeEmployeeId,
