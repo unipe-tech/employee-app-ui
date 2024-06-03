@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/core";
-import Analytics from "appcenter-analytics";
+import analytics from "@react-native-firebase/analytics";
 import { useEffect, useState } from "react";
 import { Alert, BackHandler, SafeAreaView, Text, View } from "react-native";
 import { getUniqueId } from "react-native-device-info";
@@ -15,6 +15,7 @@ import {
   addVerifyStatus,
   resetMandate,
 } from "../../../../store/slices/mandateSlice";
+import { addCurrentScreen } from "../../../../store/slices/navigationSlice";
 
 const KYC = () => {
   const dispatch = useDispatch();
@@ -46,6 +47,7 @@ const KYC = () => {
     NetworkInfo.getIPV4Address().then((ipv4Address) => {
       setIpAdress(ipv4Address);
     });
+    dispatch(addCurrentScreen("EWA_KYC"));
   }, []);
 
   useEffect(() => {
@@ -123,7 +125,7 @@ const KYC = () => {
       .then((response) => {
         console.log("updateKycMutateAsync response.data: ", response.data);
         setLoading(false);
-        Analytics.trackEvent("Ewa|Kyc|Success", {
+        analytics().logEvent("Ewa_Kyc_Success", {
           unipeEmployeeId: unipeEmployeeId,
         });
         if (mandateVerifyStatus === "SUCCESS") {
@@ -136,7 +138,7 @@ const KYC = () => {
         console.log("updateKycMutateAsync error: ", JSON.stringify(error));
         setLoading(false);
         Alert.alert("An Error occured", JSON.stringify(error));
-        Analytics.trackEvent("Ewa|Kyc|Error", {
+        analytics().logEvent("Ewa_Kyc_Error", {
           unipeEmployeeId: unipeEmployeeId,
           error: JSON.stringify(error),
         });

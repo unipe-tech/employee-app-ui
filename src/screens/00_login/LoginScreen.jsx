@@ -1,4 +1,4 @@
-import Analytics from "appcenter-analytics";
+import analytics from "@react-native-firebase/analytics";
 import { useNavigation } from "@react-navigation/core";
 import { useEffect, useState } from "react";
 import { Alert, BackHandler, SafeAreaView, Text, View } from "react-native";
@@ -141,7 +141,7 @@ const LoginScreen = () => {
             .then((result) => {
               if (result["response"]["status"] === "success") {
                 setLoading(false);
-                Analytics.trackEvent("LoginScreen|SendSms|Success", {
+                analytics().logEvent("LoginScreen_SendSms_Success", {
                   unipeEmployeeId: unipeEmployeeId,
                 });
                 navigation.navigate("Otp");
@@ -151,7 +151,7 @@ const LoginScreen = () => {
                   result["response"]["status"],
                   result["response"]["details"]
                 );
-                Analytics.trackEvent("LoginScreen|SendSms|Error", {
+                analytics().logEvent("LoginScreen_SendSms_Error", {
                   unipeEmployeeId: unipeEmployeeId,
                   error: result["response"]["details"],
                 });
@@ -160,7 +160,7 @@ const LoginScreen = () => {
             .catch((error) => {
               setLoading(false);
               Alert("Error", JSON.stringify(error));
-              Analytics.trackEvent("LoginScreen|SendSms|Error", {
+              analytics().logEvent("LoginScreen_SendSms_Error", {
                 unipeEmployeeId: unipeEmployeeId,
                 error: JSON.stringify(error),
               });
@@ -168,7 +168,7 @@ const LoginScreen = () => {
         } else {
           setLoading(false);
           Alert.alert("Error", responseJson["message"]);
-          Analytics.trackEvent("LoginScreen|SignIn|Error", {
+          analytics().logEvent("LoginScreen_SignIn_Error", {
             phoneNumber: phoneNumber,
             error: responseJson["message"],
           });
@@ -177,7 +177,7 @@ const LoginScreen = () => {
       .catch((error) => {
         setLoading(false);
         Alert.alert("Error", JSON.stringify(error));
-        Analytics.trackEvent("LoginScreen|SignIn|Error", {
+        analytics().logEvent("LoginScreen_SignIn_Error", {
           phoneNumber: phoneNumber,
           error: JSON.stringify(error),
         });

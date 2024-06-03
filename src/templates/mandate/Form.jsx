@@ -20,12 +20,13 @@ import {
   openRazorpayCheckout
 } from "../../services/mandate/Razorpay/services";
 import { COLORS, FONTS } from "../../constants/Theme";
-import Analytics from "appcenter-analytics";
+import analytics from "@react-native-firebase/analytics";
 import DetailsCard from "../../components/molecules/DetailsCard";
 import MandateOptions from "../../components/molecules/MandateOptions";
 import Shield from "../../assets/Shield.svg";
 import RBI from "../../assets/RBI.svg";
 import MandateLoading from "../../components/organisms/MandateLoading";
+import { addCurrentScreen } from "../../store/slices/navigationSlice";
 
 const MandateFormTemplate = (props) => {
   const dispatch = useDispatch();
@@ -68,6 +69,7 @@ const MandateFormTemplate = (props) => {
     NetworkInfo.getIPV4Address().then((ipv4Address) => {
       setIpAdress(ipv4Address);
     });
+    dispatch(addCurrentScreen("Mandate"));
   }, []);
 
   useEffect(() => {
@@ -167,13 +169,13 @@ const MandateFormTemplate = (props) => {
         }
       })
       console.log("Mandate Checkout Success", res);
-      Analytics.trackEvent("Mandate|Authorize|InProgress|Checkout|Success", {
+      analytics().logEvent("Mandate_InProgress_Checkout_Success", {
         unipeEmployeeId: unipeEmployeeId,
       });
       verifyMsg = "Mandate Initiated from App Checkout Success";
     } catch (error) {
       console.log("Mandate Checkout Error", error);
-      Analytics.trackEvent("createOrderandate|Authorize|InProgress|Checkout|Error", {
+      analytics().logEvent("MandateOrder_InProgress_Checkout_Error", {
         unipeEmployeeId: unipeEmployeeId,
       });
       verifyMsg =  JSON.stringify(error);
@@ -209,9 +211,8 @@ const MandateFormTemplate = (props) => {
       const createOrderResponse = res?.data;
       console.log(`Mandate|CreateOrder|${authType} res.data:`, createOrderResponse);
       if (createOrderResponse.status === 200) {
-        let razorpayOrder = createOrderResponse.body
-        
-        Analytics.trackEvent(`Mandate|CreateOrder|${authType}|Success`, {
+        let razorpayOrder = createOrderResponse.body;
+        analytics().logEvent(`Mandate_CreateOrder_${authType}_Success`, {
           unipeEmployeeId: unipeEmployeeId,
         });
         await initiateRazorpayCheckout({
@@ -230,7 +231,7 @@ const MandateFormTemplate = (props) => {
       } else {
         Alert.alert("Create Order Error", JSON.stringify(error));
       }
-      Analytics.trackEvent(`Mandate|CreateOrder|${authType}|Error`, {
+      analytics().logEvent(`Mandate_CreateOrder_${authType}_Error`, {
         unipeEmployeeId: unipeEmployeeId,
         error: JSON.stringify(error),
       });
